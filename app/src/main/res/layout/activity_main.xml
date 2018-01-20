@@ -37,8 +37,8 @@
 
                 <ImageView
                     android:id="@+id/image_store"
-                    android:layout_width="@dimen/size25"
-                    android:layout_height="@dimen/size25"
+                    android:layout_width="@dimen/size20"
+                    android:layout_height="@dimen/size20"
                     android:layout_gravity="center"
                     android:src="@drawable/skin_tabbar_icon_store_select" />
 
@@ -65,8 +65,8 @@
 
                 <ImageView
                     android:id="@+id/image_things"
-                    android:layout_width="@dimen/size25"
-                    android:layout_height="@dimen/size25"
+                    android:layout_width="@dimen/size20"
+                    android:layout_height="@dimen/size20"
                     android:layout_gravity="center"
 
                     android:src="@drawable/skin_tabbar_icon_things_select" />
@@ -100,8 +100,8 @@
 
                 <ImageView
                     android:id="@+id/image_order"
-                    android:layout_width="@dimen/size25"
-                    android:layout_height="@dimen/size25"
+                    android:layout_width="@dimen/size20"
+                    android:layout_height="@dimen/size20"
                     android:layout_gravity="center"
                     android:src="@drawable/skin_tabbar_icon_order_select" />
 
@@ -127,8 +127,8 @@
 
                 <ImageView
                     android:id="@+id/image_cust"
-                    android:layout_width="@dimen/size25"
-                    android:layout_height="@dimen/size25"
+                    android:layout_width="@dimen/size20"
+                    android:layout_height="@dimen/size20"
                     android:layout_gravity="center"
                     android:background="@drawable/skin_tabbar_icon_cust_select"
                     android:src="@drawable/skin_tabbar_icon_cust_select" />
