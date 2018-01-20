@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -16,6 +17,8 @@ import butterknife.OnClick;
 import cn.order.ordereasy.R;
 
 public class RemarksActivity extends BaseActivity {
+    private int type = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,14 +27,23 @@ public class RemarksActivity extends BaseActivity {
         ButterKnife.inject(this);
         Bundle bundle = getIntent().getExtras();
         String data = bundle.getString("content");
-        if (!TextUtils.isEmpty(data)) {
-            description.setText(data);
-            description.setFocusable(true);
-            description.setFocusableInTouchMode(true);
-            description.requestFocus();
-            description.setSelection(data.length());
+        type = bundle.getInt("type");
+        if (type == 1) {
+            if (!TextUtils.isEmpty(data)) {
+                description.setText(data);
+            }
+            queren.setVisibility(View.GONE);
+        } else {
+            queren.setVisibility(View.VISIBLE);
+            if (!TextUtils.isEmpty(data)) {
+                description.setText(data);
+                description.setFocusable(true);
+                description.setFocusableInTouchMode(true);
+                description.requestFocus();
+                description.setSelection(data.length());
+            }
+            this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         }
-        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
     }
 
     @InjectView(R.id.return_click)

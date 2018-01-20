@@ -45,16 +45,17 @@ public class OrderEasyPresenterImp extends OrderEasyPresenter implements OrderEa
     public void onSuccess(JsonObject res, int type) {
         orderEasyView.hideProgress(1);
         orderEasyView.loadData(res, type);
-//        int status = res.get("code").getAsInt();
+        int status = res.get("code").getAsInt();
 //        if (status == -1 || status == -9) {
 //            String message = res.get("message").getAsString();
 //            ToastUtil.show(message);
 //        }
-//        if (status == -7) {
-//            ToastUtil.show(MyApplication.getInstance().mContext.getString(R.string.landfall_overdue));
-//            Intent intent = new Intent(MyApplication.getInstance().mContext, LoginActity.class);
-//            MyApplication.getInstance().mContext.startActivity(intent);
-//        }
+        if (status == -7) {
+            ToastUtil.show(MyApplication.getInstance().mContext.getString(R.string.landfall_overdue));
+            Intent intent = new Intent(MyApplication.getInstance().mContext, LoginActity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            MyApplication.getInstance().mContext.startActivity(intent);
+        }
     }
 
 

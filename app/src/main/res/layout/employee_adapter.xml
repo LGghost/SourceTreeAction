@@ -43,6 +43,8 @@
                 android:layout_marginLeft="2dp"
                 android:gravity="left|center"
                 android:text="000"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:textColor="@color/shouye_hongse"
                 android:textSize="16sp" />
 

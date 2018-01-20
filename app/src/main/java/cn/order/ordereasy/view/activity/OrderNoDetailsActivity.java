@@ -294,7 +294,7 @@ public class OrderNoDetailsActivity extends BaseActivity implements OrderEasyVie
         customer.setReceivable(Double.parseDouble(qiankuan_money_num.getText().toString()));
         Log.e("JJFa", "Name:" + order.getCustomer_name() + "Receivable:" + order.getPayable());
         bundle.putSerializable("data", customer);
-        intent.putExtra("flag","order");
+        intent.putExtra("flag", "order");
         intent.putExtras(bundle);
         startActivityForResult(intent, 1004);
     }
@@ -390,7 +390,10 @@ public class OrderNoDetailsActivity extends BaseActivity implements OrderEasyVie
     @OnClick(R.id.order_remarks_layout)
 //备注
     void order_remarks_layout() {
-
+        Intent intent = new Intent(this, RemarksActivity.class);
+        intent.putExtra("content", order.getRemark());
+        intent.putExtra("type",1);
+        startActivity(intent);
     }
 
     @Override

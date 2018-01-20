@@ -296,6 +296,7 @@ public class BillingActivity extends BaseActivity implements OrderEasyView {
     void remark_layout() {//备注
         Intent intent = new Intent(BillingActivity.this, RemarksActivity.class);
         intent.putExtra("content", order.getRemark());
+        intent.putExtra("type", 0);
         startActivityForResult(intent, 1005);
     }
 
