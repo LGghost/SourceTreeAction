@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">订货无忧</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="loading">加载中...</string>
+    <string name="skin_tabbar_icon_store">店铺</string>
+    <string name="skin_tabbar_icon_things">货架</string>
+    <string name="skin_tabbar_icon_order">订单</string>
+    <string name="skin_tabbar_icon_cust">客户</string>
+    <string name="dot">dot</string>
+    <!--订单记录-->
+    <string name="order_record">订单操作记录</string>
+    <string name="order_remarks">备注：</string>
+    <string name="order_operation">订单操作记录</string>
+    <string name="sales_order">开销售单 数量：</string>
+    <string name="sales_order_return">开退货单 数量：</string>
+    <string name="sales_order_return_owe">开退欠货单 数量：</string>
+    <string name="change_the_price">修改订单价格为 ¥ </string>
+    <string name="receivables">收款  ¥ </string>
+    <string name="refund">退款  ¥ </string>
+    <string name="deliver_goods">发货 数量：</string>
+    <string name="return_the_goods">退欠货 数量：</string>
+    <string name="order_closure">订单已关闭</string>
+    <string name="cash">现金 </string>
+    <string name="alipay">支付宝 </string>
+    <string name="wechat">微信 </string>
+    <string name="bank_card">银行卡 </string>
+    <string name="other">其它 </string>
+
+    <!--订单item-->
+    <string name="order_amount">订单金额：</string>
+    <string name="order_refunds">本次应退：</string>
+
+    <!--扫一扫-->
+    <string name="open_permissions">请去设置中打开拍照权限</string>
+
+    <!--员工管理-->
+    <string name="employee_boss">老板</string>
+    <string name="shop_keeper">店铺管理员</string>
+    <string name="salesperson">销售员</string>
+    <string name="godown_man">仓库管理员</string>
+
+    <string name="landfall_overdue">登录状态已过期，请重新登录</string>
+
+    <!--调整记录-->
+    <string name="adjusting_record">调整记录</string>
+    <string name="operation_time">操作时间</string>
+    <string name="operator">操作人</string>
+    <string name="total_adjustment">本次总调整</string>
+    <string name="remarks">备注</string>
+
+    <!--收支记录-->
+    <string name="cashier_record">收支记录</string>
+    <!--库存变动记录-->
+    <string name="inventory_change_record">库存变动记录</string>
+    <!--库存统计-->
+    <string name="stock_statistics">库存统计</string>
+    <string name="stock_change_statistics">库存变动统计</string>
+    <string name="stock_warning">库存预警</string>
+    <string name="stock_type">货品种类数</string>
+    <string name="stock_owe">总欠货数</string>
+    <string name="total_stock">总库存数</string>
+    <string name="item_code">货品编号</string>
+    <string name="owe_number">欠货数</string>
+    <string name="stock_number">库存数</string>
+    <string name="search_hint">输入货品编号/名称搜索货品</string>
+    <!--物流信息-->
+    <string name="logistics_message">物流信息</string>
+    <string name="logistics_hint">如果没有物流信息，则可不选择</string>
+    <string name="logistics_company">物流公司</string>
+    <string name="add_company">添加物流公司</string>
+
+    <!-- 客户分类-->
+    <string name="customer_manage">客户分类</string>
+    <string name="customer_add">添加</string>
+    <string name="add_customer_sort">新增客户分类</string>
+    <string name="customer_save">保存</string>
+    <string name="add_customer_hint">请输入客户分类名称</string>
+    <string name="add_customer_discount">下单折扣</string>
+    <string name="default_discount">无折扣</string>
+    <string name="add_customer_list">添加分类包含的客户</string>
+    <string name="set_up_discount">设置折扣</string>
+    <string name="discount_confirm">确定</string>
+    <string name="no_discount">不使用折扣</string>
+    <string name="edit_customer_sort">编辑客户分类</string>
+    <string name="cancel">取消</string>
+
+    <!--新增客户-->
+    <string name="new_add_customer_hint">设置折扣，即可在开单时对商品金额默认进行折扣优惠</string>
+    <!--添加员工-->
+    <string name="staff_name">*姓名</string>
+    <string name="staff_telephone">*电话</string>
+    <string name="staff_password">*密码</string>
+    <string name="staff_role">*所属角色</string>
+    <string name="reset_password">重置员工密码</string>
+    <string name="shop_keeper_describe">负责店铺所有事务管理</string>
+    <string name="salesperson_describe">负责销售业务</string>
+    <string name="godown_man_describe">负责仓库管理、盘点、发货等</string>
+
+    <!--数据导出-->
+    <string name="data_export">数据导出</string>
+    <string name="export_history">导出历史</string>
+    <string name="financial_statements">财务报表</string>
+    <string name="financial_statement_description">导出客户出入账报表</string>
+    <string name="goods_sale">货品销售统计报表</string>
+    <string name="goods_sale_description">导出店铺所有货品销售数据的统计报表</string>
+    <string name="detailed_statement_of_goods">货品销售明细报表</string>
+    <string name="detailed_statement_of_goods_description">导出店铺下单货品详细的销售数据报表</string>
+    <string name="reminder">温馨提示：每天可执行10次导出任务</string>
+    <string name="start_time">起始日期</string>
+    <string name="end_time">截止日期</string>
+    <string name="start_exporting_data">开始导出数据</string>
+    <string name="selection_date">选择导出日期</string>
+    <string name="export_history_record">导出历史记录</string>
+    <!--采购-->
+    <string name="purchase">采购</string>
+    <string name="billing">开单</string>
+    <string name="supplier_management">供应商管理</string>
+    <string name="supplier">供应商</string>
+    <string name="supplier_reconciliation">供应商对账</string>
+    <string name="purchase_order">采购订单</string>
+    <string name="purchase_hint">输入供应商名称/手机号搜索</string>
+    <string name="add_supplier">新增供应商</string>
+    <string name="supplier_import">通讯录导入</string>
+</resources>

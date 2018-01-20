@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:gravity="center"
+    android:background="@color/huise_bac"
+    android:layout_height="wrap_content">
+    <FrameLayout
+        android:layout_gravity="center"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginBottom="7dp"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="30dp">
+
+        <EditText
+            android:id="@+id/et_search"
+            android:background="@drawable/nav_background"
+            android:hint="搜索"
+            android:paddingLeft="10dp"
+            android:textColor="@color/touzi_huise"
+            android:drawablePadding="8dp"
+            android:layout_gravity="left|center"
+            android:drawableLeft="@drawable/icon_s_search"
+            android:textSize="13sp"
+            android:layout_width="match_parent"
+            android:layout_height="30dp" />
+
+        <ImageView
+            android:id="@+id/iv_clear"
+            android:paddingRight="10dp"
+            android:src="@drawable/icon_ser_cancel"
+            android:layout_gravity="right|center"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+    </FrameLayout>
+    <TextView
+        android:id="@+id/tv_close"
+        android:text="取消"
+        android:textSize="13sp"
+        android:paddingLeft="10dp"
+        android:textColor="@color/lanse"
+        android:paddingRight="15dp"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent" />
+</LinearLayout>

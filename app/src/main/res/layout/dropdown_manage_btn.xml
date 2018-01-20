@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cn.order.ordereasy.widget.DropdownListItemView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="48dp"
+    android:background="@drawable/list_item_selector"
+    android:text="管理标签"
+    android:drawableLeft="@drawable/ic_clock"
+    android:gravity="center_vertical|left"
+    android:maxLines="1"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp"
+    android:singleLine="true"
+    android:textColor="@color/font_black_6"
+    android:textSize="15sp">
+
+</cn.order.ordereasy.widget.DropdownListItemView>

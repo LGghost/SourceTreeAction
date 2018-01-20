@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:descendantFocusability="blocksDescendants">
+    <TextView
+        android:id="@+id/tv_item_index_catalog"
+        android:layout_width="match_parent"
+        android:layout_height="28dp"
+        android:background="@color/huise_bac"
+        android:gravity="center_vertical"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
+        android:text="A"
+        android:focusable="false"
+        android:clickable="false"
+        android:focusableInTouchMode="false"
+        android:textColor="@color/shouye_huise"
+        android:textSize="@dimen/textSize_14"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/tv_item_index_city"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:background="@color/white"
+        android:paddingBottom="12dp"
+        android:paddingLeft="13dp"
+        android:focusable="false"
+        android:clickable="false"
+        android:focusableInTouchMode="false"
+        android:paddingRight="13dp"
+        android:paddingTop="12dp"
+        android:text="成都"
+        android:textColor="#949494"
+        android:textSize="@dimen/textSize_14"/>
+</LinearLayout>

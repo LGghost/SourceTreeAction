@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    android:background="@color/white">
+
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:background="@color/white"
+
+        android:layout_height="wrap_content">
+        <FrameLayout
+            android:layout_gravity="center"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="7dp"
+            android:layout_marginBottom="7dp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_marginRight="15dp"
+            android:background="@color/huise_bac"
+            android:layout_height="30dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/et_search"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:layout_gravity="center_vertical|center"
+                    android:background="@drawable/shape_corner"
+                    android:drawableLeft="@drawable/icon_s_search"
+                    android:drawablePadding="8dp"
+                    android:hint="输入订单号/客户/货品名/编号搜索订单"
+                    android:paddingLeft="10dp"
+                    android:textColor="@color/touzi_huise"
+                    android:textSize="13sp" />
+
+
+
+            </LinearLayout>
+
+
+        </FrameLayout>
+        <TextView
+            android:id="@+id/return_click"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="取消"
+            android:textSize="16sp"
+            android:textColor="@color/lanse"
+            android:layout_marginRight="10dp"
+            android:layout_gravity="center_vertical"/>
+    </LinearLayout>
+
+
+    <ListView
+        android:id="@+id/sousuo_listview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none"></ListView>
+</LinearLayout>

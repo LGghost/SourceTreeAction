@@ -1,0 +1,177 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:fitsSystemWindows="true"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+    <FrameLayout
+        android:id="@+id/frame_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/frameMenu"
+        android:layout_alignParentTop="true"/>
+
+    <FrameLayout
+        android:id="@+id/frameMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size50"
+            android:background="@color/skin_tabbar_bg"
+            android:orientation="horizontal"
+            android:paddingBottom="2dp"
+            android:paddingTop="2dp">
+
+            <!-- 店铺 -->
+
+            <LinearLayout
+                android:id="@+id/layout_store"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+
+                <ImageView
+                    android:id="@+id/image_store"
+                    android:layout_width="@dimen/size25"
+                    android:layout_height="@dimen/size25"
+                    android:layout_gravity="center"
+                    android:src="@drawable/skin_tabbar_icon_store_select" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|center"
+                    android:layout_marginTop="2dp"
+                    android:text="@string/skin_tabbar_icon_store"
+
+                    android:textColor="@drawable/text_bg"
+                    android:textSize="13sp" />
+            </LinearLayout>
+
+            <!-- 货架 -->
+
+            <LinearLayout
+                android:id="@+id/layout_things"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/image_things"
+                    android:layout_width="@dimen/size25"
+                    android:layout_height="@dimen/size25"
+                    android:layout_gravity="center"
+
+                    android:src="@drawable/skin_tabbar_icon_things_select" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="2dp"
+                    android:text="@string/skin_tabbar_icon_things"
+                    android:textColor="@drawable/text_bg"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <!-- 留白 -->
+
+            <FrameLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"></FrameLayout>
+
+            <!-- 订单 -->
+
+            <LinearLayout
+                android:id="@+id/layout_order"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/image_order"
+                    android:layout_width="@dimen/size25"
+                    android:layout_height="@dimen/size25"
+                    android:layout_gravity="center"
+                    android:src="@drawable/skin_tabbar_icon_order_select" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="2dp"
+                    android:text="@string/skin_tabbar_icon_order"
+                    android:textColor="@drawable/text_bg"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <!-- 客户 -->
+
+            <LinearLayout
+                android:id="@+id/layout_cust"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/image_cust"
+                    android:layout_width="@dimen/size25"
+                    android:layout_height="@dimen/size25"
+                    android:layout_gravity="center"
+                    android:background="@drawable/skin_tabbar_icon_cust_select"
+                    android:src="@drawable/skin_tabbar_icon_cust_select" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="2dp"
+                    android:text="@string/skin_tabbar_icon_cust"
+                    android:textColor="@drawable/text_bg"
+                    android:textSize="14sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@android:color/black"></LinearLayout>
+    </FrameLayout>
+
+    <!-- 中间按钮背景 -->
+
+    <ImageView
+        android:id="@+id/toggle_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignTop="@+id/frameMenu"
+        android:layout_centerInParent="true"
+        android:src="@drawable/skin_tabbar_btn" />
+
+    <!-- 中间按钮 -->
+
+
+    <ImageView
+        android:id="@+id/plus_btn"
+        android:layout_width="52dp"
+        android:layout_height="52dp"
+        android:layout_marginBottom="1dp"
+        android:layout_alignParentBottom="true"
+        android:src="@drawable/skin_tabbar_icon_select"
+        android:layout_centerHorizontal="true" />
+
+
+</RelativeLayout>

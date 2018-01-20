@@ -1,0 +1,116 @@
+
+¥ 人民币符号
+
+
+ //可删除输入内容的edittext
+ <cn.order.ordereasy.utils.ClearEditText
+                android:id="@+id/password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="10dp"
+                android:background="@null"
+                android:hint="请输入6~20位数密码"
+                android:paddingRight="10dp"
+                android:textColor="@color/white"
+                android:maxLength="20"
+                android:password="true"
+                android:singleLine="true"
+                android:textColorHint="@color/white"
+                android:textSize="16sp" />
+
+�����ؼ� <com.wuyou.utils.ClearEditText
+
+限制输入长度android:maxLength="11"
+
+输入数字类型 android:inputType="number"
+
+输入密码类型  android:password="true"
+
+输入不可换行  android:singleLine="true"
+
+
+分割线  <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/fengexian_color"/>
+
+
+查找ID加这句
+		ButterKnife.inject(this);
+
+//找ID
+������
+	@InjectView(R.id.phone_number)
+	ClearEditText phone_number;
+
+//点击事件
+
+	@OnClick(R.id.hq_yzm)
+	void  hq_yzm() {
+    Intent intent =。。。。
+
+	}
+
+//顶部
+<RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/lanse" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="关于"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+                <RelativeLayout
+                    android:id="@+id/return_click"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:padding="10dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/fanhui" />
+                </RelativeLayout>
+    </RelativeLayout>
+
+
+    //下拉刷新
+    <cn.bingoogolapple.refreshlayout.BGARefreshLayout
+            android:id="@+id/store_refresh"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                android:layout_weight="1">
+
+                1111111
+
+
+            </LinearLayout>
+    </cn.bingoogolapple.refreshlayout.BGARefreshLayout>
+
+
+    @InjectView(R.id.store_refresh)
+    BGARefreshLayout store_refresh;
+     private void initRefreshLayout() {
+
+            // 为BGARefreshLayout 设置代理
+            store_refresh.setDelegate(this);
+            // 设置下拉刷新和上拉加载更多的风格     参数1：应用程序上下文，参数2：是否具有上拉加载更多功能
+            // BGARefreshViewHolder refreshViewHolder = new XXXImplRefreshViewHolder(this, false);
+            // 设置下拉刷新和上拉加载更多的风格
+            // store_refresh.setRefreshViewHolder(refreshViewHolder);
+            store_refresh.setRefreshViewHolder(new NormalRefreshViewHolder(mApp, true));
+        }
+
+        BGARefreshLayout store_refresh;

@@ -1,0 +1,723 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="cn.order.ordereasy"
+    android:versionCode="2"
+    android:versionName="3.1.0">
+
+    <uses-sdk
+        android:minSdkVersion="16"
+        android:targetSdkVersion="19" />
+
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WRITE_CONTACTS" />
+    <!-- SD卡读取权限，用户写入离线定位数据-->
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!--添加可以向外拨打电话的权限  -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+
+    <uses-feature
+        android:name="android.hardware.bluetooth_le"
+        android:required="true" />
+
+    <application
+        android:name=".app.MyApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/dhwy_logo"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        tools:replace="android:icon, android:theme">
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="cn.order.ordereasy.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+
+        <meta-data
+            android:name="design_width"
+            android:value="768"></meta-data>
+        <meta-data
+            android:name="design_height"
+            android:value="1280"></meta-data>
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="59ae1a57f5ade4304b00264e"></meta-data>
+
+        <activity
+            android:name=".view.activity.WelcomeActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".view.fragment.MainActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/**主界面activity**/
+        <activity
+            android:name="cn.order.ordereasy.view.activity.SplashScreenActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/**启动界面activity**/
+        <activity
+            android:name="cn.order.ordereasy.view.activity.SetupAvtivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />**设置activity**/
+
+        <activity
+            android:name="cn.order.ordereasy.view.activity.RegisterActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/**注册activity**/
+        <activity
+            android:name="cn.order.ordereasy.view.activity.AgreementActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.Transparent" />/**用户协议activity**/
+
+        <activity
+            android:name="cn.order.ordereasy.view.activity.LoginActity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/**登录activity**/
+        <activity
+            android:name="cn.order.ordereasy.view.activity.SetupShopActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/**注册完成弹出的设置店铺activity**/
+
+        <activity
+            android:name="cn.order.ordereasy.view.activity.PersonalInformationActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/**修改个人信息activity**/
+        <activity
+            android:name="cn.order.ordereasy.view.activity.ModifyPasswordActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/**修改密码activity**/
+        <activity
+            android:name="cn.order.ordereasy.view.activity.ForgotPasswordActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/**忘记密码activity**/
+        <activity
+            android:name="cn.order.ordereasy.view.activity.AboutActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/**关于activity**/
+        <activity
+            android:name="cn.order.ordereasy.view.activity.FeedbackActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/**意见反馈activity**/
+        <activity
+            android:name="cn.order.ordereasy.view.activity.MoreActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/**更多界面activity**/
+
+        <activity
+            android:name="cn.order.ordereasy.view.activity.DataManagementActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/数据管理activity**/
+
+        <activity
+            android:name="cn.order.ordereasy.view.activity.EmptyStoreDataActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/清空店铺数据activity**/
+
+        <activity
+            android:name="cn.order.ordereasy.view.activity.MarketActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/**市场界面activity**/
+
+        <activity
+            android:name="cn.order.ordereasy.view.activity.FinanceActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/**金融界面activity**/
+        <activity
+            android:name="cn.order.ordereasy.view.activity.BillingActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />/**开单界面activity**/
+
+        <activity
+            android:name="cn.order.ordereasy.view.activity.KaiDanViewActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/**开单界面2activity**/
+        <activity
+            android:name="cn.order.ordereasy.view.activity.OrderNoConfirmActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/**确认开单activity**/
+
+        <activity
+            android:name="cn.order.ordereasy.view.activity.BillingSuccessActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/**开单成功activity**/
+
+        <activity
+            android:name="cn.order.ordereasy.view.activity.SelectCustomersActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/*选择客户界面2activity**/
+
+        <activity
+            android:name="cn.order.ordereasy.view.activity.SearchGoodsActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent"
+            android:windowSoftInputMode="stateHidden|stateAlwaysHidden" />/*搜索货品界面2activity**/
+        <activity
+            android:name="cn.order.ordereasy.view.activity.SearchGoodsTwoActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/货架模糊搜索activity**/
+
+        <activity
+            android:name="cn.order.ordereasy.view.activity.SearchGoodsThreeActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/*客户搜索界面2activity**/
+        <activity
+            android:name="cn.order.ordereasy.view.activity.SearchOrderActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/**订单搜索界面2activity**/
+
+        <activity
+            android:name="cn.order.ordereasy.view.activity.ShangHuoActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent"
+            android:windowSoftInputMode="stateAlwaysHidden" />/**上货界面activity**/
+
+        <activity
+            android:name="cn.order.ordereasy.view.activity.ShangpinDescribeAvtivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/**上货界面--商品描述activity**/
+        <activity
+            android:name="cn.order.ordereasy.view.activity.UseHelpActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/**帮助信息activity**/
+        <activity
+            android:name="cn.order.ordereasy.view.activity.GuigeGuanliActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/**选择规格管理activity**/
+        <activity
+            android:name="cn.order.ordereasy.view.activity.SpecificationListActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent"
+            android:windowSoftInputMode="adjustPan" />/**选择规格管理列表activity**/
+        <activity
+            android:name="cn.order.ordereasy.view.activity.PriceSetActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/**价格设置activity**/
+
+        <activity
+            android:name="cn.order.ordereasy.view.activity.CommodityFenleiActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/**商品分类activity**/
+
+        <activity
+            android:name="cn.order.ordereasy.view.activity.StoreSettingsActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent"
+            android:windowSoftInputMode="stateHidden" />/*店铺设置activity**/
+        <activity
+            android:name="cn.order.ordereasy.view.activity.StockManageActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/*库存管理activity**/
+
+        <activity
+            android:name="cn.order.ordereasy.view.activity.StockSearchGoodsActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/*库存管理--入库、出库、调整复用activity**/
+
+        <activity
+            android:name="cn.order.ordereasy.view.activity.StorageAvtivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />/*库存管理-入库activity**/
+        <activity
+            android:name="cn.order.ordereasy.view.activity.TheLibraryAityity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />/*库存管理-出库activity**/
+        <activity
+            android:name="cn.order.ordereasy.view.activity.StockInventoryActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/*库存管理-库存盘点activity**/
+
+        <activity
+            android:name="cn.order.ordereasy.view.activity.InventorySheetActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/*盘点单。盘点第一个界面activity**/
+
+        <activity
+            android:name="cn.order.ordereasy.view.activity.InventoryResultsActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/*盘点结果查看。盘点第一个界面activity**/
+        <activity
+            android:name="cn.order.ordereasy.view.activity.InventorySearchActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />/*盘点搜索activity**/
+
+        <activity
+            android:name="cn.order.ordereasy.view.activity.InventoryRecordActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/*盘点记录。activity**/
+        <activity
+            android:name="cn.order.ordereasy.view.activity.DailyActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme.Transparent" />/*日报activity**/
+        <activity
+            android:name="cn.order.ordereasy.view.activity.PastDailyActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/*往期日报activity**/
+
+        <activity
+            android:name="cn.order.ordereasy.view.activity.StaffActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/*员工管理activity**/
+        <activity
+            android:name="cn.order.ordereasy.view.activity.AddStaffActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/*添加员工activity**/
+        <activity
+            android:name="cn.order.ordereasy.view.activity.EmployeeInformationActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/*员工信息activity**/
+        <activity
+            android:name="cn.order.ordereasy.view.activity.RoleSelectionActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/*员工角色选择activity**/
+
+
+        <activity
+            android:name="cn.order.ordereasy.view.activity.FenleiGuanliActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/*分类管理activity**/
+        /*账本activity**/
+
+        /*账本--销售明细activity**/
+
+        <activity
+            android:name="cn.order.ordereasy.view.activity.PrintActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/*打印activity**/
+        <activity
+            android:name="cn.order.ordereasy.view.activity.PrintPreviewActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/*打印预览activity**/
+
+        /*货品详情activity**/
+        <activity
+            android:name="cn.order.ordereasy.view.fragment.gooddetailsfragment.DetailsGoodsActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/*货品详情activity**/
+        <activity
+            android:name="cn.order.ordereasy.view.activity.AddCustomerActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/新增客户activity**/
+
+        <activity
+            android:name="cn.order.ordereasy.view.activity.CustomerHomepageActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/客户主页activity**/
+
+        <activity
+            android:name="cn.order.ordereasy.view.activity.CashierDetailsActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/客户主页,收银详情activity**/
+        <activity
+            android:name="cn.order.ordereasy.view.activity.OperationRecordActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/客户主页,操作详情activity**/
+
+        <activity
+            android:name="cn.order.ordereasy.view.activity.ArrearsHistoryActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/客户主页,欠款历史activity**/
+
+        <activity
+            android:name="cn.order.ordereasy.view.activity.DefaultListActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/客户主页,欠货列表activity**/
+
+        <activity
+            android:name="cn.order.ordereasy.view.activity.ATurnoverActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/客户主页--交易额activity**/
+
+        <activity
+            android:name="cn.order.ordereasy.view.activity.ModifyCustomerActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/客户主页--修改客户信息activity**/
+
+
+        <activity
+            android:name="cn.order.ordereasy.view.activity.DeliverGoodsActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />/去发货activity**/
+
+        <activity
+            android:name="cn.order.ordereasy.view.activity.OutOfDebtActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />/退欠货activity**/
+
+        <activity
+            android:name="cn.order.ordereasy.view.activity.ReturnGoodsActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/去退货activity**/
+        <activity
+            android:name="cn.order.ordereasy.view.activity.LogisticsInformationAvtivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/物流信息activity**/
+
+
+        <activity
+            android:name="cn.order.ordereasy.view.activity.ScanActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/二维码activity**/
+        <activity
+            android:name="cn.order.ordereasy.view.activity.QRCodePreviewActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/货品详情二维码预览activity**/
+
+        <activity
+            android:name="cn.order.ordereasy.view.activity.SpecificationsGuanliActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/规格管理activity**/
+        <activity
+            android:name="cn.order.ordereasy.view.activity.GuigeShuxingListActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent"
+            android:windowSoftInputMode="adjustPan" />/规格属性activity**/
+        <activity
+            android:name="cn.order.ordereasy.view.activity.GuigeShuxingSelectListActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent"
+            android:windowSoftInputMode="adjustPan" />/规格属性选择activity**/
+
+        <activity
+            android:name="cn.order.ordereasy.view.activity.OrderNoDetailsActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/订单详情activity**/
+
+        <activity
+            android:name="cn.order.ordereasy.view.activity.ReceivablesActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/去收款activity**/
+
+        <activity
+            android:name="cn.order.ordereasy.view.activity.TuiKuanActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/去退款activity**/
+
+        <activity
+            android:name="cn.order.ordereasy.view.activity.HarvestAddressActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/管理收获地址activity**/\
+
+        <activity
+            android:name="cn.order.ordereasy.view.activity.WebViewAcitvity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/webview**/\
+        <activity
+            android:name="cn.order.ordereasy.view.activity.TiaoZhengAityity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />/调整界面**/\
+        <activity
+            android:name="cn.order.ordereasy.view.activity.SearchActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/调整界面**/\
+
+        <activity
+            android:name="cn.order.ordereasy.view.activity.ExperienceInterfaceActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/体验期到了**/\
+        <activity
+            android:name="cn.order.ordereasy.view.activity.TelListActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/通讯录**/\
+        <activity
+            android:name="cn.order.ordereasy.view.activity.BluetoothActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/蓝牙打印**/\
+        <activity
+            android:name="cn.order.ordereasy.view.activity.RemarksActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/备注**/\
+        <activity
+            android:name="cn.order.ordereasy.view.fragment.AccountBookActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/账本**/\
+        <activity
+            android:name="cn.order.ordereasy.view.activity.AllTradeActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/全部交易额**/\
+        <activity
+            android:name="cn.order.ordereasy.view.activity.AdjustmentActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent"
+            android:windowSoftInputMode="stateAlwaysVisible" />/欠款调整/\
+        <activity
+            android:name="cn.order.ordereasy.view.activity.OweActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/欠货列表/\
+        <activity
+            android:name="cn.order.ordereasy.view.activity.OrderOperationActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/订单操作记录/\
+        <activity
+            android:name="cn.order.ordereasy.view.activity.AdjustingRecordActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/调整记录/\
+        <activity
+            android:name="cn.order.ordereasy.view.activity.CashierRecordActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/收支记录/\
+
+        <activity
+            android:name="cn.order.ordereasy.view.activity.InventoryChangeRecordActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/库存变动记录/\
+        <activity
+            android:name="cn.order.ordereasy.view.activity.StockStatisticsActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/库存统计/\
+        <activity
+            android:name="cn.order.ordereasy.view.activity.StockChangeActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/库存变动统计/\
+        <activity
+            android:name="cn.order.ordereasy.view.activity.StockWarningActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/库存预警/\
+        <activity
+            android:name="cn.order.ordereasy.view.activity.LogisticsCompanyActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/物流公司/\
+        <activity
+            android:name="cn.order.ordereasy.view.activity.LogisticsMessageActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/物流信息/\
+        <activity
+            android:name="cn.order.ordereasy.view.activity.CustomerManageActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/客户分类/\
+        <activity
+            android:name="cn.order.ordereasy.view.activity.AddCustomerSortActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/新增客户分类/\
+        <activity
+            android:name="cn.order.ordereasy.view.activity.SetupDiscountActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent"
+            android:windowSoftInputMode="stateAlwaysVisible" />/设置折扣/\
+        <activity
+            android:name="cn.order.ordereasy.view.activity.SelcetSortCustomerActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/选择分类包含的客户/\
+
+        <activity
+            android:name="cn.order.ordereasy.view.activity.SelectCustomerListViewActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/选择客户列表/\
+        <activity
+            android:name="cn.order.ordereasy.view.activity.DataExportActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/数据导出/\
+        <activity
+            android:name="cn.order.ordereasy.view.activity.StatementActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/数据报表/\
+        <activity
+            android:name="cn.order.ordereasy.view.activity.ExportHistoryActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/导出历史/\
+        /打印搜索/\
+        <activity
+            android:name="cn.order.ordereasy.view.activity.PrintSetUpActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/打印设置/\
+        <activity
+            android:name="cn.order.ordereasy.view.activity.PrintOrderNoSetUpActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/打印表单设置/\
+        <activity
+            android:name="cn.order.ordereasy.view.activity.PurchaseActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/采购/\
+        <activity
+            android:name="cn.order.ordereasy.view.activity.SupplierManagementActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/供应商管理/\
+        <activity
+            android:name="cn.order.ordereasy.view.activity.SupplierReconciliationActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/供应商对账/\
+
+        <activity
+            android:name="cn.order.ordereasy.view.activity.PurchaseOrderActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/采购订单/\
+        <activity
+            android:name=".apshare.ShareEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Transparent" />
+        <activity
+            android:name=".wxapi.WXEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Transparent" />
+
+        <activity
+            android:name="com.umeng.qq.tencent.AuthActivity"
+            android:launchMode="singleTask"
+            android:noHistory="true">
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="tencent100424468" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name="com.umeng.qq.tencent.AssistActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Transparent" />
+
+    </application>
+
+</manifest>

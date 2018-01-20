@@ -1,0 +1,9 @@
+#define SERVER_URL          @"https://www.dinghuo5u.com "     // 服务器地址
+
+#define WX_SHOP_SERVER_URL     @"https://m.dinghuo5u.com/wx "   // 微信服务器地址
+
+接口API 地址  https://www.eolinker.com  账号 710144238@qq.com   密码 abc19941129
+
+ bugly    https://bugly.qq.com  账号密码是我QQ，要的时候找我
+
+ 友盟：   65159226@qq.com      yangwei123   应用已经添加，使用key即可

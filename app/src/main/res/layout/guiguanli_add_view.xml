@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/add_shuxing_add_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_vertical"
+    android:layout_marginLeft="10dp"
+    android:orientation="horizontal">
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dip"
+            android:background="@drawable/shape_corner"
+            android:gravity="center"
+            android:minHeight="40dp"
+            android:padding="3dp"
+            android:minWidth="45dp"
+            android:text="+添加属性"
+            android:textColor="@color/shouye_hongse"
+            android:textSize="16sp" />
+
+    </RelativeLayout>
+
+</LinearLayout>

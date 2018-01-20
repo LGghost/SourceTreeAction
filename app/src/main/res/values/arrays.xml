@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="shelves_state">
+        <item>全部</item>
+        <item>已上架 </item>
+        <item>已下架</item>
+    </string-array>
+    <string-array name="warning_state">
+        <item>全部预警货品</item>
+        <item>低于安全库存 </item>
+        <item>高于安全库存</item>
+    </string-array>
+    <string-array name="shelves_array">
+        <item>智能排序</item>
+        <item>上架时间</item>
+        <item>更新时间</item>
+        <item>销量从高到低</item>
+        <item>销量从低到高</item>
+        <item>库存从高到低</item>
+        <item>库存从低到高</item>
+    </string-array>
+    <string-array name="stock_array">
+        <item>全部记录</item>
+        <item>入库记录</item>
+        <item>出库记录</item>
+        <item>手动调整记录</item>
+        <item>发货记录</item>
+        <item>退货记录</item>
+        <item>盘点调整记录</item>
+        <item>采购入库记录</item>
+        <item>采购退货记录</item>
+    </string-array>
+
+    <string-array name="logistics_array">
+        <item>顺丰速运</item>
+        <item>EMS</item>
+        <item>圆通速递</item>
+        <item>申通快递</item>
+        <item>中通快递</item>
+        <item>韵达速递</item>
+        <item>宅急送</item>
+        <item>中国邮政</item>
+        <item>天天快递</item>
+        <item>德邦物流</item>
+        <item>百世快递</item>
+        <item>华宇物流</item>
+        <item>龙邦速递</item>
+        <item>优速物流</item>
+        <item>中铁物流</item>
+        <item>传喜物流</item>
+        <item>飞康达物流</item>
+        <item>安能物流</item>
+    </string-array>
+</resources>

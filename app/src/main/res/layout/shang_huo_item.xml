@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/activity_bac"
+    android:layout_margin="2dp">
+
+    <ImageView
+        android:id="@+id/shang_huo_item_image"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:scaleType="centerCrop"
+        app:srcCompat="@drawable/dhwy_bg_image" />
+
+    <ImageView
+        android:id="@+id/shang_huo_item_delete"
+        android:layout_width="@dimen/size25"
+        android:layout_height="@dimen/size25"
+        android:layout_alignParentTop="true"
+        app:srcCompat="@mipmap/bga_pp_ic_delete"
+        android:layout_alignEnd="@+id/shang_huo_item_image" />
+
+
+</RelativeLayout>
