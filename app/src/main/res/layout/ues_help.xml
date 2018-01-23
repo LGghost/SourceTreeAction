@@ -30,11 +30,12 @@
     </RelativeLayout>
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         android:text="用户您好，您在使用过程中遇到问题可以联系订货无忧客服"
         android:textColor="@color/heise"
         android:textSize="16sp" />
@@ -42,8 +43,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:background="@color/white"
         android:orientation="horizontal">
 
         <TextView
@@ -54,7 +55,6 @@
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/call_phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="13974977597"
@@ -63,96 +63,181 @@
 
     </LinearLayout>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white"
+        android:gravity="center_vertical">
+
+        <LinearLayout
+            android:id="@+id/call_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/icon_call_blue" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:text="@string/call_up"
+                android:textColor="@color/lanse"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/go_to_website"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/icon_website" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:text="@string/go_to_the_official_website"
+                android:textColor="@color/lanse"
+                android:textSize="16sp" />
+        </LinearLayout>
+    </RelativeLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="20dp"
+        android:layout_height="30dp"
+        android:background="#dcdcdc"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="@string/use_a_tutorial"
+            android:textColor="@color/heise"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/local_manual_layout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white"
+        android:gravity="center"
         android:orientation="horizontal">
 
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/icon_manual" />
+
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="官网："
+            android:layout_marginLeft="4dp"
+            android:layout_weight="1"
+            android:text="@string/local_manual"
             android:textColor="@color/heise"
             android:textSize="16sp" />
 
-        <TextView
-            android:id="@+id/net"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="https://www.dinghuo5u.com"
-            android:textColor="@color/lanse"
-            android:textSize="16sp" />
-
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/youjiantou" />
     </LinearLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="50dp"
-        android:text="订货无忧产品使用说明"
-        android:textColor="@color/heise"
-        android:textSize="16sp" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="10dp"
+        android:background="@color/fengexian_color" />
 
     <LinearLayout
+        android:id="@+id/network_manual_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="20dp"
-        android:orientation="vertical">
+        android:layout_height="50dp"
+        android:background="@color/white"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/icon_net_manual" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="使用手册："
+            android:layout_marginLeft="6dp"
+            android:layout_weight="1"
+            android:text="@string/network_manual"
             android:textColor="@color/heise"
             android:textSize="16sp" />
 
-        <TextView
-            android:id="@+id/shouce"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="https://www.dinghuo5u.com/images/manual.pdf"
-            android:textColor="@color/lanse"
-            android:textSize="16sp" />
-
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/youjiantou" />
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="10dp"
+        android:background="@color/fengexian_color" />
 
     <LinearLayout
+        android:id="@+id/video_course_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="20dp"
-        android:orientation="vertical">
+        android:layout_height="50dp"
+        android:background="@color/white"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="17dp"
+            android:layout_height="17dp"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/icon_video_course" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="操作视频："
+            android:layout_marginLeft="7dp"
+            android:layout_weight="1"
+            android:text="@string/video_course"
             android:textColor="@color/heise"
             android:textSize="16sp" />
 
-        <TextView
-            android:id="@+id/video"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="https://v.qq.com/x/page/x05388l2wxj.html"
-            android:textColor="@color/lanse"
-            android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/video2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="https://v.youku.com/v_show/id_XMjk3NDAyOTg3Ng==.html?spm=a2hzp.8244740.0.0"
-            android:textColor="@color/lanse"
-            android:textSize="16sp" />
-
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/youjiantou" />
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/fengexian_color" />
 </LinearLayout>

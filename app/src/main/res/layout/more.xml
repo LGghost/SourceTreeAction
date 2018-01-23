@@ -242,7 +242,7 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:visibility="invisible">
+            android:visibility="visible">
 
             <ImageView
                 android:layout_width="32dp"
@@ -260,5 +260,41 @@
                 android:textSize="14sp" />
 
         </LinearLayout>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:paddingBottom="15dp"
+        android:paddingTop="15dp">
+        <LinearLayout
+            android:id="@+id/sms_management"
+            android:layout_width="80dp"
+            android:layout_marginLeft="10dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/icon_jinrong" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:text="短信管理"
+                android:textColor="@color/heise"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+
+
     </LinearLayout>
 </LinearLayout>

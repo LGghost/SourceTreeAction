@@ -124,4 +124,22 @@
     <string name="purchase_hint">输入供应商名称/手机号搜索</string>
     <string name="add_supplier">新增供应商</string>
     <string name="supplier_import">通讯录导入</string>
+
+    <!--金融-->
+    <string name="finance_name">姓名</string>
+    <string name="finance_phone">电话</string>
+    <string name="finance_sex">性别</string>
+    <string name="finance_identity">身份</string>
+    <string name="finance_purpose">授信用途</string>
+    <string name="sms_notification">发货短信通知剩余:</string>
+
+    <!-- 使用帮助-->
+    <string name="call_up">打电话</string>
+    <string name="go_to_the_official_website">前往官网</string>
+    <string name="use_a_tutorial">产品使用教程</string>
+    <string name="local_manual">查看本地版手册</string>
+    <string name="network_manual">查看网络版手册</string>
+    <string name="video_course">查看视频教程</string>
+    <string name="video_course_title">视频教程</string>
+    <string name="user_manual">用户使用手册</string>
 </resources>

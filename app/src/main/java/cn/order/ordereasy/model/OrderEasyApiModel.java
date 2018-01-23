@@ -606,5 +606,11 @@ public interface OrderEasyApiModel {
      * @return
      */
     Subscription exportStatus(int log_id);
+    /**
+     * 贷款申请
+     *
+     * @return
+     */
+    Subscription loanAsk(String telephone,String name,String purpose,String identity,String gender);
 
 }

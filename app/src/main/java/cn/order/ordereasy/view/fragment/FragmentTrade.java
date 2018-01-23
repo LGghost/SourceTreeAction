@@ -226,11 +226,14 @@ public class FragmentTrade extends Fragment implements OrderEasyView, LoadMoreLi
                         } else {
                             listView.setSelection(0);
                         }
+                        store_refresh.setVisibility(View.VISIBLE);
                         no_data_view.setVisibility(View.GONE);
                     } else {
                         if (mylist1.size() > 0) {
                             mylist1.clear();
                         }
+                        adapter2.setData(mylist1);
+                        store_refresh.setVisibility(View.GONE);
                         no_data_view.setVisibility(View.VISIBLE);
 
                     }

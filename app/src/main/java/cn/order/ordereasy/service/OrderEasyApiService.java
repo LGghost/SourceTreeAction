@@ -1530,7 +1530,7 @@ public class OrderEasyApiService {
     /**
      * 产品销售统计
      */
-    public static Observable<JsonObject> exportSaleProductCount(String start_time,String end_time) {
+    public static Observable<JsonObject> exportSaleProductCount(String start_time, String end_time) {
         HashMap<String, Object> paramsMap = new HashMap<>();
         paramsMap.put("start_time", start_time);
         paramsMap.put("end_time", end_time);
@@ -1562,5 +1562,21 @@ public class OrderEasyApiService {
         RequestBody body = RequestBody.create(MediaType.parse("application/json"), strEntity);
         Log.e("getUserInfo", "发送参数：" + strEntity);
         return MyApplication.getInstance().getService(1).request(Config.export_status_url, body);
+    }
+
+    /**
+     * 贷款申请
+     */
+    public static Observable<JsonObject> loanAsk(String telephone, String name, String purpose, String identity, String gender) {
+        HashMap<String, Object> paramsMap = new HashMap<>();
+        paramsMap.put("telephone", telephone);
+        paramsMap.put("name", name);
+        paramsMap.put("purpose", purpose);
+        paramsMap.put("identity", identity);
+        paramsMap.put("gender", gender);
+        String strEntity = GsonUtils.getJsonStr(paramsMap);
+        RequestBody body = RequestBody.create(MediaType.parse("application/json"), strEntity);
+        Log.e("getUserInfo", "发送参数：" + strEntity);
+        return MyApplication.getInstance().getService(1).request(Config.loan_ask_url, body);
     }
 }

@@ -46,6 +46,7 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+    compile 'com.github.barteksc:android-pdf-viewer:2.7.0'
     compile 'com.tencent.bugly:nativecrashreport:latest.release'
     compile 'com.tencent.bugly:crashreport:latest.release'
     compile 'com.belerweb:pinyin4j:2.5.0'

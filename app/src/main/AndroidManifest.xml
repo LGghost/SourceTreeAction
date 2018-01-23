@@ -237,6 +237,17 @@
             android:launchMode="singleTop"
             android:theme="@style/AppTheme.Transparent" />/**帮助信息activity**/
         <activity
+            android:name="cn.order.ordereasy.view.activity.UserManualActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/**用户使用手册activity**/
+        <activity
+            android:name="cn.order.ordereasy.view.activity.VideoCourseActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/**视频教程activity**/
+
+        <activity
             android:name="cn.order.ordereasy.view.activity.GuigeGuanliActivity"
             android:label="@string/app_name"
             android:launchMode="singleTop"
@@ -682,6 +693,11 @@
             android:label="@string/app_name"
             android:launchMode="singleTop"
             android:theme="@style/AppTheme.Transparent" />/采购订单/\
+        <activity
+            android:name="cn.order.ordereasy.view.activity.SMSManagementActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/短信通知/\
         <activity
             android:name=".apshare.ShareEntryActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"

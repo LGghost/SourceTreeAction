@@ -660,6 +660,10 @@ public abstract class OrderEasyPresenter extends BasePresenter {
      * 导出状态查询
      */
     public abstract void exportStatus(int log_id);
+    /**
+     * 贷款申请
+     */
+    public abstract void loanAsk(String telephone,String name,String purpose,String identity,String gender);
 
 }
 

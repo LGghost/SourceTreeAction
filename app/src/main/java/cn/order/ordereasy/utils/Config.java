@@ -502,6 +502,10 @@ public class Config {
      */
     public final static String export_status_url="export/status";
 
+    /**
+     * 贷款申请
+     */
+    public final static String loan_ask_url="Loan/ask";
 
     public static String getExtSDCardPath()
     {

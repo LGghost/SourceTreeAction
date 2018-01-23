@@ -54,6 +54,10 @@ public class MoreActivity extends BaseActivity {
     @InjectView(R.id.shuju_gunli)
     LinearLayout shuju_gunli;
 
+    //短信管理
+    @InjectView(R.id.sms_management)
+    LinearLayout sms_management;
+
     //需要的点击事件
     //返回按钮
     @OnClick(R.id.return_click)
@@ -96,11 +100,11 @@ public class MoreActivity extends BaseActivity {
         startActivity(intent);
     }
 
-//    @OnClick(R.id.purchase)
-//    void purchase() {//采购
-//        Intent intent = new Intent(MoreActivity.this, PurchaseActivity.class);
-//        startActivity(intent);
-//    }
+    @OnClick(R.id.purchase)
+    void purchase() {//采购
+        Intent intent = new Intent(MoreActivity.this, PurchaseActivity.class);
+        startActivity(intent);
+    }
 
     @OnClick(R.id.huopin_feilei)
     void huopin_feilei() {//货品分类
@@ -113,8 +117,13 @@ public class MoreActivity extends BaseActivity {
         Intent intent = new Intent(MoreActivity.this, PrintActivity.class);
         startActivity(intent);
     }
+    @OnClick(R.id.sms_management)
+    void sms_management() {//短信管理
+        Intent intent = new Intent(MoreActivity.this, SMSManagementActivity.class);
+        startActivity(intent);
+    }
 
-//    @OnClick(R.id.dianpu_setup)
+//    @(R.id.dianpu_setup)
 //    void dianpu_setup() {//店铺设置
 //        Intent intent = new Intent(MoreActivity.this, StoreSettingsActivity.class);
 //        startActivity(intent);

@@ -1047,4 +1047,14 @@ public class OrderEasyPresenterImp extends OrderEasyPresenter implements OrderEa
             orderEasyView.hideProgress(2);
         }
     }
+    //贷款申请
+    @Override
+    public void loanAsk(String telephone, String name, String purpose, String identity, String gender) {
+        orderEasyView.showProgress(1);
+        if (NetWorkUtils.isNetworkConnected(MyApplication.getInstance().mContext)) {
+            addSubscription(orderEasyApiModel.loanAsk(telephone,name,purpose,identity,gender));
+        } else {
+            orderEasyView.hideProgress(2);
+        }
+    }
 }

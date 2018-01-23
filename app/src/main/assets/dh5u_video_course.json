@@ -1,0 +1,392 @@
+[
+    {
+        "title" : "一、注册和登录",
+        "content" : [
+            {
+            "subtitle" : "1-1 如何下载安装订货无忧App",
+            "desc"     : "",
+            "youku_src": "http://player.youku.com/embed/XMzI2NDQ2ODYxNg==",
+            "url"      : "http://v.youku.com/v_show/id_XMzI2NDQ2ODYxNg==.html?spm=a2h1n.8251843.playList.5~5~A&f=51415115&o=1"
+            },
+            {
+            "subtitle" : "1-2 用户注册",
+            "desc"     : "",
+            "youku_src": "http://player.youku.com/embed/XMzI2NDQ3Njg3Mg==",
+            "url"      : "http://v.youku.com/v_show/id_XMzI2NDQ3Njg3Mg==.html?spm=a2h0j.8191423.playlist_content.5!2~5~5~A&&f=51415115&from=y1.2-3.4.2"
+            },
+            {
+            "subtitle" : "1-3 忘记密码",
+            "desc"     : "",
+            "youku_src": "http://player.youku.com/embed/XMzI2NDQ4NjkxNg==",
+            "url"      : "http://v.youku.com/v_show/id_XMzI2NDQ4NjkxNg==.html?spm=a2h0j.8191423.playlist_content.5!3~5~5~A&&f=51415115&from=y1.2-3.4.3"
+            },
+            {
+            "subtitle" : "1-4 不用注册，免费体验",
+            "desc"     : "",
+            "youku_src": "http://player.youku.com/embed/XMzI2NDQ4OTE4MA==",
+            "url"      : "http://v.youku.com/v_show/id_XMzI2NDQ4OTE4MA==.html?spm=a2h0j.8191423.playlist_content.5!4~5~5~A&&f=51415115&from=y1.2-3.4.4"
+            }
+        ]
+    },
+    {
+        "title" : "二、新手引导",
+        "content" : [
+            {
+            "subtitle" : "2-1 设置店铺基本信息",
+            "desc"     : "",
+            "youku_src": "http://player.youku.com/embed/XMzI2NDQ5MTI3Ng==",
+            "url"      : "http://v.youku.com/v_show/id_XMzI2NDQ5MTI3Ng==.html?spm=a2h0j.8191423.playlist_content.5~5~5~A&&f=51415190&from=y1.2-3.4.1"
+            },
+            {
+            "subtitle" : "2-2 添加员工，设置员工权限",
+            "desc"     : "",
+            "youku_src": "http://player.youku.com/embed/XMzI2NDQ5MzUzNg==",
+            "url"      : "http://v.youku.com/v_show/id_XMzI2NDQ5MzUzNg==.html?spm=a2h0j.8191423.playlist_content.5!2~5~5~A&&f=51415190&from=y1.2-3.4.2"
+            },
+            {
+            "subtitle" : "2-3 添加货品分类和规格",
+            "desc"     : "",
+            "youku_src": "http://player.youku.com/embed/XMzI2NDQ5NjE2OA==",
+            "url"      : "http://v.youku.com/v_show/id_XMzI2NDQ5NjE2OA==.html?spm=a2h0j.8191423.playlist_content.5!3~5~5~A&&f=51415190&from=y1.2-3.4.3"
+            },
+            {
+            "subtitle" : "2-4 上货",
+            "desc"     : "",
+            "youku_src": "http://player.youku.com/embed/XMzI2NDQ5NzE2MA==",
+            "url"      : "http://v.youku.com/v_show/id_XMzI2NDQ5NzE2MA==.html?spm=a2h0j.8191423.playlist_content.5!4~5~5~A&&f=51415190&from=y1.2-3.4.4"
+            },
+            {
+            "subtitle" : "2-5 添加客户分类，设置分类等级折扣",
+            "desc"     : "",
+            "youku_src": "http://player.youku.com/embed/XMzI2NDQ5OTA3Ng==",
+            "url"      : "http://v.youku.com/v_show/id_XMzI2NDQ5OTA3Ng==.html?spm=a2h0j.8191423.playlist_content.5!5~5~5~A&&f=51415190&from=y1.2-3.4.5"
+            },
+            {
+            "subtitle" : "2-6 添加和编辑客户",
+            "desc"     : "",
+            "youku_src": "http://player.youku.com/embed/XMzI2NDUwMDU4MA==",
+            "url"      : "http://v.youku.com/v_show/id_XMzI2NDUwMDU4MA==.html?spm=a2h0j.8191423.playlist_content.5!6~5~5~A&&f=51415190&from=y1.2-3.4.6"
+            },
+            {
+            "subtitle" : "2-7 开销售订单",
+            "desc"     : "",
+            "youku_src": "http://player.youku.com/embed/XMzI2NDUwMTY3Mg==",
+            "url"      : "http://v.youku.com/v_show/id_XMzI2NDUwMTY3Mg==.html?spm=a2h0j.8191423.playlist_content.5!7~5~5~A&&f=51415190&from=y1.2-3.4.7"
+            },
+            {
+            "subtitle" : "2-8 店铺基础功能介绍",
+            "desc"     : "",
+            "youku_src": "http://player.youku.com/embed/XMzI2NDUwMjU4NA==",
+            "url"      : "http://v.youku.com/v_show/id_XMzI2NDUwMjU4NA==.html?spm=a2h0j.8191423.playlist_content.5!8~5~5~A&&f=51415190&from=y1.2-3.4.8"
+            }
+        ]
+    },
+    {
+        "title" : "三、货品管理",
+        "content" : [
+            {
+            "subtitle" : "3-1 货品列表介绍",
+            "desc"     : "",
+            "youku_src": "http://player.youku.com/embed/XMzI2NDUwMzM4MA==",
+            "url"      : "http://v.youku.com/v_show/id_XMzI2NDUwMzM4MA==.html?spm=a2h1n.8251843.playList.5~5~A&f=51415200&o=1"
+            },
+            {
+            "subtitle" : "3-2 货品详情介绍 ",
+            "desc"     : "",
+            "youku_src": "http://player.youku.com/embed/XMzI2NDUwNDQ4OA==",
+            "url"      : "http://v.youku.com/v_show/id_XMzI2NDUwNDQ4OA==.html?spm=a2h0j.8191423.playlist_content.5!2~5~5~A&&f=51415200&from=y1.2-3.4.2"
+            },
+            {
+            "subtitle" : "3-3 货品编辑和上下架",
+            "desc"     : "",
+            "youku_src": "http://player.youku.com/embed/XMzI2NDUwNTAwNA==",
+            "url"      : "http://v.youku.com/v_show/id_XMzI2NDUwNTAwNA==.html?spm=a2h0j.8191423.playlist_content.5!3~5~5~A&&f=51415200&from=y1.2-3.4.3"
+            },
+            {
+            "subtitle" : "3-4 货品二维码生成和扫描二维码找货",
+            "desc"     : "",
+            "youku_src": "http://player.youku.com/embed/XMzI2NDUwNTg0OA==",
+            "url"      : "http://v.youku.com/v_show/id_XMzI2NDUwNTg0OA==.html?spm=a2h0j.8191423.playlist_content.5!4~5~5~A&&f=51415200&from=y1.2-3.4.4"
+            }
+        ]
+    },
+    {
+        "title" : "四、订单管理",
+        "content" : [
+            {
+            "subtitle" : "4-1 订单列表介绍",
+            "desc"     : "",
+            "youku_src": "http://player.youku.com/embed/XMzI2NDUwNjY4NA==",
+            "url"      : "http://v.youku.com/v_show/id_XMzI2NDUwNjY4NA==.html?spm=a2h1n.8251843.playList.5~5~A&f=51415203&o=1"
+            },
+            {
+            "subtitle" : "4-2 订单详情介绍",
+            "desc"     : "",
+            "youku_src": "http://player.youku.com/embed/XMzI2NDUwNzk1Mg==",
+            "url"      : "http://v.youku.com/v_show/id_XMzI2NDUwNzk1Mg==.html?spm=a2h0j.8191423.playlist_content.5!2~5~5~A&&f=51415203&from=y1.2-3.4.2"
+            },
+            {
+            "subtitle" : "4-3 订单打印",
+            "desc"     : "",
+            "youku_src": "http://player.youku.com/embed/XMzI2NDUwODg3Ng==",
+            "url"      : "http://v.youku.com/v_show/id_XMzI2NDUwODg3Ng==.html?spm=a2h0j.8191423.playlist_content.5!3~5~5~A&&f=51415203&from=y1.2-3.4.3"
+            },
+            {
+            "subtitle" : "4-4 订单退欠货(改单)",
+            "desc"     : "",
+            "youku_src": "http://player.youku.com/embed/XMzI2NDUwOTcwNA==",
+            "url"      : "http://v.youku.com/v_show/id_XMzI2NDUwOTcwNA==.html?spm=a2h0j.8191423.playlist_content.5!4~5~5~A&&f=51415203&from=y1.2-3.4.4"
+            },
+            {
+            "subtitle" : "4-5 退货",
+            "desc"     : "",
+            "youku_src": "http://player.youku.com/embed/XMzI2NDUxMDk2OA==",
+            "url"      : "http://v.youku.com/v_show/id_XMzI2NDUxMDk2OA==.html?spm=a2h0j.8191423.playlist_content.5!5~5~5~A&&f=51415203&from=y1.2-3.4.5"
+            },
+            {
+            "subtitle" : "4-6 订单发货",
+            "desc"     : "",
+            "youku_src": "http://player.youku.com/embed/XMzI2NDUxMjM2NA==",
+            "url"      : "http://v.youku.com/v_show/id_XMzI2NDUxMjM2NA==.html?spm=a2h0j.8191423.playlist_content.5!6~5~5~A&&f=51415203&from=y1.2-3.4.6"
+            },
+            {
+            "subtitle" : "4-7 如何关闭订单",
+            "desc"     : "",
+            "youku_src": "http://player.youku.com/embed/XMzI2NDUzNDYyOA==",
+            "url"      : "http://v.youku.com/v_show/id_XMzI2NDUzNDYyOA==.html?spm=a2h0j.8191423.playlist_content.5!7~5~5~A&&f=51415203&from=y1.2-3.4.7"
+            },
+            {
+            "subtitle" : "4-8 订单操作记录介绍",
+            "desc"     : "",
+            "youku_src": "http://player.youku.com/embed/XMzI2NDUyOTgxNg==",
+            "url"      : "http://v.youku.com/v_show/id_XMzI2NDUyOTgxNg==.html?spm=a2h0j.8191423.playlist_content.5!8~5~5~A&&f=51415203&from=y1.2-3.4.8"
+            },
+            {
+            "subtitle" : "4-9 再来一单",
+            "desc"     : "",
+            "youku_src": "http://player.youku.com/embed/XMzI2NDUzNTgzNg==",
+            "url"      : "http://v.youku.com/v_show/id_XMzI2NDUzNTgzNg==.html?spm=a2h0j.8191423.playlist_content.5!9~5~5~A&&f=51415203&from=y1.2-3.4.9"
+            }
+        ]
+    },
+    {
+        "title" : "五、客户管理",
+        "content" : [
+            {
+            "subtitle" : "5-1 客户列表介绍",
+            "desc"     : "",
+            "youku_src": "http://player.youku.com/embed/XMzI2NDUzNzUwOA==",
+            "url"      : "http://v.youku.com/v_show/id_XMzI2NDUzNzUwOA==.html?spm=a2h0j.8191423.playlist_content.5~5~5~A&&f=51415206&from=y1.2-3.4.1"
+            },
+            {
+            "subtitle" : "5-2 客户详情基本介绍",
+            "desc"     : "",
+            "youku_src": "http://player.youku.com/embed/XMzI2NDU0MTQwNA==",
+            "url"      : "http://v.youku.com/v_show/id_XMzI2NDU0MTQwNA==.html?spm=a2h0j.8191423.playlist_content.5!2~5~5~A&&f=51415206&from=y1.2-3.4.2"
+            },
+            {
+            "subtitle" : "5-3 编辑客户信息",
+            "desc"     : "",
+            "youku_src": "http://player.youku.com/embed/XMzI2NDU0MjI4OA==",
+            "url"      : "http://v.youku.com/v_show/id_XMzI2NDU0MjI4OA==.html?spm=a2h0j.8191423.playlist_content.5!3~5~5~A&&f=51415206&from=y1.2-3.4.3"
+            },
+            {
+            "subtitle" : "5-4 查看客户交易记录和欠货记录",
+            "desc"     : "",
+            "youku_src": "http://player.youku.com/embed/XMzI2NDU0MzQ2MA==",
+            "url"      : "http://v.youku.com/v_show/id_XMzI2NDU0MzQ2MA==.html?spm=a2h0j.8191423.playlist_content.5!4~5~5~A&&f=51415206&from=y1.2-3.4.4"
+            },
+            {
+            "subtitle" : "5-5 查看客户欠款历史记录，调整客户欠款",
+            "desc"     : "",
+            "youku_src": "http://player.youku.com/embed/XMzI2NDU0NDUxMg==",
+            "url"      : "http://v.youku.com/v_show/id_XMzI2NDU0NDUxMg==.html?spm=a2h0j.8191423.playlist_content.5!5~5~5~A&&f=51415206&from=y1.2-3.4.5"
+            },
+            {
+            "subtitle" : "5-6 向客户收款退款和查看收银记录",
+            "desc"     : "",
+            "youku_src": "http://player.youku.com/embed/XMzI2NDU0NTg5Ng==",
+            "url"      : "http://v.youku.com/v_show/id_XMzI2NDU0NTg5Ng==.html?spm=a2h0j.8191423.playlist_content.5!6~5~5~A&&f=51415206&from=y1.2-3.4.6"
+            },
+            {
+            "subtitle" : "5-7 按客户发货和查看发货记录",
+            "desc"     : "",
+            "youku_src": "http://player.youku.com/embed/XMzI2NDU0NjU4MA==",
+            "url"      : "http://v.youku.com/v_show/id_XMzI2NDU0NjU4MA==.html?spm=a2h0j.8191423.playlist_content.5!7~5~5~A&&f=51415206&from=y1.2-3.4.7"
+            }
+        ]
+    },
+    {
+        "title" : "六、库存管理",
+        "content" : [
+            {
+            "subtitle" : "6-1 库存管理介绍",
+            "desc"     : "",
+            "youku_src": "http://player.youku.com/embed/XMzI2NDU1MjE4MA==",
+            "url"      : "http://v.youku.com/v_show/id_XMzI2NDU1MjE4MA==.html?spm=a2h0j.8191423.playlist_content.5~5~5~A&&f=51415320&from=y1.2-3.4.1"
+            },
+            {
+            "subtitle" : "6-2 货品入库、出库操作",
+            "desc"     : "",
+            "youku_src": "http://player.youku.com/embed/XMzI2NDU1MjkwNA==",
+            "url"      : "http://v.youku.com/v_show/id_XMzI2NDU1MjkwNA==.html?spm=a2h0j.8191423.playlist_content.5!2~5~5~A&&f=51415320&from=y1.2-3.4.2"
+            },
+            {
+            "subtitle" : "6-3 货品库存手动调整",
+            "desc"     : "",
+            "youku_src": "http://player.youku.com/embed/XMzI2NDU1MzQyMA==",
+            "url"      : "http://v.youku.com/v_show/id_XMzI2NDU1MzQyMA==.html?spm=a2h0j.8191423.playlist_content.5!3~5~5~A&&f=51415320&from=y1.2-3.4.3"
+            },
+            {
+            "subtitle" : "6-4 查看库存统计",
+            "desc"     : "",
+            "youku_src": "http://player.youku.com/embed/XMzI2NDU1NDI4MA==",
+            "url"      : "http://v.youku.com/v_show/id_XMzI2NDU1NDI4MA==.html?spm=a2h0j.8191423.playlist_content.5!4~5~5~A&&f=51415320&from=y1.2-3.4.4"
+            },
+            {
+            "subtitle" : "6-5 查看库存变动记录",
+            "desc"     : "",
+            "youku_src": "http://player.youku.com/embed/XMzI2NDU1NTM5Ng==",
+            "url"      : "http://v.youku.com/v_show/id_XMzI2NDU1NTM5Ng==.html?spm=a2h0j.8191423.playlist_content.5!5~5~5~A&&f=51415320&from=y1.2-3.4.5"
+            },
+            {
+            "subtitle" : "6-6 查看库存预警",
+            "desc"     : "",
+            "youku_src": "http://player.youku.com/embed/XMzI2NDU2ODkyOA==",
+            "url"      : "http://v.youku.com/v_show/id_XMzI2NDU2ODkyOA==.html?spm=a2h0j.8191423.playlist_content.5!6~5~5~A&&f=51415320&from=y1.2-3.4.6"
+            }
+        ]
+    },
+    {
+        "title" : "七、货品盘点",
+        "content" : [
+            {
+            "subtitle" : "7-1 库存盘点介绍",
+            "desc"     : "",
+            "youku_src": "http://player.youku.com/embed/XMzI2NDY3ODAzMg==",
+            "url"      : "http://v.youku.com/v_show/id_XMzI2NDY3ODAzMg==.html?spm=a2h0j.8191423.playlist_content.5~5~5~A&&f=51415322&from=y1.2-3.4.1"
+            },
+            {
+            "subtitle" : "7-2 多员工参与店铺库存盘点",
+            "desc"     : "",
+            "youku_src": "http://player.youku.com/embed/XMzI2NDY3OTk5Ng==",
+            "url"      : "http://v.youku.com/v_show/id_XMzI2NDY3OTk5Ng==.html?spm=a2h0j.8191423.playlist_content.5!2~5~5~A&&f=51415322&from=y1.2-3.4.2"
+            },
+            {
+            "subtitle" : "7-3 结束盘点单，查看历史盘点记录",
+            "desc"     : "",
+            "youku_src": "http://player.youku.com/embed/XMzI2NDY4MTAwMA==",
+            "url"      : "http://v.youku.com/v_show/id_XMzI2NDY4MTAwMA==.html?spm=a2h0j.8191423.playlist_content.5!3~5~5~A&&f=51415322&from=y1.2-3.4.3"
+            }
+        ]
+    },
+    {
+        "title" : "八、采购管理",
+        "content" : [
+            {
+            "subtitle" : "8-1 采购操作基本介绍",
+            "desc"     : "",
+            "youku_src": "",
+            "url"      : ""
+            }
+        ]
+    },
+    {
+        "title" : "九、店铺数据管理",
+        "content" : [
+            {
+            "subtitle" : "9-1 账本管理",
+            "desc"     : "",
+            "youku_src": "http://player.youku.com/embed/XMzI2NDY4MjIyMA==",
+            "url"      : "http://v.youku.com/v_show/id_XMzI2NDY4MjIyMA==.html?spm=a2h1n.8251843.playList.5~5~A&f=51415326&o=1"
+            },
+            {
+            "subtitle" : "9-2 日报管理",
+            "desc"     : "",
+            "youku_src": "http://player.youku.com/embed/XMzI2NDY4MzMyOA==",
+            "url"      : "http://v.youku.com/v_show/id_XMzI2NDY4MzMyOA==.html?spm=a2h0j.8191423.playlist_content.5!2~5~5~A&&f=51415326&from=y1.2-3.4.2"
+            },
+            {
+            "subtitle" : "9-3 数据导出",
+            "desc"     : "",
+            "youku_src": "http://player.youku.com/embed/XMzI2NDY4NDEyOA==",
+            "url"      : "http://v.youku.com/v_show/id_XMzI2NDY4NDEyOA==.html?spm=a2h0j.8191423.playlist_content.5!3~5~5~A&&f=51415326&from=y1.2-3.4.3"
+            },
+            {
+            "subtitle" : "9-4 数据清空还原",
+            "desc"     : "",
+            "youku_src": "http://player.youku.com/embed/XMzI2NDY4NTEyNA==",
+            "url"      : "http://v.youku.com/v_show/id_XMzI2NDY4NTEyNA==.html?spm=a2h0j.8191423.playlist_content.5!4~5~5~A&&f=51415326&from=y1.2-3.4.4"
+            }
+        ]
+    },
+    {
+        "title" : "十、微信店铺",
+        "content" : [
+            {
+            "subtitle" : "10-1 分享微信店铺",
+            "desc"     : "",
+            "youku_src": "http://player.youku.com/embed/XMzI2NDY5OTQ5Ng==",
+            "url"      : "http://v.youku.com/v_show/id_XMzI2NDY5OTQ5Ng==.html?spm=a2h0j.8191423.playlist_content.5~5~5~A&&f=51415328&from=y1.2-3.4.1"
+            },
+            {
+            "subtitle" : "10-2 微信店铺设置和下单流程",
+            "desc"     : "",
+            "youku_src": "http://player.youku.com/embed/XMzI2NDcwMDU4OA==",
+            "url"      : "http://v.youku.com/v_show/id_XMzI2NDcwMDU4OA==.html?spm=a2h0j.8191423.playlist_content.5!2~5~5~A&&f=51415328&from=y1.2-3.4.2"
+            },
+            {
+            "subtitle" : "10-3 微信店铺下单通知",
+            "desc"     : "",
+            "youku_src": "http://player.youku.com/embed/XMzI2NDcwMjIwNA==",
+            "url"      : "http://v.youku.com/v_show/id_XMzI2NDcwMjIwNA==.html?spm=a2h0j.8191423.playlist_content.5!3~5~5~A&&f=51415328&from=y1.2-3.4.3"
+            }
+        ]
+    },
+    {
+        "title" : "十一、其它",
+        "content" : [
+            {
+            "subtitle" : "11-1 用户个人信息设置",
+            "desc"     : "",
+            "youku_src": "http://player.youku.com/embed/XMzI2NDcwNjg0OA==",
+            "url"      : "http://v.youku.com/v_show/id_XMzI2NDcwNjg0OA==.html?spm=a2h1n.8251843.playList.5~5~A&f=51415329&o=1"
+            },
+            {
+            "subtitle" : "11-2 查看店铺到期时间",
+            "desc"     : "",
+            "youku_src": "http://player.youku.com/embed/XMzI2NDcwODUwNA==",
+            "url"      : "http://v.youku.com/v_show/id_XMzI2NDcwODUwNA==.html?spm=a2h0j.8191423.playlist_content.5!2~5~5~A&&f=51415329&from=y1.2-3.4.2"
+            },
+            {
+            "subtitle" : "11-3 打印机设置",
+            "desc"     : "",
+            "youku_src": "http://player.youku.com/embed/XMzI2NDcwOTYxNg==",
+            "url"      : "http://v.youku.com/v_show/id_XMzI2NDcwOTYxNg==.html?spm=a2h0j.8191423.playlist_content.5!3~5~5~A&&f=51415329&from=y1.2-3.4.3"
+            },
+            {
+            "subtitle" : "11-4 短信通知管理",
+            "desc"     : "",
+            "youku_src": "http://player.youku.com/embed/XMzI2NDcxMTUxMg==",
+            "url"      : "http://v.youku.com/v_show/id_XMzI2NDcxMTUxMg==.html?spm=a2h0j.8191423.playlist_content.5!4~5~5~A&&f=51415329&from=y1.2-3.4.4"
+            },
+            {
+            "subtitle" : "11-5 金融服务",
+            "desc"     : "",
+            "youku_src": "http://player.youku.com/embed/XMzI2NDcxMzMwNA==",
+            "url"      : "http://v.youku.com/v_show/id_XMzI2NDcxMzMwNA==.html?spm=a2h0j.8191423.playlist_content.5!5~5~5~A&&f=51415329&from=y1.2-3.4.5"
+            }
+        ]
+    },
+    {
+        "title" : "十二、使用帮助",
+        "content" : [
+            {
+            "subtitle" : "12-1 使用帮助介绍",
+            "desc"     : "",
+            "youku_src": "http://player.youku.com/embed/XMzI2NDcxNDE2MA==",
+            "url"      : "http://v.youku.com/v_show/id_XMzI2NDcxNDE2MA==.html?spm=a2h1n.8251843.playList.5~5~A&f=51415334&o=1"
+            }
+        ]
+    }
+]

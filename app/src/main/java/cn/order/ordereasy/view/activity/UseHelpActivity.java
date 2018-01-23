@@ -16,18 +16,18 @@ import cn.order.ordereasy.R;
 
 /**
  * Created by Administrator on 2017/9/4.
- *
+ * <p>
  * 使用帮助activity
  */
 
-public class UseHelpActivity extends BaseActivity{
+public class UseHelpActivity extends BaseActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.ues_help);
-        setColor(this,this.getResources().getColor(R.color.lanse));
+        setColor(this, this.getResources().getColor(R.color.lanse));
         ButterKnife.inject(this);
     }
 
@@ -36,71 +36,50 @@ public class UseHelpActivity extends BaseActivity{
     @InjectView(R.id.return_click)
     ImageView return_click;
 
-    @InjectView(R.id.call_phone)
-    TextView call_phone;
-
-    @InjectView(R.id.net)
-    TextView net;
-
-    @InjectView(R.id.shouce)
-    TextView shouce;
-
-    @InjectView(R.id.video)
-    TextView video;
-
-    @InjectView(R.id.video2)
-    TextView video2;
 
     //需要的点击事件
     //返回按钮
     @OnClick(R.id.return_click)
-    void  return_click() {
+    void return_click() {
         UseHelpActivity.this.finish();
     }
 
     //拨打客服电话
     @OnClick(R.id.call_phone)
-    void  call_phone() {
-        Intent intent = new Intent();
-        Uri data = Uri.parse("tel:" + "13974977597");
-        intent.setAction(Intent.ACTION_CALL);
-        intent.setData(data);
+    void call_phone() {
+        Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "13974977597"));
         this.startActivity(intent);
     }
 
     //官网
-    @OnClick(R.id.net)
-    void  net() {
-
+    @OnClick(R.id.go_to_website)
+    void go_to_website() {
         Uri uri = Uri.parse("https://www.dinghuo5u.com");
         Intent it = new Intent(Intent.ACTION_VIEW, uri);
-         startActivity(it);
+        startActivity(it);
     }
-    //手册
-    @OnClick(R.id.shouce)
-    void  shouce() {
 
+    //查看本地手册
+    @OnClick(R.id.local_manual_layout)
+    void local_manual_layout() {
+        Intent intent = new Intent(this, UserManualActivity.class);
+        startActivity(intent);
+    }
+
+    //查看网络手册
+    @OnClick(R.id.network_manual_layout)
+    void network_manual_layout() {
         Uri uri = Uri.parse("https://www.dinghuo5u.com/images/manual.pdf");
         Intent it = new Intent(Intent.ACTION_VIEW, uri);
         startActivity(it);
     }
 
-    //视频1
-    @OnClick(R.id.video)
-    void  video() {
+    //查看视频教程
+    @OnClick(R.id.video_course_layout)
+    void video_course_layout() {
+        Intent intent = new Intent(this, VideoCourseActivity.class);
+        startActivity(intent);
 
-        Uri uri = Uri.parse("https://v.qq.com/x/page/x05388l2wxj.html");
-        Intent it = new Intent(Intent.ACTION_VIEW, uri);
-        startActivity(it);
-    }
-
-    //视频2
-    @OnClick(R.id.video2)
-    void  video2() {
-
-        Uri uri = Uri.parse("https://v.youku.com/v_show/id_XMjk3NDAyOTg3Ng==.html?spm=a2hzp.8244740.0.0");
-        Intent it = new Intent(Intent.ACTION_VIEW, uri);
-        startActivity(it);
     }
 
 
