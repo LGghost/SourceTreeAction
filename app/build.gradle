@@ -12,6 +12,7 @@ android {
     compileSdkVersion 25
     buildToolsVersion '25.0.2'
     defaultConfig {
+        //信鸽官网上注册的包名.注意application ID 和当前的应用包名以及 信鸽官网上注册应用的包名必须一致。
         applicationId "cn.order.ordereasy"
         minSdkVersion 19
         targetSdkVersion 25
@@ -19,8 +20,14 @@ android {
         versionName "3.2.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         ndk {
-            abiFilters 'armeabi'
+            abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a'
         }
+
+        manifestPlaceholders = [
+                XG_ACCESS_ID : "2100272766",
+                XG_ACCESS_KEY: "AYZ2319F1KCC",
+        ]
+
         signingConfig signingConfigs.debug
         multiDexEnabled true
     }
@@ -36,7 +43,7 @@ android {
         }
     }
 
-productFlavors {
+    productFlavors {
     }
 }
 
@@ -87,5 +94,14 @@ dependencies {
     compile 'pub.devrel:easypermissions:1.0.0'
     compile 'org.apmem.tools:layouts:1.10@aar'
     compile 'com.umeng.analytics:analytics:latest.integration'
+    //信鸽3.2.0 稳定版本
+//信鸽jar
+    compile 'com.tencent.xinge:xinge:3.2.0-release'
+
+//wup包
+    compile 'com.tencent.wup:wup:1.0.0.E-release'
+
+//mid包
+    compile 'com.tencent.mid:mid:4.0.0-release'
 
 }

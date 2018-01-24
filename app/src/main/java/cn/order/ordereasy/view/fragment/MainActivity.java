@@ -14,6 +14,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -28,10 +29,15 @@ import android.widget.PopupWindow;
 import android.widget.Toast;
 
 import com.google.gson.JsonObject;
+import com.tencent.android.tpush.XGIOperateCallback;
+import com.tencent.android.tpush.XGPushClickedResult;
+import com.tencent.android.tpush.XGPushConfig;
+import com.tencent.android.tpush.XGPushManager;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 
 import cn.order.ordereasy.R;
+import cn.order.ordereasy.receiver.MessageReceiver;
 import cn.order.ordereasy.utils.DataStorageUtils;
 import cn.order.ordereasy.utils.GsonUtils;
 import cn.order.ordereasy.utils.MyLog;
@@ -139,13 +145,28 @@ public class MainActivity extends FragmentActivity implements OnClickListener, F
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-       // initData();
+        // initData();
     }
 
     /**
      * 初始化数据
      */
     private void initData() {
+        //为测试方便设置，发布上线时设置为false
+        XGPushConfig.enableDebug(this, false);
+        //注册方法
+        XGPushManager.registerPush(this, new XGIOperateCallback() {
+            @Override
+            public void onSuccess(Object data, int flag) {
+                Log.e("TPush", "注册成功,Token值为：" + data);
+            }
+
+            @Override
+            public void onFail(Object data, int errCode, String msg) {
+                Log.e("TPush", "注册失败,错误码为：" + errCode + ",错误信息：" + msg);
+            }
+        });
+
         fragmentStore = new FragmentStore();
         fragmentThings = new FragmentShelves();
         fragmentOrder = new FragmentOrder();
@@ -225,7 +246,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener, F
      * 点击了“店铺”按钮
      */
     private void clickStoreBtn() {
-        if(isFrist) {
+        if (isFrist) {
             switchFragment(fragmentStore).commit();
             fragmentStore.onResume();
         }

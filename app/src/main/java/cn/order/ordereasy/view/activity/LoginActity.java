@@ -21,6 +21,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.gson.JsonObject;
+import com.tencent.android.tpush.XGPushClickedResult;
+import com.tencent.android.tpush.XGPushManager;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -43,19 +45,37 @@ public class LoginActity extends BaseActivity implements OrderEasyView {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // 判断是否从推送通知栏打开的
+        XGPushClickedResult click = XGPushManager.onActivityStarted(this);
+        if (click != null) {
+            //从推送通知栏打开Service打开Activity会重新执行Laucher流程  //查看是不是全新打开的面板
+            if (isTaskRoot()) {
+                return;
+            }
+            finish();//如果有面板存在则关闭当前的面板
+        }
+
         //绑定界面
         setContentView(R.layout.login);
+
         setTranslucent(this);
         //控件查找
         ButterKnife.inject(this);
-        spPreferences = getSharedPreferences("user", 0);
-        this.orderEasyPresenter = new OrderEasyPresenterImp(this);
+        spPreferences =
+
+                getSharedPreferences("user", 0);
+        this.orderEasyPresenter = new
+
+                OrderEasyPresenterImp(this);
+
         String username = spPreferences.getString("user_name", "");
         String pwd = spPreferences.getString("user_pwd", "");
         user_name.setText(username);
         password.setText(pwd);
         Bundle bundle = getIntent().getExtras();
-        if (bundle != null) {
+        if (bundle != null)
+
+        {
             isWelcome = bundle.getBoolean("flag");
             if (isWelcome) {
                 if (pwd != null && !pwd.equals("")) {
@@ -64,8 +84,12 @@ public class LoginActity extends BaseActivity implements OrderEasyView {
             }
         }
         //输入框光标始终显示在文本后面
-        user_name.setSelection(user_name.getText().length());
-        password.setSelection(password.getText().length());
+        user_name.setSelection(user_name.getText().
+
+                length());
+        password.setSelection(password.getText().
+
+                length());
 
         //光标不显示
         user_name.setCursorVisible(true);

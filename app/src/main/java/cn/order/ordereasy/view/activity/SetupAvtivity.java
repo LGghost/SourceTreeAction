@@ -273,6 +273,13 @@ public class SetupAvtivity extends BaseActivity implements OrderEasyView {
         startActivity(intent);
     }
 
+    //帮助按钮
+    @OnClick(R.id.remaining_time)
+    void remaining_time() {
+        Intent intent = new Intent(SetupAvtivity.this, ExperienceInterfaceActivity.class);
+        startActivity(intent);
+    }
+
     //关于按钮
     @OnClick(R.id.about)
     void about() {
