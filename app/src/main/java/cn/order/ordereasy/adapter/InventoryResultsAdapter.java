@@ -185,10 +185,9 @@ public class InventoryResultsAdapter extends BaseExpandableListAdapter {
         List<String> spec_datas = data.getSpec_data();
         if (spec_datas == null) spec_datas = new ArrayList<>();
         if (spec_datas.size() == 2) {
-
-            viewHolder.guige_nun.setText(FileUtils.cutOutString(4, data.getSpec_data().get(0)) + "/" + FileUtils.cutOutString(4, data.getSpec_data().get(1)));
+            viewHolder.guige_nun.setText(data.getSpec_data().get(0) + "/" + data.getSpec_data().get(1));
         } else if (spec_datas.size() == 1) {
-            viewHolder.guige_nun.setText(FileUtils.cutOutString(6, data.getSpec_data().get(0)));
+            viewHolder.guige_nun.setText(data.getSpec_data().get(0));
         } else {
             viewHolder.guige_nun.setText("无");
         }

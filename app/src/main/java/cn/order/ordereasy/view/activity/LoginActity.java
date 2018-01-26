@@ -4,9 +4,12 @@ package cn.order.ordereasy.view.activity;
  * 登录activity
  **/
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -15,14 +18,21 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.gson.JsonObject;
 import com.tencent.android.tpush.XGPushClickedResult;
 import com.tencent.android.tpush.XGPushManager;
+
+import java.lang.reflect.Field;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -57,17 +67,11 @@ public class LoginActity extends BaseActivity implements OrderEasyView {
 
         //绑定界面
         setContentView(R.layout.login);
-
-        setTranslucent(this);
         //控件查找
         ButterKnife.inject(this);
-        spPreferences =
-
-                getSharedPreferences("user", 0);
-        this.orderEasyPresenter = new
-
-                OrderEasyPresenterImp(this);
-
+        setTranslucent(this);
+        spPreferences = getSharedPreferences("user", 0);
+        this.orderEasyPresenter = new OrderEasyPresenterImp(this);
         String username = spPreferences.getString("user_name", "");
         String pwd = spPreferences.getString("user_pwd", "");
         user_name.setText(username);
@@ -116,7 +120,7 @@ public class LoginActity extends BaseActivity implements OrderEasyView {
 
     //注册按钮
     @InjectView(R.id.registration)
-    TextView registration;
+    LinearLayout registration;
 
     //需要的点击事件
     //点击忘记密码的操作
@@ -150,6 +154,12 @@ public class LoginActity extends BaseActivity implements OrderEasyView {
     void registration() {
         Intent intent = new Intent(LoginActity.this, RegisterActivity.class);
         startActivity(intent);
+    }
+
+    //体验一下
+    @OnClick(R.id.experience)
+    void experience() {
+//        orderEasyPresenter.login(username, pwd);
     }
 
     Handler handler = new Handler() {
@@ -318,4 +328,9 @@ public class LoginActity extends BaseActivity implements OrderEasyView {
         return super.onKeyDown(keyCode, event);
 
     }
+
 }
+
+
+
+

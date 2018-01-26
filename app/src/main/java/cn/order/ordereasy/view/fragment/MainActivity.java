@@ -43,6 +43,7 @@ import cn.order.ordereasy.utils.GsonUtils;
 import cn.order.ordereasy.utils.MyLog;
 import cn.order.ordereasy.utils.ToastUtil;
 import cn.order.ordereasy.utils.UmengUtils;
+import cn.order.ordereasy.utils.XGPushUtils;
 import cn.order.ordereasy.view.activity.BillingActivity;
 import cn.order.ordereasy.view.activity.ExperienceInterfaceActivity;
 import cn.order.ordereasy.view.activity.LoginActity;
@@ -152,20 +153,8 @@ public class MainActivity extends FragmentActivity implements OnClickListener, F
      * 初始化数据
      */
     private void initData() {
-        //为测试方便设置，发布上线时设置为false
-        XGPushConfig.enableDebug(this, false);
-        //注册方法
-        XGPushManager.registerPush(this, new XGIOperateCallback() {
-            @Override
-            public void onSuccess(Object data, int flag) {
-                Log.e("TPush", "注册成功,Token值为：" + data);
-            }
-
-            @Override
-            public void onFail(Object data, int errCode, String msg) {
-                Log.e("TPush", "注册失败,错误码为：" + errCode + ",错误信息：" + msg);
-            }
-        });
+        //信鸽注册
+        XGPushUtils.getInstance().register(this);
 
         fragmentStore = new FragmentStore();
         fragmentThings = new FragmentShelves();

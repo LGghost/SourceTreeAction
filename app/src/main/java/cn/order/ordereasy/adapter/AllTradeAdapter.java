@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -57,7 +58,6 @@ public class AllTradeAdapter extends BaseAdapter {
             view = LayoutInflater.from(context).inflate(R.layout.all_trade_item, null);
             holder = new AllTradeViewHold();
             holder.all_imageview = (ImageView) view.findViewById(R.id.all_imageview);
-            holder.right_layout = (RelativeLayout) view.findViewById(R.id.right_layout);
             holder.all_id = (TextView) view.findViewById(R.id.all_id);
             holder.all_sales = (TextView) view.findViewById(R.id.all_sales);
             holder.all_listview = (ListView) view.findViewById(R.id.all_listview);
@@ -74,7 +74,7 @@ public class AllTradeAdapter extends BaseAdapter {
             holder.all_listview.setAdapter(adapter);
             holder.all_listview.setVisibility(View.GONE);
             final int pos = i;
-            holder.right_layout.setOnClickListener(new View.OnClickListener() {
+            view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (holder.all_listview.getVisibility() == View.GONE) {
@@ -90,7 +90,6 @@ public class AllTradeAdapter extends BaseAdapter {
 
     class AllTradeViewHold {
         ImageView all_imageview;
-        RelativeLayout right_layout;
         TextView all_id;
         TextView all_sales;
         ListView all_listview;

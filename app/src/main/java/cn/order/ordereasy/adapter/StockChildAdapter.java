@@ -86,9 +86,9 @@ public class StockChildAdapter extends BaseAdapter {
         final Product product = this.data.get(position);
         if (product.getSpec_data().size() > 0) {
             if (product.getSpec_data().size() == 1) {
-                viewHolder.name.setText(FileUtils.cutOutString(6, product.getSpec_data().get(0)));
+                viewHolder.name.setText(product.getSpec_data().get(0));
             } else if (product.getSpec_data().size() == 2) {
-                viewHolder.name.setText(FileUtils.cutOutString(4, product.getSpec_data().get(0)) + "/" + FileUtils.cutOutString(4, product.getSpec_data().get(1)));
+                viewHolder.name.setText(product.getSpec_data().get(0) + "/" + product.getSpec_data().get(1));
 
             }
         } else {

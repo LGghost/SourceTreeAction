@@ -9,13 +9,16 @@
 
 
     <LinearLayout
+        android:id="@+id/content_layout"
         android:layout_width="280dp"
         android:layout_height="wrap_content"
         android:background="@drawable/yuanjiao_but_tanchuan_bac"
         android:orientation="vertical"
-        android:paddingTop="10dp">
+        android:paddingTop="10dp"
+        android:visibility="gone">
 
         <TextView
+            android:id="@+id/title_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -43,6 +46,7 @@
             android:background="@color/touzi_huise" />
 
         <LinearLayout
+            android:id="@+id/bottom_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -79,6 +83,16 @@
 
 
         </LinearLayout>
+        <TextView
+            android:id="@+id/know"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:padding="10dp"
+            android:text="我知道了"
+            android:textColor="@color/lanse"
+            android:textSize="16sp" />
     </LinearLayout>
 
 </LinearLayout>

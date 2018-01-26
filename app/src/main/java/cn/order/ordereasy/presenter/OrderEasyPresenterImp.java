@@ -22,6 +22,7 @@ import cn.order.ordereasy.model.OrderEasyApiModelImp;
 import cn.order.ordereasy.utils.HttpsUtil;
 import cn.order.ordereasy.utils.NetWorkUtils;
 import cn.order.ordereasy.utils.ToastUtil;
+import cn.order.ordereasy.utils.XGPushUtils;
 import cn.order.ordereasy.view.OrderEasyView;
 import cn.order.ordereasy.view.activity.LoginActity;
 import cn.order.ordereasy.view.activity.ModifyCustomerActivity;
@@ -51,6 +52,7 @@ public class OrderEasyPresenterImp extends OrderEasyPresenter implements OrderEa
 //            ToastUtil.show(message);
 //        }
         if (status == -7) {
+            XGPushUtils.getInstance().unRegister(MyApplication.getInstance().mContext);
             ToastUtil.show(MyApplication.getInstance().mContext.getString(R.string.landfall_overdue));
             Intent intent = new Intent(MyApplication.getInstance().mContext, LoginActity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);

@@ -79,7 +79,7 @@ public class PrintOrderNoSetUpActivity extends BaseActivity {
         if (goods.size() > 0) {
             for (int i = 0; i < goods.size(); i++) {
                 List<Product> products = goods.get(i).getProduct_list();
-                long itemCode = Long.parseLong(goods.get(i).getGoods_no());
+                String itemCode = goods.get(i).getGoods_no();
                 String goodsName = goods.get(i).getTitle();
                 for (int j = 0; j < products.size(); j++) {
                     PrintInfo printInfo = new PrintInfo();

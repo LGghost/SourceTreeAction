@@ -36,6 +36,7 @@ import cn.order.ordereasy.utils.DataStorageUtils;
 import cn.order.ordereasy.utils.SystemfieldUtils;
 import cn.order.ordereasy.utils.ToastUtil;
 import cn.order.ordereasy.utils.UpdataApp;
+import cn.order.ordereasy.utils.XGPushUtils;
 import cn.order.ordereasy.view.OrderEasyView;
 
 public class SetupAvtivity extends BaseActivity implements OrderEasyView {
@@ -104,6 +105,7 @@ public class SetupAvtivity extends BaseActivity implements OrderEasyView {
                 editor.commit();
                 DataStorageUtils.getInstance().cleanData();
                 MobclickAgent.onProfileSignOff();
+                XGPushUtils.getInstance().unRegister(SetupAvtivity.this);
                 Intent intent = new Intent(SetupAvtivity.this, LoginActity.class);
                 startActivity(intent);
                 SetupAvtivity.this.finish();

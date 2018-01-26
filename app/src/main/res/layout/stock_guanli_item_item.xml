@@ -16,16 +16,16 @@
 
         <TextView
             android:id="@+id/textView15"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="3"
             android:gravity="center_horizontal"
             android:text="规格"
             android:textColor="@color/shouye_huise"
             android:textSize="16sp" />
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center_horizontal"
@@ -35,7 +35,7 @@
 
         <TextView
             android:id="@+id/textView14"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
@@ -56,9 +56,9 @@
         android:paddingTop="10dp">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="3"
             android:gravity="center_horizontal"
             android:orientation="horizontal">
 
@@ -68,6 +68,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:text=""
+                android:maxLines="2"
+                android:ellipsize="end"
                 android:textColor="@color/heise"
                 android:textSize="14sp" />
 
@@ -77,7 +79,7 @@
 
         <TextView
             android:id="@+id/jiage"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center_horizontal"
@@ -87,7 +89,7 @@
 
         <TextView
             android:id="@+id/guige_num"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center_horizontal"

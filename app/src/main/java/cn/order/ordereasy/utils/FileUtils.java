@@ -254,10 +254,12 @@ public class FileUtils {
         String name1;
         String[] all = str.split("/");
         if (all.length == 2) {
-            name = cutOutString(4, all[0]);
-            name1 = cutOutString(4, all[1]);
+//            name = cutOutString(4, all[0]);
+//            name1 = cutOutString(4, all[1]);
+            name = all[0];
+            name1 = all[1];
         } else {
-            name = cutOutString(4, all[0]);
+            name = all[0];
             return name;
         }
         return name + "/" + name1;
@@ -394,14 +396,15 @@ public class FileUtils {
             {".zip", "application/x-zip-compressed"},
             {"", "*/*"}
     };
-    public static String getJson(Context context,String fileName){
+
+    public static String getJson(Context context, String fileName) {
         StringBuilder stringBuilder = new StringBuilder();
         //获得assets资源管理器
         AssetManager assetManager = context.getAssets();
         //使用IO流读取json文件内容
         try {
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(
-                    assetManager.open(fileName),"utf-8"));
+                    assetManager.open(fileName), "utf-8"));
             String line;
             while ((line = bufferedReader.readLine()) != null) {
                 stringBuilder.append(line);

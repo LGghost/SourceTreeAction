@@ -7,9 +7,9 @@
 
     <ViewFlipper
         android:id="@+id/viewflipper"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_gravity="center_horizontal"
-        android:layout_height="wrap_content" />
+        android:layout_height="match_parent" />
 
     <LinearLayout
         android:id="@+id/ll_dot"
@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center_horizontal"
         android:gravity="center_horizontal"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="10dp"
         android:orientation="horizontal" >
 
         <ImageView
@@ -49,20 +49,27 @@
             android:contentDescription="@string/dot"
             android:background="@drawable/dot" />
 
-  
+        <ImageView
+            android:id="@+id/iv_4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="3dp"
+            android:clickable="true"
+            android:layout_gravity="center_vertical"
+            android:contentDescription="@string/dot"
+            android:background="@drawable/dot" />
 
     </LinearLayout>
 
     <Button
         android:id="@+id/welcome"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="120dp"
+        android:layout_height="30dp"
         android:layout_gravity="center_horizontal|bottom"
-        android:layout_marginBottom="80dp"
-        android:padding="10dp"
+        android:layout_marginBottom="30dp"
         android:textColor="@color/white"
         android:text="开始使用"
-        android:textSize="18sp"
+        android:textSize="16sp"
         android:layout_marginLeft="60dp"
         android:layout_marginRight="60dp"
         android:visibility="gone"

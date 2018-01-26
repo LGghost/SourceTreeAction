@@ -42,9 +42,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="123456"
+                    android:maxLines="2"
                     android:ellipsize="end"
-                    android:maxEms="8"
-                    android:singleLine="true"
                     android:textColor="@color/heise"
                     android:textSize="16sp" />
 

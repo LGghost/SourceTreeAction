@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
     <LinearLayout
         android:id="@+id/lay_1"
         android:layout_width="match_parent"
@@ -16,119 +17,115 @@
             android:layout_height="48dp"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="10dp"
-            android:src="@drawable/dhwy_bg_image"
-            android:scaleType="centerCrop" />
+            android:scaleType="centerCrop"
+            android:src="@drawable/dhwy_bg_image" />
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="10dp">
-
-            <TextView
-                android:id="@+id/kaidan_goodname"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_marginTop="8dp"
-                android:text="123456"
-                android:textColor="@color/heise"
-                android:textSize="14sp" />
-
-            <ImageView
-                android:id="@+id/kaidan_shanchu"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="8dp"
-                android:src="@drawable/icon_shanchu" />
-
-            <TextView
-                android:id="@+id/kaidan_shulian"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentLeft="true"
-                android:layout_marginBottom="8dp"
-                android:text="数量："
-                android:textColor="@color/heise"
-                android:textSize="14sp" />
-
-            <TextView
-                android:id="@+id/kaidan_goodnum"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_marginBottom="8dp"
-                android:layout_marginLeft="2dp"
-                android:layout_toRightOf="@+id/kaidan_shulian"
-                android:text="4"
-                android:textColor="@color/heise"
-                android:textSize="14sp" />
-
-            <TextView
-                android:id="@+id/kaidan_y"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_marginBottom="8dp"
-                android:layout_marginLeft="5dp"
-                android:layout_toRightOf="@+id/kaidan_goodnum"
-                android:text="(¥ "
-                android:textColor="@color/shouye_hongse"
-                android:textSize="14sp" />
-
-            <TextView
-                android:id="@+id/kaidan_money"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_marginBottom="8dp"
-                android:layout_toRightOf="@+id/kaidan_y"
-                android:text="4"
-                android:textColor="@color/hongse"
-                android:textSize="14sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_marginBottom="8dp"
-                android:layout_toRightOf="@+id/kaidan_money"
-                android:text=")"
-                android:textColor="@color/shouye_hongse"
-                android:textSize="14sp" />
+            android:layout_marginLeft="10dp"
+            android:orientation="vertical">
 
             <LinearLayout
-                android:id="@+id/zhankai"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginBottom="8dp"
-                android:layout_marginRight="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="34dp"
+                android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/kaidan_isshow"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/kaidan_goodname"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginRight="3dp"
-                    android:text="收起"
-                    android:textColor="@color/lanse"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:text="123456"
+                    android:textColor="@color/heise"
                     android:textSize="14sp" />
 
                 <ImageView
-                    android:id="@+id/zhankai_img"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:background="@drawable/icon_down_blue" />
+                    android:id="@+id/kaidan_shanchu"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/icon_shanchu" />
             </LinearLayout>
 
-        </RelativeLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/kaidan_shulian"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="数量："
+                    android:textColor="@color/heise"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/kaidan_goodnum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:text="4"
+                    android:textColor="@color/heise"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/kaidan_y"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="(¥ "
+                    android:textColor="@color/shouye_hongse"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/kaidan_money"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="4"
+                    android:textColor="@color/hongse"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text=")"
+                    android:textColor="@color/shouye_hongse"
+                    android:textSize="14sp" />
+
+                <LinearLayout
+                    android:id="@+id/zhankai"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/kaidan_isshow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginRight="3dp"
+                        android:text="收起"
+                        android:textColor="@color/lanse"
+                        android:textSize="14sp" />
+
+                    <ImageView
+                        android:id="@+id/zhankai_img"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/icon_down_blue" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -150,7 +147,7 @@
                 android:id="@+id/textView15"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="1.3"
                 android:gravity="center_horizontal"
                 android:text="规格（库存）"
                 android:textColor="@color/shouye_huise"
@@ -159,7 +156,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="0.7"
                 android:gravity="center_horizontal"
                 android:text="价格"
                 android:textColor="@color/shouye_huise"
@@ -179,7 +176,7 @@
         <ListView
             android:id="@+id/kaidan_specs"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
     </LinearLayout>
 
 </LinearLayout>

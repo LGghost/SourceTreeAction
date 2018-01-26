@@ -61,9 +61,9 @@ public class OperateGoodsSpecsAdapter extends BaseAdapter {
         }
         Product data = this.data.get(position);
         if (data.getSpec_data().size() == 1) {
-            viewHolder.name.setText(FileUtils.cutOutString(6, data.getSpec_data().get(0)));
+            viewHolder.name.setText( data.getSpec_data().get(0));
         } else {
-            viewHolder.name.setText(FileUtils.cutOutString(4, data.getSpec_data().get(0)) + "/" + FileUtils.cutOutString(4, data.getSpec_data().get(1)));
+            viewHolder.name.setText( data.getSpec_data().get(0) + "/" +  data.getSpec_data().get(1));
         }
         viewHolder.num.setText(data.getOperate_num() + "");
 

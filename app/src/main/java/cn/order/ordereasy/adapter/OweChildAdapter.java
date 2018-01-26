@@ -55,9 +55,9 @@ public class OweChildAdapter extends BaseAdapter {
             holder = (ChildViewHold) view.getTag();
         }
         if (my.getSpec_data().size() > 1) {
-            holder.child_spec.setText(FileUtils.cutOutString(4, my.getSpec_data().get(0)) + "/" + FileUtils.cutOutString(4, my.getSpec_data().get(1)));
+            holder.child_spec.setText( my.getSpec_data().get(0) + "/" +  my.getSpec_data().get(1));
         } else {
-            holder.child_spec.setText(FileUtils.cutOutString(6, my.getSpec_data().get(0)));
+            holder.child_spec.setText( my.getSpec_data().get(0));
         }
         holder.child_sum.setText("欠 " + my.getOwe_num() + "  (库存 " + my.getStore_num() + ")");
         return view;

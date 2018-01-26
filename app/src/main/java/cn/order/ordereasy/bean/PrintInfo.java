@@ -1,17 +1,17 @@
 package cn.order.ordereasy.bean;
 
 public class PrintInfo {
-    private long itemCode;
+    private String itemCode;
     private String goodsName;
     private String specificationModel;
     private String unitPrice;
     private Double money;
 
-    public long getItemCode() {
+    public String getItemCode() {
         return itemCode;
     }
 
-    public void setItemCode(long itemCode) {
+    public void setItemCode(String itemCode) {
         this.itemCode = itemCode;
     }
 

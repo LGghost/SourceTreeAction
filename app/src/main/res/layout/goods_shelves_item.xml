@@ -24,8 +24,8 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:src="@drawable/dhwy_bg_image"
-                android:scaleType="centerCrop" />
+                android:scaleType="centerCrop"
+                android:src="@drawable/dhwy_bg_image" />
 
             <ImageView
                 android:id="@+id/buff"
@@ -50,6 +50,8 @@
                 android:id="@+id/good_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="2"
                 android:text="这里是货品名称"
                 android:textColor="@color/heise"
                 android:textSize="16sp" />
@@ -156,7 +158,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:orientation="horizontal">
@@ -171,32 +173,27 @@
 
                 <TextView
                     android:id="@+id/good_no"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:ellipsize="end"
-                    android:maxEms="8"
-                    android:singleLine="true"
+                    android:maxLines="2"
                     android:textColor="@color/touzi_huise"
                     android:textSize="14sp" />
 
-                <RelativeLayout
+
+                <TextView
+                    android:id="@+id/good_tuiguang"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical">
-
-                    <TextView
-                        android:id="@+id/good_tuiguang"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginRight="10dp"
-                        android:background="@drawable/yuanjiao_but_lvse"
-                        android:padding="3dp"
-                        android:text="微信推广"
-                        android:textColor="@color/white"
-                        android:textSize="14sp" />
-                </RelativeLayout>
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/yuanjiao_but_lvse"
+                    android:padding="3dp"
+                    android:text="微信推广"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

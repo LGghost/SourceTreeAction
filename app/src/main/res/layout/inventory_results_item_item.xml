@@ -16,16 +16,16 @@
         android:background="#dcdcdc">
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:gravity="center"
             android:text="规格"
             android:textColor="@color/touzi_huise"
             android:textSize="14sp"/>
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
@@ -34,7 +34,7 @@
             android:textSize="14sp"/>
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
@@ -43,7 +43,7 @@
             android:textSize="14sp"/>
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
@@ -70,17 +70,19 @@
 
             <TextView
                 android:id="@+id/guige_nun"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="2"
                 android:gravity="center"
+                android:ellipsize="end"
+                android:maxLines="2"
                 android:text="0"
                 android:textColor="@color/shouye_huise"
                 android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/pandian_kucun"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
@@ -90,7 +92,7 @@
 
             <TextView
                 android:id="@+id/zhangmian_kucun"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
@@ -100,7 +102,7 @@
 
             <TextView
                 android:id="@+id/jieguo"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"

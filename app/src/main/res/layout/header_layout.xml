@@ -48,19 +48,19 @@
         android:paddingTop="10dp">
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:layout_weight="1"
+            android:layout_weight="1.5"
             android:text="规格（￥）"
             android:textColor="@color/touzi_huise"
             android:textSize="16sp" />
 
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1.3"
+            android:layout_weight="1"
             android:gravity="center"
             android:text="库存"
             android:textColor="@color/touzi_huise"
@@ -68,9 +68,9 @@
 
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1.3"
+            android:layout_weight="1"
             android:gravity="center"
             android:text="销量（欠货）"
             android:textColor="@color/touzi_huise"

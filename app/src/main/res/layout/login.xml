@@ -4,24 +4,24 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg_login"
     android:fitsSystemWindows="true"
+    android:gravity="center_horizontal"
     android:orientation="vertical">
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="70dp"
         android:background="@drawable/login_logo" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="90dp"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="60dp"
             android:focusable="true"
             android:focusableInTouchMode="true"
             android:orientation="horizontal">
@@ -30,8 +30,8 @@
                 android:layout_width="@dimen/size20"
                 android:layout_height="@dimen/size20"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="10dp"
-                android:background="@drawable/icon_user" />
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/icon_user_blue" />
 
             <cn.order.ordereasy.utils.ClearEditText
                 android:id="@+id/user_name"
@@ -39,27 +39,21 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="10dp"
-                android:background="@null"
+                android:layout_marginRight="20dp"
                 android:hint="请输入手机号"
                 android:inputType="number"
                 android:maxLength="11"
                 android:paddingLeft="10dp"
                 android:paddingRight="20dp"
                 android:singleLine="true"
-                android:textColor="@color/white"
-                android:textColorHint="@color/white"
-                android:textSize="16sp" />
+                android:textColor="@color/lanse"
+                android:textColorHint="#b4b4b4"
+                android:textSize="16sp"
+                android:theme="@style/MyEditText" />
 
 
         </LinearLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="8dp"
-            android:background="@color/fengexian_baise_color" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -73,8 +67,8 @@
                 android:layout_width="@dimen/size20"
                 android:layout_height="@dimen/size20"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="10dp"
-                android:background="@drawable/icon_clock" />
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/icon_clock_blue" />
 
             <cn.order.ordereasy.utils.ClearEditText
                 android:id="@+id/password"
@@ -82,16 +76,17 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="10dp"
-                android:background="@null"
+                android:layout_marginRight="20dp"
                 android:hint="请输入6~20位密码"
                 android:maxLength="20"
                 android:paddingLeft="10dp"
                 android:paddingRight="20dp"
                 android:password="true"
                 android:singleLine="true"
-                android:textColor="@color/white"
-                android:textColorHint="@color/white"
-                android:textSize="16sp" />
+                android:textColor="@color/lanse"
+                android:textColorHint="#b4b4b4"
+                android:textSize="16sp"
+                android:theme="@style/MyEditText" />
 
             <RelativeLayout
                 android:layout_width="wrap_content"
@@ -126,10 +121,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
                 android:layout_marginTop="10dp"
                 android:padding="10dp"
                 android:text="忘记密码？"
-                android:textColor="@color/white"
+                android:textColor="@color/touzi_huise"
                 android:textSize="16sp" />
         </RelativeLayout>
     </LinearLayout>
@@ -138,8 +134,8 @@
         android:id="@+id/login_but"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:layout_marginTop="40dp"
         android:background="@drawable/yuanjiao_but"
         android:paddingBottom="12dp"
@@ -149,19 +145,56 @@
         android:textSize="18sp" />
 
     <RelativeLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp">
 
-        <TextView
+        <LinearLayout
             android:id="@+id/registration"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:padding="10dp"
-            android:text="免费注册"
-            android:textColor="@color/white"
-            android:textSize="16sp" />
+            android:layout_marginLeft="20dp"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="15dp"
+                android:src="@drawable/icon_register" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="免费注册"
+                android:textColor="@color/lanse"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/experience"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="15dp"
+                android:src="@drawable/icon_experience" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="体验一下"
+                android:textColor="@color/lanse"
+                android:textSize="16sp" />
+        </LinearLayout>
     </RelativeLayout>
 
 </LinearLayout>
