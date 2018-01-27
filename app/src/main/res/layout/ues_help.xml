@@ -86,7 +86,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="4dp"
-                android:text="@string/call_up"
+                android:text="@string/Call_UP"
                 android:textColor="@color/lanse"
                 android:textSize="16sp" />
         </LinearLayout>

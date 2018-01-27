@@ -693,6 +693,12 @@
             android:launchMode="singleTop"
             android:theme="@style/AppTheme.Transparent" />/采购订单/\
         <activity
+            android:name="cn.order.ordereasy.view.activity.SupplierDetailsActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/供应商详情/\
+
+        <activity
             android:name="cn.order.ordereasy.view.activity.SMSManagementActivity"
             android:label="@string/app_name"
             android:launchMode="singleTop"

@@ -46,7 +46,7 @@
                 android:paddingLeft="10dp"
                 android:paddingRight="20dp"
                 android:singleLine="true"
-                android:textColor="@color/lanse"
+                android:textColor="#646464"
                 android:textColorHint="#b4b4b4"
                 android:textSize="16sp"
                 android:theme="@style/MyEditText" />
@@ -83,7 +83,7 @@
                 android:paddingRight="20dp"
                 android:password="true"
                 android:singleLine="true"
-                android:textColor="@color/lanse"
+                android:textColor="#646464"
                 android:textColorHint="#b4b4b4"
                 android:textSize="16sp"
                 android:theme="@style/MyEditText" />

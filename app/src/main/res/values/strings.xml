@@ -124,7 +124,16 @@
     <string name="purchase_hint">输入供应商名称/手机号搜索</string>
     <string name="add_supplier">新增供应商</string>
     <string name="supplier_import">通讯录导入</string>
-
+    <string name="supplier_details">供应商详情</string>
+    <string name="person_in_charge">负责人:</string>
+    <string name="phone">手机:</string>
+    <string name="call">电话:</string>
+    <string name="operating_address">经营地址:</string>
+    <string name="under_supplier_fund">欠供应商款:</string>
+    <string name="modify">修改</string>
+    <string name="account_record">对账记录</string>
+    <string name="procurement_records">采购记录</string>
+    <string name="payment">付款</string>
     <!--金融-->
     <string name="finance_name">姓名</string>
     <string name="finance_phone">电话</string>
@@ -134,7 +143,7 @@
     <string name="sms_notification">发货短信通知剩余:</string>
 
     <!-- 使用帮助-->
-    <string name="call_up">打电话</string>
+    <string name="Call_UP">打电话</string>
     <string name="go_to_the_official_website">前往官网</string>
     <string name="use_a_tutorial">产品使用教程</string>
     <string name="local_manual">查看本地版手册</string>

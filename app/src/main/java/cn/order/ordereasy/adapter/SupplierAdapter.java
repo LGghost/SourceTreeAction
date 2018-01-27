@@ -2,6 +2,7 @@ package cn.order.ordereasy.adapter;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,8 @@ import java.util.List;
 import cn.order.ordereasy.R;
 import cn.order.ordereasy.bean.SupplierBean;
 import cn.order.ordereasy.bean.SupplierIndex;
+import cn.order.ordereasy.view.activity.SupplierDetailsActivity;
+import cn.order.ordereasy.view.activity.SupplierManagementActivity;
 import cn.order.ordereasy.widget.PinnedSectionListView;
 
 //这里实现了自定义Listview中的PinnedSectionListAdapter接口，实现悬浮功能
@@ -26,8 +29,10 @@ public class SupplierAdapter extends BaseAdapter implements
 
     private LayoutInflater inflater;
     private List<SupplierIndex> phoneBookIndexs = new ArrayList<SupplierIndex>();
+    private Context context;
 
     public SupplierAdapter(Context context) {
+        this.context = context;
         inflater = LayoutInflater.from(context);
     }
 
@@ -88,10 +93,18 @@ public class SupplierAdapter extends BaseAdapter implements
                     phoneBookViewHolder.line.setVisibility(View.VISIBLE);
                 }
             }
-            SupplierBean phoneBook = phoneBookIndex.getSupplierBean();
+            final SupplierBean phoneBook = phoneBookIndex.getSupplierBean();
             phoneBookViewHolder.name.setText(phoneBook.getName());
-            phoneBookViewHolder.arrears.setText(phoneBook.getArrears() + "");
-            phoneBookViewHolder.user.setText(phoneBook.getUser());
+            phoneBookViewHolder.arrears.setText("欠供应商款：" + phoneBook.getArrears());
+            phoneBookViewHolder.user.setText("负责人：" + phoneBook.getUser());
+            convertView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, SupplierDetailsActivity.class);
+                    intent.putExtra("data", phoneBook);
+                    context.startActivity(intent);
+                }
+            });
         }
         return convertView;
     }
