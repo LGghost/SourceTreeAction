@@ -1,5 +1,8 @@
 package cn.order.ordereasy.bean;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class SupplierIndex {
     private int type;
     private int sectionPosition;
@@ -45,5 +48,17 @@ public class SupplierIndex {
 
     public void setSupplierBean(SupplierBean supplierBean) {
         this.supplierBean = supplierBean;
+    }
+
+
+    public static List likeString2(List<SupplierIndex> data, String likename) {
+        List<SupplierIndex> list = new ArrayList<>();
+
+        for (int i = 0; i < data.size(); i++) {
+            if (data.get(i).getSupplierBean().getName().contains(likename) || data.get(i).getSupplierBean().getPhone().contains(likename) ) {
+                list.add(data.get(i));
+            }
+        }
+        return list;
     }
 }

@@ -1,16 +1,22 @@
 package cn.order.ordereasy.view.activity;
 
+import android.Manifest;
+import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.provider.ContactsContract;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
@@ -54,6 +60,35 @@ public class SupplierManagementActivity extends BaseActivity implements AbsListV
         supplier_listview.setOnScrollListener(this);
         indexview.setDelegate(this);
         store_refresh.setOnRefreshListener(this);
+        et_search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() > 0) {
+                    List<SupplierIndex> list = SupplierIndex.likeString2(phoneBookIndexs, s.toString());
+                    if (list.size() > 0) {
+                        adapter.setData(list);
+                        adapter.notifyDataSetChanged();
+                    } else {
+                        adapter.setData(getSortData());
+                        adapter.notifyDataSetChanged();
+                    }
+
+                } else {
+                    adapter.setData(getSortData());
+                    adapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
 
@@ -179,6 +214,7 @@ public class SupplierManagementActivity extends BaseActivity implements AbsListV
         phoneBookIndexs.add(phoneBookIndex7);
         phoneBookIndexs.add(phoneBookIndex8);
         phoneBookIndexs.add(phoneBookIndex9);
+        supplier_num.setText("(" + phoneBookIndexs.size() + ")");
 
     }
 
@@ -253,6 +289,8 @@ public class SupplierManagementActivity extends BaseActivity implements AbsListV
     PinnedSectionListView supplier_listview;
     @InjectView(R.id.add_supplier)
     ImageView addSupplier;
+    @InjectView(R.id.et_search)
+    EditText et_search;
 
     //返回按钮
     @OnClick(R.id.return_click)
@@ -264,12 +302,6 @@ public class SupplierManagementActivity extends BaseActivity implements AbsListV
     @OnClick(R.id.add_supplier)
     void add_supplier() {
         showPopWindow();
-    }
-
-    //搜索
-    @OnClick(R.id.et_search)
-    void et_search() {
-
     }
 
     Handler handler = new Handler() {
@@ -327,11 +359,19 @@ public class SupplierManagementActivity extends BaseActivity implements AbsListV
         add_supplier.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {//新增供应商
+                Intent intent = new Intent(SupplierManagementActivity.this, AddSuppliersActivity.class);
+                startActivity(intent);
+                popupWindow.dismiss();
             }
         });
         supplier_import.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {//通讯录导入
+                String[] perms = {Manifest.permission.READ_CONTACTS, Manifest.permission.READ_PHONE_STATE};
+                Intent intent = new Intent(Intent.ACTION_PICK,
+                        ContactsContract.Contacts.CONTENT_URI);
+                startActivityForResult(intent, 0);
+                popupWindow.dismiss();
             }
         });
 

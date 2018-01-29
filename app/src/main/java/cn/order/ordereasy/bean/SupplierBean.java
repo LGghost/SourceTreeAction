@@ -8,7 +8,7 @@ public class SupplierBean extends BaseEntity {
     private String call;
     private double arrears;
     private String address;
-
+    private String remarks;
     public String getName() {
         return name;
     }
@@ -63,5 +63,13 @@ public class SupplierBean extends BaseEntity {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getRemarks() {
+        return remarks;
+    }
+
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
     }
 }

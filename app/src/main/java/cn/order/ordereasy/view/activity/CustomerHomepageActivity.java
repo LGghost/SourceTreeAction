@@ -257,6 +257,7 @@ public class CustomerHomepageActivity extends BaseActivity implements OrderEasyV
         intent.putExtra("customer_name", customer.getName());
         intent.putExtra("customer_id", customer.getCustomer_id());
         intent.putExtra("customer_tel", customer.getTelephone());
+        Log.e("JJF", "customer_name:" + customer.getName() + "customer_id:" + customer.getCustomer_id() + "customer_tel:" + customer.getTelephone());
         this.startActivityForResult(intent, 1002);
     }
 

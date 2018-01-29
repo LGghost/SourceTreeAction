@@ -17,6 +17,7 @@ import cn.order.ordereasy.bean.SupplierBean;
 import cn.order.ordereasy.bean.SupplierIndex;
 import cn.order.ordereasy.view.activity.SupplierDetailsActivity;
 import cn.order.ordereasy.view.activity.SupplierManagementActivity;
+import cn.order.ordereasy.view.activity.SupplierPaymentActivity;
 import cn.order.ordereasy.widget.PinnedSectionListView;
 
 //这里实现了自定义Listview中的PinnedSectionListAdapter接口，实现悬浮功能
@@ -34,6 +35,10 @@ public class SupplierAdapter extends BaseAdapter implements
     public SupplierAdapter(Context context) {
         this.context = context;
         inflater = LayoutInflater.from(context);
+    }
+
+    public void setData(List<SupplierIndex> phoneBookIndexs) {
+        this.phoneBookIndexs = phoneBookIndexs;
     }
 
     public void addDataToList(List<SupplierIndex> phoneBookIndexs) {
@@ -101,6 +106,14 @@ public class SupplierAdapter extends BaseAdapter implements
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(context, SupplierDetailsActivity.class);
+                    intent.putExtra("data", phoneBook);
+                    context.startActivity(intent);
+                }
+            });
+            phoneBookViewHolder.payment.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, SupplierPaymentActivity.class);
                     intent.putExtra("data", phoneBook);
                     context.startActivity(intent);
                 }

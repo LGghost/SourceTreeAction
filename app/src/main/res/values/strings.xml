@@ -134,6 +134,22 @@
     <string name="account_record">对账记录</string>
     <string name="procurement_records">采购记录</string>
     <string name="payment">付款</string>
+    <string name="supplier_information">供应商信息</string>
+    <string name="supplier_name">*名称</string>
+    <string name="supplier_contacts">联系人</string>
+    <string name="supplier_phone">手机</string>
+    <string name="supplier_call">电话</string>
+    <string name="supplier_region">所在地区</string>
+    <string name="detailed_address">详细地址</string>
+    <string name="initial_payment">初始应付款</string>
+    <string name="delete_supplier">删除供应商</string>
+    <string name="supplier_payment">供应商付款</string>
+    <string name="supplier1">供应商：</string>
+    <string name="payment_method">支付方式</string>
+    <string name="business_time">业务时间</string>
+    <string name="supplier_hint">点击按钮实现"本次付款"或"供应商退款"切换</string>
+    <string name="supplier_hint1">提示：最终欠款 = 当前欠款 - 本次付款</string>
+    <string name="this_payment">本次付款</string>
     <!--金融-->
     <string name="finance_name">姓名</string>
     <string name="finance_phone">电话</string>
