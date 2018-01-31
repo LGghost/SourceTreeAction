@@ -144,7 +144,8 @@
     <string name="initial_payment">初始应付款</string>
     <string name="delete_supplier">删除供应商</string>
     <string name="supplier_payment">供应商付款</string>
-    <string name="supplier1">供应商：</string>
+    <string name="supplier_refund">供应商退款</string>
+    <string name="supplier1">供应商:</string>
     <string name="payment_method">支付方式</string>
     <string name="business_time">业务时间</string>
     <string name="supplier_hint">点击按钮实现"本次付款"或"供应商退款"切换</string>

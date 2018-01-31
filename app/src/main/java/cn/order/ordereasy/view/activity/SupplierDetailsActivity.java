@@ -174,6 +174,7 @@ public class SupplierDetailsActivity extends BaseActivity {
     @OnClick(R.id.account_record_layout)
     void account_record_layout() {
         Intent intent = new Intent(this, PurchaseRecordActivity.class);
+        intent.putExtra("data", bean);
         startActivity(intent);
     }
 
@@ -188,6 +189,7 @@ public class SupplierDetailsActivity extends BaseActivity {
     @OnClick(R.id.payment_layout)
     void payment_layout() {
         Intent intent = new Intent(this, SupplierPaymentActivity.class);
+        intent.putExtra("data", bean);
         startActivity(intent);
     }
 

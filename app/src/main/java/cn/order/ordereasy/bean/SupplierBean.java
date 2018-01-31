@@ -1,5 +1,8 @@
 package cn.order.ordereasy.bean;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class SupplierBean extends BaseEntity {
     private int order_id;
     private String name;
@@ -71,5 +74,16 @@ public class SupplierBean extends BaseEntity {
 
     public void setRemarks(String remarks) {
         this.remarks = remarks;
+    }
+
+    public static List likeString1(List<SupplierBean> data, String likename) {
+        List<SupplierBean> list = new ArrayList<>();
+
+        for (int i = 0; i < data.size(); i++) {
+            if (data.get(i).getName().contains(likename) || data.get(i).getPhone().contains(likename) ) {
+                list.add(data.get(i));
+            }
+        }
+        return list;
     }
 }

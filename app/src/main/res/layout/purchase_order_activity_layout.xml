@@ -38,69 +38,95 @@
     </RelativeLayout>
 
     <LinearLayout
+        android:id="@+id/tabs"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:background="@color/white"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:gravity="center">
 
-        <cn.order.ordereasy.widget.DownListView
-            android:id="@+id/purchase_order_time"
-            android:layout_width="0dp"
+        <cn.order.ordereasy.widget.DropdownButton
+            android:id="@+id/chooseType"
+            android:layout_width="0px"
             android:layout_height="match_parent"
             android:layout_weight="1" />
 
         <View
-            android:layout_width="1dp"
-            android:layout_height="20dp"
+            android:layout_width="0.5dp"
+            android:layout_height="18dp"
             android:background="#dddddd" />
 
-        <cn.order.ordereasy.widget.DownListView
-            android:id="@+id/purchase_order_staff"
-            android:layout_width="0dp"
+        <cn.order.ordereasy.widget.DropdownButton
+            android:id="@+id/chooseLabel"
+            android:layout_width="0px"
             android:layout_height="match_parent"
             android:layout_weight="1" />
 
         <View
-            android:layout_width="1dp"
-            android:layout_height="20dp"
+            android:layout_width="0.5dp"
+            android:layout_height="18dp"
             android:background="#dddddd" />
 
-        <cn.order.ordereasy.widget.DownListView
-            android:id="@+id/purchase_type"
-            android:layout_width="0dp"
+        <cn.order.ordereasy.widget.DropdownButton
+            android:id="@+id/chooseOrder"
+            android:layout_width="0px"
             android:layout_height="match_parent"
             android:layout_weight="1" />
     </LinearLayout>
 
-    <RelativeLayout
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/divide" />
+
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/store_refresh"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible">
+
+            <cn.order.ordereasy.widget.LoadMoreListView
+                android:id="@+id/listView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </android.support.v4.widget.SwipeRefreshLayout>
 
         <ImageView
             android:id="@+id/no_data_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
+            android:layout_gravity="center"
             android:background="@drawable/bg_empty_data"
             android:visibility="gone" />
 
-        <android.support.v4.widget.SwipeRefreshLayout
-            android:id="@+id/store_refresh"
+        <View
+            android:id="@+id/mask"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="#80000000" />
 
-            <ListView
-                android:id="@+id/listview"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:divider="@null"
-                android:overScrollMode="never"
-                android:scrollbars="none" />
-        </android.support.v4.widget.SwipeRefreshLayout>
+        <cn.order.ordereasy.widget.DropdownListView
+            android:id="@+id/dropdownType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
 
-    </RelativeLayout>
+        <cn.order.ordereasy.widget.DropdownListView
+            android:id="@+id/dropdownLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+
+        <cn.order.ordereasy.widget.DropdownListView
+            android:id="@+id/dropdownOrder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+
+    </FrameLayout>
+
 </LinearLayout>

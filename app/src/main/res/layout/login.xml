@@ -114,7 +114,8 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/forgot_password"
@@ -191,7 +192,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
-                android:text="体验一下"
+                android:text="忘记密码？"
                 android:textColor="@color/lanse"
                 android:textSize="16sp" />
         </LinearLayout>

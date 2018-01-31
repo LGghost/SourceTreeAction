@@ -32,6 +32,7 @@ import butterknife.InjectView;
 import butterknife.OnClick;
 import cn.order.ordereasy.R;
 import cn.order.ordereasy.adapter.SupplierAdapter;
+import cn.order.ordereasy.adapter.billingPurchaseAdapter;
 import cn.order.ordereasy.bean.Customer;
 import cn.order.ordereasy.bean.SupplierBean;
 import cn.order.ordereasy.bean.SupplierIndex;
@@ -41,9 +42,10 @@ import cn.order.ordereasy.widget.IndexView;
 import cn.order.ordereasy.widget.PinnedSectionListView;
 import cn.order.ordereasy.widget.PinyinComparator;
 
-public class SupplierManagementActivity extends BaseActivity implements AbsListView.OnScrollListener, IndexView.Delegate, SwipeRefreshLayout.OnRefreshListener {
+public class SupplierManagementActivity extends BaseActivity implements AbsListView.OnScrollListener, IndexView.Delegate, SwipeRefreshLayout.OnRefreshListener, SupplierAdapter.OnItemClickListener {
     private SupplierAdapter adapter;
     private List<SupplierIndex> phoneBookIndexs = new ArrayList<>();
+    private String type = "supplier";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,10 +53,16 @@ public class SupplierManagementActivity extends BaseActivity implements AbsListV
         setContentView(R.layout.supplier_management_activity_layout);
         setColor(this, this.getResources().getColor(R.color.lanse));
         ButterKnife.inject(this);
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            type = bundle.getString("type");
+        }
+
         getList();
-        adapter = new SupplierAdapter(this);
+        adapter = new SupplierAdapter(this, type);
         supplier_listview.setAdapter(adapter);
         adapter.addDataToList(getSortData());
+        adapter.setOnItemClickListener(this);
         indexview.bringToFront();
         tv_listindexview_tip.bringToFront();
         supplier_listview.setOnScrollListener(this);
@@ -261,6 +269,7 @@ public class SupplierManagementActivity extends BaseActivity implements AbsListV
         return phoneBookIndexs1;
     }
 
+
     class PinyinComparator implements Comparator<SupplierIndex> {
 
         public int compare(SupplierIndex o1, SupplierIndex o2) {
@@ -387,5 +396,11 @@ public class SupplierManagementActivity extends BaseActivity implements AbsListV
         }, 1000);
     }
 
-
+    @Override
+    public void choose(SupplierBean phoneBook) {
+        Intent intent = new Intent();
+        intent.putExtra("data", phoneBook);
+        setResult(1006, intent);
+        finish();
+    }
 }

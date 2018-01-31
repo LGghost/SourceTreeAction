@@ -76,6 +76,7 @@ public class OrderNoDetailsActivity extends BaseActivity implements OrderEasyVie
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             id = bundle.getInt("id");
+            Log.e("JJF", "id" + id);
             orderEasyPresenter.getOrderInfo(id);
         }
 
@@ -392,7 +393,7 @@ public class OrderNoDetailsActivity extends BaseActivity implements OrderEasyVie
     void order_remarks_layout() {
         Intent intent = new Intent(this, RemarksActivity.class);
         intent.putExtra("content", order.getRemark());
-        intent.putExtra("type",1);
+        intent.putExtra("type", 1);
         startActivity(intent);
     }
 

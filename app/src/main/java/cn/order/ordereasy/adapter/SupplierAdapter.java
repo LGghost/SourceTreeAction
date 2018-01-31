@@ -27,13 +27,15 @@ public class SupplierAdapter extends BaseAdapter implements
     public static final int ITEM = 0;
     //分组Item标识
     public static final int SECTION = 1;
-
+    private OnItemClickListener lister;
     private LayoutInflater inflater;
     private List<SupplierIndex> phoneBookIndexs = new ArrayList<SupplierIndex>();
     private Context context;
+    private String type;
 
-    public SupplierAdapter(Context context) {
+    public SupplierAdapter(Context context, String type) {
         this.context = context;
+        this.type = type;
         inflater = LayoutInflater.from(context);
     }
 
@@ -105,9 +107,15 @@ public class SupplierAdapter extends BaseAdapter implements
             convertView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(context, SupplierDetailsActivity.class);
-                    intent.putExtra("data", phoneBook);
-                    context.startActivity(intent);
+                    if (!type.equals("bill")) {
+                        Intent intent = new Intent(context, SupplierDetailsActivity.class);
+                        intent.putExtra("data", phoneBook);
+                        context.startActivity(intent);
+                    } else {
+                        if (lister != null) {
+                            lister.choose(phoneBook);
+                        }
+                    }
                 }
             });
             phoneBookViewHolder.payment.setOnClickListener(new View.OnClickListener() {
@@ -162,6 +170,14 @@ public class SupplierAdapter extends BaseAdapter implements
         }
         return -1;
 
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.lister = listener;
+    }
+
+    public interface OnItemClickListener {
+        void choose(SupplierBean phoneBook);
     }
 }
 

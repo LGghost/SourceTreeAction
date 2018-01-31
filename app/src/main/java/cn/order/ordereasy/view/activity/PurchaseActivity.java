@@ -26,7 +26,7 @@ public class PurchaseActivity extends BaseActivity {
     //开单
     @OnClick(R.id.kaidan_text)
     void kaidan_text() {
-        Intent intent = new Intent(this, BillingActivity.class);
+        Intent intent = new Intent(this, BillingPurchaseActivity.class);
         startActivity(intent);
     }
 

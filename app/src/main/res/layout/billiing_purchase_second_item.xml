@@ -12,13 +12,13 @@
         android:orientation="horizontal"
         android:paddingBottom="10dp"
         android:paddingTop="10dp"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <TextView
             android:id="@+id/textView15"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="1.3"
             android:gravity="center_horizontal"
             android:text="规格（库存）"
             android:textColor="@color/shouye_huise"
@@ -27,18 +27,19 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="0.7"
             android:gravity="center_horizontal"
-            android:text="欠货"
+            android:text="采购价（¥）"
             android:textColor="@color/shouye_huise"
             android:textSize="14sp" />
 
         <TextView
             android:id="@+id/textView14"
-            android:layout_width="120dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:text="发货数"
+            android:text="数量"
             android:textColor="@color/shouye_huise"
             android:textSize="14sp" />
 
@@ -65,34 +66,13 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:ellipsize="end"
+                android:ellipsize="middle"
                 android:gravity="center"
                 android:maxLines="2"
-                android:text="规格"
+                android:text=""
                 android:textColor="@color/heise"
                 android:textSize="14sp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="（"
-                android:textColor="@color/shouye_huise"
-                android:textSize="14sp" />
-
-            <TextView
-                android:id="@+id/guige_num"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="0"
-                android:textColor="@color/shouye_huise"
-                android:textSize="14sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="）"
-                android:textColor="@color/shouye_huise"
-                android:textSize="14sp" />
         </LinearLayout>
 
 
@@ -112,14 +92,6 @@
                 android:text="0.00"
                 android:textColor="@color/shouye_huise"
                 android:textSize="14sp" />
-
-            <ImageView
-                android:id="@+id/cb_edit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="5dp"
-                android:background="@drawable/img_tianjia" />
 
         </LinearLayout>
 

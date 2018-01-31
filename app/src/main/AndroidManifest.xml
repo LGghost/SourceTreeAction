@@ -712,6 +712,21 @@
             android:label="@string/app_name"
             android:launchMode="singleTop"
             android:theme="@style/AppTheme.Transparent" />/供应商付款/\
+        <activity
+            android:name="cn.order.ordereasy.view.activity.ProcurementDetailsActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/采购单详情/\
+        <activity
+            android:name="cn.order.ordereasy.view.activity.BillingPurchaseActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/开采购单/\
+        <activity
+            android:name="cn.order.ordereasy.view.activity.PurchaseConfirmActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />/确认采购单/\
 
         <activity
             android:name="cn.order.ordereasy.view.activity.SMSManagementActivity"

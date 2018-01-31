@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -74,6 +75,7 @@ public class ArrearsAdapter extends BaseAdapter {
         } else {
             holder = (ArrearsViewHold) view.getTag();
         }
+        Log.e("JJF", "my.getCreate_time():" + my.getCreate_time());
         String time = TimeUtil.getTimeStamp2Str(Long.parseLong(my.getCreate_time()), "yyyy-MM-dd HH:mm:ss");
         holder.time.setText(time);
         holder.arrear_number.setText("客户累计欠款：¥ " + my.getTotal_debt());

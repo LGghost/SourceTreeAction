@@ -110,9 +110,9 @@ public class LoginActity extends BaseActivity implements OrderEasyView {
     @InjectView(R.id.password)
     ClearEditText password;
 
-    //忘记密码按钮
-    @InjectView(R.id.forgot_password)
-    TextView forgot_password;
+//    //忘记密码按钮
+//    @InjectView(R.id.forgot_password)
+//    TextView forgot_password;
 
     //登录按钮
     @InjectView(R.id.login_but)
@@ -123,12 +123,12 @@ public class LoginActity extends BaseActivity implements OrderEasyView {
     LinearLayout registration;
 
     //需要的点击事件
-    //点击忘记密码的操作
-    @OnClick(R.id.forgot_password)
-    void forgot_password() {
-        Intent intent = new Intent(LoginActity.this, ForgotPasswordActivity.class);
-        startActivity(intent);
-    }
+//    //点击忘记密码的操作
+//    @OnClick(R.id.forgot_password)
+//    void forgot_password() {
+//        Intent intent = new Intent(LoginActity.this, ForgotPasswordActivity.class);
+//        startActivity(intent);
+//    }
 
     //登录按钮的操作
     @OnClick(R.id.login_but)
@@ -159,7 +159,8 @@ public class LoginActity extends BaseActivity implements OrderEasyView {
     //体验一下
     @OnClick(R.id.experience)
     void experience() {
-//        orderEasyPresenter.login(username, pwd);
+        Intent intent = new Intent(LoginActity.this, ForgotPasswordActivity.class);
+        startActivity(intent);
     }
 
     Handler handler = new Handler() {

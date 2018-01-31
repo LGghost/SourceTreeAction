@@ -60,19 +60,13 @@ import cn.order.ordereasy.widget.LoadMoreListView;
 public class FragmentOrder extends Fragment implements OrderEasyView, AdapterView.OnItemClickListener, LoadMoreListView.OnLoadMoreListener, SwipeRefreshLayout.OnRefreshListener {
 
     private static final int ID_TYPE_ALL = 0;
-    private static final int ID_TYPE_MY = 1;
     private static final String TYPE_ALL = "所有时间段";
-    private static final String TYPE_MY = "我的讨论";
 
     private static final int ID_LABEL_ALL = -1;
     private static final String LABEL_ALL = "全部员工";
 
     private static final String ORDER_REPLY_TIME = "全部订单";
-    private static final String ORDER_PUBLISH_TIME = "发布时间排序";
-    private static final String ORDER_HOT = "热门排序";
     private static final int ID_ORDER_REPLY_TIME = 51;
-    private static final int ID_ORDER_PUBLISH_TIME = 49;
-    private static final int ID_ORDER_HOT = 53;
 
     View mask;
     DropdownButton chooseType, chooseLabel, chooseOrder;

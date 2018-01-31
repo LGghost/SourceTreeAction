@@ -18,7 +18,6 @@ public class ArrearsBean extends BaseEntity {
     private int user_id;                // 员工id
     private String user_name;        // 员工姓名
 
-
     public String getCreate_time() {
         return create_time;
     }

@@ -206,14 +206,16 @@
             android:textColor="@color/lanse"
             android:textSize="16sp" />
 
-        <TextView
+        <EditText
             android:id="@+id/this_payment_text"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginRight="10dp"
             android:layout_weight="1"
-            android:gravity="right"
+            android:background="@null"
+            android:gravity="center|right"
             android:hint="¥0.00"
+            android:inputType="number|numberDecimal"
             android:textColor="@color/heise"
             android:textSize="16sp" />
     </LinearLayout>

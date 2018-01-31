@@ -57,10 +57,12 @@ public class AddSuppliersActivity extends BaseActivity {
             supplier_call.setText(bean.getCall());
             supplier_address.setText(bean.getAddress());
             supplier_payment.setText(bean.getArrears() + "");
-            supplier_remarks_text.setVisibility(View.VISIBLE);
-            supplier_remarks.setVisibility(View.GONE);
-            supplier_remarks.setText(bean.getRemarks());
-            supplier_remarks_text.setText(bean.getRemarks());
+            if (!TextUtils.isEmpty(bean.getRemarks())) {
+                supplier_remarks_text.setVisibility(View.VISIBLE);
+                supplier_remarks.setVisibility(View.GONE);
+                supplier_remarks.setText(bean.getRemarks());
+                supplier_remarks_text.setText(bean.getRemarks());
+            }
             delete_supplier.setVisibility(View.VISIBLE);
         }
 
