@@ -67,7 +67,6 @@ public class DetailSpecsAdapter extends BaseAdapter {
             viewHolder.name = (TextView) convertView.findViewById(R.id.spec_name);
             viewHolder.kucun = (TextView) convertView.findViewById(R.id.spec_kucun);
             viewHolder.qianhuo = (TextView) convertView.findViewById(R.id.spec_qianhuo);
-            viewHolder.spec_spec = (TextView) convertView.findViewById(R.id.spec_spec);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
@@ -75,9 +74,9 @@ public class DetailSpecsAdapter extends BaseAdapter {
         Product data = this.data.get(position);
         if (data.getSpec_data().size() > 0) {
             if (data.getSpec_data().size() == 1) {
-                viewHolder.name.setText( data.getSpec_data().get(0));
+                viewHolder.name.setText(data.getSpec_data().get(0) + "(" + data.getSell_price() + ")");
             } else if (data.getSpec_data().size() == 2) {
-                viewHolder.name.setText(data.getSpec_data().get(0) + "/" +  data.getSpec_data().get(1));
+                viewHolder.name.setText(data.getSpec_data().get(0) + "/" + data.getSpec_data().get(1) + "(" + data.getSell_price() + ")");
             }
         } else {
             viewHolder.name.setText("无");
@@ -85,7 +84,6 @@ public class DetailSpecsAdapter extends BaseAdapter {
 
         viewHolder.kucun.setText(data.getStore_num() + "");
         viewHolder.qianhuo.setText(data.getSale_num() + "（" + data.getOwe_num() + "）");
-        viewHolder.spec_spec.setText(data.getSell_price() + "");
 
         return convertView;
     }
@@ -95,7 +93,6 @@ public class DetailSpecsAdapter extends BaseAdapter {
         public TextView name;
         public TextView kucun;
         public TextView qianhuo;
-        public TextView spec_spec;
 
     }
 

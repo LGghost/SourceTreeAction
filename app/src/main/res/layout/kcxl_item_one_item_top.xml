@@ -16,7 +16,7 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
+            android:layout_weight="1.5"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
@@ -28,32 +28,11 @@
                 android:layout_weight="1"
                 android:ellipsize="end"
                 android:gravity="center"
-                android:maxLines="2"
+                android:maxLines="3"
                 android:text="规格名称"
                 android:textColor="@color/touzi_huise"
                 android:textSize="14sp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="（"
-                android:textColor="@color/touzi_huise"
-                android:textSize="14sp" />
-
-            <TextView
-                android:id="@+id/spec_spec"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="0"
-                android:textColor="@color/touzi_huise"
-                android:textSize="14sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="）"
-                android:textColor="@color/touzi_huise"
-                android:textSize="14sp" />
         </LinearLayout>
 
 
