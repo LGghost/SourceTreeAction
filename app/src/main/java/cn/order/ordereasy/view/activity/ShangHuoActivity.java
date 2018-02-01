@@ -713,7 +713,6 @@ public class ShangHuoActivity extends BaseActivity implements EasyPermissions.Pe
 
     @Override
     public void showProgress(int type) {
-
     }
 
     @Override
@@ -813,6 +812,7 @@ public class ShangHuoActivity extends BaseActivity implements EasyPermissions.Pe
                     break;
                 case 1002:
                     result = (JsonObject) msg.obj;
+                    Log.e("ShangHuoActivity", result.toString());
                     if (result != null) {
                         int status = result.get("code").getAsInt();
                         if (status == 1) {
@@ -823,18 +823,12 @@ public class ShangHuoActivity extends BaseActivity implements EasyPermissions.Pe
                             for (Map.Entry<String, ?> entry : key_Value.entrySet()) {
                                 sp.edit().remove(entry.getKey()).commit();
                             }
-                            if(!flag.equals("detail")) {
+                            if (!flag.equals("detail")) {
                                 DataStorageUtils.getInstance().setShanghuo(true);
                             }
                             ProgressUtil.dissDialog();
                             setResult(1001);
                             finish();
-                        } else {
-                            if (status == -7) {
-                                ToastUtil.show(getString(R.string.landfall_overdue));
-                                Intent intent = new Intent(ShangHuoActivity.this, LoginActity.class);
-                                startActivity(intent);
-                            }
                         }
                     }
                     ProgressUtil.dissDialog();
@@ -866,13 +860,6 @@ public class ShangHuoActivity extends BaseActivity implements EasyPermissions.Pe
                                 ProgressUtil.dissDialog();
                                 uploadData();
                             }
-                        } else {
-                            String message = result.get("message").getAsString();
-                            ToastUtil.show(message);
-                            if (status == -7) {
-//                                Intent intent = new Intent(SpecificationsGuanliActivity.this, LoginActity.class);
-//                                startActivity(intent);
-                            }
                         }
                     }
                     Log.e("图片信息", result.toString());
@@ -887,12 +874,6 @@ public class ShangHuoActivity extends BaseActivity implements EasyPermissions.Pe
                             ProgressUtil.dissDialog();
                             setResult(1001);
                             finish();
-                        } else {
-                            if (status == -7) {
-                                ToastUtil.show(getString(R.string.landfall_overdue));
-                                Intent intent = new Intent(ShangHuoActivity.this, LoginActity.class);
-                                startActivity(intent);
-                            }
                         }
                     }
                     Log.e("修改信息", result.toString());

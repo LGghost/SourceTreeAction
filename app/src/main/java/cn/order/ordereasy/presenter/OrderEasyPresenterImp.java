@@ -2,6 +2,7 @@ package cn.order.ordereasy.presenter;
 
 import android.app.Application;
 import android.content.Intent;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.google.gson.JsonObject;
@@ -24,6 +25,7 @@ import cn.order.ordereasy.utils.NetWorkUtils;
 import cn.order.ordereasy.utils.ToastUtil;
 import cn.order.ordereasy.utils.XGPushUtils;
 import cn.order.ordereasy.view.OrderEasyView;
+import cn.order.ordereasy.view.activity.ExperienceInterfaceActivity;
 import cn.order.ordereasy.view.activity.LoginActity;
 import cn.order.ordereasy.view.activity.ModifyCustomerActivity;
 
@@ -46,17 +48,32 @@ public class OrderEasyPresenterImp extends OrderEasyPresenter implements OrderEa
     public void onSuccess(JsonObject res, int type) {
         orderEasyView.hideProgress(1);
         orderEasyView.loadData(res, type);
-        int status = res.get("code").getAsInt();
-//        if (status == -1 || status == -9) {
-//            String message = res.get("message").getAsString();
-//            ToastUtil.show(message);
-//        }
-        if (status == -7) {
-            XGPushUtils.getInstance().unRegister(MyApplication.getInstance().mContext);
-            ToastUtil.show(MyApplication.getInstance().mContext.getString(R.string.landfall_overdue));
-            Intent intent = new Intent(MyApplication.getInstance().mContext, LoginActity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-            MyApplication.getInstance().mContext.startActivity(intent);
+        if (res != null) {
+            int status = res.get("code").getAsInt();
+            if (status == 1) {
+
+            } else if (status == -7) {
+                XGPushUtils.getInstance().unRegister(MyApplication.getInstance().mContext);
+                ToastUtil.show(MyApplication.getInstance().mContext.getString(R.string.landfall_overdue));
+                Intent intent = new Intent(MyApplication.getInstance().mContext, LoginActity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                MyApplication.getInstance().mContext.startActivity(intent);
+            } else if (status == -21 || status == -22) {
+                ToastUtil.show(MyApplication.getInstance().mContext.getString(R.string.landfall_overdue));
+                Intent intent = new Intent(MyApplication.getInstance().mContext, ExperienceInterfaceActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                MyApplication.getInstance().mContext.startActivity(intent);
+            } else {
+                String message = res.get("message").getAsString();
+                if (!TextUtils.isEmpty(message)) {
+                    ToastUtil.show(message);
+                } else {
+                    ToastUtil.show(MyApplication.getInstance().mContext.getString(R.string.landfall_overdue1) + "<01>");
+                }
+            }
+
+        } else {
+            ToastUtil.show(MyApplication.getInstance().mContext.getString(R.string.landfall_overdue1) + "<02>");
         }
     }
 
@@ -67,6 +84,7 @@ public class OrderEasyPresenterImp extends OrderEasyPresenter implements OrderEa
         if (e.toString().equals("java.net.SocketTimeoutException: connect timed out")) {
             orderEasyView.hideProgress(2);
         } else {
+            ToastUtil.show(MyApplication.getInstance().mContext.getString(R.string.landfall_overdue1) + "<03>");
             orderEasyView.hideProgress(0);
         }
     }
@@ -1049,12 +1067,13 @@ public class OrderEasyPresenterImp extends OrderEasyPresenter implements OrderEa
             orderEasyView.hideProgress(2);
         }
     }
+
     //贷款申请
     @Override
     public void loanAsk(String telephone, String name, String purpose, String identity, String gender) {
         orderEasyView.showProgress(1);
         if (NetWorkUtils.isNetworkConnected(MyApplication.getInstance().mContext)) {
-            addSubscription(orderEasyApiModel.loanAsk(telephone,name,purpose,identity,gender));
+            addSubscription(orderEasyApiModel.loanAsk(telephone, name, purpose, identity, gender));
         } else {
             orderEasyView.hideProgress(2);
         }

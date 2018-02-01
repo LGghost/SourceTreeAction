@@ -47,6 +47,7 @@ import cn.order.ordereasy.view.activity.LoginActity;
 import cn.order.ordereasy.view.activity.QRCodePreviewActivity;
 import cn.order.ordereasy.view.activity.ShangHuoActivity;
 import cn.order.ordereasy.view.activity.StockManageActivity;
+import cn.order.ordereasy.widget.GuideDialog;
 
 public class DetailsGoodsActivity extends FragmentActivity implements OrderEasyView {
 
@@ -81,6 +82,8 @@ public class DetailsGoodsActivity extends FragmentActivity implements OrderEasyV
         }
         goodId = bundle.getInt("goodId");
         initData();
+        //新手引导
+        new GuideDialog(3, this);
     }
 
     private void initData() {

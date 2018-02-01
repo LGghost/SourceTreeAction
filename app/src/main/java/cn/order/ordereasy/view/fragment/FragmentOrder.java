@@ -55,6 +55,7 @@ import cn.order.ordereasy.view.activity.SearchOrderActivity;
 import cn.order.ordereasy.widget.DropdownButton;
 import cn.order.ordereasy.widget.DropdownListItemView;
 import cn.order.ordereasy.widget.DropdownListView;
+import cn.order.ordereasy.widget.GuideDialog;
 import cn.order.ordereasy.widget.LoadMoreListView;
 
 public class FragmentOrder extends Fragment implements OrderEasyView, AdapterView.OnItemClickListener, LoadMoreListView.OnLoadMoreListener, SwipeRefreshLayout.OnRefreshListener {
@@ -168,6 +169,8 @@ public class FragmentOrder extends Fragment implements OrderEasyView, AdapterVie
             orderEasyPresenter.getEmployee(1);
             refreshData(1, true);
         }
+        //新手引导
+        new GuideDialog(4, getActivity());
         return rootView;
     }
 

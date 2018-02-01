@@ -1,10 +1,8 @@
 package cn.order.ordereasy.app;
 
 
-import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
-import android.util.Log;
 
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -12,19 +10,11 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
-import com.tencent.android.tpush.XGNotifaction;
-import com.tencent.android.tpush.XGPushManager;
-import com.tencent.android.tpush.XGPushNotifactionCallback;
 import com.tencent.bugly.crashreport.CrashReport;
-import com.umeng.socialize.PlatformConfig;
-import com.umeng.socialize.UMShareAPI;
-
-import java.util.List;
 
 import cn.bingoogolapple.swipebacklayout.BGASwipeBackManager;
 import cn.order.ordereasy.R;
 import cn.order.ordereasy.service.OrderEasyApi;
-import cn.order.ordereasy.utils.DataStorageUtils;
 import cn.order.ordereasy.utils.RequestUtils;
 import cn.order.ordereasy.utils.UmengUtils;
 
@@ -53,8 +43,8 @@ public class MyApplication extends Application {
         BGASwipeBackManager.getInstance().init(this);
         UmengUtils.getInstance().register(this);
         CrashReport.initCrashReport(getApplicationContext(), "30f0d4873e", false);
-
     }
+
 
     public OrderEasyApi getService() {
         return RequestUtils.getInstance(this).getKoalaApiService();

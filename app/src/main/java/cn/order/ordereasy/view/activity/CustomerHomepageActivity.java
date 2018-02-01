@@ -50,6 +50,7 @@ import cn.order.ordereasy.utils.PinyinUtil;
 import cn.order.ordereasy.utils.ProgressUtil;
 import cn.order.ordereasy.utils.ToastUtil;
 import cn.order.ordereasy.view.OrderEasyView;
+import cn.order.ordereasy.widget.GuideDialog;
 import cn.order.ordereasy.widget.LoadMoreListView;
 import cn.order.ordereasy.widget.NormalRefreshViewHolder;
 import pub.devrel.easypermissions.AfterPermissionGranted;
@@ -135,6 +136,8 @@ public class CustomerHomepageActivity extends BaseActivity implements OrderEasyV
                 }
             }
         });
+        //新手引导
+        new GuideDialog(7, this);
     }
 
     @Override

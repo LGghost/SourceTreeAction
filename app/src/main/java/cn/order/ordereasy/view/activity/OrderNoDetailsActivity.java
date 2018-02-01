@@ -46,6 +46,7 @@ import cn.order.ordereasy.utils.ToastUtil;
 import cn.order.ordereasy.view.OrderEasyView;
 import cn.order.ordereasy.view.fragment.FragmentCust;
 import cn.order.ordereasy.widget.CustomExpandableListView;
+import cn.order.ordereasy.widget.GuideDialog;
 
 /**
  * Created by Administrator on 2017/9/16.
@@ -82,6 +83,8 @@ public class OrderNoDetailsActivity extends BaseActivity implements OrderEasyVie
 
         orderno_list_view.setGroupIndicator(null);
         orderno_list_view.setFocusable(false);
+        //新手引导
+        new GuideDialog(5, this);
     }
 
     private void initRefreshLayout() {

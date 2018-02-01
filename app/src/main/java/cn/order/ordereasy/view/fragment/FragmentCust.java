@@ -50,6 +50,7 @@ import cn.order.ordereasy.view.activity.CustomerHomepageActivity;
 import cn.order.ordereasy.view.activity.LoginActity;
 import cn.order.ordereasy.view.activity.SearchGoodsThreeActivity;
 import cn.order.ordereasy.widget.CharacterParser;
+import cn.order.ordereasy.widget.GuideDialog;
 import cn.order.ordereasy.widget.IndexView;
 import cn.order.ordereasy.widget.PinyinComparator;
 
@@ -99,6 +100,8 @@ public class FragmentCust extends Fragment implements OrderEasyView, SwipeRefres
         });
         selectCustomerAdapter = new SelectCustomerAdapter(getActivity());
         initRefreshLayout();
+        //新手引导
+        new GuideDialog(6, getActivity());
         return rootView;
     }
 

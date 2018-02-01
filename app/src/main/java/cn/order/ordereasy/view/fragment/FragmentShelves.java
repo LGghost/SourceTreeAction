@@ -48,6 +48,7 @@ import cn.order.ordereasy.view.activity.ScanActivity;
 import cn.order.ordereasy.view.activity.SearchGoodsTwoActivity;
 import cn.order.ordereasy.view.fragment.gooddetailsfragment.DetailsGoodsActivity;
 import cn.order.ordereasy.widget.DownListView;
+import cn.order.ordereasy.widget.GuideDialog;
 
 //货架
 public class FragmentShelves extends Fragment implements OrderEasyView, SwipeRefreshLayout.OnRefreshListener, AdapterView.OnItemClickListener, BGAOnItemChildClickListener {
@@ -67,6 +68,8 @@ public class FragmentShelves extends Fragment implements OrderEasyView, SwipeRef
         View view = inflater.inflate(R.layout.shelves_fragment_layout, container, false);
         ButterKnife.inject(this, view);
         initData();
+        //新手引导
+        new GuideDialog(2, getActivity());
         return view;
     }
 

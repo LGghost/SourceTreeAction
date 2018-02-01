@@ -64,6 +64,7 @@ import cn.order.ordereasy.view.activity.StockManageActivity;
 import cn.order.ordereasy.view.activity.StoreSettingsActivity;
 import cn.order.ordereasy.view.activity.WebViewAcitvity;
 import cn.order.ordereasy.view.fragment.gooddetailsfragment.DetailsGoodsActivity;
+import cn.order.ordereasy.widget.GuideDialog;
 
 public class FragmentStore extends Fragment implements OrderEasyView, SwipeRefreshLayout.OnRefreshListener {
 
@@ -106,7 +107,8 @@ public class FragmentStore extends Fragment implements OrderEasyView, SwipeRefre
             long expire = shop.get("expire").getAsLong();
             data_time.setText(TimeUtil.getTimeStamp2Str(expire, "yyyy-MM-dd"));
         }
-
+        //新手引导
+        new GuideDialog(1, getActivity());
         return rootView;
     }
 
