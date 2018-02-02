@@ -8,7 +8,7 @@
         android:id="@+id/lay_2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/huise_bac"
+        android:background="@color/guige_shou"
         android:orientation="horizontal"
         android:paddingBottom="10dp"
         android:paddingTop="10dp"
@@ -49,8 +49,9 @@
     <LinearLayout
         android:id="@+id/lay_3"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="#F3F3F3"
+        android:layout_height="wrap_content"
+        android:minHeight="45dp"
+        android:background="@color/guige_zhan"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -70,31 +71,10 @@
                 android:layout_marginLeft="10dp"
                 android:text="规格"
                 android:ellipsize="end"
-                android:maxLines="2"
+                android:maxLines="3"
                 android:textColor="@color/heise"
                 android:textSize="13sp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="（"
-                android:textColor="@color/shouye_huise"
-                android:textSize="13sp" />
-
-            <TextView
-                android:id="@+id/guige_num"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="0"
-                android:textColor="@color/shouye_huise"
-                android:textSize="13sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="）"
-                android:textColor="@color/shouye_huise"
-                android:textSize="13sp" />
         </LinearLayout>
 
 
@@ -158,7 +138,7 @@
                     android:layout_height="25dp"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="5dp"
-                    android:background="@drawable/icon__xiao_add"
+                    android:background="@drawable/icon_add"
                     android:focusable="false" />
             </LinearLayout>
         </LinearLayout>

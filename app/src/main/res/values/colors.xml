@@ -33,7 +33,9 @@
     <color name="touzi_hongse">#f85654</color>
     <color name="touzi_huise">#888888</color>
     <color name="huise_bac">#F5F5F5</color>
-    
+    <!--规格首行、展示规格-->
+    <color name="guige_shou">#E9E9E9</color>
+    <color name="guige_zhan">#F3F3F3</color>
     <!-- 顶部切换的两种颜色 -->
     <color name="lanse">#148dfc</color>
     <color name="heise">#333333</color>

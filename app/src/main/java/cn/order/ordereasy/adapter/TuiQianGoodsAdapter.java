@@ -194,7 +194,6 @@ public class TuiQianGoodsAdapter extends BaseExpandableListAdapter {
             convertView = LayoutInflater.from(activity).inflate(
                     R.layout.tuiqianhuo_item_listview_item, parent, false);
             viewHolder.name = (TextView) convertView.findViewById(R.id.guige_name);
-            viewHolder.num = (TextView) convertView.findViewById(R.id.guige_num);
             viewHolder.shuliang = (TextView) convertView.findViewById(R.id.shuliang);
             viewHolder.jiage = (TextView) convertView.findViewById(R.id.jiage);
             viewHolder.jia = (LinearLayout) convertView.findViewById(R.id.jia);
@@ -213,12 +212,11 @@ public class TuiQianGoodsAdapter extends BaseExpandableListAdapter {
         List<String> spec_datas = data.getSpec_data();
         if (spec_datas == null) spec_datas = new ArrayList<>();
         if (spec_datas.size() == 2) {
-            viewHolder.name.setText(data.getSpec_data().get(0) + "/" + data.getSpec_data().get(1));
+            viewHolder.name.setText(data.getSpec_data().get(0) + "/" + data.getSpec_data().get(1) + "(" + data.getStore_num() + ")");
         } else {
-            viewHolder.name.setText(data.getSpec_data().get(0));
+            viewHolder.name.setText(data.getSpec_data().get(0) + "(" + data.getStore_num() + ")");
         }
 
-        viewHolder.num.setText(data.getStore_num() + "");
         viewHolder.jiage.setText(data.getOwe_num() + "");
         viewHolder.shuliang.setText(data.getNum() + "");
         viewHolder.jia.setOnClickListener(new View.OnClickListener() {
@@ -376,7 +374,6 @@ public class TuiQianGoodsAdapter extends BaseExpandableListAdapter {
 
     class ProductsViewHolder {
         public TextView name;
-        public TextView num;
         public TextView jiage;
         public TextView shuliang;
         public LinearLayout jia;

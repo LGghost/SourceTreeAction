@@ -100,11 +100,11 @@ public class MoreActivity extends BaseActivity {
         startActivity(intent);
     }
 
-    @OnClick(R.id.purchase)
-    void purchase() {//采购
-        Intent intent = new Intent(MoreActivity.this, PurchaseActivity.class);
-        startActivity(intent);
-    }
+//    @OnClick(R.id.purchase)
+//    void purchase() {//采购
+//        Intent intent = new Intent(MoreActivity.this, PurchaseActivity.class);
+//        startActivity(intent);
+//    }
 
     @OnClick(R.id.huopin_feilei)
     void huopin_feilei() {//货品分类
@@ -117,15 +117,16 @@ public class MoreActivity extends BaseActivity {
         Intent intent = new Intent(MoreActivity.this, PrintActivity.class);
         startActivity(intent);
     }
+
     @OnClick(R.id.sms_management)
     void sms_management() {//短信管理
         Intent intent = new Intent(MoreActivity.this, SMSManagementActivity.class);
         startActivity(intent);
     }
 
-//    @(R.id.dianpu_setup)
-//    void dianpu_setup() {//店铺设置
-//        Intent intent = new Intent(MoreActivity.this, StoreSettingsActivity.class);
-//        startActivity(intent);
-//    }
+    @OnClick(R.id.dianpu_setup)
+    void dianpu_setup() {//店铺设置
+        Intent intent = new Intent(MoreActivity.this, StoreSettingsActivity.class);
+        startActivity(intent);
+    }
 }

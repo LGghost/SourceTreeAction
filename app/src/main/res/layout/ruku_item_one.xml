@@ -118,23 +118,24 @@
             android:id="@id/lay_3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#dcdcdc"
+            android:background="@color/guige_shou"
             android:orientation="horizontal"
             android:paddingBottom="8dp"
             android:paddingTop="8dp"
             android:visibility="gone">
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="2"
                 android:gravity="center"
                 android:text="规格"
                 android:textColor="@color/touzi_huise"
                 android:textSize="14sp" />
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
@@ -148,7 +149,7 @@
             android:id="@id/lay_2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#dcdcdc"
+            android:background="@color/guige_shou"
             android:orientation="horizontal"
             android:paddingBottom="8dp"
             android:paddingTop="8dp">

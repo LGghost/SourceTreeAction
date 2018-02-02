@@ -42,7 +42,7 @@
         android:id="@+id/lay_1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/huise_bac"
+        android:background="@color/guige_shou"
         android:orientation="horizontal"
         android:paddingBottom="10dp"
         android:paddingTop="10dp">

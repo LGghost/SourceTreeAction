@@ -8,7 +8,7 @@
         android:id="@+id/lay_2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/huise_bac"
+        android:background="@color/guige_shou"
         android:orientation="horizontal"
         android:paddingBottom="10dp"
         android:paddingTop="10dp">
@@ -51,7 +51,7 @@
         android:id="@+id/lay_3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#F3F3F3"
+        android:background="@color/guige_zhan"
         android:orientation="horizontal"
         android:paddingBottom="10dp"
         android:paddingTop="10dp">
@@ -64,7 +64,7 @@
             android:gravity="center_horizontal"
             android:text="规格"
             android:ellipsize="end"
-            android:maxLines="2"
+            android:maxLines="3"
             android:textColor="@color/heise"
             android:textSize="13sp" />
 

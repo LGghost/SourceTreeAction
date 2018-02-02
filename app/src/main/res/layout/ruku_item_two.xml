@@ -1,47 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/activity_bac"
     android:orientation="vertical">
 
     <LinearLayout
-        android:id="@+id/lay_3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/huise_bac"
+        android:background="@color/guige_zhan"
         android:gravity="center"
-        android:orientation="horizontal"
-        android:paddingBottom="10dp"
-        android:paddingTop="10dp">
+        android:minHeight="55dp"
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/guige_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1.3"
+            android:layout_weight="2"
             android:ellipsize="end"
+            android:maxLines="3"
             android:gravity="center"
-            android:maxLines="2"
-            android:text="属性"
-            android:textColor="@color/shouye_huise"
+            android:textColor="@color/touzi_huise"
             android:textSize="15sp" />
-
 
         <TextView
             android:id="@+id/yuan_kucun"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.7"
+            android:layout_weight="1"
             android:gravity="center"
-            android:text="0"
-            android:textColor="@color/shouye_huise"
-            android:textSize="15sp" />
-
+            android:textColor="@color/touzi_huise"
+            android:textSize="16sp" />
 
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="120dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:gravity="center_horizontal"
             android:orientation="horizontal">
 
@@ -73,10 +67,7 @@
                 android:layout_height="@dimen/size25"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="5dp"
-                android:background="@drawable/icon__xiao_add" />
-
+                android:background="@drawable/icon_add" />
         </LinearLayout>
-
-
     </LinearLayout>
 </LinearLayout>

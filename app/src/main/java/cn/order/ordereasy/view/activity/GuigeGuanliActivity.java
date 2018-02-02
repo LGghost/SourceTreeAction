@@ -584,7 +584,7 @@ public class GuigeGuanliActivity extends BaseActivity implements OrderEasyView {
         //hint内容
         ed_type_name.setHint("最多输入12个字符");
         //限制输入长度
-        ed_type_name.setFilters(new InputFilter[]{new InputFilter.LengthFilter(12)});
+//        ed_type_name.setFilters(new InputFilter[]{new InputFilter.LengthFilter(12)});
         //按钮1点击事件
         TextView quxiao = (TextView) window.findViewById(R.id.quxiao);
         quxiao.setOnClickListener(new View.OnClickListener() {
@@ -599,7 +599,18 @@ public class GuigeGuanliActivity extends BaseActivity implements OrderEasyView {
         queren.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                String name = ed_type_name.getText().toString();
+                if(TextUtils.isEmpty(name)){
+                    ToastUtil.show("属性不能为空");
+                    alertDialog.dismiss();
+                    return;
+                }else{
+                    if(name.length() > 12){
+                        ToastUtil.show("规格属性最多输入12个字符");
+                        alertDialog.dismiss();
+                        return;
+                    }
+                }
                 if (type == 1) {
                     List<String> oldValues = datas.get(0).getValues();
                     if (oldValues == null) oldValues = new ArrayList<>();

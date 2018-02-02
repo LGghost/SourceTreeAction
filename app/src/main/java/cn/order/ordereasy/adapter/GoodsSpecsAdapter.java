@@ -80,7 +80,6 @@ public class GoodsSpecsAdapter extends BaseAdapter {
             convertView = LayoutInflater.from(context).inflate(
                     R.layout.kaidan_item_listview_item, parent, false);
             viewHolder.name = (TextView) convertView.findViewById(R.id.guige_name);
-            viewHolder.num = (TextView) convertView.findViewById(R.id.guige_num);
             viewHolder.shuliang = (TextView) convertView.findViewById(R.id.shuliang);
             viewHolder.jiage = (TextView) convertView.findViewById(R.id.jiage);
             viewHolder.jia = (ImageView) convertView.findViewById(R.id.jia);
@@ -93,9 +92,9 @@ public class GoodsSpecsAdapter extends BaseAdapter {
         final Product product = this.data.get(position);
         if (product.getSpec_data().size() > 0) {
             if (product.getSpec_data().size() == 1) {
-                viewHolder.name.setText( product.getSpec_data().get(0));
+                viewHolder.name.setText(product.getSpec_data().get(0) + "(" + product.getOwe_num() + ")");
             } else if (product.getSpec_data().size() == 2) {
-                viewHolder.name.setText(product.getSpec_data().get(0) + "/" +  product.getSpec_data().get(1));
+                viewHolder.name.setText(product.getSpec_data().get(0) + "/" + product.getSpec_data().get(1) + "(" + product.getOwe_num() + ")");
             }
         } else {
             viewHolder.name.setText("无");
@@ -103,15 +102,14 @@ public class GoodsSpecsAdapter extends BaseAdapter {
         if (product.getNum() != 0) {
             viewHolder.shuliang.setText(product.getNum() + "");
         }
-        viewHolder.num.setText(product.getOwe_num() + "");
         if (discount != 100) {
             double price = discount / 100.0;
             DecimalFormat df = new DecimalFormat("0.00");
             String result = df.format(price * product.getSell_price());
             product.setDefault_price(Double.parseDouble(result));
-            product.setPrice(product.getNum()*product.getDefault_price());
+            product.setPrice(product.getNum() * product.getDefault_price());
         } else {
-            product.setPrice(product.getNum()*product.getSell_price());
+            product.setPrice(product.getNum() * product.getSell_price());
             product.setDefault_price(-1);
         }
         if (product.getDefault_price() != -1) {
@@ -331,7 +329,6 @@ public class GoodsSpecsAdapter extends BaseAdapter {
     class ViewHolder {
 
         public TextView name;
-        public TextView num;
         public TextView jiage;
         public TextView shuliang;
         public ImageView jia;

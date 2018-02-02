@@ -9,6 +9,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -259,8 +260,7 @@ public class FinanceActivity extends BaseActivity implements OrderEasyView {
     public void loadData(JsonObject data, int type) {
         if (type == 0) {
             if (data.get("code").getAsInt() == 1) {
-                ToastUtil.show("提交成功");
-                finish();
+                showDialog();
             }
         }
         if (type == 1) {
@@ -276,5 +276,43 @@ public class FinanceActivity extends BaseActivity implements OrderEasyView {
                 finance_phone.setSelection(userinfo.telephone.length());
             }
         }
+    }
+
+    private void showDialog() {
+        alertDialog = new AlertDialog.Builder(this).create();
+        View view = View.inflate(this, R.layout.tanchuang_view, null);
+        alertDialog.setView(view);
+
+        //设置点击屏幕不让消失
+        alertDialog.setCanceledOnTouchOutside(false);
+        alertDialog.setCancelable(false);
+
+        alertDialog.show();
+        Window window = alertDialog.getWindow();
+        //window.setContentView(view);
+        window.setContentView(R.layout.tanchuang_view_textview);
+        //标题
+        TextView title_name = (TextView) window.findViewById(R.id.title_name);
+        title_name.setText("温馨提示");
+        TextView text_conten = (TextView) window.findViewById(R.id.text_conten);
+        text_conten.setText("您的授信申请已提交成功，客服人员将会及时跟您取得联系!");
+
+
+        //按钮1点击事件
+        TextView quxiao = (TextView) window.findViewById(R.id.quxiao);
+        View view1 = window.findViewById(R.id.view1);
+        view1.setVisibility(View.GONE);
+        quxiao.setVisibility(View.GONE);
+        //按钮2确认点击事件
+        final TextView queren = (TextView) window.findViewById(R.id.queren);
+        queren.setText("确定");
+        queren.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+                alertDialog.dismiss();
+            }
+        });
+
     }
 }

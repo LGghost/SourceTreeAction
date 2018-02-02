@@ -3,8 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/layout_background"
-    android:orientation="vertical"
-   >
+    android:orientation="vertical">
 
 
     <LinearLayout
@@ -18,7 +17,7 @@
             android:layout_width="@dimen/size20"
             android:layout_height="@dimen/size20"
             android:layout_marginLeft="10dp"
-            android:src="@drawable/img_store_statistics" />
+            android:src="@drawable/img_add_supplier" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -33,15 +32,15 @@
         android:id="@+id/supplier_import"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:gravity="center"
         android:layout_marginBottom="10dp"
+        android:gravity="center"
         android:orientation="horizontal">
 
         <ImageView
             android:layout_width="@dimen/size20"
             android:layout_height="@dimen/size20"
             android:layout_marginLeft="10dp"
-            android:src="@drawable/img_store_record" />
+            android:src="@drawable/img_contact" />
 
         <TextView
             android:layout_width="wrap_content"

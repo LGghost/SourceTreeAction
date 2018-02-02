@@ -196,7 +196,7 @@
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_marginLeft="10dp"
-            android:src="@drawable/youjiantou" />
+            android:src="@drawable/icon_switch" />
 
         <TextView
             android:id="@+id/this_payment"

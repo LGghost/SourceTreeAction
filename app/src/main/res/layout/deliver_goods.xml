@@ -24,7 +24,7 @@
                 android:layout_height="wrap_content"
                 android:text="客户:"
                 android:textColor="@color/white"
-                android:textSize="16sp" />
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/kehu_name"
@@ -33,7 +33,7 @@
                 android:layout_marginLeft="3dp"
                 android:text="客户名字"
                 android:textColor="@color/white"
-                android:textSize="16sp" />
+                android:textSize="18sp" />
         </LinearLayout>
 
         <ImageView

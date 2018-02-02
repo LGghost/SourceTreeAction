@@ -102,7 +102,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="15dp"
-                android:gravity="center"
+                android:gravity="left"
                 android:text="如果您喜欢我们的产品，请联系客服申请延长体验时间或购买正式版"
                 android:textColor="@color/heise"
                 android:textSize="16sp" />

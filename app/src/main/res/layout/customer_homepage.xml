@@ -315,7 +315,8 @@
             <cn.order.ordereasy.widget.LoadMoreListView
                 android:id="@+id/khzy_lsitview"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:dividerHeight="0.5dp" />
 
         </android.support.v4.widget.SwipeRefreshLayout>
     </LinearLayout>

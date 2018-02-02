@@ -130,7 +130,7 @@ public class GuigeShuxingListActivity extends BaseActivity implements OrderEasyV
         //让 数据框 请求焦点
         ed_type_name.requestFocus();
         //hint内容
-        ed_type_name.setHint("");
+        ed_type_name.setHint("最多输入12个字符");
         //限制输入长度
 //        ed_type_name.setFilters(new InputFilter[]{new InputFilter.LengthFilter(6)});
         //按钮1点击事件
@@ -147,6 +147,18 @@ public class GuigeShuxingListActivity extends BaseActivity implements OrderEasyV
         queren.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String name = ed_type_name.getText().toString();
+                if (TextUtils.isEmpty(name)) {
+                    ToastUtil.show("属性不能为空");
+                    alertDialog.dismiss();
+                    return;
+                } else {
+                    if (name.length() > 12) {
+                        ToastUtil.show("规格属性最多输入12个字符");
+                        alertDialog.dismiss();
+                        return;
+                    }
+                }
                 orderEasyPresenter.addSpecValueInfo(Integer.parseInt(id), ed_type_name.getText().toString());
                 name = ed_type_name.getText().toString();
                 alertDialog.dismiss();

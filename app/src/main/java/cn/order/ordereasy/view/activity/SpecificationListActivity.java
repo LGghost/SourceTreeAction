@@ -223,9 +223,9 @@ public class SpecificationListActivity extends BaseActivity implements OrderEasy
         ed_type_name.requestFocus();
 
         //hint内容
-        ed_type_name.setHint("最多输入10个字符");
+        ed_type_name.setHint("最多输入12个字符");
         //限制输入长度
-        ed_type_name.setFilters(new InputFilter[]{new InputFilter.LengthFilter(10)});
+//        ed_type_name.setFilters(new InputFilter[]{new InputFilter.LengthFilter(10)});
         //按钮1点击事件
         TextView quxiao = (TextView) window.findViewById(R.id.quxiao);
         quxiao.setOnClickListener(new View.OnClickListener() {
@@ -240,6 +240,12 @@ public class SpecificationListActivity extends BaseActivity implements OrderEasy
         queren.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String name = ed_type_name.getText().toString();
+                if (name.length() > 12) {
+                    ToastUtil.show("规格名称最多输入12个字符");
+                    alertDialog.dismiss();
+                    return;
+                }
                 ProgressUtil.showDialog(SpecificationListActivity.this);
                 orderEasyPresenter.addSpecCategoryInfo(ed_type_name.getText().toString());
                 alertDialog.dismiss();

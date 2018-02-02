@@ -56,6 +56,7 @@ import cn.order.ordereasy.view.activity.ExperienceInterfaceActivity;
 import cn.order.ordereasy.view.activity.LoginActity;
 import cn.order.ordereasy.view.activity.MoreActivity;
 import cn.order.ordereasy.view.activity.PrintActivity;
+import cn.order.ordereasy.view.activity.PurchaseActivity;
 import cn.order.ordereasy.view.activity.ScanActivity;
 import cn.order.ordereasy.view.activity.SetupAvtivity;
 import cn.order.ordereasy.view.activity.ShangHuoActivity;
@@ -129,6 +130,8 @@ public class FragmentStore extends Fragment implements OrderEasyView, SwipeRefre
         //首页下拉刷新，只需要更新今日交易额，今日开单数，当前欠款数，当前欠货数的数据显示
         if (is_boss.equals("1")) {
             orderEasyPresenter.getNumToday2(1);
+        } else {
+            store_refresh.setRefreshing(false);
         }
     }
 
@@ -342,7 +345,7 @@ public class FragmentStore extends Fragment implements OrderEasyView, SwipeRefre
 
     @OnClick(R.id.click_5)
     void click_5() {
-        Intent intent = new Intent(getActivity(), StoreSettingsActivity.class);
+        Intent intent = new Intent(getActivity(), PurchaseActivity.class);
         startActivity(intent);
     }
 

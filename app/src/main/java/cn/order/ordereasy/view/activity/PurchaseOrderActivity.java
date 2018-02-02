@@ -368,6 +368,8 @@ public class PurchaseOrderActivity extends BaseActivity implements OrderEasyView
     @Override
     public void onloadMore() {
         Log.e("FragmentOrder", "正在加载更多");
+        //测试用正式可删除
+        listView.setLoadCompleted();
         if (pageTotal == currentPage) {
             ToastUtil.show("没有更多数据了");
             listView.setIsLoading(true);

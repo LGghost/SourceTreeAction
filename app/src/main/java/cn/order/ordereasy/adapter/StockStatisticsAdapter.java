@@ -55,7 +55,7 @@ public class StockStatisticsAdapter extends BaseAdapter {
         for (Product product : goods.getProduct_list()) {
             Owe_num += product.getOwe_num();
         }
-        holder.item_number.setText(goods.getGoods_no());
+        holder.item_number.setText(goods.getGoods_no() + "(" + goods.getTitle() + ")");
         holder.item_owe.setText(String.valueOf(Owe_num));
         holder.item_stock.setText(goods.getStore_num() + "");
         return convertView;

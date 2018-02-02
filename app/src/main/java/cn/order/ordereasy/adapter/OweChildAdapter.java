@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.List;
@@ -50,9 +51,17 @@ public class OweChildAdapter extends BaseAdapter {
             holder = new ChildViewHold();
             holder.child_spec = (TextView) view.findViewById(R.id.child_spec);
             holder.child_sum = (TextView) view.findViewById(R.id.child_sum);
+            holder.title_name = (TextView) view.findViewById(R.id.title_name);
+            holder.top_layout = (LinearLayout) view.findViewById(R.id.top_layout);
             view.setTag(holder);
         } else {
             holder = (ChildViewHold) view.getTag();
+        }
+        holder.title_name.setText("欠货");
+        if(i == 0){
+            holder.top_layout.setVisibility(View.VISIBLE);
+        }else{
+            holder.top_layout.setVisibility(View.GONE);
         }
         if (my.getSpec_data().size() > 1) {
             holder.child_spec.setText( my.getSpec_data().get(0) + "/" +  my.getSpec_data().get(1));
@@ -64,7 +73,9 @@ public class OweChildAdapter extends BaseAdapter {
     }
 
     class ChildViewHold {
+        LinearLayout top_layout;
         TextView child_spec;
         TextView child_sum;
+        TextView title_name;
     }
 }
