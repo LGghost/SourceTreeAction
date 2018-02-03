@@ -76,6 +76,7 @@ public class OrderSelectGoodsListAdapter extends BGAAdapterViewAdapter<Goods> {
 
         LinearLayout lay_1 = viewHolderHelper.getView(R.id.lay_1);
         final TextView kaidan_isshow = viewHolderHelper.getTextView(R.id.kaidan_isshow);
+        final TextView discount_text = viewHolderHelper.getTextView(R.id.discount_text);
         final ImageView zhankai_img = viewHolderHelper.getImageView(R.id.zhankai_img);
         final TextView mNumber = viewHolderHelper.getTextView(R.id.kaidan_goodnum);
         mNumber.setText(model.getNum() + "");
@@ -83,6 +84,15 @@ public class OrderSelectGoodsListAdapter extends BGAAdapterViewAdapter<Goods> {
         mPrice.setText(FileUtils.getMathNumber(model.getPrice()));
         ImageView imageView = viewHolderHelper.getImageView(R.id.kaidan_goodimg);
         ImageLoader.getInstance().displayImage(Config.URL_HTTP + "/" + model.getCover(), imageView);
+        if (discount == 100) {
+            discount_text.setVisibility(View.GONE);
+        } else {
+            discount_text.setVisibility(View.VISIBLE);
+            DecimalFormat df = new DecimalFormat("0.0");
+            String result = df.format((double) discount / 10);
+            discount_text.setText(result + "折");
+        }
+
         final List<Product> products = model.getProduct_list();
         final ListView listView = viewHolderHelper.getView(R.id.kaidan_specs);
         final GoodsSpecsAdapter adapter = new GoodsSpecsAdapter(context, products);

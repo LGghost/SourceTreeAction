@@ -82,6 +82,11 @@ public class FragmentStcokSales extends Fragment {
             //上架图片
             goods_image2.setVisibility(View.GONE);
         }
+        if(goods.getIs_hidden_price() == 0){
+            hide_text.setVisibility(View.GONE);
+        }else{
+            hide_text.setVisibility(View.VISIBLE);
+        }
         goods_no.setText(String.valueOf(good.getGoods_no()));
         goods_name.setText(good.getTitle());
         ImageLoader.getInstance().displayImage(Config.URL_HTTP + "/" + good.getCover(), goods_image);
@@ -131,6 +136,8 @@ public class FragmentStcokSales extends Fragment {
     TextView goods_no;
     @InjectView(R.id.goods_kucun)
     TextView goods_kucun;
+    @InjectView(R.id.hide_text)
+    TextView hide_text;
     @InjectView(R.id.goods_xiaoliang)
     TextView goods_xiaoliang;
     @InjectView(R.id.goods_min_money)

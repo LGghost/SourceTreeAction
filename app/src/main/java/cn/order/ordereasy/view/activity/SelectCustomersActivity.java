@@ -23,6 +23,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -179,8 +181,16 @@ public class SelectCustomersActivity extends BaseActivity implements OrderEasyVi
             } else {
                 name = indexModel.getName();
             }
-            indexModel.setTopic(characterParser.getSelling(name).substring(0, 1).toUpperCase());
 
+            String char_name = characterParser.getSelling(name).substring(0, 1).toUpperCase();
+            Pattern pattern = Pattern.compile("[a-zA-Z]");
+            Matcher matcher = pattern.matcher(char_name);
+            //当条件满足时，将返回true，否则返回false
+            if (matcher.matches()) {
+                indexModel.setTopic(characterParser.getSelling(name).substring(0, 1).toUpperCase());
+            } else {
+                indexModel.setTopic("#");
+            }
         }
         Collections.sort(data, pinyinComparator);
     }

@@ -143,6 +143,9 @@ public class StoreSettingsActivity extends BaseActivity implements OrderEasyView
     //填写联系号码
     @InjectView(R.id.ed_phone)
     EditText ed_phone;
+    //填写电话号码
+    @InjectView(R.id.ed_call)
+    EditText ed_call;
     //选择店铺logo图片
     @InjectView(R.id.store_logo_img)
     LinearLayout store_logo_img;
@@ -284,7 +287,7 @@ public class StoreSettingsActivity extends BaseActivity implements OrderEasyView
         String city = id_city.getText().toString();
         String distrct = id_district.getText().toString();
         String addr = store_add.getText().toString();
-        String telephone = "";
+        String telephone = ed_call.getText().toString();
         String notice = ed_gonggao.getText().toString();
         String wechat = wx_ed.getText().toString();
         orderEasyPresenter.setupStore(mobile, name, province, city, distrct, addr, telephone, wechat, notice);

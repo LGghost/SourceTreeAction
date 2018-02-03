@@ -1,6 +1,7 @@
 package cn.order.ordereasy.view.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
@@ -34,11 +35,12 @@ import cn.order.ordereasy.view.OrderEasyView;
 public class StaffActivity extends BaseActivity implements OrderEasyView, SwipeRefreshLayout.OnRefreshListener, AdapterView.OnItemClickListener {
     private OrderEasyPresenter orderEasyPresenter;
     private MyEmployeeAdapter adapter;
+    private SharedPreferences spPreferences;
+    private int isBoss;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.staff);
         setColor(this, this.getResources().getColor(R.color.lanse));
         ButterKnife.inject(this);
@@ -55,6 +57,8 @@ public class StaffActivity extends BaseActivity implements OrderEasyView, SwipeR
     SwipeRefreshLayout store_refresh;
 
     private void initRefreshLayout() {
+        spPreferences = getSharedPreferences("user", 0);
+        isBoss = Integer.parseInt(spPreferences.getString("is_boss", "0"));
         //获取老板和员工的数据
         orderEasyPresenter = new OrderEasyPresenterImp(this);
         store_refresh.setOnRefreshListener(this);
@@ -91,8 +95,12 @@ public class StaffActivity extends BaseActivity implements OrderEasyView, SwipeR
     //添加员工按钮
     @OnClick(R.id.add_yuangong)
     void add_yuangong() {
-        Intent intent = new Intent(StaffActivity.this, AddStaffActivity.class);
-        startActivityForResult(intent, 1001);
+        if (isBoss == 1) {
+            Intent intent = new Intent(StaffActivity.this, AddStaffActivity.class);
+            startActivityForResult(intent, 1001);
+        } else {
+            ToastUtil.show("您没有操作权限");
+        }
     }
 
 
@@ -160,14 +168,18 @@ public class StaffActivity extends BaseActivity implements OrderEasyView, SwipeR
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        if (adapter.getData().get(position).is_boss == 0) {
-            //证明他为员工，是可以删除的
-            Intent intent = new Intent();
-            intent.setClass(this, EmployeeInformationActivity.class);
-            Bundle bundle = new Bundle();
-            bundle.putSerializable("data", adapter.getData().get(position));
-            intent.putExtras(bundle);
-            this.startActivityForResult(intent, 1001);
+        if (isBoss == 1) {
+            if (adapter.getData().get(position).is_boss == 0) {
+                //证明他为员工，是可以删除的
+                Intent intent = new Intent();
+                intent.setClass(this, EmployeeInformationActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("data", adapter.getData().get(position));
+                intent.putExtras(bundle);
+                this.startActivityForResult(intent, 1001);
+            }
+        } else {
+            ToastUtil.show("您没有操作权限");
         }
     }
 }

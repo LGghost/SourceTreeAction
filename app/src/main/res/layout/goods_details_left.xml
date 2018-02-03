@@ -43,7 +43,16 @@
                 android:scaleType="centerCrop"
                 android:src="@drawable/img_off_shelf"
                 android:visibility="gone" />
-
+            <TextView
+                android:id="@+id/hide_text"
+                android:layout_width="70dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="10dp"
+                android:background="#99ffa500"
+                android:gravity="center"
+                android:text="已隐藏价格"
+                android:textColor="@color/heise"
+                android:textSize="12sp" />
         </RelativeLayout>
 
 

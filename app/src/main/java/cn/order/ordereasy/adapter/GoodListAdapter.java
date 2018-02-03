@@ -50,6 +50,8 @@ public class GoodListAdapter extends BGAAdapterViewAdapter<Goods> {
             viewHolderHelper.setText(R.id.good_xiaoliang,model.getSale_num()+"");//销量
             TextView highText = viewHolderHelper.getTextView(R.id.good_price_2);
             TextView space = viewHolderHelper.getTextView(R.id.good_space);
+            TextView hide_text = viewHolderHelper.getTextView(R.id.hide_text);
+
             if (model.getMin_price() == model.getMax_price() ){
                 viewHolderHelper.setText(R.id.good_price,model.getMin_price()+"");//最低价格
                 highText.setVisibility(View.GONE);
@@ -61,7 +63,11 @@ public class GoodListAdapter extends BGAAdapterViewAdapter<Goods> {
                 viewHolderHelper.setText(R.id.good_price,model.getMin_price()+"");//最低价格
                 viewHolderHelper.setText(R.id. good_price_2,model.getMax_price()+"");//最高价格
             }
-
+            if(model.getIs_hidden_price() == 0){
+                hide_text.setVisibility(View.GONE);
+            }else{
+                hide_text.setVisibility(View.VISIBLE);
+            }
             ImageView imageView=viewHolderHelper.getImageView(R.id.good_img);
             ImageLoader.getInstance().displayImage(Config.URL_HTTP+"/"+model.getCover(),imageView);
             if (model.getStatus() != 1) {

@@ -65,6 +65,8 @@ public class DetailsGoodsActivity extends FragmentActivity implements OrderEasyV
     private AlertDialog alertDialog;
     private boolean isSales = true;
 
+    private boolean isEditUpdata = false;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -218,12 +220,8 @@ public class DetailsGoodsActivity extends FragmentActivity implements OrderEasyV
                         showdialogs();
                     }
                 } else if (v.getId() == R.id.team_member_layout) {
-                    Intent intent = new Intent(DetailsGoodsActivity.this, ShangHuoActivity.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable("data", goods);
-                    bundle.putString("flag", "detail");
-                    intent.putExtras(bundle);
-                    startActivityForResult(intent, 1001);
+                    isEditUpdata = true;
+                    orderEasyPresenter.getGoodsInfo(goodId);
                 }
                 popwindows.dismiss();
             }
@@ -272,6 +270,15 @@ public class DetailsGoodsActivity extends FragmentActivity implements OrderEasyV
                     goods = (Goods) GsonUtils.getEntity(data.get("result").toString(), Goods.class);
                     stcoksalesFragment.setData(goods);
                     previewFragment.setData(goods);
+                    if (isEditUpdata) {
+                        Intent intent = new Intent(DetailsGoodsActivity.this, ShangHuoActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("data", goods);
+                        bundle.putString("flag", "detail");
+                        intent.putExtras(bundle);
+                        startActivityForResult(intent, 1001);
+                        isEditUpdata = false;
+                    }
                 }
             }
         } else if (type == 1) {
@@ -289,12 +296,6 @@ public class DetailsGoodsActivity extends FragmentActivity implements OrderEasyV
                         }
                     }
                     stcoksalesFragment.setOrderList(os);
-                } else {
-                    if (status == -7) {
-                        ToastUtil.show(getString(R.string.landfall_overdue));
-                        Intent intent = new Intent(DetailsGoodsActivity.this, LoginActity.class);
-                        startActivity(intent);
-                    }
                 }
             }
             Log.e("欠货信息", data.toString());
@@ -312,12 +313,6 @@ public class DetailsGoodsActivity extends FragmentActivity implements OrderEasyV
                         ToastUtil.show("下架成功");
                     }
                     orderEasyPresenter.getGoodsInfo(goodId);
-                } else {
-                    if (status == -7) {
-                        ToastUtil.show(getString(R.string.landfall_overdue));
-                        Intent intent = new Intent(DetailsGoodsActivity.this, LoginActity.class);
-                        startActivity(intent);
-                    }
                 }
             }
         }

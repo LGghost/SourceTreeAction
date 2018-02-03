@@ -76,8 +76,8 @@
                             android:layout_height="60dp"
                             android:layout_gravity="center"
                             android:layout_marginLeft="10dp"
-                            android:src="@drawable/bg_touxiangx"
-                            android:scaleType="centerCrop" />
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/bg_touxiangx" />
 
                         <LinearLayout
                             android:layout_width="0dp"
@@ -112,8 +112,8 @@
                             android:layout_alignParentEnd="true"
                             android:layout_alignParentTop="true"
                             android:layout_marginRight="10dp"
-                            android:src="@drawable/bg_shangchuan"
-                            android:scaleType="centerCrop" />
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/bg_shangchuan" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -308,8 +308,21 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1px"
-                        android:layout_marginLeft="10dp"
                         android:background="@color/fengexian_color" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/fengexian_color" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:orientation="vertical">
 
                     <LinearLayout
                         android:id="@+id/jiage"
@@ -346,14 +359,51 @@
                             android:textSize="16sp" />
 
                     </LinearLayout>
-
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1px"
+                        android:layout_marginLeft="10dp"
                         android:background="@color/fengexian_color" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:gravity="center"
+                        android:orientation="horizontal">
 
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="10dp"
+                            android:text="*电话"
+                            android:textColor="@color/heise"
+                            android:textSize="16sp" />
 
+                        <EditText
+                            android:id="@+id/ed_call"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@null"
+                            android:focusable="true"
+                            android:focusableInTouchMode="true"
+                            android:gravity="center_vertical|right"
+                            android:hint="选填"
+                            android:inputType="number"
+                            android:maxLength="20"
+                            android:paddingRight="10dp"
+                            android:singleLine="true"
+                            android:textColor="@color/touzi_huise"
+                            android:textColorHint="@color/touzi_huise"
+                            android:textSize="16sp" />
+
+                    </LinearLayout>
                 </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@color/fengexian_color" />
 
                 <View
                     android:layout_width="match_parent"
@@ -389,8 +439,8 @@
                             android:layout_width="25dp"
                             android:layout_height="25dp"
                             android:layout_gravity="center_vertical"
-                            android:src="@drawable/dhwy_bg_image"
-                            android:scaleType="centerCrop" />
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/dhwy_bg_image" />
 
                         <ImageView
                             android:layout_width="wrap_content"
@@ -435,8 +485,8 @@
                             android:layout_width="25dp"
                             android:layout_height="25dp"
                             android:layout_gravity="center_vertical"
-                            android:src="@drawable/dhwy_bg_image"
-                            android:scaleType="centerCrop" />
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/dhwy_bg_image" />
 
                         <ImageView
                             android:layout_width="wrap_content"

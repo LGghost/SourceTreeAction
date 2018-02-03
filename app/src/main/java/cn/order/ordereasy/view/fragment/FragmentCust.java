@@ -29,6 +29,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -330,7 +332,6 @@ public class FragmentCust extends Fragment implements OrderEasyView, SwipeRefres
                             datas = new ArrayList<>();
                             JsonArray jsonArray = result.get("result").getAsJsonArray();
                             if (jsonArray.size() > 0) {
-
                                 sp.edit().putString("customers", result.get("result").toString()).commit();
                                 kehu_num.setText("(" + jsonArray.size() + ")");
                             }
@@ -362,68 +363,9 @@ public class FragmentCust extends Fragment implements OrderEasyView, SwipeRefres
                             } else {
                                 no_data_view.setVisibility(View.VISIBLE);
                             }
-
-                        } else {
-                            if (status == -7) {
-                                ToastUtil.show(getString(R.string.landfall_overdue));
-                                Intent intent = new Intent(getActivity(), LoginActity.class);
-                                startActivity(intent);
-                            }
                         }
                     }
                     Log.e("信息", result.toString());
-
-                case 1002:
-                    result = (JsonObject) msg.obj;
-                    if (result != null) {
-                        int status = result.get("code").getAsInt();
-                        if (status == 1) {
-
-                        } else {
-                            if (status == -7) {
-                                ToastUtil.show(getString(R.string.landfall_overdue));
-                                Intent intent = new Intent(getActivity(), LoginActity.class);
-                                startActivity(intent);
-                            }
-                        }
-                    }
-                    Log.e("欠货信息", result.toString());
-                    break;
-                case 1003:
-                    result = (JsonObject) msg.obj;
-                    if (result != null) {
-                        int status = result.get("code").getAsInt();
-                        if (status == 1) {
-
-                        } else {
-                            if (status == -7) {
-                                ToastUtil.show(getString(R.string.landfall_overdue));
-                                Intent intent = new Intent(getActivity(), LoginActity.class);
-                                startActivity(intent);
-                            }
-                        }
-                    }
-                    Log.e("客户信息", result.toString());
-                    break;
-                case 1004:
-
-                    break;
-                case 1005:
-                    result = (JsonObject) msg.obj;
-                    if (result != null) {
-                        int status = result.get("code").getAsInt();
-                        if (status == 1) {
-                            //成功
-
-                        } else {
-                            if (status == -7) {
-                                ToastUtil.show(getString(R.string.landfall_overdue));
-                                Intent intent = new Intent(getActivity(), LoginActity.class);
-                                startActivity(intent);
-                            }
-                        }
-                    }
-                    Log.e("上下架信息", result.toString());
                     break;
                 case 100:
                     mTopcTv.setVisibility(View.GONE);
@@ -530,7 +472,15 @@ public class FragmentCust extends Fragment implements OrderEasyView, SwipeRefres
             } else {
                 name = indexModel.getName();
             }
-            indexModel.setTopic(characterParser.getSelling(name).substring(0, 1).toUpperCase());
+            String char_name = characterParser.getSelling(name).substring(0, 1).toUpperCase();
+            Pattern pattern = Pattern.compile("[a-zA-Z]");
+            Matcher matcher = pattern.matcher(char_name);
+            //当条件满足时，将返回true，否则返回false
+            if (matcher.matches()) {
+                indexModel.setTopic(characterParser.getSelling(name).substring(0, 1).toUpperCase());
+            } else {
+                indexModel.setTopic("#");
+            }
         }
         Collections.sort(datas, pinyinComparator);
     }

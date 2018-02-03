@@ -188,7 +188,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:background="@null"
-                android:hint="请输入邀请码（选填）"
+                android:hint="请输入邀请码（可不填）"
                 android:inputType="number"
                 android:maxLength="11"
                 android:paddingLeft="10dp"

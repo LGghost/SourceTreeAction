@@ -286,7 +286,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:layout_marginLeft="10dp"
-                            android:text="总要货："
+                            android:text="总采购数："
                             android:textColor="@color/heise"
                             android:textSize="16sp" />
 
@@ -353,7 +353,6 @@
                         android:id="@+id/orderno_list_view"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
                         android:scrollbars="none">
 
                     </cn.order.ordereasy.widget.CustomExpandableListView>
