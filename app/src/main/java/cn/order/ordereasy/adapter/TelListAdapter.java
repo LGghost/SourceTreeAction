@@ -32,28 +32,26 @@ public class TelListAdapter extends BGAAdapterViewAdapter<ContactInfo> {
 
     @Override
     protected void setItemChildListener(BGAViewHolderHelper viewHolderHelper) {
-       // viewHolderHelper.setItemChildClickListener(R.id.tv_item_index_catalog);
+        // viewHolderHelper.setItemChildClickListener(R.id.tv_item_index_catalog);
         //viewHolderHelper.setItemChildClickListener(R.id.tv_item_index_city);
     }
 
     @Override
     public void fillData(BGAViewHolderHelper viewHolderHelper, int position, ContactInfo model) {
         if (isCategory(position)) {
-                viewHolderHelper.setVisibility(R.id.tv_item_index_catalog, View.VISIBLE);
-
-
+            viewHolderHelper.setVisibility(R.id.tv_item_index_catalog, View.VISIBLE);
             viewHolderHelper.setText(R.id.tv_item_index_catalog, model.getTopic());
         } else {
             viewHolderHelper.setVisibility(R.id.tv_item_index_catalog, View.GONE);
         }
-        String isCheck=model.getIsCheck();
-        if(isCheck.equals("1")){
-            viewHolderHelper.setChecked(R.id.ck_tel,true);
-        }else{
-            viewHolderHelper.setChecked(R.id.ck_tel,false);
+        int isCheck = model.getIsCheck();
+        if (isCheck == 1) {
+            viewHolderHelper.setChecked(R.id.ck_tel, true);
+        } else {
+            viewHolderHelper.setChecked(R.id.ck_tel, false);
         }
         viewHolderHelper.setText(R.id.tv_tel_name, model.getName());
-        viewHolderHelper.setText(R.id.tv_tel_number,model.getNumber());
+        viewHolderHelper.setText(R.id.tv_tel_number, model.getNumber());
     }
 
     public void closeOpenedSwipeItemLayoutWithAnim() {

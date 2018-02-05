@@ -109,8 +109,11 @@ public class GoodsSpecsAdapter extends BaseAdapter {
             product.setDefault_price(Double.parseDouble(result));
             product.setPrice(product.getNum() * product.getDefault_price());
         } else {
-            product.setPrice(product.getNum() * product.getSell_price());
-            product.setDefault_price(-1);
+            if (product.getDefault_price() != -1) {
+                product.setPrice(product.getNum() * product.getDefault_price());
+            } else {
+                product.setPrice(product.getNum() * product.getSell_price());
+            }
         }
         if (product.getDefault_price() != -1) {
             viewHolder.jiage.setText(product.getDefault_price() + "");

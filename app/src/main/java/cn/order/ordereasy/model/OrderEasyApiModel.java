@@ -612,5 +612,11 @@ public interface OrderEasyApiModel {
      * @return
      */
     Subscription loanAsk(String telephone,String name,String purpose,String identity,String gender);
+    /**
+     * 订单修改和确认
+     *
+     * @return
+     */
+    Subscription orderConfirm(Order order);
 
 }

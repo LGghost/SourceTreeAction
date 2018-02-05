@@ -293,7 +293,7 @@ public class Config {
     /**
      * 批量倒入
      */
-    public final static String cust_import_url="api/customer/customer/batch_add";
+    public final static String cust_import_url="customer/batchAdd";
     /**
      * 客户详情
      */
@@ -506,6 +506,10 @@ public class Config {
      * 贷款申请
      */
     public final static String loan_ask_url="Loan/ask";
+    /**
+     * 开单
+     */
+    public final static String order_confirm_url="order/confirm";
 
     public static String getExtSDCardPath()
     {

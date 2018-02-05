@@ -13,6 +13,7 @@
         android:background="@color/lanse">
 
         <TextView
+            android:id="@+id/title_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
@@ -331,9 +332,9 @@
                         android:id="@+id/discount_layout"
                         android:layout_width="wrap_content"
                         android:layout_height="35dp"
+                        android:layout_alignParentLeft="true"
                         android:layout_marginLeft="15dp"
                         android:background="@color/white"
-                        android:layout_alignParentLeft="true"
                         android:orientation="horizontal">
 
                         <TextView
@@ -351,12 +352,13 @@
                             android:layout_gravity="center_vertical"
                             android:textColor="@color/shouye_hongse"
                             android:textSize="16sp" />
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
-                            android:textColor="@color/shouye_hongse"
                             android:text=">"
+                            android:textColor="@color/shouye_hongse"
                             android:textSize="16sp" />
                     </LinearLayout>
 
@@ -366,8 +368,8 @@
                         android:layout_height="35dp"
                         android:layout_alignParentRight="true"
                         android:layout_marginRight="15dp"
-                        android:gravity="center"
                         android:background="@color/white"
+                        android:gravity="center"
                         android:orientation="horizontal">
 
                         <ImageView
@@ -441,6 +443,11 @@
             android:layout_height="match_parent"
             android:scrollbars="none" />
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/fengexian_color" />
 
     <LinearLayout
         android:id="@+id/bottom_layout"

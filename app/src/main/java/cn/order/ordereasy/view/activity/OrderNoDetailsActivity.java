@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.ViewSwitcher;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -122,7 +123,6 @@ public class OrderNoDetailsActivity extends BaseActivity implements OrderEasyVie
         queren.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 orderEasyPresenter.closeOrder(order.getOrder_id());
                 alertDialog.dismiss();
             }
@@ -217,6 +217,9 @@ public class OrderNoDetailsActivity extends BaseActivity implements OrderEasyVie
     //点击展开
     @InjectView(R.id.zhankai_view)
     LinearLayout zhankai_view;
+    //点击展开
+    @InjectView(R.id.view_switcher)
+    ViewSwitcher view_switcher;
 
     //listview
     @InjectView(R.id.orderno_list_view)
@@ -251,6 +254,17 @@ public class OrderNoDetailsActivity extends BaseActivity implements OrderEasyVie
 
     @InjectView(R.id.yaohuo_num)
     TextView yaohuo_num;
+    //修改微信订单
+    @InjectView(R.id.xiugai)
+    LinearLayout xiugai;
+
+    //关闭微信订单
+    @InjectView(R.id.wechat_close)
+    LinearLayout wechat_close;
+
+    //确定微信订单
+    @InjectView(R.id.queding)
+    LinearLayout queding;
 
     boolean isExpand = true;
 
@@ -379,6 +393,32 @@ public class OrderNoDetailsActivity extends BaseActivity implements OrderEasyVie
         startActivityForResult(intent, 1001);
     }
 
+    //修改微信订单
+    @OnClick(R.id.xiugai)
+    void xiugai() {
+        Intent intent = new Intent(OrderNoDetailsActivity.this, BillingActivity.class);
+        Bundle bundle = new Bundle();
+        order.setTelephone(detailsCustomer.getTelephone());
+        bundle.putDouble("receivable", detailsCustomer.getReceivable());
+        bundle.putSerializable("Order", order);
+        bundle.putString("flag", "details");
+        intent.putExtras(bundle);
+        startActivityForResult(intent, 1001);
+    }
+
+    //关闭微信订单
+    @OnClick(R.id.wechat_close)
+    void wechat_close() {
+        showdialogs();
+    }
+
+    //确定微信订单
+    @OnClick(R.id.queding)
+    void queding() {
+        order.setAct("done");
+        orderEasyPresenter.orderConfirm(order);
+        ProgressUtil.showDialog(this);
+    }
 
     @OnClick(R.id.order_record)
 //定单操作记录
@@ -525,19 +565,14 @@ public class OrderNoDetailsActivity extends BaseActivity implements OrderEasyVie
                     break;
                 case 1003:
                     result = (JsonObject) msg.obj;
+                    Log.e("OrderNoDetails", result.toString());
                     if (result != null) {
                         int status = result.get("code").getAsInt();
-                        //String message=result.get("message").getAsString();
                         if (status == 1) {
-                        } else {
-                            String message = result.get("message").getAsString();
-                            showToast(message);
-                            if (status == -7) {
-
-                            }
+                            isResult = true;
+                            orderEasyPresenter.getOrderInfo(id);
                         }
                     }
-                    Log.e("修改发货地址信息", result.toString());
                     break;
                 case 1004:
                     result = (JsonObject) msg.obj;
@@ -595,7 +630,15 @@ public class OrderNoDetailsActivity extends BaseActivity implements OrderEasyVie
             youhui_layout.setVisibility(View.VISIBLE);
             youhui_money_num.setText(price + "");
         }
-
+        if (order.getIs_wechat() == 1) {
+            if (order.getOrder_status() == 1) {
+                view_switcher.setDisplayedChild(1);
+            } else {
+                view_switcher.setDisplayedChild(0);
+            }
+        } else {
+            view_switcher.setDisplayedChild(0);
+        }
         switch (order.getOrder_type()) {
             case 1:
 
@@ -604,7 +647,7 @@ public class OrderNoDetailsActivity extends BaseActivity implements OrderEasyVie
                 } else {
                     type_image.setImageResource(R.drawable.img_dingdan);
                 }
-                bottom_layout.setVisibility(View.VISIBLE);
+                view_switcher.setVisibility(View.VISIBLE);
                 jine_text.setText("订单金额：¥");
                 huopin_leixing.setText("总要货数：");
                 qianhuo_layout.setVisibility(View.VISIBLE);
@@ -619,7 +662,7 @@ public class OrderNoDetailsActivity extends BaseActivity implements OrderEasyVie
                 jine_text.setText("本次应退：¥");
                 huopin_leixing.setText("总退货数：");
                 qianhuo_layout.setVisibility(View.GONE);
-                bottom_layout.setVisibility(View.GONE);
+                view_switcher.setVisibility(View.GONE);
                 youhui_layout.setVisibility(View.GONE);
                 break;
             case 3:
@@ -628,7 +671,7 @@ public class OrderNoDetailsActivity extends BaseActivity implements OrderEasyVie
                 jine_text.setText("本次应退：¥");
                 huopin_leixing.setText("总退货数：");
                 qianhuo_layout.setVisibility(View.GONE);
-                bottom_layout.setVisibility(View.GONE);
+                view_switcher.setVisibility(View.GONE);
                 break;
         }
         name_shou.setText(String.valueOf(PinyinUtil.getFirstStr(order.getCustomer_name())));
@@ -718,6 +761,7 @@ public class OrderNoDetailsActivity extends BaseActivity implements OrderEasyVie
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == 1001) {
+            Log.e("JJF", "id" + id);
             isResult = true;
             orderEasyPresenter.getOrderInfo(id);
         }

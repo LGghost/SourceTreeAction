@@ -664,7 +664,12 @@ public abstract class OrderEasyPresenter extends BasePresenter {
      * 贷款申请
      */
     public abstract void loanAsk(String telephone,String name,String purpose,String identity,String gender);
-
+    /**
+     * 订单修改和确认
+     *
+     * @return
+     */
+    public abstract void orderConfirm(Order order);
 }
 
 

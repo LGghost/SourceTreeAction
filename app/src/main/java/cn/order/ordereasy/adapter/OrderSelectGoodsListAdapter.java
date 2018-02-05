@@ -45,6 +45,7 @@ public class OrderSelectGoodsListAdapter extends BGAAdapterViewAdapter<Goods> {
     private MoneyClickLister lister;
     private int index = 0;
     private int discount = 100;
+    private String flag = "bill";
 
     public OrderSelectGoodsListAdapter(Context context) {
         super(context, R.layout.kaidan_item);
@@ -53,6 +54,10 @@ public class OrderSelectGoodsListAdapter extends BGAAdapterViewAdapter<Goods> {
 
     public void setDiscount(int discount) {
         this.discount = discount;
+    }
+
+    public void setFlag(String flag) {
+        this.flag = flag;
     }
 
     /**
@@ -99,10 +104,16 @@ public class OrderSelectGoodsListAdapter extends BGAAdapterViewAdapter<Goods> {
         adapter.setDiscount(discount);
         listView.setAdapter(adapter);
         lay_1.setTag(position);
-        if (position == index) {
-            gon_layout.setVisibility(View.VISIBLE);
-            kaidan_isshow.setText("收起");
-            zhankai_img.setBackgroundResource(R.drawable.icon_down);
+        if (!flag.equals("details")) {
+            if (position == index) {
+                gon_layout.setVisibility(View.VISIBLE);
+                kaidan_isshow.setText("收起");
+                zhankai_img.setBackgroundResource(R.drawable.icon_down);
+            } else {
+                gon_layout.setVisibility(View.GONE);
+                kaidan_isshow.setText("展开");
+                zhankai_img.setBackgroundResource(R.drawable.icon_up_blue);
+            }
         } else {
             gon_layout.setVisibility(View.GONE);
             kaidan_isshow.setText("展开");

@@ -31,9 +31,10 @@ public class CustomerOrderListAdapter extends BGAAdapterViewAdapter<OrderList> {
 
     private DetailCustomersAdapter.MyItemClickListener mItemClickListener;
     private Context context;
+
     public CustomerOrderListAdapter(Context context) {
         super(context, R.layout.customer_homepage_item_one);
-        this.context =context;
+        this.context = context;
     }
 
     @Override
@@ -58,7 +59,7 @@ public class CustomerOrderListAdapter extends BGAAdapterViewAdapter<OrderList> {
 
         viewHolderHelper.setText(R.id.order_money, String.valueOf(model.getPayable()));
         TextView qianhuo = viewHolderHelper.getTextView(R.id.qiankuan_money);
-        TextView order_amount =  viewHolderHelper.getTextView(R.id.order_amount);
+        TextView order_amount = viewHolderHelper.getTextView(R.id.order_amount);
         order_amount.setText(context.getString(R.string.order_amount));
         //更换右上角图标
         switch (model.getOrder_type()) {
@@ -71,13 +72,30 @@ public class CustomerOrderListAdapter extends BGAAdapterViewAdapter<OrderList> {
                 viewHolderHelper.setVisibility(R.id.kaidan_layout, View.VISIBLE);
                 viewHolderHelper.setVisibility(R.id.qiankuan_money1, View.GONE);
                 viewHolderHelper.setVisibility(R.id.qiankuan_money, View.VISIBLE);
-                if (model.getOwe_num() <= 0) {
-                    qianhuo.setTextColor(mContext.getResources().getColor(R.color.touzi_huise));
-                    qianhuo.setText("已完成");
-                } else {
+                if (model.getIs_wechat() == 1) {
                     qianhuo.setTextColor(mContext.getResources().getColor(R.color.shouye_hongse));
-                    qianhuo.setText("欠货：" + String.valueOf(model.getOwe_num()));
+                    if (model.getOrder_status() == 1) {
+                        qianhuo.setText("待审核");
+                    } else {
+                        if (model.getOwe_num() <= 0) {
+                            qianhuo.setTextColor(mContext.getResources().getColor(R.color.touzi_huise));
+                            qianhuo.setText("已完成");
+                        } else {
+                            qianhuo.setTextColor(mContext.getResources().getColor(R.color.shouye_hongse));
+                            qianhuo.setText("欠货：" + String.valueOf(model.getOwe_num()));
+                        }
+                    }
+                } else {
+                    if (model.getOwe_num() <= 0) {
+                        qianhuo.setTextColor(mContext.getResources().getColor(R.color.touzi_huise));
+                        qianhuo.setText("已完成");
+                    } else {
+                        qianhuo.setTextColor(mContext.getResources().getColor(R.color.shouye_hongse));
+                        qianhuo.setText("欠货：" + String.valueOf(model.getOwe_num()));
+                    }
                 }
+
+
                 if (model.getReturn_num() == 0) {
                     viewHolderHelper.setVisibility(R.id.tuiqianhuo_text, View.GONE);
                 } else {

@@ -130,10 +130,9 @@ public class AddCustomerActivity extends BaseActivity implements OrderEasyView, 
 
     @OnClick(R.id.piliang_daoru)
     void daoru() {
-        showToast("sss");
         Intent intent = new Intent(AddCustomerActivity.this, TelListActivity.class);
         startActivity(intent);
-        // startActivityForResult(intent,1001);
+        finish();
     }
 
     //添加收货地址按钮

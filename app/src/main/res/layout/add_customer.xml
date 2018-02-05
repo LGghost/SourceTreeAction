@@ -39,7 +39,7 @@
             android:text="批量导入"
             android:textColor="@color/white"
             android:textSize="16sp"
-            android:visibility="gone" />
+            android:visibility="visible" />
     </RelativeLayout>
 
     <LinearLayout

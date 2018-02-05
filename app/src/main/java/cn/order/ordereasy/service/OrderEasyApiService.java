@@ -737,7 +737,7 @@ public class OrderEasyApiService {
         String strEntity = GsonUtils.getJsonStr(customerList);
         RequestBody body = RequestBody.create(MediaType.parse("application/json"), strEntity);
         Log.e("setupStore", "发送参数：" + strEntity);
-        return MyApplication.getInstance().getService().request(Config.cust_import_url, body);
+        return MyApplication.getInstance().getService(1).request(Config.cust_import_url, body);
     }
 
     /**
@@ -1578,5 +1578,45 @@ public class OrderEasyApiService {
         RequestBody body = RequestBody.create(MediaType.parse("application/json"), strEntity);
         Log.e("getUserInfo", "发送参数：" + strEntity);
         return MyApplication.getInstance().getService(1).request(Config.loan_ask_url, body);
+    }
+
+    /**
+     * 修改微信订单
+     *
+     * @param order
+     * @return
+     */
+    public static Observable<JsonObject> orderConfirm(Order order) {
+        HashMap<String, Object> paramsMap = new HashMap<>();
+        List<Map<String, Object>> map = new ArrayList<>();
+        List<Goods> goods = order.getGoods_list();
+        if (goods == null) goods = new ArrayList<>();
+        for (Goods good : goods) {
+            List<Product> products = good.getProduct_list();
+            for (Product p : products) {
+                Map<String, Object> data = new HashMap<>();
+                data.put("operate_num", p.getNum());
+                data.put("product_id", p.getProduct_id());
+                if (p.getDefault_price() != -1) {
+                    data.put("cost_price", p.getDefault_price());
+                    data.put("sell_price", p.getDefault_price());
+                }else {
+                    data.put("cost_price", p.getCost_price());
+                    data.put("sell_price", p.getSell_price());
+                }
+                map.add(data);
+            }
+        }
+        paramsMap.put("address", order.getAddress());
+        paramsMap.put("order_id", order.getOrder_id());
+        paramsMap.put("act", order.getAct());
+        paramsMap.put("payable", order.getPayable());
+        paramsMap.put("product_list", map);
+        paramsMap.put("remark", order.getRemark());
+
+        String strEntity = GsonUtils.getJsonStr(paramsMap);
+        RequestBody body = RequestBody.create(MediaType.parse("application/json"), strEntity);
+        Log.e("setupStore", "发送参数：" + strEntity);
+        return MyApplication.getInstance().getService(1).request(Config.order_confirm_url, body);
     }
 }

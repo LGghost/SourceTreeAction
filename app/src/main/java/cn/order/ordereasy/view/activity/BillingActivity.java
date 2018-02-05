@@ -80,6 +80,17 @@ public class BillingActivity extends BaseActivity implements OrderEasyView {
         mTogBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (order.getIs_wechat() == 1) {
+                    if (order.getOrder_status() == 1) {
+                        ToastUtil.show("修改订单不能更改状态");
+                        if (xianTag == 1) {
+                            mTogBtn.setChecked(true);
+                        } else {
+                            mTogBtn.setChecked(false);
+                        }
+                        return;
+                    }
+                }
                 if (mTogBtn.isChecked()) {
                     xianTag = 1;
                 } else {
@@ -90,6 +101,17 @@ public class BillingActivity extends BaseActivity implements OrderEasyView {
         rTogBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (order.getIs_wechat() == 1) {
+                    if (order.getOrder_status() == 1) {
+                        ToastUtil.show("修改订单不能更改状态");
+                        if (shoukuanTag == 1) {
+                            rTogBtn.setChecked(true);
+                        } else {
+                            rTogBtn.setChecked(false);
+                        }
+                        return;
+                    }
+                }
                 if (rTogBtn.isChecked()) {
                     shoukuanTag = 1;
                 } else {
@@ -143,6 +165,15 @@ public class BillingActivity extends BaseActivity implements OrderEasyView {
             }
             if (flag.equals("details")) {
                 order = (Order) bundle.getSerializable("Order");
+                if (order.getIs_wechat() == 1) {
+                    if (order.getOrder_status() == 1) {
+                        title_text.setText("修改订单");
+                        xiugai.setVisibility(View.GONE);
+                        xianTag = order.getIs_deliver();
+                        shoukuanTag = order.getIs_payment();
+                        orderSelectGoodsListAdapter.setFlag("details");
+                    }
+                }
                 double receivable = bundle.getDouble("receivable");
                 order_name.setText(order.getCustomer_name() + " (总欠款：¥" + receivable + ")");
                 addres.setText(order.getAddress());
@@ -184,6 +215,11 @@ public class BillingActivity extends BaseActivity implements OrderEasyView {
                     for (int n = 0; n < product1.size(); n++) {
                         for (int m = 0; m < product.size(); m++) {
                             if (product1.get(n).getProduct_id() == product.get(m).getProduct_id()) {
+                                if (order.getIs_wechat() == 1) {
+                                    if (order.getOrder_status() == 1) {
+                                        product.get(m).setDefault_price(product1.get(n).getSell_price());
+                                    }
+                                }
                                 product.get(m).setNum(product1.get(n).getOperate_num());
                                 product.get(m).setPrice(product1.get(n).getOperate_num() * product1.get(n).getSell_price());
                                 tPrice += product1.get(n).getOperate_num() * product1.get(n).getSell_price();
@@ -259,6 +295,8 @@ public class BillingActivity extends BaseActivity implements OrderEasyView {
 
     @InjectView(R.id.discount_number)
     TextView discount_number;
+    @InjectView(R.id.title_text)
+    TextView title_text;
 
     private void showdialogs() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -454,6 +492,12 @@ public class BillingActivity extends BaseActivity implements OrderEasyView {
         bundle.putSerializable("data", order);
         //再把bundle中的数据传给intent，以传输过去
         intent.putExtras(bundle);
+        if (order.getIs_wechat() == 1) {
+            if (order.getOrder_status() == 1) {
+                startActivityForResult(intent, 1007);
+                return;
+            }
+        }
         startActivity(intent);
 
     }
@@ -646,6 +690,9 @@ public class BillingActivity extends BaseActivity implements OrderEasyView {
             }
             orderSelectGoodsListAdapter.setDiscount(discount);
             orderSelectGoodsListAdapter.notifyDataSetChanged();
+        } else if (resultCode == 1007) {
+            setResult(1001);
+            finish();
         }
 
     }
@@ -738,8 +785,6 @@ public class BillingActivity extends BaseActivity implements OrderEasyView {
                             if (flag.equals("details")) {
                                 screenData(data);
                             }
-                        } else {
-
                         }
                     }
                     Log.e("商品信息", result.toString());

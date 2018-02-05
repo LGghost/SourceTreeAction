@@ -1,48 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:descendantFocusability="blocksDescendants">
+    android:descendantFocusability="blocksDescendants"
+    android:orientation="vertical">
+
     <TextView
         android:id="@+id/tv_item_index_catalog"
         android:layout_width="match_parent"
         android:layout_height="28dp"
         android:background="@color/huise_bac"
+        android:clickable="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
         android:gravity="center_vertical"
         android:paddingLeft="4dp"
         android:paddingRight="4dp"
         android:text="A"
-        android:focusable="false"
-        android:clickable="false"
-        android:focusableInTouchMode="false"
         android:textColor="@color/shouye_huise"
         android:textSize="@dimen/textSize_14"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="5dp"
-        android:paddingBottom="10dp"
-        android:paddingTop="10dp">
+        android:paddingBottom="6dp"
+        android:gravity="center_vertical"
+        android:paddingTop="6dp">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
+        <CheckBox
+            android:id="@+id/ck_tel"
+            style="@style/CustomCheckboxTheme3"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:layout_marginLeft="10dp"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <android.support.v7.widget.AppCompatCheckBox
-                android:layout_width="wrap_content"
-                android:id="@+id/ck_tel"
-                android:layout_height="wrap_content" />
-
-        </LinearLayout>
+            android:clickable="false" />
 
         <LinearLayout
             android:layout_width="wrap_content"

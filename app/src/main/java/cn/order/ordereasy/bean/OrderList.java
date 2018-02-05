@@ -26,6 +26,7 @@ public class OrderList extends BaseEntity{
     private double payable;
     private int is_deliver;
     private int is_wechat;
+    private int order_status;
 
     public int getOrder_id() {
         return order_id;
@@ -169,5 +170,13 @@ public class OrderList extends BaseEntity{
 
     public void setIs_wechat(int is_wechat) {
         this.is_wechat = is_wechat;
+    }
+
+    public int getOrder_status() {
+        return order_status;
+    }
+
+    public void setOrder_status(int order_status) {
+        this.order_status = order_status;
     }
 }

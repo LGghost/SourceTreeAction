@@ -1078,4 +1078,14 @@ public class OrderEasyPresenterImp extends OrderEasyPresenter implements OrderEa
             orderEasyView.hideProgress(2);
         }
     }
+    //订单修改和确认
+    @Override
+    public void orderConfirm(Order order) {
+        orderEasyView.showProgress(0);
+        if (NetWorkUtils.isNetworkConnected(MyApplication.getInstance().mContext)) {
+            addSubscription(orderEasyApiModel.orderConfirm(order));
+        } else {
+            orderEasyView.hideProgress(2);
+        }
+    }
 }

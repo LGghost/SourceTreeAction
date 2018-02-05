@@ -28,6 +28,8 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -38,6 +40,7 @@ import cn.order.ordereasy.bean.ContactInfo;
 import cn.order.ordereasy.bean.Customer;
 import cn.order.ordereasy.presenter.OrderEasyPresenter;
 import cn.order.ordereasy.presenter.OrderEasyPresenterImp;
+import cn.order.ordereasy.utils.DataStorageUtils;
 import cn.order.ordereasy.view.OrderEasyView;
 import cn.order.ordereasy.widget.CharacterParser;
 import cn.order.ordereasy.widget.PinyinComparator;
@@ -50,7 +53,7 @@ import static com.umeng.socialize.utils.DeviceConfig.context;
  * Created by Mr.Pan on 2017/10/13.
  */
 
-public class TelListActivity extends BaseActivity implements OrderEasyView, EasyPermissions.PermissionCallbacks{
+public class TelListActivity extends BaseActivity implements OrderEasyView, EasyPermissions.PermissionCallbacks {
 
     @InjectView(R.id.return_click)
     ImageView return_click;
@@ -62,33 +65,32 @@ public class TelListActivity extends BaseActivity implements OrderEasyView, Easy
     private ContentResolver cr;
 
     private TelListAdapter telListAdapter;
-    private List<ContactInfo> mp=new ArrayList<>();
+    private List<ContactInfo> mp = new ArrayList<>();
     OrderEasyPresenter orderEasyPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tel);
-        setColor(this,this.getResources().getColor(R.color.lanse));
+        setColor(this, this.getResources().getColor(R.color.lanse));
         //拿到内容访问者
         cr = getContentResolver();
-        orderEasyPresenter=new OrderEasyPresenterImp(this);
+        orderEasyPresenter = new OrderEasyPresenterImp(this);
         ButterKnife.inject(this);
         //拿到内容访问者
-        orderEasyPresenter=new OrderEasyPresenterImp(this);
         //得到listView
-        telListAdapter=new TelListAdapter(this);
+        telListAdapter = new TelListAdapter(this);
         tel_listview.setAdapter(telListAdapter);
         choiceContact();
         tel_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ContactInfo data=telListAdapter.getData().get(position);
-                String isChecked = data.getIsCheck();
-                if(isChecked.equals("1")){
-                    telListAdapter.getData().get(position).setIsCheck("2");
-                }else{
-                    telListAdapter.getData().get(position).setIsCheck("1");
+                ContactInfo data = telListAdapter.getData().get(position);
+                int isChecked = data.getIsCheck();
+                if (isChecked == 1) {
+                    telListAdapter.getData().get(position).setIsCheck(0);
+                } else {
+                    telListAdapter.getData().get(position).setIsCheck(1);
                 }
                 telListAdapter.notifyDataSetChanged();
             }
@@ -96,47 +98,57 @@ public class TelListActivity extends BaseActivity implements OrderEasyView, Easy
     }
 
 
-    public void getContacts(){
-        Uri uri=Uri.parse("content://com.android.contacts/raw_contacts");
-        Cursor cs=cr.query(uri,null,null,null,null,null);
-        while(cs.moveToNext()){
+    public void getContacts() {
+        Uri uri = Uri.parse("content://com.android.contacts/raw_contacts");
+        Cursor cs = cr.query(uri, null, null, null, null, null);
+        while (cs.moveToNext()) {
             //拿到联系人id 跟name
-            int id=cs.getInt(cs.getColumnIndex("_id"));
-            String name=cs.getString(cs.getColumnIndex("display_name"));
+            int id = cs.getInt(cs.getColumnIndex("_id"));
+            String name = cs.getString(cs.getColumnIndex("display_name"));
             //得到这个id的所有数据（data表）
-            Uri uri1=Uri.parse("content://com.android.contacts/raw_contacts/"+id+"/data");
-            Cursor cs2=cr.query(uri1,null,null,null,null,null);
-           ContactInfo  maps=new ContactInfo();//实例化一个map
-            while ( cs2.moveToNext()){
+            Uri uri1 = Uri.parse("content://com.android.contacts/raw_contacts/" + id + "/data");
+            Cursor cs2 = cr.query(uri1, null, null, null, null, null);
+            ContactInfo maps = new ContactInfo();//实例化一个map
+            while (cs2.moveToNext()) {
                 //得到data这一列 ，包括很多字段
-                String data1=cs2.getString(cs2.getColumnIndex("data1"));
+                String data1 = cs2.getString(cs2.getColumnIndex("data1"));
                 //得到data中的类型
-                String type=cs2.getString(cs2.getColumnIndex("mimetype"));
-                String str=type.substring(type.indexOf("/")+1,type.length());//截取得到最后的类型
-                if("name".equals(str)){//匹配是否为联系人名字
+                String type = cs2.getString(cs2.getColumnIndex("mimetype"));
+                String str = type.substring(type.indexOf("/") + 1, type.length());//截取得到最后的类型
+                if ("name".equals(str)) {//匹配是否为联系人名字
                     maps.setName(data1);
-                }if("phone_v2".equals(str)){//匹配是否为电话
+                }
+                if ("phone_v2".equals(str)) {//匹配是否为电话
                     maps.setNumber(data1);
                 }
-                Log.i("test",data1+"       "+type);
+                Log.i("test", data1 + "       " + type);
             }
             mp.add(maps);//将map加入list集合中
         }
         //筛选联系人
-        //sortData();
+        sortData();
         telListAdapter.setData(mp);
         telListAdapter.notifyDataSetChanged();//通知适配器发生数据改变
     }
 
-    void sortData(){
+    void sortData() {
         PinyinComparator pinyinComparator = new PinyinComparator();
         CharacterParser characterParser = CharacterParser.getInstance();
-        for (ContactInfo indexModel :mp) {
-            String name="";
-            if(TextUtils.isEmpty(indexModel.getName())){
-                name="-";
-            }else{
-                name=indexModel.getName();
+        for (ContactInfo indexModel : mp) {
+            String name = "";
+            if (TextUtils.isEmpty(indexModel.getName())) {
+                name = "-";
+            } else {
+                name = indexModel.getName();
+            }
+            String char_name = characterParser.getSelling(name).substring(0, 1).toUpperCase();
+            Pattern pattern = Pattern.compile("[a-zA-Z]");
+            Matcher matcher = pattern.matcher(char_name);
+            //当条件满足时，将返回true，否则返回false
+            if (matcher.matches()) {
+                indexModel.setTopic(characterParser.getSelling(name).substring(0, 1).toUpperCase());
+            } else {
+                indexModel.setTopic("#");
             }
             indexModel.setTopic(characterParser.getSelling(name).substring(0, 1).toUpperCase());
         }
@@ -155,20 +167,29 @@ public class TelListActivity extends BaseActivity implements OrderEasyView, Easy
 
     @Override
     public void loadData(JsonObject data, int type) {
-
+        Log.e("TelListActivity", "data:" + data.toString());
+        if (data != null) {
+            int status = data.get("code").getAsInt();
+            if (status == 1) {
+                showToast("添加成功！");
+                DataStorageUtils.getInstance().setCustomer(true);
+                finish();
+            }
+        }
     }
 
     private static final int REQUEST_CODE_PERMISSION_TEL = 1;
 
     @AfterPermissionGranted(REQUEST_CODE_PERMISSION_TEL)
     private void choiceContact() {
-        String[] perms = {Manifest.permission.READ_CONTACTS,Manifest.permission.WRITE_CONTACTS};
+        String[] perms = {Manifest.permission.READ_CONTACTS, Manifest.permission.WRITE_CONTACTS};
         if (EasyPermissions.hasPermissions(this, perms)) {
             getContacts();
         } else {
             EasyPermissions.requestPermissions(this, "订货无忧需要以下权限:\n\n1.拨打电话、\n\n2.读取联系人", REQUEST_CODE_PERMISSION_TEL, perms);
         }
     }
+
     @Override
     public void onPermissionsGranted(int requestCode, List<String> perms) {
 
@@ -201,18 +222,23 @@ public class TelListActivity extends BaseActivity implements OrderEasyView, Easy
 
     }
 
+    @OnClick(R.id.return_click)
+    void return_click() {
+        finish();
+    }
+
     @OnClick(R.id.baocun)
-    void baocun(){
-        List<Customer> datas=new ArrayList<>();
-        for(ContactInfo data:mp){
-            if(data.getIsCheck().equals("1")){
-                Customer customer=new Customer();
+    void baocun() {
+        List<Customer> datas = new ArrayList<>();
+        for (ContactInfo data : mp) {
+            if (data.getIsCheck() == 1) {
+                Customer customer = new Customer();
                 customer.setName(data.getName());
                 customer.setTelephone(data.getNumber());
                 datas.add(customer);
             }
         }
-        if(datas.size()<1){
+        if (datas.size() < 1) {
             showToast("请至少选择一条数据！");
             return;
         }

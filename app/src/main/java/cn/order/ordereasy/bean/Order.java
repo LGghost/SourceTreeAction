@@ -36,7 +36,8 @@ public class Order extends BaseEntity {
     private List<Goods> goods_list;
     private String telephone;
     private List<String> addres1;
-
+    private int order_status;
+    private String act;
     public double getOrder_sum() {
         return order_sum;
     }
@@ -259,5 +260,21 @@ public class Order extends BaseEntity {
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    public int getOrder_status() {
+        return order_status;
+    }
+
+    public void setOrder_status(int order_status) {
+        this.order_status = order_status;
+    }
+
+    public String getAct() {
+        return act;
+    }
+
+    public void setAct(String act) {
+        this.act = act;
     }
 }

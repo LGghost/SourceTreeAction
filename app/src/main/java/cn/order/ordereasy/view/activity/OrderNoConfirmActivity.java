@@ -43,6 +43,7 @@ import cn.order.ordereasy.bean.OrderList;
 import cn.order.ordereasy.bean.Product;
 import cn.order.ordereasy.presenter.OrderEasyPresenter;
 import cn.order.ordereasy.presenter.OrderEasyPresenterImp;
+import cn.order.ordereasy.utils.DataStorageUtils;
 import cn.order.ordereasy.utils.GsonUtils;
 import cn.order.ordereasy.utils.ListUtils;
 import cn.order.ordereasy.utils.ListUtilsHook;
@@ -205,7 +206,15 @@ public class OrderNoConfirmActivity extends BaseActivity implements OrderEasyVie
         order.setSubtotal(price);
         order.setPayable(Double.parseDouble(yingfu_money.getText().toString()));
         Log.e("BillingActivity", "备注1：" + order.getRemark());
-        orderEasyPresenter.Add_Odder(order);
+        if (order.getIs_wechat() == 1) {
+            if (order.getOrder_status() == 1) {
+                orderEasyPresenter.orderConfirm(order);
+            } else {
+                orderEasyPresenter.Add_Odder(order);
+            }
+        } else {
+            orderEasyPresenter.Add_Odder(order);
+        }
         ProgressUtil.showDialog(this);
     }
 
@@ -376,31 +385,17 @@ public class OrderNoConfirmActivity extends BaseActivity implements OrderEasyVie
                     }
                     Log.e("信息", result.toString());
                     break;
-                case 1002:
-                    result = (JsonObject) msg.obj;
-                    if (result != null) {
-                        int status = result.get("code").getAsInt();
-                        //String message=result.get("message").getAsString();
-                        if (status == 1) {
-
-                        } else {
-
-                        }
-                    }
-                    Log.e("信息", result.toString());
-                    break;
                 case 1003:
                     result = (JsonObject) msg.obj;
+                    Log.e("OrderNoConfirm", result.toString());
                     if (result != null) {
                         int status = result.get("code").getAsInt();
-                        //String message=result.get("message").getAsString();
                         if (status == 1) {
-
-                        } else {
-
+                            setResult(1007);
+                            finish();
                         }
                     }
-                    Log.e("保存信息", result.toString());
+
                     break;
                 case 1004:
                     result = (JsonObject) msg.obj;

@@ -791,6 +791,9 @@ public class CustomerHomepageActivity extends BaseActivity implements OrderEasyV
 
 
     private void refreshData() {
+        if (customer == null) {
+            return;
+        }
         if (dataType == 0) {
             orderEasyPresenter.getRecordList(customer.getCustomer_id(), "1");
         } else if (dataType == 1) {
