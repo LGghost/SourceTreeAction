@@ -360,45 +360,6 @@ public class ReturnGoodsActivity extends BaseActivity implements OrderEasyView {
                     }
                     Log.e("退货信息", result.toString());
                     break;
-                case 1002:
-                    result = (JsonObject) msg.obj;
-                    if (result != null) {
-                        int status = result.get("code").getAsInt();
-                        //String message=result.get("message").getAsString();
-                        if (status == 1) {
-
-                        } else {
-
-                        }
-                    }
-                    Log.e("信息", result.toString());
-                    break;
-                case 1003:
-                    result = (JsonObject) msg.obj;
-                    if (result != null) {
-                        int status = result.get("code").getAsInt();
-                        //String message=result.get("message").getAsString();
-                        if (status == 1) {
-
-                        } else {
-
-                        }
-                    }
-                    Log.e("信息", result.toString());
-                    break;
-                case 1004:
-                    result = (JsonObject) msg.obj;
-                    if (result != null) {
-                        int status = result.get("code").getAsInt();
-                        //String message=result.get("message").getAsString();
-                        if (status == 1) {
-
-                        } else {
-
-                        }
-                    }
-                    Log.e("信息", result.toString());
-                    break;
                 case 1007:
                     ToastUtil.show("出错了哟~");
                     break;

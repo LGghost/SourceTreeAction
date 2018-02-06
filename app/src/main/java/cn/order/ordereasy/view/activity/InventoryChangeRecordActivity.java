@@ -206,12 +206,6 @@ public class InventoryChangeRecordActivity extends BaseActivity implements Order
                     } else {
                         no_data_view.setVisibility(View.VISIBLE);
                     }
-                } else {
-                    if (status == -7) {
-                        ToastUtil.show(getString(R.string.landfall_overdue));
-                        Intent intent = new Intent(InventoryChangeRecordActivity.this, LoginActity.class);
-                        startActivity(intent);
-                    }
                 }
             }
         }
@@ -321,7 +315,19 @@ public class InventoryChangeRecordActivity extends BaseActivity implements Order
                                           int dayOfMonth) {
                         int month = monthOfYear + 1;
                         beginTime = month + "." + dayOfMonth;
-                        kaishi_time.setText(year + "-" + month + "-" + dayOfMonth);
+                        String monthDate;
+                        String day;
+                        if (month < 10) {
+                            monthDate = "0" + month;
+                        } else {
+                            monthDate = month + "";
+                        }
+                        if (dayOfMonth < 10) {
+                            day = "0" + dayOfMonth;
+                        } else {
+                            day = dayOfMonth + "";
+                        }
+                        kaishi_time.setText(year + "-" + monthDate + "-" + day);
                     }
                 }, TimeUtil.getCurrentYear(), TimeUtil.getCurrentMonth(), TimeUtil.getCurrentDay()).show();
             }
@@ -340,7 +346,19 @@ public class InventoryChangeRecordActivity extends BaseActivity implements Order
                                           int dayOfMonth) {
                         int month = monthOfYear + 1;
                         endTime = month + "." + dayOfMonth;
-                        jieshu_time.setText(year + "-" + month + "-" + dayOfMonth);
+                        String monthDate;
+                        String day;
+                        if (month < 10) {
+                            monthDate = "0" + month;
+                        } else {
+                            monthDate = month + "";
+                        }
+                        if (dayOfMonth < 10) {
+                            day = "0" + dayOfMonth;
+                        } else {
+                            day = dayOfMonth + "";
+                        }
+                        jieshu_time.setText(year + "-" + monthDate + "-" + day);
                     }
                 }, TimeUtil.getCurrentYear(), TimeUtil.getCurrentMonth(), TimeUtil.getCurrentDay()).show();
             }

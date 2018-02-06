@@ -445,12 +445,6 @@ public class StockGuanliActivity extends BaseActivity implements OrderEasyView, 
                             } else {
                                 no_data_image.setVisibility(View.VISIBLE);
                             }
-                        } else {
-                            if (status == -7) {
-                                ToastUtil.show(getString(R.string.landfall_overdue));
-                                Intent intent = new Intent(StockGuanliActivity.this, LoginActity.class);
-                                startActivity(intent);
-                            }
                         }
                     }
 
@@ -460,44 +454,8 @@ public class StockGuanliActivity extends BaseActivity implements OrderEasyView, 
                     }
                     Log.e("信息", result.toString());
                     break;
-                case 1003:
-                    result = (JsonObject) msg.obj;
-                    if (result != null) {
-                        int status = result.get("code").getAsInt();
-                        //String message=result.get("message").getAsString();
-                        if (status == 1) {
 
-                        } else {
-                            if (status == -7) {
-                                ToastUtil.show(getString(R.string.landfall_overdue));
-                                Intent intent = new Intent(StockGuanliActivity.this, LoginActity.class);
-                                startActivity(intent);
-                            }
-                        }
-                    }
-
-                    if (refresh != null) {
-                        refresh.endRefreshing();
-                        refresh = null;
-                    }
-                    Log.e("保存信息", result.toString());
-                    break;
-                case 1004:
-                    result = (JsonObject) msg.obj;
-                    if (result != null) {
-                        int status = result.get("code").getAsInt();
-                        //String message=result.get("message").getAsString();
-                        if (status == 1) {
-
-                        } else {
-
-                        }
-                    }
-
-                    Log.e("保存信息", result.toString());
-                    break;
                 case 1007:
-
 
                     ToastUtil.show("出错了哟~");
                     break;

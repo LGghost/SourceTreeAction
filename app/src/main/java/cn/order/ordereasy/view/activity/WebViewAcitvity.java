@@ -1,14 +1,22 @@
 package cn.order.ordereasy.view.activity;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.KeyEvent;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,8 +35,11 @@ import butterknife.OnClick;
 import cn.order.ordereasy.R;
 import cn.order.ordereasy.utils.Config;
 import cn.order.ordereasy.utils.GsonUtils;
+import cn.order.ordereasy.utils.ScreenUtil;
 import cn.order.ordereasy.utils.UmengUtils;
 import cn.order.ordereasy.view.fragment.MainActivity;
+
+import static cn.order.ordereasy.R.id.webView;
 
 /**
  * Created by Administrator on 2017/9/28.
@@ -56,11 +67,7 @@ public class WebViewAcitvity extends BaseActivity {
         //加载需要显示的网页
         web_view_content.getSettings().setJavaScriptEnabled(true);
         web_view_content.getSettings().setDomStorageEnabled(true);
-
-
         web_view_content.loadUrl(key);
-
-        Log.e("1111111", key);
 
     }
 
@@ -72,9 +79,9 @@ public class WebViewAcitvity extends BaseActivity {
     @InjectView(R.id.textView23)
     TextView textView23;
 
-    //分享
-    @InjectView(R.id.fenxiang)
-    TextView fenxiang;
+    //更多
+    @InjectView(R.id.more_text)
+    TextView more_text;
 
     //WebView
     @InjectView(R.id.web_view_content)
@@ -85,21 +92,20 @@ public class WebViewAcitvity extends BaseActivity {
     //返回按钮
     @OnClick(R.id.return_click)
     void return_click() {
-        WebViewAcitvity.this.finish();
+        web_view_content.goBack();//返回上个页
     }
 
     //需要的点击事件
     //返回按钮
-    @OnClick(R.id.fenxiang)
-    void fenxiang() {
-        UmengUtils.getInstance().share(WebViewAcitvity.this, "欢迎光临本店", shareListener);
+    @OnClick(R.id.more_text)
+    void more_text() {
+        showPopWindow();
     }
 
     //关闭按钮
     @OnClick(R.id.textView23)
     void textView23() {
-        Intent intent = new Intent(WebViewAcitvity.this, MainActivity.class);
-        startActivity(intent);
+        WebViewAcitvity.this.finish();
     }
 
     private UMShareListener shareListener = new UMShareListener() {
@@ -141,4 +147,56 @@ public class WebViewAcitvity extends BaseActivity {
 
         }
     };
+
+    private void showPopWindow() {
+        final PopupWindow popupWindow;
+        View contentView = LayoutInflater.from(this).inflate(R.layout.supplier_add_popuwindow, null, false);
+        LinearLayout add_supplier = (LinearLayout) contentView.findViewById(R.id.add_supplier);
+        LinearLayout supplier_import = (LinearLayout) contentView.findViewById(R.id.supplier_import);
+        ImageView imageView = (ImageView) contentView.findViewById(R.id.title_image);
+        ImageView imageView1 = (ImageView) contentView.findViewById(R.id.title_image1);
+        TextView title = (TextView) contentView.findViewById(R.id.title_text);
+        TextView title1 = (TextView) contentView.findViewById(R.id.title_text1);
+        imageView.setImageResource(R.drawable.icon_share1);
+        imageView1.setImageResource(R.drawable.icon_qrcode);
+        title.setText("分享店铺");
+        title1.setText("店铺二维码");
+        popupWindow = new PopupWindow(contentView, ScreenUtil.getWindowsW(this) / 3 + 100, LinearLayout.LayoutParams.WRAP_CONTENT);
+        popupWindow.setBackgroundDrawable(new BitmapDrawable());
+        popupWindow.setFocusable(true);
+        popupWindow.showAsDropDown(more_text);
+
+        add_supplier.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {//分享店铺
+                UmengUtils.getInstance().share(WebViewAcitvity.this, "欢迎光临本店", shareListener);
+                popupWindow.dismiss();
+            }
+        });
+        supplier_import.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {//店铺二维码
+
+                Intent intent = new Intent(WebViewAcitvity.this, PrintActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("flag", "web");
+                intent.putExtras(bundle);
+                startActivity(intent);
+                popupWindow.dismiss();
+            }
+        });
+
+    }
+
+    /**
+     * 使点击回退按钮不会直接退出整个应用程序而是返回上一个页面
+     */
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && web_view_content.canGoBack()) {
+            web_view_content.goBack();//返回上个页面
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);//退出整个应用程序
+    }
 }

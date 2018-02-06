@@ -312,13 +312,6 @@ public class GuigeShuxingSelectListActivity extends BaseActivity implements Orde
                             sp.edit().putString(id, jsonArrayData.toString()).commit();
                             name = "";
                             mAdapter.notifyDataSetChanged();
-                        } else {
-                            String message = result.get("message").getAsString();
-                            ToastUtil.show(message);
-                            if (status == -7) {
-//                                Intent intent = new Intent(SpecificationsGuanliActivity.this, LoginActity.class);
-//                                startActivity(intent);
-                            }
                         }
                     }
                     Log.e("信息", result.toString());

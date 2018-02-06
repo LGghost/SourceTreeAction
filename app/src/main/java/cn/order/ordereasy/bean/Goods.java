@@ -10,38 +10,40 @@ import cn.order.ordereasy.presenter.BasePresenter;
  */
 
 public class Goods extends BaseEntity {
-    private int category_id=0;
-    private String category_name="";
-    private String cover="";
+    private int category_id = 0;
+    private String category_name = "";
+    private String cover = "";
     private int is_enable_stock_warn;
     private int max_stock_warn_num;
     private int min_stock_warn_num;
 
-    private String create_time="";
-    private int goods_id=0;
-    private int goods_num=0;
-    private int is_hidden_price=0;// 是否隐藏价格，0-不隐藏，1-隐藏
-
+    private String create_time = "";
+    private int goods_id = 0;
+    private int goods_num = 0;
+    private int is_hidden_price = 0;// 是否隐藏价格，0-不隐藏，1-隐藏
+    private int is_hidden_store = 0;
+    private int is_hidden_sales_num = 0;
     private Object images;
 
-    private double min_price=0;// 该货品的所有规格的最低价格，浮点型
-    private double max_price=0;// 该货品的所有规格的最高价格，浮点型
-    private int sale_num=0;
-    private int owe_num=0;
-    private List<Spec> spec=new ArrayList<>();
-    private int  status = 1;       // 上下架状态（0-下架状态，1-上架状态）
+    private double min_price = 0;// 该货品的所有规格的最低价格，浮点型
+    private double max_price = 0;// 该货品的所有规格的最高价格，浮点型
+    private int sale_num = 0;
+    private int owe_num = 0;
+    private List<Spec> spec = new ArrayList<>();
+    private int status = 1;       // 上下架状态（0-下架状态，1-上架状态）
     private String title = "";   // 货品名称
-    private String update_time="";   // 货品最新更新时间
-    private int isSelected=0;
+    private String update_time = "";   // 货品最新更新时间
+    private int isSelected = 0;
 
-    private List<Product> product_list=new ArrayList<>();
+    private List<Product> product_list = new ArrayList<>();
 
-    private String description="";
+    private String description = "";
     private String goods_no = "";
-    private int num=0;
-    private int store_num=0;
-    private double price=0;
-    private double discount_price =0;
+    private int num = 0;
+    private int store_num = 0;
+    private double price = 0;
+    private double discount_price = 0;
+
     public int getIs_enable_stock_warn() {
         return is_enable_stock_warn;
     }
@@ -266,22 +268,38 @@ public class Goods extends BaseEntity {
         this.discount_price = discount_price;
     }
 
+    public int getIs_hidden_store() {
+        return is_hidden_store;
+    }
+
+    public void setIs_hidden_store(int is_hidden_store) {
+        this.is_hidden_store = is_hidden_store;
+    }
+
+    public int getIs_hidden_sales_num() {
+        return is_hidden_sales_num;
+    }
+
+    public void setIs_hidden_sales_num(int is_hidden_sales_num) {
+        this.is_hidden_sales_num = is_hidden_sales_num;
+    }
+
     //模糊查询
-    public static List likeString(List<Goods> data,String likename){
-        List<Goods> list =new ArrayList<>();
+    public static List likeString(List<Goods> data, String likename) {
+        List<Goods> list = new ArrayList<>();
         list.addAll(data);
-        for(int i=0;i<list.size();i++){
-            if(!((Goods)(list.get(i))).getTitle().contains(likename) || !((Goods)(list.get(i))).getGoods_no().contains(likename))
+        for (int i = 0; i < list.size(); i++) {
+            if (!((Goods) (list.get(i))).getTitle().contains(likename) || !((Goods) (list.get(i))).getGoods_no().contains(likename))
                 list.remove(i);
         }
         return list;
     }
 
-    public static List likeString2(List<Goods> data,String likename){
-        List<Goods> list =new ArrayList<>();
+    public static List likeString2(List<Goods> data, String likename) {
+        List<Goods> list = new ArrayList<>();
 
-        for(int i=0;i<data.size();i++){
-            if(data.get(i).getTitle().contains(likename) || data.get(i).getGoods_no().contains(likename)){
+        for (int i = 0; i < data.size(); i++) {
+            if (data.get(i).getTitle().contains(likename) || data.get(i).getGoods_no().contains(likename)) {
                 list.add(data.get(i));
             }
         }

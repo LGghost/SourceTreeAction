@@ -39,6 +39,15 @@
             android:textSize="16sp" />
     </RelativeLayout>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:background="@color/test_spacing4"
+        android:gravity="center"
+        android:text="每个员工可以设置一种或多种角色"
+        android:textColor="@color/touzi_huise"
+        android:textSize="13sp" />
+
     <LinearLayout
         android:id="@+id/shop_keeper_layout"
         android:layout_width="match_parent"
@@ -75,7 +84,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginTop="6dp"
+                android:layout_marginTop="8dp"
                 android:text="@string/shop_keeper_describe"
                 android:textColor="@color/touzi_huise"
                 android:textSize="14sp" />
@@ -125,7 +134,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginTop="6dp"
+                android:layout_marginTop="8dp"
                 android:text="@string/salesperson_describe"
                 android:textColor="@color/touzi_huise"
                 android:textSize="14sp" />
@@ -175,7 +184,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginTop="6dp"
+                android:layout_marginTop="8dp"
                 android:text="@string/godown_man_describe"
                 android:textColor="@color/touzi_huise"
                 android:textSize="14sp" />

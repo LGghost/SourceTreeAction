@@ -241,30 +241,10 @@ public class SearchGoodsThreeActivity extends BaseActivity implements OrderEasyV
                             initData();
                             //adapter.setData(datas);
 
-                        }else{
-                            if(status==-7){
-                                ToastUtil.show(getString(R.string.landfall_overdue));
-                                Intent intent = new Intent(SearchGoodsThreeActivity.this, LoginActity.class);
-                                startActivity(intent);
-                            }
                         }
                     }
                     Log.e("信息",result.toString());
 
-                case 1002:
-                    break;
-                case 1003:
-
-                    break;
-                case 1004:
-
-                    break;
-                case 1005:
-
-                    break;
-                case 100 :
-
-                    break;
                 case 1007:
                     ToastUtil.show("出错了哟~");
                     break;

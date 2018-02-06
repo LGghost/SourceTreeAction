@@ -23,6 +23,7 @@ import cn.order.ordereasy.bean.Goods;
 import cn.order.ordereasy.bean.Order;
 import cn.order.ordereasy.bean.Product;
 import cn.order.ordereasy.utils.Config;
+import cn.order.ordereasy.utils.TimeUtil;
 
 public class FragmentStcokSales extends Fragment {
     private FragmentManager manager;
@@ -82,13 +83,14 @@ public class FragmentStcokSales extends Fragment {
             //上架图片
             goods_image2.setVisibility(View.GONE);
         }
-        if(goods.getIs_hidden_price() == 0){
+        if (goods.getIs_hidden_price() == 0) {
             hide_text.setVisibility(View.GONE);
-        }else{
+        } else {
             hide_text.setVisibility(View.VISIBLE);
         }
         goods_no.setText(String.valueOf(good.getGoods_no()));
         goods_name.setText(good.getTitle());
+        goods_date.setText(TimeUtil.getTimeStamp2Str(Long.parseLong(good.getCreate_time()), "yyyy-MM-dd"));
         ImageLoader.getInstance().displayImage(Config.URL_HTTP + "/" + good.getCover(), goods_image);
         products = good.getProduct_list();
         if (products.size() < 1) {
@@ -104,9 +106,11 @@ public class FragmentStcokSales extends Fragment {
         childStcokFragment.setOrdersList(orders);
         childStcokFragment.endRefreshing();
     }
-    public void setGoodId(int goodId){
+
+    public void setGoodId(int goodId) {
         this.goodId = goodId;
     }
+
     private FragmentTransaction switchFragment(Fragment targetFragment) {
 
         FragmentTransaction transaction = getActivity().getSupportFragmentManager()
@@ -150,6 +154,8 @@ public class FragmentStcokSales extends Fragment {
     TextView customer_text;
     @InjectView(R.id.goods_details_space)
     TextView goods_details_space;
+    @InjectView(R.id.goods_date)
+    TextView goods_date;
 
     //库存及欠货
     @OnClick(R.id.stock_owe)
@@ -172,7 +178,8 @@ public class FragmentStcokSales extends Fragment {
         customer_text.setBackgroundColor(getResources().getColor(R.color.lanse));
         switchFragment(customerFragment).commit();
     }
-    public void endRefreshing(){
+
+    public void endRefreshing() {
         childStcokFragment.endRefreshing();
     }
 }

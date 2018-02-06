@@ -269,9 +269,6 @@ public class InventorySearchActivity extends BaseActivity implements OrderEasyVi
                         goods.add(good);
                     }
                     adapter.setData(goods);
-                } else {
-                    String message = data.get("message").getAsString();
-                    showToast(message);
                 }
             }
             Log.e("盘点信息", data.toString());
@@ -285,12 +282,6 @@ public class InventorySearchActivity extends BaseActivity implements OrderEasyVi
 //                    clearData();
                     setResult(1002);
                     finish();
-                } else {
-                    String message = data.get("message").getAsString();
-                    ToastUtil.show(message);
-                    if (status == -7) {
-
-                    }
                 }
             }
             Log.e("保存信息", data.toString());

@@ -2,6 +2,7 @@ package cn.order.ordereasy.adapter;
 
 import android.content.Context;
 import android.opengl.Visibility;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -53,7 +54,11 @@ public class InventoryListAdapter extends BGAAdapterViewAdapter<Inventory> {
             viewHolderHelper.setText(R.id.pandian_status,"盘点中");
         }
         ImageView imageView=viewHolderHelper.getImageView(R.id.pandian_image);
-        ImageLoader.getInstance().displayImage(Config.URL_HTTP+"/"+ model.getAvatar(),imageView);
+        if(!TextUtils.isEmpty(model.getAvatar())) {
+            ImageLoader.getInstance().displayImage(Config.URL_HTTP + "/" + model.getAvatar(), imageView);
+        }else{
+            imageView.setImageResource(R.drawable.bg_user);
+        }
 
     }
 

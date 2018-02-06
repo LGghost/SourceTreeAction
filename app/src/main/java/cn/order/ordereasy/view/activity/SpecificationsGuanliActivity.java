@@ -256,12 +256,6 @@ public class SpecificationsGuanliActivity extends BaseActivity implements OrderE
                             }
                             edit.commit();
                             mAdapter.setData(mapList);
-                        }else{
-                            if(status==-7){
-                                ToastUtil.show(getString(R.string.landfall_overdue));
-                                Intent intent = new Intent(SpecificationsGuanliActivity.this, LoginActity.class);
-                                startActivity(intent);
-                            }
                         }
                     }
                     Log.e("信息",result.toString());
@@ -274,9 +268,6 @@ public class SpecificationsGuanliActivity extends BaseActivity implements OrderE
                         if(status==1){
                             showToast("新增成功！");
                             orderEasyPresenter.getSpecInfo();
-                        }else{
-                            String message=result.get("message").getAsString();
-                            showToast(message);
                         }
                     }
                     Log.e("新增信息",result.toString());
@@ -289,9 +280,6 @@ public class SpecificationsGuanliActivity extends BaseActivity implements OrderE
                         if(status==1){
                             showToast("修改成功！");
                             orderEasyPresenter.getSpecInfo();
-                        }else{
-                            String message=result.get("message").getAsString();
-                            showToast(message);
                         }
                     }
                     Log.e("保存信息",result.toString());
@@ -300,13 +288,9 @@ public class SpecificationsGuanliActivity extends BaseActivity implements OrderE
                     result= (JsonObject) msg.obj;
                     if(result!=null){
                         int status=result.get("code").getAsInt();
-                        //String message=result.get("message").getAsString();
                         if(status==1){
                             showToast("删除成功！");
                             orderEasyPresenter.getSpecInfo();
-                        }else{
-                            String message=result.get("message").getAsString();
-                            showToast(message);
                         }
                     }
                     Log.e("保存信息",result.toString());

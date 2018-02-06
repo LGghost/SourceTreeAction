@@ -172,7 +172,6 @@ public class LoginActity extends BaseActivity implements OrderEasyView {
                     JsonObject result = (JsonObject) msg.obj;
                     if (result != null) {
                         int status = result.get("code").getAsInt();
-                        String message = result.get("message").getAsString();
                         if (status == 1) {
                             //登录成功
                             String token = result.getAsJsonObject("result").get("token").getAsString();
@@ -188,7 +187,6 @@ public class LoginActity extends BaseActivity implements OrderEasyView {
                         } else {
                             SharedPreferences.Editor editor = spPreferences.edit();
                             editor.putString("token", "").commit();
-                            ToastUtil.show(message);
                         }
                     }
                     Log.e("登录信息", result.toString());
@@ -215,10 +213,7 @@ public class LoginActity extends BaseActivity implements OrderEasyView {
 
 
                         } else {
-                            String message = result.get("message").getAsString();
                             if (status == -7) {
-                                // Intent intent = new Intent(StoreSettingsActivity.this, LoginActity.class);
-                                // startActivity(intent);
                             } else if (status == -22) {
                                 Intent intent = new Intent(LoginActity.this, ExperienceInterfaceActivity.class);
                                 Bundle bundle = new Bundle();

@@ -619,4 +619,12 @@ public interface OrderEasyApiModel {
      */
     Subscription orderConfirm(Order order);
 
+
+    /**
+     * 删除订单
+     *
+     * @return
+     */
+    Subscription goodsDel(int goodId);
+
 }

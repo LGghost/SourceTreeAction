@@ -250,10 +250,6 @@ public class StockInventoryActivity extends BaseActivity implements OrderEasyVie
                             } else {
                                 no_data_view.setVisibility(View.VISIBLE);
                             }
-
-                        } else {
-                            String message = result.get("message").getAsString();
-                            showToast(message);
                         }
                     }
                     Log.e("盘点信息", result.toString());
@@ -274,38 +270,9 @@ public class StockInventoryActivity extends BaseActivity implements OrderEasyVie
                             bundle.putSerializable("data", inventory);
                             intent.putExtras(bundle);
                             startActivityForResult(intent, 1001);
-                        } else {
-
                         }
                     }
                     Log.e("新建信息", result.toString());
-                    break;
-                case 1003:
-                    result = (JsonObject) msg.obj;
-                    if (result != null) {
-                        int status = result.get("code").getAsInt();
-                        //String message=result.get("message").getAsString();
-                        if (status == 1) {
-
-                        } else {
-                            String message = result.get("message").getAsString();
-                            showToast(message);
-                        }
-                    }
-                    Log.e("保存信息", result.toString());
-                    break;
-                case 1004:
-                    result = (JsonObject) msg.obj;
-                    if (result != null) {
-                        int status = result.get("code").getAsInt();
-                        //String message=result.get("message").getAsString();
-                        if (status == 1) {
-
-                        } else {
-
-                        }
-                    }
-                    Log.e("保存信息", result.toString());
                     break;
                 case 1007:
                     ToastUtil.show("出错了哟~");

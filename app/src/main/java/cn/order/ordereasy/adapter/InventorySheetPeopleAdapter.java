@@ -1,6 +1,7 @@
 package cn.order.ordereasy.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,22 +24,23 @@ import cn.order.ordereasy.utils.Config;
 public class InventorySheetPeopleAdapter extends BaseAdapter {
 
     Context context;
-    private List<Map<String,Object>> data=null;
+    private List<Map<String, Object>> data = null;
 
     private MyItemClickListener mItemClickListener;
 
-    public InventorySheetPeopleAdapter(Context context, List<Map<String, Object>> data){
-        this.context= context;
-        this.data= data;
-    }
-    /**
-     * 设置Item点击监听、、、、
-     * @param listener
-     */
-    public void setOnItemClickListener(MyItemClickListener listener){
-        this.mItemClickListener = listener;
+    public InventorySheetPeopleAdapter(Context context, List<Map<String, Object>> data) {
+        this.context = context;
+        this.data = data;
     }
 
+    /**
+     * 设置Item点击监听、、、、
+     *
+     * @param listener
+     */
+    public void setOnItemClickListener(MyItemClickListener listener) {
+        this.mItemClickListener = listener;
+    }
 
 
     @Override
@@ -60,27 +62,31 @@ public class InventorySheetPeopleAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder = null;
 
-        if(convertView==null){
-            viewHolder=new ViewHolder();
+        if (convertView == null) {
+            viewHolder = new ViewHolder();
             convertView = LayoutInflater.from(context).inflate(
                     R.layout.inventory_sheet_item, parent, false);
-            viewHolder.huop_img= (ImageView) convertView.findViewById(R.id.huop_img);
-            viewHolder.name=(TextView)convertView.findViewById(R.id.name);
-            viewHolder.zhiwei=(TextView)convertView.findViewById(R.id.zhiwei);
-            viewHolder.huopin_num=(TextView)convertView.findViewById(R.id.huopin_num);
-            viewHolder.pandian_num=(TextView)convertView.findViewById(R.id.pandian_num);
+            viewHolder.huop_img = (ImageView) convertView.findViewById(R.id.huop_img);
+            viewHolder.name = (TextView) convertView.findViewById(R.id.name);
+            viewHolder.zhiwei = (TextView) convertView.findViewById(R.id.zhiwei);
+            viewHolder.huopin_num = (TextView) convertView.findViewById(R.id.huopin_num);
+            viewHolder.pandian_num = (TextView) convertView.findViewById(R.id.pandian_num);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        Map<String,Object> map =this.data.get(position);
-        ImageLoader.getInstance().displayImage(Config.URL_HTTP+"/"+map.get("avatar").toString(),viewHolder.huop_img);
+        Map<String, Object> map = this.data.get(position);
+        if (!TextUtils.isEmpty(map.get("avatar").toString())) {
+            ImageLoader.getInstance().displayImage(Config.URL_HTTP + "/" + map.get("avatar").toString(), viewHolder.huop_img);
+        }else{
+            viewHolder.huop_img.setImageResource(R.drawable.bg_user);
+        }
         viewHolder.huopin_num.setText(map.get("goods_num").toString());
         viewHolder.pandian_num.setText(map.get("operate_num").toString());
         viewHolder.name.setText(map.get("user_name").toString());
-        if(map.get("is_boss").toString().equals("1")){
+        if (map.get("is_boss").toString().equals("1")) {
             viewHolder.zhiwei.setText("老板");
-        }else{
+        } else {
             viewHolder.zhiwei.setText("员工");
         }
 

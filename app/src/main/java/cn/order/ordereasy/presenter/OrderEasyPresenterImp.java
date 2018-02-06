@@ -2,6 +2,7 @@ package cn.order.ordereasy.presenter;
 
 import android.app.Application;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -28,6 +29,9 @@ import cn.order.ordereasy.view.OrderEasyView;
 import cn.order.ordereasy.view.activity.ExperienceInterfaceActivity;
 import cn.order.ordereasy.view.activity.LoginActity;
 import cn.order.ordereasy.view.activity.ModifyCustomerActivity;
+import cn.order.ordereasy.view.activity.SetupAvtivity;
+
+import static android.content.Context.MODE_PRIVATE;
 
 /**
  * Created by mrpan on 2017/9/4.
@@ -53,6 +57,11 @@ public class OrderEasyPresenterImp extends OrderEasyPresenter implements OrderEa
             if (status == 1) {
 
             } else if (status == -7) {
+                SharedPreferences spPreferences = MyApplication.getInstance().mContext.getSharedPreferences("user", MODE_PRIVATE);
+                SharedPreferences.Editor editor = spPreferences.edit();
+                editor.putString("user_pwd", "");
+                editor.putBoolean("isTagLogin", false);
+                editor.commit();
                 XGPushUtils.getInstance().unRegister(MyApplication.getInstance().mContext);
                 ToastUtil.show(MyApplication.getInstance().mContext.getString(R.string.landfall_overdue));
                 Intent intent = new Intent(MyApplication.getInstance().mContext, LoginActity.class);
@@ -1084,6 +1093,16 @@ public class OrderEasyPresenterImp extends OrderEasyPresenter implements OrderEa
         orderEasyView.showProgress(0);
         if (NetWorkUtils.isNetworkConnected(MyApplication.getInstance().mContext)) {
             addSubscription(orderEasyApiModel.orderConfirm(order));
+        } else {
+            orderEasyView.hideProgress(2);
+        }
+    }
+    // 删除订单
+    @Override
+    public void goodsDel(int goodId) {
+        orderEasyView.showProgress(0);
+        if (NetWorkUtils.isNetworkConnected(MyApplication.getInstance().mContext)) {
+            addSubscription(orderEasyApiModel.goodsDel(goodId));
         } else {
             orderEasyView.hideProgress(2);
         }

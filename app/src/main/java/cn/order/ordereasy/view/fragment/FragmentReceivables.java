@@ -186,7 +186,19 @@ public class FragmentReceivables extends Fragment implements OrderEasyView, Swip
                     public void onDateSet(DatePicker view, int year, int monthOfYear,
                                           int dayOfMonth) {
                         int month = monthOfYear + 1;
-                        kaishi_time.setText(year + "-" + month + "-" + dayOfMonth);
+                        String monthDate;
+                        String day;
+                        if (month < 10) {
+                            monthDate = "0" + month;
+                        } else {
+                            monthDate = month + "";
+                        }
+                        if (dayOfMonth < 10) {
+                            day = "0" + dayOfMonth;
+                        } else {
+                            day = dayOfMonth + "";
+                        }
+                        kaishi_time.setText(year + "-" + monthDate + "-" + day);
 //                        begindate = year + "-" + month + "-" + dayOfMonth;
 //                        startTime = month + "." + dayOfMonth;
                     }
@@ -206,7 +218,19 @@ public class FragmentReceivables extends Fragment implements OrderEasyView, Swip
                     public void onDateSet(DatePicker view, int year, int monthOfYear,
                                           int dayOfMonth) {
                         int month = monthOfYear + 1;
-                        jieshu_time.setText(year + "-" + month + "-" + dayOfMonth);
+                        String monthDate;
+                        String day;
+                        if (month < 10) {
+                            monthDate = "0" + month;
+                        } else {
+                            monthDate = month + "";
+                        }
+                        if (dayOfMonth < 10) {
+                            day = "0" + dayOfMonth;
+                        } else {
+                            day = dayOfMonth + "";
+                        }
+                        jieshu_time.setText(year + "-" + monthDate + "-" + day);
 //                        enddate = year + "-" + month + "-" + dayOfMonth;
 //                        endTime = month + "." + dayOfMonth;
                     }

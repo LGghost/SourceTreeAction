@@ -179,14 +179,11 @@ public class ForgotPasswordActivity extends BaseActivity implements OrderEasyVie
                     JsonObject result= (JsonObject) msg.obj;
                     if(result!=null){
                         int status=result.get("code").getAsInt();
-                        String message=result.get("message").getAsString();
                         if(status==1){
                             //成功
                             code = result.get("result").getAsString();
                             String tel=phone_number.getText().toString();
                             orderEasyPresenter.getSmsCode(tel,"forgot",code);
-                        }else{
-                            ToastUtil.show(message);
                         }
                     }
                     Log.e("密钥信息",result.toString());
@@ -208,12 +205,9 @@ public class ForgotPasswordActivity extends BaseActivity implements OrderEasyVie
                     result= (JsonObject) msg.obj;
                     if(result!=null){
                         int status=result.get("code").getAsInt();
-                        String message=result.get("message").getAsString();
                         if(status==1){
                             ToastUtil.show("修改密码成功！");
                             finish();
-                        }else{
-                            ToastUtil.show(message);
                         }
                     }
                     Log.e("注册信息",result.toString());

@@ -314,12 +314,6 @@ public class TiaoZhengAityity extends BaseActivity implements OrderEasyView {
                         if (status == 1) {
                             //成功
 
-                        } else {
-                            String message = result.get("message").getAsString();
-                            ToastUtil.show(message);
-                            if (status == -7) {
-
-                            }
                         }
                     }
                     Log.e("保存信息", result.toString());
@@ -333,38 +327,11 @@ public class TiaoZhengAityity extends BaseActivity implements OrderEasyView {
                             showToast("调整成功！");
                             setResult(1001);
                             finish();
-                        } else {
-
                         }
                     }
                     Log.e("商品信息", result.toString());
                     break;
-                case 1003:
-                    result = (JsonObject) msg.obj;
-                    if (result != null) {
-                        int status = result.get("code").getAsInt();
-                        //String message=result.get("message").getAsString();
-                        if (status == 1) {
 
-                        } else {
-
-                        }
-                    }
-                    Log.e("保存信息", result.toString());
-                    break;
-                case 1004:
-                    result = (JsonObject) msg.obj;
-                    if (result != null) {
-                        int status = result.get("code").getAsInt();
-                        //String message=result.get("message").getAsString();
-                        if (status == 1) {
-
-                        } else {
-
-                        }
-                    }
-                    Log.e("保存信息", result.toString());
-                    break;
                 case 1007:
                     ToastUtil.show("出错了哟~");
                     break;

@@ -20,6 +20,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -107,67 +108,79 @@ public class ShangHuoActivity extends BaseActivity implements EasyPermissions.Pe
         shangHuoAdapter.setOnItemClickLitener(this);
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
-            good = (Goods) bundle.getSerializable("data");
-            flag = bundle.getString("flag");
-            shanghuo_no.setText(good.getGoods_no());
-            shanghuo_no.setTextColor(getResources().getColor(R.color.darkgray));
-            shanghuo_name.setText(good.getTitle());
-            shanghuo_fenlei.setText(good.getCategory_name());
-            if (good.getIs_enable_stock_warn() == 1) {
-                warning_togbtn.setChecked(true);
-                warning_low.setText(good.getMin_stock_warn_num() + "");
-                warning_high.setText(good.getMax_stock_warn_num() + "");
-            } else {
-                warning_togbtn.setChecked(false);
-            }
-            List<Spec> specs = good.getSpec();
-            StringBuilder sb = new StringBuilder();
-            if (specs.size() > 0) {
-                good.setSpec(specs);
-                for (Spec s : specs) {
-                    List<String> values = s.getValues();
-                    if (values == null) values = new ArrayList<>();
-                    sb.append(s.getName() + "：");
-                    for (int i = 0; i < values.size(); i++) {
-//                        sb.append(values.get(i));
-//                        if (i != values.size()) {
-//                            sb.append("/");
-//                        }
-                        if (i != 0) {
-                            sb.append("/");
-                        }
-                        sb.append(values.get(i));
-                    }
-                    if (specs.size() > 1) {
-                        sb.append("\n");
-                    }
-                }
-            }
-            if (TextUtils.isEmpty(sb.toString())) {
-                shanghuo_spec.setText("无");
-            }
-            shanghuo_spec.setText(sb.toString());
-            String desc = good.getDescription();
-            if (!TextUtils.isEmpty(desc)) {
-                shanghuo_desc.setText("已填写");
-            }
-            good.setDescription(desc);
-            shanghuo_price.setText("已填写");
-            List<Map<String, Object>> images = (List<Map<String, Object>>) good.getImages();
-
-            ArrayList<String> strings = new ArrayList<>();
-            for (int i = 0; i < images.size(); i++) {
-                strings.add(Config.URL_HTTP + "/" + images.get(i).get("url"));
-            }
-            uploadData = strings;
-            shangHuoAdapter.setData(strings, false);
-            shangHuoAdapter.setImages(images);
-            shanghuo_no.setFocusable(false);
-
+            eidtData(bundle);
         }
         getSharedPreferences("price", 0).edit().clear().commit();
     }
 
+    private void eidtData(Bundle bundle) {
+        good = (Goods) bundle.getSerializable("data");
+        flag = bundle.getString("flag");
+        shanghuo_no.setText(good.getGoods_no());
+        shanghuo_no.setTextColor(getResources().getColor(R.color.darkgray));
+        shanghuo_name.setText(good.getTitle());
+        shanghuo_fenlei.setText(good.getCategory_name());
+        if (good.getIs_enable_stock_warn() == 1) {
+            warning_togbtn.setChecked(true);
+            warning_low.setText(good.getMin_stock_warn_num() + "");
+            warning_high.setText(good.getMax_stock_warn_num() + "");
+        } else {
+            warning_togbtn.setChecked(false);
+        }
+        if(good.getIs_hidden_price() == 1){
+            mTogBtn.setChecked(true);
+        }
+        if(good.getIs_hidden_store() == 1){
+            stTogBtn.setChecked(true);
+        }
+        if(good.getIs_hidden_sales_num() == 1){
+            svTogBtn.setChecked(true);
+        }
+        List<Spec> specs = good.getSpec();
+        StringBuilder sb = new StringBuilder();
+        if (specs.size() > 0) {
+            good.setSpec(specs);
+            for (Spec s : specs) {
+                List<String> values = s.getValues();
+                if (values == null) values = new ArrayList<>();
+                sb.append(s.getName() + "：");
+                for (int i = 0; i < values.size(); i++) {
+//                        sb.append(values.get(i));
+//                        if (i != values.size()) {
+//                            sb.append("/");
+//                        }
+                    if (i != 0) {
+                        sb.append("/");
+                    }
+                    sb.append(values.get(i));
+                }
+                if (specs.size() > 1) {
+                    sb.append("\n");
+                }
+            }
+        }
+        if (TextUtils.isEmpty(sb.toString())) {
+            shanghuo_spec.setText("无");
+        }
+        shanghuo_spec.setText(sb.toString());
+        String desc = good.getDescription();
+        if (!TextUtils.isEmpty(desc)) {
+            shanghuo_desc.setText("已填写");
+        }
+        good.setDescription(desc);
+        shanghuo_price.setText("已填写");
+        List<Map<String, Object>> images = (List<Map<String, Object>>) good.getImages();
+
+        ArrayList<String> strings = new ArrayList<>();
+        for (int i = 0; i < images.size(); i++) {
+            strings.add(Config.URL_HTTP + "/" + images.get(i).get("url"));
+        }
+        uploadData = strings;
+        shangHuoAdapter.setData(strings, false);
+        shangHuoAdapter.setImages(images);
+        shanghuo_no.setFocusable(false);
+        delete_btn.setVisibility(View.VISIBLE);
+    }
 
     //返回按钮
     @InjectView(R.id.return_click)
@@ -221,7 +234,10 @@ public class ShangHuoActivity extends BaseActivity implements EasyPermissions.Pe
 
     @InjectView(R.id.warning_togbtn)
     ToggleButton warning_togbtn;
-
+    @InjectView(R.id.stTogBtn)
+    ToggleButton stTogBtn;
+    @InjectView(R.id.svTogBtn)
+    ToggleButton svTogBtn;
     @InjectView(R.id.shanghuo_no)
     EditText shanghuo_no;
 
@@ -231,7 +247,8 @@ public class ShangHuoActivity extends BaseActivity implements EasyPermissions.Pe
     EditText warning_low;
     @InjectView(R.id.warning_high)
     EditText warning_high;
-
+    @InjectView(R.id.delete_btn)
+    Button delete_btn;
 
     //添加图片点击事件
     @OnClick(R.id.shanghuo_add_imageview)
@@ -246,7 +263,7 @@ public class ShangHuoActivity extends BaseActivity implements EasyPermissions.Pe
     //返回按钮
     @OnClick(R.id.return_click)
     void return_click() {
-        showdialogs();
+        showdialogs(0);
     }
 
 
@@ -335,7 +352,11 @@ public class ShangHuoActivity extends BaseActivity implements EasyPermissions.Pe
             uploadData();
         }
     }
-
+    @OnClick(R.id.delete_btn)
+    void delete_btn()
+    {
+        showdialogs(1);
+    }
     private void uploadData() {
         //遍历找出最大和最小金额
         List<Product> products = good.getProduct_list();
@@ -405,6 +426,17 @@ public class ShangHuoActivity extends BaseActivity implements EasyPermissions.Pe
         } else {
             good.setIs_hidden_price(0);
         }
+        if (svTogBtn.isChecked()) {
+            good.setIs_hidden_sales_num(1);
+        } else {
+            good.setIs_hidden_sales_num(0);
+        }
+        if (stTogBtn.isChecked()) {
+            good.setIs_hidden_store(1);
+        } else {
+            good.setIs_hidden_store(0);
+        }
+
         if (warning_togbtn.isChecked()) {
             good.setIs_enable_stock_warn(1);
             good.setMax_stock_warn_num(Integer.parseInt(warning_high.getText().toString()));
@@ -423,7 +455,7 @@ public class ShangHuoActivity extends BaseActivity implements EasyPermissions.Pe
     }
 
     //弹出框
-    private void showdialogs() {
+    private void showdialogs(final int type) {
         alertDialog = new AlertDialog.Builder(this).create();
         View view = View.inflate(this, R.layout.tanchuang_view, null);
         alertDialog.setView(view);
@@ -436,7 +468,11 @@ public class ShangHuoActivity extends BaseActivity implements EasyPermissions.Pe
         TextView title_name = (TextView) window.findViewById(R.id.title_name);
         title_name.setText("温馨提示");
         TextView text_conten = (TextView) window.findViewById(R.id.text_conten);
-        text_conten.setText("您确认要退出货品编辑吗？");
+        if(type == 0){
+            text_conten.setText("您确认要退出货品编辑吗？");
+        }else{
+            text_conten.setText("您确认要删除货品吗？");
+        }
 
 
         //按钮1点击事件
@@ -454,8 +490,12 @@ public class ShangHuoActivity extends BaseActivity implements EasyPermissions.Pe
         queren.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                ShangHuoActivity.this.finish();
+                if(type == 0){
+                    ShangHuoActivity.this.finish();
+                }else{
+                    orderEasyPresenter.goodsDel(good.getGoods_id());
+                }
+                alertDialog.dismiss();
             }
         });
     }
@@ -795,20 +835,20 @@ public class ShangHuoActivity extends BaseActivity implements EasyPermissions.Pe
             switch (msg.what) {
                 case 1001:
                     JsonObject result = (JsonObject) msg.obj;
+                    Log.e("ShangHuoActivity", result.toString());
                     if (result != null) {
                         int status = result.get("code").getAsInt();
                         if (status == 1) {
                             //成功
-
-                        } else {
-                            if (status == -7) {
-                                ToastUtil.show(getString(R.string.landfall_overdue));
-                                Intent intent = new Intent(ShangHuoActivity.this, LoginActity.class);
-                                startActivity(intent);
-                            }
+                            showToast("删除成功！");
+                            ProgressUtil.dissDialog();
+                            Intent intent = new Intent();
+                            intent.putExtra("flag","delete");
+                            setResult(1001,intent);
+                            finish();
                         }
                     }
-                    Log.e("信息", result.toString());
+
                     break;
                 case 1002:
                     result = (JsonObject) msg.obj;
@@ -872,7 +912,9 @@ public class ShangHuoActivity extends BaseActivity implements EasyPermissions.Pe
                             //成功
                             showToast("修改成功！");
                             ProgressUtil.dissDialog();
-                            setResult(1001);
+                            Intent intent = new Intent();
+                            intent.putExtra("flag","detail");
+                            setResult(1001,intent);
                             finish();
                         }
                     }
@@ -893,7 +935,7 @@ public class ShangHuoActivity extends BaseActivity implements EasyPermissions.Pe
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if ((keyCode == KeyEvent.KEYCODE_BACK)) {
-            showdialogs();
+            showdialogs(0);
         }
         return super.onKeyDown(keyCode, event);
 

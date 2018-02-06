@@ -236,7 +236,19 @@ public class FragmentOrder extends Fragment implements OrderEasyView, AdapterVie
                                           int dayOfMonth) {
                         int month = monthOfYear + 1;
                         beginTime = month + "." + dayOfMonth;
-                        kaishi_time.setText(year + "-" + month + "-" + dayOfMonth);
+                        String monthDate;
+                        String day;
+                        if (month < 10) {
+                            monthDate = "0" + month;
+                        } else {
+                            monthDate = month + "";
+                        }
+                        if (dayOfMonth < 10) {
+                            day = "0" + dayOfMonth;
+                        } else {
+                            day = dayOfMonth + "";
+                        }
+                        kaishi_time.setText(year + "-" + monthDate + "-" + day);
                     }
                 }, TimeUtil.getCurrentYear(), TimeUtil.getCurrentMonth(), TimeUtil.getCurrentDay()).show();
             }
@@ -255,7 +267,19 @@ public class FragmentOrder extends Fragment implements OrderEasyView, AdapterVie
                                           int dayOfMonth) {
                         int month = monthOfYear + 1;
                         endTime = month + "." + dayOfMonth;
-                        jieshu_time.setText(year + "-" + month + "-" + dayOfMonth);
+                        String monthDate;
+                        String day;
+                        if (month < 10) {
+                            monthDate = "0" + month;
+                        } else {
+                            monthDate = month + "";
+                        }
+                        if (dayOfMonth < 10) {
+                            day = "0" + dayOfMonth;
+                        } else {
+                            day = dayOfMonth + "";
+                        }
+                        jieshu_time.setText(year + "-" + monthDate + "-" + day);
                     }
                 }, TimeUtil.getCurrentYear(), TimeUtil.getCurrentMonth(), TimeUtil.getCurrentDay()).show();
             }

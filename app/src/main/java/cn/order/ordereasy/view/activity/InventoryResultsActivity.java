@@ -248,9 +248,6 @@ public class InventoryResultsActivity extends BaseActivity implements OrderEasyV
                             }
                             adapter = new InventoryResultsAdapter(goods, InventoryResultsActivity.this);
                             pandian_jieguo_listview.setAdapter(adapter);
-                        } else {
-                            String message = result.get("message").getAsString();
-                            showToast(message);
                         }
                     }
                     Log.e("结束信息", result.toString());
@@ -266,33 +263,6 @@ public class InventoryResultsActivity extends BaseActivity implements OrderEasyV
                         }
                     }
                     Log.e("新建信息", result.toString());
-                    break;
-                case 1003:
-                    result = (JsonObject) msg.obj;
-                    if (result != null) {
-                        int status = result.get("code").getAsInt();
-                        //String message=result.get("message").getAsString();
-                        if (status == 1) {
-
-                        } else {
-                            String message = result.get("message").getAsString();
-                            showToast(message);
-                        }
-                    }
-                    Log.e("保存信息", result.toString());
-                    break;
-                case 1004:
-                    result = (JsonObject) msg.obj;
-                    if (result != null) {
-                        int status = result.get("code").getAsInt();
-                        //String message=result.get("message").getAsString();
-                        if (status == 1) {
-
-                        } else {
-
-                        }
-                    }
-                    Log.e("保存信息", result.toString());
                     break;
                 case 1007:
                     ToastUtil.show("出错了哟~");

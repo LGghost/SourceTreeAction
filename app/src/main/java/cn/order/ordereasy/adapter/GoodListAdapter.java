@@ -17,6 +17,7 @@ import cn.bingoogolapple.swipeitemlayout.BGASwipeItemLayout;
 import cn.order.ordereasy.R;
 import cn.order.ordereasy.bean.Goods;
 import cn.order.ordereasy.utils.Config;
+import cn.order.ordereasy.utils.TimeUtil;
 
 /**
  * Created by mrpan on 2017/9/10.
@@ -48,6 +49,8 @@ public class GoodListAdapter extends BGAAdapterViewAdapter<Goods> {
             viewHolderHelper.setText(R.id.good_no,model.getGoods_no());
             viewHolderHelper.setText(R.id.good_kucun,model.getStore_num()+"");//库存
             viewHolderHelper.setText(R.id.good_xiaoliang,model.getSale_num()+"");//销量
+            viewHolderHelper.setText(R.id.good_date, TimeUtil.getTimeStamp2Str(Long.parseLong(model.getCreate_time()), "yyyy-MM-dd"));//销量
+
             TextView highText = viewHolderHelper.getTextView(R.id.good_price_2);
             TextView space = viewHolderHelper.getTextView(R.id.good_space);
             TextView hide_text = viewHolderHelper.getTextView(R.id.hide_text);

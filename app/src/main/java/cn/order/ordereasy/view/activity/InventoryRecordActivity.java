@@ -173,52 +173,9 @@ public class InventoryRecordActivity extends BaseActivity implements OrderEasyVi
                             adapter.setGoods(goods);
                             pandian_jilu_listview.setAdapter(adapter);
                             pandian_jilu_listview.setGroupIndicator(null);
-                        } else {
-                            String message = result.get("message").getAsString();
-                            showToast(message);
                         }
                     }
                     Log.e("盘点信息", result.toString());
-                    break;
-                case 1002:
-                    result = (JsonObject) msg.obj;
-                    if (result != null) {
-                        int status = result.get("code").getAsInt();
-                        //String message=result.get("message").getAsString();
-                        if (status == 1) {
-
-                        } else {
-
-                        }
-                    }
-                    Log.e("新建信息", result.toString());
-                    break;
-                case 1003:
-                    result = (JsonObject) msg.obj;
-                    if (result != null) {
-                        int status = result.get("code").getAsInt();
-                        //String message=result.get("message").getAsString();
-                        if (status == 1) {
-
-                        } else {
-                            String message = result.get("message").getAsString();
-                            showToast(message);
-                        }
-                    }
-                    Log.e("保存信息", result.toString());
-                    break;
-                case 1004:
-                    result = (JsonObject) msg.obj;
-                    if (result != null) {
-                        int status = result.get("code").getAsInt();
-                        //String message=result.get("message").getAsString();
-                        if (status == 1) {
-
-                        } else {
-
-                        }
-                    }
-                    Log.e("保存信息", result.toString());
                     break;
                 case 1007:
                     ToastUtil.show("出错了哟~");

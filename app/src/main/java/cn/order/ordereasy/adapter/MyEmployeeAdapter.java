@@ -107,7 +107,7 @@ public class MyEmployeeAdapter extends BaseAdapter {
             bore.setTextColor(context.getResources().getColor(R.color.shouye_lanse));
         }
         if (!TextUtils.isEmpty(list.get(i).getAvatar())) {
-            ImageLoader.getInstance().displayImage(list.get(i).getAvatar(), imageView);
+            ImageLoader.getInstance().displayImage(Config.URL_HTTP + "/" + list.get(i).getAvatar(), imageView);
         } else {
             imageView.setImageResource(R.drawable.bg_user);
         }

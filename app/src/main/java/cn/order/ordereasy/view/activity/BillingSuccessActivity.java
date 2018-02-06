@@ -120,7 +120,7 @@ public class BillingSuccessActivity extends BaseActivity {
     //打印按钮
     @OnClick(R.id.dayin)
     void dayin() {
-        Intent intent = new Intent(BillingSuccessActivity.this, PrintPreviewActivity.class);
+        Intent intent = new Intent(BillingSuccessActivity.this, PrintOrderNoSetUpActivity.class);
         Bundle bundle = new Bundle();
         bundle.putSerializable("data", order);
         intent.putExtras(bundle);

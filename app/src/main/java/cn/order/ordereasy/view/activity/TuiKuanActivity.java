@@ -192,60 +192,9 @@ public class TuiKuanActivity extends BaseActivity implements OrderEasyView,TextW
                         if(status==1){
                             //处理返回的数据
                             showToast("收款成功");
-                        }else{
-                            String message=result.get("message").getAsString();
-                            showToast(message);
-
                         }
                     }
                     Log.e("订单信息",result.toString());
-                    break;
-                case 1002:
-                    result= (JsonObject) msg.obj;
-                    if(result!=null){
-                        int status=result.get("code").getAsInt();
-                        //String message=result.get("message").getAsString();
-                        if(status==1){
-                            //处理返回的数据
-
-                        }else{
-                            String message=result.get("message").getAsString();
-                            showToast(message);
-
-                        }
-                    }
-                    Log.e("收银信息",result.toString());
-                    break;
-                case 1003:
-                    result= (JsonObject) msg.obj;
-                    if(result!=null){
-                        int status=result.get("code").getAsInt();
-                        //String message=result.get("message").getAsString();
-                        if(status==1){
-                            //处理返回的数据
-
-                        }else{
-                            String message=result.get("message").getAsString();
-                            showToast(message);
-
-                        }
-                    }
-                    Log.e("发货信息",result.toString());
-                    break;
-                case 1004:
-                    result= (JsonObject) msg.obj;
-                    if(result!=null){
-                        int status=result.get("code").getAsInt();
-                        //String message=result.get("message").getAsString();
-                        if(status==1){
-
-                        }else{
-                            String message=result.get("message").getAsString();
-                            showToast(message);
-
-                        }
-                    }
-                    Log.e("保存信息",result.toString());
                     break;
                 case 1007:
                     ToastUtil.show("出错了哟~");

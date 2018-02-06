@@ -447,12 +447,6 @@ public class FenleiGuanliActivity extends BaseActivity implements OrderEasyView,
                             DataStorageUtils.getInstance().setGenreGoods(mapList1);
                             mAdapter.setData(mapList);
 
-                        } else {
-                            if (status == -7) {
-                                ToastUtil.show(getString(R.string.landfall_overdue));
-                                Intent intent = new Intent(FenleiGuanliActivity.this, LoginActity.class);
-                                startActivity(intent);
-                            }
                         }
                     }
                     Log.e("信息", result.toString());
@@ -465,9 +459,6 @@ public class FenleiGuanliActivity extends BaseActivity implements OrderEasyView,
                         if (status == 1) {
                             showToast("新增成功！");
                             orderEasyPresenter.getCategoryInfo();
-                        } else {
-                            String message = result.get("message").getAsString();
-                            showToast(message);
                         }
                     }
                     Log.e("新增信息", result.toString());
@@ -480,9 +471,6 @@ public class FenleiGuanliActivity extends BaseActivity implements OrderEasyView,
                         if (status == 1) {
                             showToast("修改成功！");
                             orderEasyPresenter.getCategoryInfo();
-                        } else {
-                            String message = result.get("message").getAsString();
-                            showToast(message);
                         }
                     }
                     Log.e("保存信息", result.toString());
@@ -495,9 +483,6 @@ public class FenleiGuanliActivity extends BaseActivity implements OrderEasyView,
                         if (status == 1) {
                             showToast("删除成功！");
                             orderEasyPresenter.getCategoryInfo();
-                        } else {
-                            String message = result.get("message").getAsString();
-                            showToast(message);
                         }
                     }
                     Log.e("保存信息", result.toString());

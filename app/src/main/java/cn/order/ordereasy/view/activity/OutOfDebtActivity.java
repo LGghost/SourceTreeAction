@@ -127,16 +127,27 @@ public class OutOfDebtActivity extends BaseActivity implements OrderEasyView, Tu
             order.getGoods_list().get(i).setPrice(price);
             order.getGoods_list().get(i).setProduct_list(products);
         }
-        Intent intent = new Intent(this, OrderNoConfirmActivity.class);
-        //利用bundle来存取数据
-        Bundle bundle = new Bundle();
-        bundle.putString("flag", "tuihuo");
-        bundle.putSerializable("data", order);
-        //再把bundle中的数据传给intent，以传输过去
-        intent.putExtras(bundle);
-        startActivity(intent);
-        setResult(1001);
-        finish();
+        boolean isNull = false;
+        for(Goods good : order.getGoods_list()){
+            if(good.getPrice() > 0){
+                isNull = true;
+                break;
+            }
+        }
+        if(isNull) {
+            Intent intent = new Intent(this, OrderNoConfirmActivity.class);
+            //利用bundle来存取数据
+            Bundle bundle = new Bundle();
+            bundle.putString("flag", "tuihuo");
+            bundle.putSerializable("data", order);
+            //再把bundle中的数据传给intent，以传输过去
+            intent.putExtras(bundle);
+            startActivity(intent);
+            setResult(1001);
+            finish();
+        }else{
+            ToastUtil.show("请选择发货货品");
+        }
 //        orderEasyPresenter.Add_Odder(order);
     }
 
@@ -218,9 +229,6 @@ public class OutOfDebtActivity extends BaseActivity implements OrderEasyView, Tu
                             showToast("退欠货成功！");
                             setResult(1001);
                             finish();
-                        } else {
-                            String message = result.get("message").getAsString();
-                            showToast(message);
                         }
                     }
                     Log.e("退欠货信息", result.toString());
@@ -270,37 +278,14 @@ public class OutOfDebtActivity extends BaseActivity implements OrderEasyView, Tu
                                 } else {
                                     no_data_view.setVisibility(View.VISIBLE);
                                 }
-                                int groupCount = kehu_orderno_listview.getCount();
-                                for (int i = 0; i < groupCount; i++) {
-                                    kehu_orderno_listview.expandGroup(i);
-                                }
-                            }
-                        } else {
-                            if (status == -7) {
-                                ToastUtil.show(getString(R.string.landfall_overdue));
-                                Intent intent = new Intent(OutOfDebtActivity.this, LoginActity.class);
-                                startActivity(intent);
+//                                int groupCount = kehu_orderno_listview.getCount();
+//                                for (int i = 0; i < groupCount; i++) {
+//                                    kehu_orderno_listview.expandGroup(i);
+//                                }
                             }
                         }
                     }
                     Log.e("发货订单信息", result.toString());
-                    break;
-                case 1004:
-                    result = (JsonObject) msg.obj;
-                    if (result != null) {
-                        int status = result.get("code").getAsInt();
-                        //String message=result.get("message").getAsString();
-                        if (status == 1) {
-
-                        } else {
-                            if (status == -7) {
-                                ToastUtil.show(getString(R.string.landfall_overdue));
-                                Intent intent = new Intent(OutOfDebtActivity.this, LoginActity.class);
-                                startActivity(intent);
-                            }
-                        }
-                    }
-                    Log.e("保存信息", result.toString());
                     break;
                 case 1007:
                     ToastUtil.show("出错了哟~");

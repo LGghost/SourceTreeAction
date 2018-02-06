@@ -178,62 +178,9 @@ public class ATurnoverActivity extends BaseActivity {
                             // 为适配器设置数据
                             allTransactionsAdapter.setData(datas);
                             allTransactionsAdapter.notifyDataSetChanged();
-                        }else{
-                            if(status==-7){
-                                ToastUtil.show(getString(R.string.landfall_overdue));
-                                Intent intent = new Intent(ATurnoverActivity.this, LoginActity.class);
-                                startActivity(intent);
-                            }
                         }
                     }
                     Log.e("交易信息",result.toString());
-                    break;
-                case 1002:
-                    result= (JsonObject) msg.obj;
-                    if(result!=null){
-                        int status=result.get("code").getAsInt();
-                        //String message=result.get("message").getAsString();
-                        if(status==1){
-
-                        }else{
-                            if(status==-7){
-                                ToastUtil.show(getString(R.string.landfall_overdue));
-                                Intent intent = new Intent(ATurnoverActivity.this, LoginActity.class);
-                                startActivity(intent);
-                            }
-                        }
-                    }
-                    Log.e("信息",result.toString());
-                    break;
-                case 1003:
-                    result= (JsonObject) msg.obj;
-                    if(result!=null){
-                        int status=result.get("code").getAsInt();
-                        //String message=result.get("message").getAsString();
-                        if(status==1){
-
-                        }else{
-                            if(status==-7){
-                                ToastUtil.show(getString(R.string.landfall_overdue));
-                                Intent intent = new Intent(ATurnoverActivity.this, LoginActity.class);
-                                startActivity(intent);
-                            }
-                        }
-                    }
-                    Log.e("保存信息",result.toString());
-                    break;
-                case 1004:
-                    result= (JsonObject) msg.obj;
-                    if(result!=null){
-                        int status=result.get("code").getAsInt();
-                        //String message=result.get("message").getAsString();
-                        if(status==1){
-
-                        }else{
-
-                        }
-                    }
-                    Log.e("保存信息",result.toString());
                     break;
                 case 1007:
                     ToastUtil.show("出错了哟~");

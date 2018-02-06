@@ -510,6 +510,10 @@ public class Config {
      * 开单
      */
     public final static String order_confirm_url="order/confirm";
+    /**
+     * 删除订单
+     */
+    public final static String goods_del_url="goods/del";
 
     public static String getExtSDCardPath()
     {

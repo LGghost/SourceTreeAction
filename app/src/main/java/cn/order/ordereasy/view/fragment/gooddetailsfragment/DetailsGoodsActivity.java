@@ -241,6 +241,16 @@ public class DetailsGoodsActivity extends FragmentActivity implements OrderEasyV
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == 1001) {
             isEdit = true;
+            if (data != null) {
+                String flag = data.getExtras().getString("flag");
+                if (flag.equals("delete")) {
+                    Intent intent = new Intent();
+                    intent.putExtra("isEdit", isEdit);
+                    setResult(1001, intent);
+                    finish();
+                    return;
+                }
+            }
             refreshData(false);
         }
     }
@@ -449,5 +459,4 @@ public class DetailsGoodsActivity extends FragmentActivity implements OrderEasyV
 
         return statusView;
     }
-
 }

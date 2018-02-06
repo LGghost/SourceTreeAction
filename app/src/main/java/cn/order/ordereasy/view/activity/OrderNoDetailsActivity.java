@@ -553,12 +553,6 @@ public class OrderNoDetailsActivity extends BaseActivity implements OrderEasyVie
                             order.setIs_close(1);
                             orderEasyPresenter.getOrderInfo(id);
                             showToast("关闭成功");
-                        } else {
-                            String message = result.get("message").getAsString();
-                            showToast(message);
-                            if (status == -7) {
-
-                            }
                         }
                     }
                     Log.e("收银信息", result.toString());
@@ -589,12 +583,6 @@ public class OrderNoDetailsActivity extends BaseActivity implements OrderEasyVie
                                 initData();
                             } else {
                                 showToast("数据异常");
-                            }
-                        } else {
-                            String message = result.get("message").getAsString();
-                            showToast(message);
-                            if (status == -7) {
-
                             }
                         }
                     }

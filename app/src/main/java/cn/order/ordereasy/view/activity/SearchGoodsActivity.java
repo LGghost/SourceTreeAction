@@ -324,38 +324,11 @@ public class SearchGoodsActivity extends BaseActivity implements OrderEasyView, 
                             orderSelectGoodsAdapter.setData(datas);
                             DataStorageUtils.getInstance().setShelvesGoods(datas);
                             orderSelectGoodsAdapter.notifyDataSetChanged();
-                        } else {
-
                         }
                     }
                     Log.e("商品信息", result.toString());
                     break;
-                case 1003:
-                    result = (JsonObject) msg.obj;
-                    if (result != null) {
-                        int status = result.get("code").getAsInt();
-                        //String message=result.get("message").getAsString();
-                        if (status == 1) {
 
-                        } else {
-
-                        }
-                    }
-                    Log.e("保存信息", result.toString());
-                    break;
-                case 1004:
-                    result = (JsonObject) msg.obj;
-                    if (result != null) {
-                        int status = result.get("code").getAsInt();
-                        //String message=result.get("message").getAsString();
-                        if (status == 1) {
-
-                        } else {
-
-                        }
-                    }
-                    Log.e("保存信息", result.toString());
-                    break;
                 case 1007:
                     if (refresh != null) {
                         refresh.endRefreshing();

@@ -376,12 +376,6 @@ public class SpecificationListActivity extends BaseActivity implements OrderEasy
                                 no_data_view.setVisibility(View.VISIBLE);
                             }
 
-                        } else {
-                            if (status == -7) {
-                                ToastUtil.show(getString(R.string.landfall_overdue));
-                                Intent intent = new Intent(SpecificationListActivity.this, LoginActity.class);
-                                startActivity(intent);
-                            }
                         }
                     }
                     Log.e("信息", result.toString());
@@ -390,13 +384,9 @@ public class SpecificationListActivity extends BaseActivity implements OrderEasy
                     result = (JsonObject) msg.obj;
                     if (result != null) {
                         int status = result.get("code").getAsInt();
-                        //String message=result.get("message").getAsString();
                         if (status == 1) {
                             showToast("新增成功！");
                             orderEasyPresenter.getSpecInfo();
-                        } else {
-                            String message = result.get("message").getAsString();
-                            showToast(message);
                         }
                     }
                     Log.e("新增信息", result.toString());
@@ -405,13 +395,9 @@ public class SpecificationListActivity extends BaseActivity implements OrderEasy
                     result = (JsonObject) msg.obj;
                     if (result != null) {
                         int status = result.get("code").getAsInt();
-                        //String message=result.get("message").getAsString();
                         if (status == 1) {
                             showToast("修改成功！");
                             orderEasyPresenter.getSpecInfo();
-                        } else {
-                            String message = result.get("message").getAsString();
-                            showToast(message);
                         }
                     }
                     Log.e("保存信息", result.toString());
@@ -424,9 +410,6 @@ public class SpecificationListActivity extends BaseActivity implements OrderEasy
                         if (status == 1) {
                             showToast("删除成功！");
                             orderEasyPresenter.getSpecInfo();
-                        } else {
-                            String message = result.get("message").getAsString();
-                            showToast(message);
                         }
                     }
                     Log.e("保存信息", result.toString());

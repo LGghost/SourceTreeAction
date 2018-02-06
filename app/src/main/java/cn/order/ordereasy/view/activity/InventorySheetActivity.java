@@ -345,9 +345,6 @@ public class InventorySheetActivity extends BaseActivity implements OrderEasyVie
                             pandian_data.setText(TimeUtil.getTimeStamp2Str(Long.parseLong(object.get("create_time").getAsString()), "yyyy-MM-dd"));
                             huopin_num.setText(String.valueOf(object.get("goods_num").getAsString()));
                             pandian_faqiren.setText(object.get("user_name").getAsString());
-                        } else {
-                            String message = result.get("message").getAsString();
-                            showToast(message);
                         }
                     }
                     Log.e("结束信息", result.toString());
@@ -363,33 +360,6 @@ public class InventorySheetActivity extends BaseActivity implements OrderEasyVie
                             user_id = userinfo.user_id;
                         }
                     }
-                    break;
-                case 1003:
-                    result = (JsonObject) msg.obj;
-                    if (result != null) {
-                        int status = result.get("code").getAsInt();
-                        //String message=result.get("message").getAsString();
-                        if (status == 1) {
-
-                        } else {
-                            String message = result.get("message").getAsString();
-                            showToast(message);
-                        }
-                    }
-                    Log.e("保存信息", result.toString());
-                    break;
-                case 1004:
-                    result = (JsonObject) msg.obj;
-                    if (result != null) {
-                        int status = result.get("code").getAsInt();
-                        //String message=result.get("message").getAsString();
-                        if (status == 1) {
-
-                        } else {
-
-                        }
-                    }
-                    Log.e("保存信息", result.toString());
                     break;
                 case 1007:
                     ToastUtil.show("出错了哟~");

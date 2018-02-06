@@ -245,12 +245,6 @@ public class StockManageActivity extends BaseActivity implements OrderEasyView, 
                 }
                 DataStorageUtils.getInstance().setGenreGoods(mapList);
                 stock_sort.setItemsData(mapList, 0);
-            } else {
-                if (data.get("code").getAsInt() == -7) {
-                    ToastUtil.show(getString(R.string.landfall_overdue));
-                    Intent intent = new Intent(this, LoginActity.class);
-                    startActivity(intent);
-                }
             }
         } else if (type == 1) {
             if (data != null) {
@@ -276,12 +270,6 @@ public class StockManageActivity extends BaseActivity implements OrderEasyView, 
                     DataStorageUtils.getInstance().setShelvesGoods(datas);
                     screenData(sort, state, array);
                 }
-            }
-        } else {
-            if (data.get("code").getAsInt() == -7) {
-                ToastUtil.show(getString(R.string.landfall_overdue));
-                Intent intent = new Intent(this, LoginActity.class);
-                startActivity(intent);
             }
         }
     }

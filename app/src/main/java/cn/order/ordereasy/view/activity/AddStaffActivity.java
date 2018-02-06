@@ -163,8 +163,6 @@ public class AddStaffActivity extends BaseActivity implements OrderEasyView {
             ToastUtil.show("添加员工成功");
             setResult(1001);
             AddStaffActivity.this.finish();
-        } else {
-            ToastUtil.show(data.get("message").getAsString());
         }
     }
 }

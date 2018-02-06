@@ -154,7 +154,7 @@ public class FragmentOweNumber extends Fragment implements OrderEasyView, LoadMo
                 pageTotal = page.get("page_total").getAsInt();
                 Log.e("FragmentOweNumber", "pageTotal:" + pageTotal);
                 id1.setText("" + data.getAsJsonObject("result").getAsJsonObject("total").get("receivable").getAsDouble());
-                id2.setText("" + data.getAsJsonObject("result").getAsJsonObject("total").get("payable").getAsInt());
+                id2.setText("" + data.getAsJsonObject("result").getAsJsonObject("total").get("payable").getAsDouble());
                 id3.setText("" + data.getAsJsonObject("result").getAsJsonObject("total").get("owe_num").getAsInt());
                 JsonArray array = data.getAsJsonObject("result").getAsJsonArray("page_list");
                 if (this.type == 1) {

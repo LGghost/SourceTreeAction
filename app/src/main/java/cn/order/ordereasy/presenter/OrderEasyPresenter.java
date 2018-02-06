@@ -670,6 +670,13 @@ public abstract class OrderEasyPresenter extends BasePresenter {
      * @return
      */
     public abstract void orderConfirm(Order order);
+
+    /**
+     * 删除订单
+     *
+     * @return
+     */
+    public abstract void goodsDel(int goodId);
 }
 
 

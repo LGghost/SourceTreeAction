@@ -96,8 +96,8 @@
     <string name="staff_role">*所属角色</string>
     <string name="reset_password">重置员工密码</string>
     <string name="shop_keeper_describe">负责店铺所有事务管理</string>
-    <string name="salesperson_describe">负责销售业务</string>
-    <string name="godown_man_describe">负责仓库管理、盘点、发货等</string>
+    <string name="salesperson_describe">负责货品销售、客户管理等</string>
+    <string name="godown_man_describe">负责仓库管理、采购、盘点、上货、发货等</string>
 
     <!--数据导出-->
     <string name="data_export">数据导出</string>

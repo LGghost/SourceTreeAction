@@ -28,6 +28,16 @@ public class DataCompareUtils {
                         return 1;
                     }
                 } else if (type == 2) {
+                    long time1 = Long.parseLong(stu1.getCreate_time());
+                    long time2 = Long.parseLong(stu2.getCreate_time());
+                    if (time2 > time1) {
+                        return -1;
+                    } else if (time1 == time2) {
+                        return 0;
+                    } else {
+                        return 1;
+                    }
+                } else if (type == 3) {
                     long time1 = Long.parseLong(stu1.getUpdate_time());
                     long time2 = Long.parseLong(stu2.getUpdate_time());
                     if (time1 > time2) {
@@ -37,7 +47,17 @@ public class DataCompareUtils {
                     } else {
                         return 1;
                     }
-                } else if (type == 3) {
+                } else if (type == 4) {
+                    long time1 = Long.parseLong(stu1.getUpdate_time());
+                    long time2 = Long.parseLong(stu2.getUpdate_time());
+                    if (time2 > time1) {
+                        return -1;
+                    } else if (time1 == time2) {
+                        return 0;
+                    } else {
+                        return 1;
+                    }
+                } else if (type == 5) {
                     if (stu1.getSale_num() > stu2.getSale_num()) {
                         return -1;
                     } else if (stu1.getSale_num() == stu2.getSale_num()) {
@@ -45,7 +65,7 @@ public class DataCompareUtils {
                     } else {
                         return 1;
                     }
-                } else if (type == 4) {
+                } else if (type == 6) {
                     if (stu1.getSale_num() > stu2.getSale_num()) {
                         return 1;
                     } else if (stu1.getSale_num() == stu2.getSale_num()) {
@@ -54,7 +74,7 @@ public class DataCompareUtils {
                         return -1;
                     }
 
-                } else if (type == 5) {
+                } else if (type == 7) {
                     if (stu1.getStore_num() > stu2.getStore_num()) {
                         return -1;
                     } else if (stu1.getStore_num() == stu2.getStore_num()) {
@@ -94,8 +114,15 @@ public class DataCompareUtils {
             stateList = sortList;
         } else {
             for (Goods good : sortList) {
-                if (good.getStatus() == state) {
-                    stateList.add(good);
+                if (state > 2) {
+                    int i = state-3;
+                    if (good.getIs_hidden_price() == i ) {
+                        stateList.add(good);
+                    }
+                } else {
+                    if (good.getStatus() == state) {
+                        stateList.add(good);
+                    }
                 }
             }
         }
@@ -108,6 +135,7 @@ public class DataCompareUtils {
         }
         return screenList;
     }
+
     public static List<Goods> screenStockData(List<Goods> datas, int sort, int state, int array) {
         List<Goods> sortList = new ArrayList<>();
         List<Goods> stateList = new ArrayList<>();
@@ -124,13 +152,13 @@ public class DataCompareUtils {
         }
         if (state == -1) {
             stateList = sortList;
-        } else if(state == 1){
+        } else if (state == 1) {
             for (Goods good : sortList) {
                 if (good.getStore_num() < good.getMin_stock_warn_num()) {
                     stateList.add(good);
                 }
             }
-        }else if(state == 2){
+        } else if (state == 2) {
             for (Goods good : sortList) {
                 if (good.getStore_num() > good.getMax_stock_warn_num()) {
                     stateList.add(good);

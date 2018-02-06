@@ -134,11 +134,23 @@ public class StatementActivity extends BaseActivity implements OrderEasyView, Do
             public void onDateSet(DatePicker view, int year, int monthOfYear,
                                   int dayOfMonth) {
                 int month = monthOfYear + 1;
+                String monthDate;
+                String day;
+                if (month < 10) {
+                    monthDate = "0" + month;
+                } else {
+                    monthDate = month + "";
+                }
+                if (dayOfMonth < 10) {
+                    day = "0" + dayOfMonth;
+                } else {
+                    day = dayOfMonth + "";
+                }
                 if (type == 1) {
-                    startTime = year + "-" + month + "-" + dayOfMonth;
+                    startTime = year + "-" + monthDate + "-" + day;
                     start_time_text.setText(startTime);
                 } else {
-                    endTime = year + "-" + month + "-" + dayOfMonth;
+                    endTime = year + "-" + monthDate + "-" + day;
                     end_time_text.setText(endTime);
                 }
             }

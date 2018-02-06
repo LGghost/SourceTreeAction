@@ -105,6 +105,7 @@ public class OrderNoConfirmActivity extends BaseActivity implements OrderEasyVie
         order_kehu_phone.setText(order.getTelephone());
         order_kehu_addr.setText(order.getAddress());
         List<Goods> goods = order.getGoods_list();
+        List<Goods> goodsList = new ArrayList<>();
         if (goods == null) goods = new ArrayList<>();
         for (Goods good : goods) {
             Log.e("OrderNoConfirm", "goods:" + good.getPrice());
@@ -116,8 +117,12 @@ public class OrderNoConfirmActivity extends BaseActivity implements OrderEasyVie
                 }
             });
             good.setProduct_list(products);
+            if (good.getProduct_list().size() > 0) {
+                goodsList.add(good);
+            }
         }
-        confirmBillingAdapter.setData(goods);
+        order.setGoods_list(goodsList);
+        confirmBillingAdapter.setData(goodsList);
         confirmBillingAdapter.notifyDataSetChanged();
         double price = 0;
         int num = 0;
@@ -189,7 +194,6 @@ public class OrderNoConfirmActivity extends BaseActivity implements OrderEasyVie
             price += good.getPrice();
             num += good.getNum();
         }
-
         order.setGoods_list(confirmBillingAdapter.getData());
         SharedPreferences spPreferences = getSharedPreferences("user", 0);
         String userStr = spPreferences.getString("userinfo", "");
@@ -378,9 +382,6 @@ public class OrderNoConfirmActivity extends BaseActivity implements OrderEasyVie
                             startActivity(intent);
                             finish();
 
-                        } else {
-                            String message = result.get("message").getAsString();
-                            showToast(message);
                         }
                     }
                     Log.e("信息", result.toString());
@@ -397,19 +398,7 @@ public class OrderNoConfirmActivity extends BaseActivity implements OrderEasyVie
                     }
 
                     break;
-                case 1004:
-                    result = (JsonObject) msg.obj;
-                    if (result != null) {
-                        int status = result.get("code").getAsInt();
-                        //String message=result.get("message").getAsString();
-                        if (status == 1) {
 
-                        } else {
-
-                        }
-                    }
-                    Log.e("保存信息", result.toString());
-                    break;
                 case 1007:
                     ToastUtil.show("出错了哟~");
                     break;

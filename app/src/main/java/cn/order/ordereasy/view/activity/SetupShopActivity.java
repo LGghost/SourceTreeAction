@@ -98,9 +98,6 @@ public class SetupShopActivity extends BaseActivity implements OrderEasyView{
 				if(status==1){
 					showToast("设置成功");
 					finish();
-				}else{
-					String msg =data.get("message").getAsString();
-					showToast(msg);
 				}
 			}
 		}

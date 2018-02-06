@@ -1600,7 +1600,7 @@ public class OrderEasyApiService {
                 if (p.getDefault_price() != -1) {
                     data.put("cost_price", p.getDefault_price());
                     data.put("sell_price", p.getDefault_price());
-                }else {
+                } else {
                     data.put("cost_price", p.getCost_price());
                     data.put("sell_price", p.getSell_price());
                 }
@@ -1618,5 +1618,19 @@ public class OrderEasyApiService {
         RequestBody body = RequestBody.create(MediaType.parse("application/json"), strEntity);
         Log.e("setupStore", "发送参数：" + strEntity);
         return MyApplication.getInstance().getService(1).request(Config.order_confirm_url, body);
+    }
+
+    /**
+     * 删除订单
+     *
+     * @return
+     */
+    public static Observable<JsonObject> goodsDel(int goodId) {
+        HashMap<String, String> paramsMap = new HashMap<>();
+        paramsMap.put("goods_id", String.valueOf(goodId));
+        String strEntity = GsonUtils.getJsonStr(paramsMap);
+        RequestBody body = RequestBody.create(MediaType.parse("application/json"), strEntity);
+        Log.e("setupStore", "发送参数：" + strEntity);
+        return MyApplication.getInstance().getService(1).request(Config.goods_del_url, body);
     }
 }

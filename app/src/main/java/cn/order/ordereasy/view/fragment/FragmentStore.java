@@ -77,6 +77,7 @@ public class FragmentStore extends Fragment implements OrderEasyView, SwipeRefre
     private String is_boss;
     private String info1;
     private String url;
+    private GuideDialog guideDialog;
 
     public interface setFragmentPageListen {
         public void setFragmentPage(int type);
@@ -109,7 +110,7 @@ public class FragmentStore extends Fragment implements OrderEasyView, SwipeRefre
             data_time.setText(TimeUtil.getTimeStamp2Str(expire, "yyyy-MM-dd"));
         }
         //新手引导
-        new GuideDialog(1, getActivity());
+        guideDialog = new GuideDialog(1, getActivity());
         return rootView;
     }
 
@@ -657,6 +658,7 @@ public class FragmentStore extends Fragment implements OrderEasyView, SwipeRefre
             @Override
             public void onClick(View v) {
                 new UpdataApp(getActivity(), url);
+                guideDialog.setGuide();
                 alertDialog.dismiss();
             }
         });

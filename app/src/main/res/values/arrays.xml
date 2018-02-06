@@ -4,6 +4,8 @@
         <item>全部</item>
         <item>已上架 </item>
         <item>已下架</item>
+        <item>未隐藏价格</item>
+        <item>已隐藏价格</item>
     </string-array>
     <string-array name="warning_state">
         <item>全部预警货品</item>
@@ -12,8 +14,10 @@
     </string-array>
     <string-array name="shelves_array">
         <item>智能排序</item>
-        <item>上架时间</item>
-        <item>更新时间</item>
+        <item>上架时间(最近)</item>
+        <item>上架时间(最早)</item>
+        <item>更新时间(最近)</item>
+        <item>更新时间(最早)</item>
         <item>销量从高到低</item>
         <item>销量从低到高</item>
         <item>库存从高到低</item>

@@ -191,7 +191,45 @@ public class ModifyCustomerActivity extends BaseActivity implements OrderEasyVie
     //删除
     @OnClick(R.id.delete_btn)
     void delete_btn() {
-        orderEasyPresenter.delCustomer(customer.getCustomer_id());
+        showDialog();
+    }
+
+    private void showDialog() {
+        alertDialog = new AlertDialog.Builder(this).create();
+        View view = View.inflate(this, R.layout.tanchuang_view, null);
+        alertDialog.setView(view);
+
+        //设置点击屏幕不让消失
+        alertDialog.setCanceledOnTouchOutside(false);
+        alertDialog.setCancelable(false);
+        alertDialog.show();
+        Window window = alertDialog.getWindow();
+        //window.setContentView(view);
+        window.setContentView(R.layout.tanchuang_view_textview);
+        //标题
+        TextView title_name = (TextView) window.findViewById(R.id.title_name);
+        title_name.setText("温馨提示");
+        TextView text_conten = (TextView) window.findViewById(R.id.text_conten);
+        text_conten.setText("确定要删除该客户吗？");
+
+        //按钮1点击事件
+        TextView quxiao = (TextView) window.findViewById(R.id.quxiao);
+        quxiao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
+        //按钮2确认点击事件
+        final TextView queren = (TextView) window.findViewById(R.id.queren);
+        queren.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                orderEasyPresenter.delCustomer(customer.getCustomer_id());
+                alertDialog.dismiss();
+            }
+        });
+
     }
 
     //弹出框
@@ -337,33 +375,11 @@ public class ModifyCustomerActivity extends BaseActivity implements OrderEasyVie
                             startActivity(intent);
                             DataStorageUtils.getInstance().setCustomer(true);
                             finish();
-                        } else {
-                            if (status == -1||status == -9) {
-                                String message = result.get("message").getAsString();
-                                ToastUtil.show(message);
-                            }
-                            if (status == -7) {
-                                ToastUtil.show(getString(R.string.landfall_overdue));
-                                Intent intent = new Intent(ModifyCustomerActivity.this, LoginActity.class);
-                                startActivity(intent);
-                            }
                         }
                     }
                     Log.e("信息", result.toString());
                     break;
-                case 1002:
-                    result = (JsonObject) msg.obj;
-                    if (result != null) {
-                        int status = result.get("code").getAsInt();
-                        //String message=result.get("message").getAsString();
-                        if (status == 1) {
 
-                        } else {
-
-                        }
-                    }
-                    Log.e("信息", result.toString());
-                    break;
                 case 1003:
                     result = (JsonObject) msg.obj;
                     if (result != null) {
@@ -374,16 +390,6 @@ public class ModifyCustomerActivity extends BaseActivity implements OrderEasyVie
                             Customer cust = (Customer) GsonUtils.getEntity(result.get("result").toString(), Customer.class);
                             setResult(1004);
                             finish();
-                        } else {
-                            if (status == -1||status == -9) {
-                                String message = result.get("message").getAsString();
-                                ToastUtil.show(message);
-                            }
-                            if (status == -7) {
-                                ToastUtil.show(getString(R.string.landfall_overdue));
-                                Intent intent = new Intent(ModifyCustomerActivity.this, LoginActity.class);
-                                startActivity(intent);
-                            }
                         }
                     }
                     Log.e("信息", result.toString());
@@ -403,11 +409,6 @@ public class ModifyCustomerActivity extends BaseActivity implements OrderEasyVie
                             addrs = adds;
                             initData();
                             selectAddrAdapter.notifyDataSetChanged();
-                        } else {
-                            if (status == -1||status == -9) {
-                                String message = result.get("message").getAsString();
-                                ToastUtil.show(message);
-                            }
                         }
                     }
                     Log.e("保存信息", result.toString());

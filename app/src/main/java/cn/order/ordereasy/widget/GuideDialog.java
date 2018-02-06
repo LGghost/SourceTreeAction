@@ -40,7 +40,16 @@ public class GuideDialog {
         setShopView(window);
 
     }
-
+    public void setGuide(){
+        editor.putBoolean("shop", true);
+        editor.putBoolean("shelves", true);
+        editor.putBoolean("shelvesDetails", true);
+        editor.putBoolean("order", true);
+        editor.putBoolean("orderDetails", true);
+        editor.putBoolean("customer", true);
+        editor.putBoolean("customerHomepage", true);
+        editor.commit();
+    }
     private boolean isFrist() {
         switch (type) {
             case 1://店铺主页

@@ -191,14 +191,11 @@ public class RegisterActivity extends BaseActivity implements OrderEasyView{
 					JsonObject result= (JsonObject) msg.obj;
 					if(result!=null){
 						int status=result.get("code").getAsInt();
-						String message=result.get("message").getAsString();
 						if(status==1){
 							//成功
 							code = result.get("result").getAsString();
 							String tel=phone_number.getText().toString();
 							orderEasyPresenter.getSmsCode(tel,"register",code);
-						}else{
-							ToastUtil.show(message);
 						}
 					}
 					Log.e("密钥信息",result.toString());
@@ -220,12 +217,9 @@ public class RegisterActivity extends BaseActivity implements OrderEasyView{
 					result= (JsonObject) msg.obj;
 					if(result!=null){
 						int status=result.get("code").getAsInt();
-						String message=result.get("message").getAsString();
 						if(status==1){
 							ToastUtil.show("注册成功！");
 							finish();
-						}else{
-							ToastUtil.show(message);
 						}
 					}
 					Log.e("注册信息",result.toString());

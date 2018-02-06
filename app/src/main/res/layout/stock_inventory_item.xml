@@ -13,7 +13,7 @@
             android:id="@+id/pandian_image"
             android:layout_width="45dp"
             android:layout_height="45dp"
-            android:src="@drawable/dhwy_bg_image"
+            android:src="@drawable/bg_user"
             android:layout_gravity="center_vertical"
             android:scaleType="centerCrop"
             android:layout_marginLeft="10dp"/>

@@ -147,8 +147,6 @@ public class StaffActivity extends BaseActivity implements OrderEasyView, SwipeR
         } else {
             ProgressUtil.dissDialog();
             if (status == -1 || status == -9) {
-                String message = data.get("message").getAsString();
-                ToastUtil.show(message);
                 no_data_view.setVisibility(View.VISIBLE);
             }
         }

@@ -259,7 +259,7 @@ public class PrintOrderNoSetUpActivity extends BaseActivity {
             p1.add(new Chunk(new LineSeparator()));
             document.add(p1);
             PdfPTable table6 = new PdfPTable(6);
-            int width7[] = {20, 20, 20, 20, 20, 20};
+            int width7[] = {20, 20, 20, 60, 20, 20};
             table6.setWidths(width7);
             PdfPCell cell15 = new PdfPCell(new Paragraph("序号", font10));
             PdfPCell cell16 = new PdfPCell(new Paragraph("货品编号", font10));
@@ -364,7 +364,7 @@ public class PrintOrderNoSetUpActivity extends BaseActivity {
         try {
             BaseFont bfChinese = BaseFont.createFont("STSong-Light", "UniGB-UCS2-H", BaseFont.NOT_EMBEDDED);
             Font font9 = new Font(bfChinese, 9, Font.BOLD);
-            int width7[] = {20, 20, 20, 20, 20, 20};
+            int width7[] = {20, 20, 20, 60, 20, 20};
             table.setWidths(width7);
             PdfPCell cell1 = new PdfPCell(new Paragraph(i + 1 + "", font9));
             PdfPCell cell2 = new PdfPCell(new Paragraph(printInfo.getItemCode() + "", font9));

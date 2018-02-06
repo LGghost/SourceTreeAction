@@ -20,39 +20,41 @@
 
             <ImageView
                 android:id="@+id/goods_image"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_weight="3"
-                android:src="@drawable/dhwy_bg_image"
-                android:scaleType="centerCrop" />
+                android:scaleType="centerCrop"
+                android:src="@drawable/dhwy_bg_image" />
 
             <ImageView
                 android:id="@+id/goods_image2"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_weight="3"
+                android:padding="10dp"
                 android:background="#99000000"
                 android:scaleType="centerCrop"
                 android:src="@drawable/img_off_shelf"
                 android:visibility="gone" />
+
             <TextView
                 android:id="@+id/hide_text"
-                android:layout_width="70dp"
+                android:layout_width="80dp"
                 android:layout_height="20dp"
                 android:layout_marginLeft="10dp"
-                android:background="#99ffa500"
+                android:background="#85ffa500"
                 android:gravity="center"
                 android:text="已隐藏价格"
                 android:textColor="@color/heise"
-                android:textSize="12sp" />
+                android:textSize="11sp" />
         </RelativeLayout>
 
 
@@ -108,6 +110,29 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="上架日期："
+                            android:textColor="@color/touzi_huise"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/goods_date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            android:textColor="@color/touzi_huise"
+                            android:textSize="14sp" />
+
+
+                    </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="wrap_content"

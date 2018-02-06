@@ -270,9 +270,6 @@ public class DailyActivity extends BaseActivity implements OrderEasyView, SwipeR
             mess.obj = data;
 
             handler.sendMessage(mess);
-        } else {
-            ProgressUtil.dissDialog();
-            ToastUtil.show("获取日报异常!");
         }
     }
 

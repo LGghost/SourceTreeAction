@@ -639,12 +639,6 @@ public class CustomerHomepageActivity extends BaseActivity implements OrderEasyV
                                 }
                             }
 
-                        } else {
-                            if (status == -7) {
-                                ToastUtil.show(getString(R.string.landfall_overdue));
-                                Intent intent = new Intent(CustomerHomepageActivity.this, LoginActity.class);
-                                startActivity(intent);
-                            }
                         }
                     }
 
@@ -680,12 +674,6 @@ public class CustomerHomepageActivity extends BaseActivity implements OrderEasyV
                                 } else {
                                     no_data_image.setVisibility(View.VISIBLE);
                                 }
-                            }
-                        } else {
-                            if (status == -7) {
-                                ToastUtil.show(getString(R.string.landfall_overdue));
-                                Intent intent = new Intent(CustomerHomepageActivity.this, LoginActity.class);
-                                startActivity(intent);
                             }
                         }
                     }
@@ -724,12 +712,6 @@ public class CustomerHomepageActivity extends BaseActivity implements OrderEasyV
                                     no_data_image.setVisibility(View.VISIBLE);
                                 }
                             }
-                        } else {
-                            if (status == -7) {
-                                ToastUtil.show(getString(R.string.landfall_overdue));
-                                Intent intent = new Intent(CustomerHomepageActivity.this, LoginActity.class);
-                                startActivity(intent);
-                            }
                         }
                     }
 
@@ -767,12 +749,6 @@ public class CustomerHomepageActivity extends BaseActivity implements OrderEasyV
                             kehu_qianhuo.setText(String.valueOf(customer.getOwe_sum()));
                             kehu_qiankuan.setText("¥" + String.valueOf(customer.getReceivable()));
                             kehu_zongjiaoyie.setText("¥" + String.valueOf(customer.getTrade_money()));
-                        } else {
-                            if (status == -7) {
-                                ToastUtil.show(getString(R.string.landfall_overdue));
-                                Intent intent = new Intent(CustomerHomepageActivity.this, LoginActity.class);
-                                startActivity(intent);
-                            }
                         }
                     }
 

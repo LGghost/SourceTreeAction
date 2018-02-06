@@ -271,21 +271,6 @@ public class HarvestAddressActivity extends BaseActivity implements OrderEasyVie
             super.handleMessage(msg);
             JsonObject result;
             switch (msg.what) {
-                case 1001:
-
-                    break;
-                case 1002:
-                    result = (JsonObject) msg.obj;
-                    if (result != null) {
-                        int status = result.get("code").getAsInt();
-                        //String message=result.get("message").getAsString();
-                        if (status == 1) {
-                        } else {
-
-                        }
-                    }
-                    Log.e("信息", result.toString());
-                    break;
                 case 1003:
                     result = (JsonObject) msg.obj;
                     if (result != null) {
@@ -297,9 +282,6 @@ public class HarvestAddressActivity extends BaseActivity implements OrderEasyVie
                             if (addrs == null) addrs = new ArrayList<>();
                             selectAddrAdapter.setData(addrs);
                             selectAddrAdapter.notifyDataSetChanged();
-                        } else {
-                            String message = result.get("message").getAsString();
-                            showToast(message);
                         }
                     }
                     Log.e("保存信息", result.toString());
@@ -316,9 +298,6 @@ public class HarvestAddressActivity extends BaseActivity implements OrderEasyVie
                             selectAddrAdapter.setData(addrs);
                             customer = cust;
                             selectAddrAdapter.notifyDataSetChanged();
-                        } else {
-                            String message = result.get("message").getAsString();
-                            showToast(message);
                         }
                     }
                     Log.e("信息", result.toString());
