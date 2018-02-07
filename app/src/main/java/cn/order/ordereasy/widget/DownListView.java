@@ -169,6 +169,7 @@ public class DownListView extends LinearLayout {
 
     public void setEditText(int number) {
         this.number.setText("(" + number + ")");
+        this.number.setVisibility(View.VISIBLE);
     }
 
     public void setHigh(boolean isHigh) {

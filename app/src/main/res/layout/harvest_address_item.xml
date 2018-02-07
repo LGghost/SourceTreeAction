@@ -56,7 +56,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_weight="1"
                 android:text="地址"
-                android:textColor="@color/touzi_huise"
+                android:textColor="@color/heise"
                 android:textSize="16sp" />
 
             <ImageView

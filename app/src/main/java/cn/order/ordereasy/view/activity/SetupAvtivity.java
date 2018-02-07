@@ -219,7 +219,6 @@ public class SetupAvtivity extends BaseActivity implements OrderEasyView {
     @OnClick(R.id.xiugai)
     void xiugai() {
         Intent intent = new Intent(SetupAvtivity.this, PersonalInformationActivity.class);
-
         if (info != null) {
             intent.putExtra("user_id", info.user_id);
             intent.putExtra("user_name", info.name);

@@ -177,6 +177,7 @@
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_gravity="right"
                                 android:orientation="horizontal">
 
                                 <TextView
@@ -199,6 +200,7 @@
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_gravity="right"
                                 android:layout_marginTop="3dp"
                                 android:orientation="horizontal">
 
@@ -266,6 +268,7 @@
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_gravity="right"
                                 android:orientation="horizontal">
 
                                 <TextView
@@ -289,6 +292,7 @@
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_gravity="right"
                                 android:layout_marginTop="3dp"
                                 android:orientation="horizontal">
 
@@ -356,6 +360,7 @@
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_gravity="right"
                                 android:orientation="horizontal">
 
                                 <TextView
@@ -378,6 +383,7 @@
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_gravity="right"
                                 android:layout_marginTop="3dp"
                                 android:orientation="horizontal">
 
@@ -445,6 +451,7 @@
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_gravity="right"
                                 android:orientation="horizontal">
 
                                 <TextView
@@ -467,6 +474,7 @@
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_gravity="right"
                                 android:layout_marginTop="3dp"
                                 android:orientation="horizontal">
 
@@ -535,6 +543,7 @@
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_gravity="right"
                                 android:orientation="horizontal">
 
                                 <TextView
@@ -557,6 +566,7 @@
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_gravity="right"
                                 android:layout_marginTop="3dp"
                                 android:orientation="horizontal">
 
@@ -595,9 +605,9 @@
                 android:id="@+id/layout"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
+                android:layout_gravity="center_horizontal"
                 android:layout_weight="1"
                 android:clickable="true"
-                android:layout_gravity="center_horizontal"
                 android:gravity="bottom"
                 android:orientation="vertical">
 

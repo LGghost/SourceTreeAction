@@ -36,6 +36,7 @@ import cn.bingoogolapple.photopicker.activity.BGAPhotoPickerPreviewActivity;
 import cn.order.ordereasy.R;
 import cn.order.ordereasy.bean.Goods;
 import cn.order.ordereasy.bean.Spec;
+import cn.order.ordereasy.bean.SpecBean;
 import cn.order.ordereasy.presenter.OrderEasyPresenter;
 import cn.order.ordereasy.presenter.OrderEasyPresenterImp;
 import cn.order.ordereasy.utils.GsonUtils;
@@ -55,6 +56,7 @@ public class GuigeGuanliActivity extends BaseActivity implements OrderEasyView {
     int i = 1001;
     OrderEasyPresenter orderEasyPresenter;
     List<Spec> datas = new ArrayList<>();
+    List<Spec> datas1 = new ArrayList<>();
     List<String> oldValue1 = new ArrayList<>();
     List<String> oldValue2 = new ArrayList<>();
     private String flag;
@@ -73,8 +75,10 @@ public class GuigeGuanliActivity extends BaseActivity implements OrderEasyView {
         guige_xuanze_view2.setVisibility(View.GONE);
         if (bundle != null) {
             Goods good = (Goods) bundle.getSerializable("data");
+            SpecBean specBean = (SpecBean) bundle.getSerializable("spec");
             flag = bundle.getString("flag");
             datas = good.getSpec();
+            datas1 = specBean.getSpec();
             initView();
             initData();
         }
@@ -82,11 +86,21 @@ public class GuigeGuanliActivity extends BaseActivity implements OrderEasyView {
 
     private void initData() {
         if (datas == null) datas = new ArrayList<>();
-        if (datas.size() == 1) {
-            List<String> values = datas.get(0).getValues();
+        if (datas1.size() == 1) {
+            List<String> values = datas1.get(0).getValues();
             if (flag.equals("detail")) {
                 oldValue1.addAll(values);
             }
+        }else if(datas1.size() == 2){
+            List<String> values1 = datas1.get(0).getValues();
+            List<String> values2 = datas1.get(1).getValues();
+            if (flag.equals("detail")) {
+                oldValue1.addAll(values1);
+                oldValue2.addAll(values2);
+            }
+        }
+        if (datas.size() == 1) {
+            List<String> values = datas.get(0).getValues();
             if (values == null) values = new ArrayList<>();
             if (values.size() > 0) {
                 //填充属性标签
@@ -98,10 +112,6 @@ public class GuigeGuanliActivity extends BaseActivity implements OrderEasyView {
         } else if (datas.size() == 2) {
             List<String> values1 = datas.get(0).getValues();
             List<String> values2 = datas.get(1).getValues();
-            if (flag.equals("detail")) {
-                oldValue1.addAll(values1);
-                oldValue2.addAll(values2);
-            }
             if (values1 == null) values1 = new ArrayList<>();
             if (values2 == null) values2 = new ArrayList<>();
             if (values1.size() > 0) {
@@ -512,7 +522,7 @@ public class GuigeGuanliActivity extends BaseActivity implements OrderEasyView {
             public void onClick(View v) {
                 View hiddenView = findViewById((Integer) v.getTag());  //在hidden_view.xml中hidden_layout是root layout
                 String text = ((TextView) hiddenView.findViewById(R.id.selected_text_view1)).getText().toString();
-                if(datas.size() >1) {
+                if (datas.size() > 1) {
                     List<String> values = datas.get(1).getValues();
                     if (flag.equals("detail")) {
                         if (!oldValue2.contains(text)) {
@@ -525,7 +535,7 @@ public class GuigeGuanliActivity extends BaseActivity implements OrderEasyView {
                         if (values.contains(text)) values.remove(text);
                     }
                     datas.get(1).setValues(values);
-                }else{
+                } else {
                     List<String> values = datas.get(0).getValues();
                     if (flag.equals("detail")) {
                         if (!oldValue2.contains(text)) {
@@ -600,12 +610,12 @@ public class GuigeGuanliActivity extends BaseActivity implements OrderEasyView {
             @Override
             public void onClick(View v) {
                 String name = ed_type_name.getText().toString();
-                if(TextUtils.isEmpty(name)){
+                if (TextUtils.isEmpty(name)) {
                     ToastUtil.show("属性不能为空");
                     alertDialog.dismiss();
                     return;
-                }else{
-                    if(name.length() > 12){
+                } else {
+                    if (name.length() > 12) {
                         ToastUtil.show("规格属性最多输入12个字符");
                         alertDialog.dismiss();
                         return;

@@ -34,11 +34,11 @@ public class MyDialog extends AlertDialog {
         /**
          * 设置宽度全屏，要设置在show的后面
          */
-        WindowManager.LayoutParams layoutParams = getWindow().getAttributes();
-        layoutParams.gravity = Gravity.BOTTOM;
-        layoutParams.width = LayoutParams.MATCH_PARENT;
-        layoutParams.height = LayoutParams.MATCH_PARENT;
-        getWindow().getDecorView().setPadding(0, 0, 0, 0);
-        getWindow().setAttributes(layoutParams);
+//        WindowManager.LayoutParams layoutParams = getWindow().getAttributes();
+//        layoutParams.gravity = Gravity.BOTTOM;
+//        layoutParams.width = LayoutParams.MATCH_PARENT;
+//        layoutParams.height = LayoutParams.MATCH_PARENT;
+//        getWindow().getDecorView().setPadding(0, 0, 0, 0);
+//        getWindow().setAttributes(layoutParams);
     }
 }

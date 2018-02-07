@@ -1935,6 +1935,25 @@ public class OrderEasyApiModelImp implements OrderEasyApiModel {
         return sub;
     }
 
+    @Override
+    public Subscription inventoryInfo(int inventory_id) {
+        Observable<JsonObject> request = OrderEasyApiService.inventoryInfo(inventory_id);
+        Subscription sub = request.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<JsonObject>() {
+                    @Override
+                    public void call(JsonObject data) {
+                        orderEasyOnListener.onSuccess(data, 2);
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        orderEasyOnListener.onFailure(throwable);
+                    }
+                });
+        return sub;
+    }
+
     /**
      * 回调接口
      */

@@ -33,6 +33,7 @@ public class GuideDialog {
         }
         alertDialog = new MyDialog(context);
         View view = View.inflate(context, R.layout.tanchuang_view, null);
+        alertDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         alertDialog.setView(view);
         alertDialog.show();
         Window window = alertDialog.getWindow();

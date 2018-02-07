@@ -356,7 +356,9 @@ public class BillingPurchaseActivity extends BaseActivity {
             Bundle bundle = data.getExtras();
             if (bundle != null) {
                 bean = (SupplierBean) bundle.getSerializable("data");
+
                 order_name.setText(bean.getName());
+                order_tel.setVisibility(View.VISIBLE);
                 order_tel.setText("欠供应商款：" + bean.getArrears());
             }
         }

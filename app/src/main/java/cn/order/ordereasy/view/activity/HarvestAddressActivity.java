@@ -149,7 +149,8 @@ public class HarvestAddressActivity extends BaseActivity implements OrderEasyVie
         ed_type_name.requestFocus();
         //hint内容
         if (!TextUtils.isEmpty(addr)) {
-            ed_type_name.setHint(addr);
+            ed_type_name.setText(addr);
+            ed_type_name.setSelection(addr.length());
         }
         //按钮1点击事件
         TextView quxiao = (TextView) window.findViewById(R.id.quxiao);

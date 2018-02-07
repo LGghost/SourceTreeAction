@@ -33,11 +33,12 @@
             android:singleLine="true"
             android:text=""
             android:textColor="@color/heise"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:visibility="gone"/>
         <ImageView
             android:id="@+id/btn"
-            android:layout_width="15dp"
-            android:layout_height="15dp"
+            android:layout_width="10dp"
+            android:layout_height="12dp"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/text_number"
             android:gravity="center"

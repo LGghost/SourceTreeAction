@@ -28,6 +28,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import org.json.JSONArray;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -78,6 +80,7 @@ public class FragmentStore extends Fragment implements OrderEasyView, SwipeRefre
     private String info1;
     private String url;
     private GuideDialog guideDialog;
+    private JsonArray arr;
 
     public interface setFragmentPageListen {
         public void setFragmentPage(int type);
@@ -104,10 +107,16 @@ public class FragmentStore extends Fragment implements OrderEasyView, SwipeRefre
         SharedPreferences spPreferences = getActivity().getSharedPreferences("user", 0);
         String shopinfo = spPreferences.getString("shopinfo", "");
         is_boss = spPreferences.getString("is_boss", "");
+
         if (!TextUtils.isEmpty(shopinfo)) {
             JsonObject shop = (JsonObject) GsonUtils.getObj(shopinfo, JsonObject.class);
             long expire = shop.get("expire").getAsLong();
             data_time.setText(TimeUtil.getTimeStamp2Str(expire, "yyyy-MM-dd"));
+        }
+        String userinfo = spPreferences.getString("userinfo", "");
+        if (!TextUtils.isEmpty(userinfo)) {
+            JsonObject user = (JsonObject) GsonUtils.getObj(userinfo, JsonObject.class);
+            arr = user.getAsJsonArray("auth_group_ids");
         }
         //新手引导
         guideDialog = new GuideDialog(1, getActivity());
@@ -129,7 +138,7 @@ public class FragmentStore extends Fragment implements OrderEasyView, SwipeRefre
     @Override
     public void onRefresh() {
         //首页下拉刷新，只需要更新今日交易额，今日开单数，当前欠款数，当前欠货数的数据显示
-        if (is_boss.equals("1")) {
+        if (is_boss.equals("1") || isAdministrators()) {
             orderEasyPresenter.getNumToday2(1);
         } else {
             store_refresh.setRefreshing(false);
@@ -434,7 +443,9 @@ public class FragmentStore extends Fragment implements OrderEasyView, SwipeRefre
         orderEasyPresenter.getStoreInfo();
 
         //首页今日交易额，今日开单数，当前欠款数，当前欠货数的数据显示
-        orderEasyPresenter.getStoreData();
+        if (is_boss.equals("1") || isAdministrators()) {
+            orderEasyPresenter.getStoreData();
+        }
     }
 
 
@@ -662,5 +673,14 @@ public class FragmentStore extends Fragment implements OrderEasyView, SwipeRefre
                 alertDialog.dismiss();
             }
         });
+    }
+
+    private boolean isAdministrators() {
+        for (int i = 0; i < arr.size(); i++) {
+            if (arr.get(i).getAsInt() == 1) {
+                return true;
+            }
+        }
+        return false;
     }
 }

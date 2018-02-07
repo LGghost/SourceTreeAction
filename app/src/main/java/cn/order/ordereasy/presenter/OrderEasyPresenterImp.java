@@ -1107,4 +1107,14 @@ public class OrderEasyPresenterImp extends OrderEasyPresenter implements OrderEa
             orderEasyView.hideProgress(2);
         }
     }
+
+    @Override
+    public void inventoryInfo(int inventory_id) {
+        orderEasyView.showProgress(0);
+        if (NetWorkUtils.isNetworkConnected(MyApplication.getInstance().mContext)) {
+            addSubscription(orderEasyApiModel.inventoryInfo(inventory_id));
+        } else {
+            orderEasyView.hideProgress(2);
+        }
+    }
 }

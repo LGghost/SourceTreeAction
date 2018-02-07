@@ -515,6 +515,11 @@ public class Config {
      */
     public final static String goods_del_url="goods/del";
 
+    /**
+     * 删除盘点
+     */
+    public final static String inventory_info_url="/api/goods/inventory/del";
+
     public static String getExtSDCardPath()
     {
         String state = Environment.getExternalStorageState();

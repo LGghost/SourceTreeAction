@@ -627,4 +627,11 @@ public interface OrderEasyApiModel {
      */
     Subscription goodsDel(int goodId);
 
+    /**
+     * 删除盘点
+     *
+     * @return
+     */
+    Subscription inventoryInfo(int inventory_id);
+
 }

@@ -17,6 +17,7 @@
             android:layout_width="@dimen/size20"
             android:layout_height="@dimen/size20"
             android:layout_marginLeft="10dp"
+            android:padding="1dp"
             android:src="@drawable/img_store_statistics" />
 
         <TextView
@@ -39,6 +40,7 @@
             android:layout_width="@dimen/size20"
             android:layout_height="@dimen/size20"
             android:layout_marginLeft="10dp"
+            android:padding="1dp"
             android:src="@drawable/img_store_record" />
 
         <TextView
@@ -62,6 +64,7 @@
             android:layout_width="@dimen/size20"
             android:layout_height="@dimen/size20"
             android:layout_marginLeft="10dp"
+            android:padding="1dp"
             android:src="@drawable/img_store_warning" />
 
         <TextView

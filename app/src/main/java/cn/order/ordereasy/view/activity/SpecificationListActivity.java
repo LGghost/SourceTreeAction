@@ -246,6 +246,11 @@ public class SpecificationListActivity extends BaseActivity implements OrderEasy
                     alertDialog.dismiss();
                     return;
                 }
+                if (ed_type_name.getText().toString().equals("无") || ed_type_name.getText().toString().equals("无规格")) {
+                    ToastUtil.show(ed_type_name.getText().toString() + "不能用于规格名称");
+                    alertDialog.dismiss();
+                    return;
+                }
                 ProgressUtil.showDialog(SpecificationListActivity.this);
                 orderEasyPresenter.addSpecCategoryInfo(ed_type_name.getText().toString());
                 alertDialog.dismiss();

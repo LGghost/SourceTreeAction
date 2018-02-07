@@ -225,7 +225,7 @@ public class GoodsSpecsAdapter extends BaseAdapter {
                     double number = Double.parseDouble(str);
                     product.setDefault_price(number);
                     product.setPrice(product.getNum() * number);
-                    text.setText(ed_type_name.getText().toString());
+                    text.setText(number + "");
                     Totalprice();
                     alertDialog.dismiss();
                 } else {
@@ -290,7 +290,7 @@ public class GoodsSpecsAdapter extends BaseAdapter {
                 } else {
                     p.setPrice(number * p.getSell_price());
                 }
-                text.setText(ed_type_name.getText().toString());
+                text.setText(number + "");
                 Totalprice();
                 alertDialog.dismiss();
             }

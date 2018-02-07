@@ -74,7 +74,7 @@ public class StockManageActivity extends BaseActivity implements OrderEasyView, 
         list_view.setAdapter(stockListAdapter);
         list_view.setGroupIndicator(null);
         store_refresh.setOnRefreshListener(this);
-        shelves_state = getList(getResources().getStringArray(R.array.shelves_state));
+        shelves_state = getList(getResources().getStringArray(R.array.shelves_state1));
         shelves_array = getList(getResources().getStringArray(R.array.shelves_array));
         stock_state.setItemsData(shelves_state, 1);
         stock_array.setItemsData(shelves_array, 0);

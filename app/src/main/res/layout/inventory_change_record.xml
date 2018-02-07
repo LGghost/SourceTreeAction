@@ -58,12 +58,13 @@
 
             <ImageView
                 android:id="@+id/btn"
-                android:layout_width="15dp"
-                android:layout_height="15dp"
+                android:layout_width="10dp"
+                android:layout_height="12dp"
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@+id/text_number"
                 android:background="@drawable/ic_dropdown_normal"
                 android:gravity="center" />
+
         </LinearLayout>
 
         <View

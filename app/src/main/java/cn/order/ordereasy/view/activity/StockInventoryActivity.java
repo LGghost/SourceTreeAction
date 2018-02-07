@@ -8,6 +8,7 @@ import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -25,6 +26,7 @@ import java.util.List;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
+import cn.bingoogolapple.androidcommon.adapter.BGAOnItemChildClickListener;
 import cn.order.ordereasy.R;
 import cn.order.ordereasy.adapter.InventoryListAdapter;
 import cn.order.ordereasy.bean.Customer;
@@ -44,7 +46,7 @@ import cn.order.ordereasy.widget.LoadMoreListView;
  * 库存盘点Activity
  */
 
-public class StockInventoryActivity extends BaseActivity implements OrderEasyView, SwipeRefreshLayout.OnRefreshListener, LoadMoreListView.OnLoadMoreListener {
+public class StockInventoryActivity extends BaseActivity implements OrderEasyView, SwipeRefreshLayout.OnRefreshListener, LoadMoreListView.OnLoadMoreListener, BGAOnItemChildClickListener {
 
     OrderEasyPresenter orderEasyPresenter;
     InventoryListAdapter adapter;
@@ -76,6 +78,7 @@ public class StockInventoryActivity extends BaseActivity implements OrderEasyVie
                 startActivityForResult(intent, 1003);
             }
         });
+        adapter.setOnItemChildClickListener(this);
     }
 
     //找到控件ID
@@ -274,6 +277,16 @@ public class StockInventoryActivity extends BaseActivity implements OrderEasyVie
                     }
                     Log.e("新建信息", result.toString());
                     break;
+                case 1003:
+                    result = (JsonObject) msg.obj;
+                    if (result != null) {
+                        int status = result.get("code").getAsInt();
+                        if (status == 1) {
+                            ToastUtil.show("删除成功");
+                        }
+                    }
+                    Log.e("新建信息", result.toString());
+                    break;
                 case 1007:
                     ToastUtil.show("出错了哟~");
                     break;
@@ -310,4 +323,19 @@ public class StockInventoryActivity extends BaseActivity implements OrderEasyVie
         orderEasyPresenter.getInventoryList(pageCurrent);
     }
 
+    @Override
+    public void onItemChildClick(ViewGroup parent, View childView, int position) {
+        final int id= adapter.getData().get(position).getInventory_id();
+        if(adapter.getData().get(position).getIs_complete() != 1){
+            if (childView.getId() == R.id.tv_item_swipe_delete) {
+                orderEasyPresenter.inventoryInfo(id);
+                adapter.closeOpenedSwipeItemLayout();
+                adapter.removeItem(position);
+                adapter.notifyDataSetChanged();
+            }
+        }else {
+            ToastUtil.show("已完成的盘点不能删除");
+        }
+
+    }
 }

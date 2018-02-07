@@ -27,6 +27,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.JsonObject;
 import com.tencent.android.tpush.XGPushClickedResult;
@@ -316,13 +317,21 @@ public class LoginActity extends BaseActivity implements OrderEasyView {
         return false;
     }
 
+    private long mExitTime;
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
-            System.exit(0);
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if ((System.currentTimeMillis() - mExitTime) > 2000) {
+                Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
+                mExitTime = System.currentTimeMillis();
+
+            } else {
+                System.exit(0);
+            }
+            return true;
         }
         return super.onKeyDown(keyCode, event);
-
     }
 
 }

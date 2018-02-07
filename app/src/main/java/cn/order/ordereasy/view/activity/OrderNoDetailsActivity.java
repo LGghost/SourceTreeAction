@@ -458,6 +458,7 @@ public class OrderNoDetailsActivity extends BaseActivity implements OrderEasyVie
     public void loadData(JsonObject data, int type) {
         Message message = new Message();
         ProgressUtil.dissDialog();
+        Log.e("OrderNoDetails", "type:" + type);
         switch (type) {
             case 0:
                 if (data == null) {
@@ -489,10 +490,15 @@ public class OrderNoDetailsActivity extends BaseActivity implements OrderEasyVie
                     message.what = 1007;
                 } else {
                     message.what = 1004;
-
                 }
-
                 break;
+            case 4:
+                message = new Message();
+                if (data == null) {
+                    message.what = 1007;
+                } else {
+                    message.what = 1005;
+                }
             default:
                 break;
         }
@@ -587,6 +593,16 @@ public class OrderNoDetailsActivity extends BaseActivity implements OrderEasyVie
                         }
                     }
                     Log.e("订单信息", result.toString());
+                    break;
+                case 1005:
+                    result = (JsonObject) msg.obj;
+                    if (result != null) {
+                        int status = result.get("code").getAsInt();
+                        if (status == 1) {
+                            //处理返回的数据
+                            ToastUtil.show("修改成功");
+                        }
+                    }
                     break;
                 case 1007:
                     ToastUtil.show("出错了哟~");
@@ -762,7 +778,8 @@ public class OrderNoDetailsActivity extends BaseActivity implements OrderEasyVie
             String addr = bundle.getString("data");
             order.setAddress(addr);
             addres.setText(addr);
-            orderEasyPresenter.updateOrderAddr(order.getOrder_id(), addr, 2);
+            ProgressUtil.showDialog(this);
+            orderEasyPresenter.updateOrderAddr(order.getOrder_id(), addr, 6);
         }
     }
 

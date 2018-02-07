@@ -143,12 +143,12 @@ public class StockChangeActivity extends BaseActivity implements OrderEasyView, 
                 int i51 = data.getAsJsonObject("result").getAsJsonObject("list").getAsJsonObject("manual_adjust").get("in_number").getAsInt();
                 int i52 = data.getAsJsonObject("result").getAsJsonObject("list").getAsJsonObject("manual_adjust").get("out_number").getAsInt();
 
-                tv5.setText((i51 + i52) + "");
+                tv5.setText("+" + i51 + "(-" + i52 + ")");
 
                 int i61 = data.getAsJsonObject("result").getAsJsonObject("list").getAsJsonObject("adjust").get("in_number").getAsInt();
                 int i62 = data.getAsJsonObject("result").getAsJsonObject("list").getAsJsonObject("adjust").get("out_number").getAsInt();
 
-                tv6.setText((i61 + i62) + "");
+                tv6.setText("+" + i61 + "(-" + i62 + ")");
             }
         }
     }

@@ -32,9 +32,9 @@ public class DropdownButton extends RelativeLayout {
     }
 
     private void init() {
-        View view =  LayoutInflater.from(getContext()).inflate(R.layout.dropdown_tab_button,this, true);
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.dropdown_tab_button, this, true);
         textView = (TextView) view.findViewById(R.id.textView);
-        bottomLine = view.findViewById(R.id.bottomLine);
+//        bottomLine = view.findViewById(R.id.bottomLine);
     }
 
 
@@ -43,17 +43,14 @@ public class DropdownButton extends RelativeLayout {
     }
 
     public void setChecked(boolean checked) {
-        Drawable icon;
-        if (checked) {
-            icon = getResources().getDrawable(R.drawable.ic_dropdown_normal);
-            textView.setTextColor(getResources().getColor(R.color.lanse));
-            bottomLine.setVisibility(VISIBLE);
-        } else {
-            icon = getResources().getDrawable(R.drawable.ic_dropdown_normal);
-            textView.setTextColor(getResources().getColor(R.color.font_black_content));
-            bottomLine.setVisibility(GONE);
-        }
-        textView.setCompoundDrawablesWithIntrinsicBounds(null, null, icon, null);
+//        if (checked) {
+//            textView.setTextColor(getResources().getColor(R.color.lanse));
+//            bottomLine.setVisibility(VISIBLE);
+//        } else {
+//            textView.setTextColor(getResources().getColor(R.color.font_black_content));
+//            bottomLine.setVisibility(GONE);
+//        }
+////        textView.setCompoundDrawablesWithIntrinsicBounds(null, null, icon, null);
     }
 
 

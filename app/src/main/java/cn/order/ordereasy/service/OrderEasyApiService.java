@@ -1600,10 +1600,11 @@ public class OrderEasyApiService {
                 if (p.getDefault_price() != -1) {
                     data.put("cost_price", p.getDefault_price());
                     data.put("sell_price", p.getDefault_price());
-                } else {
-                    data.put("cost_price", p.getCost_price());
-                    data.put("sell_price", p.getSell_price());
                 }
+//                else {
+//                    data.put("cost_price", p.getCost_price());
+//                    data.put("sell_price", p.getSell_price());
+//                }
                 map.add(data);
             }
         }
@@ -1632,5 +1633,18 @@ public class OrderEasyApiService {
         RequestBody body = RequestBody.create(MediaType.parse("application/json"), strEntity);
         Log.e("setupStore", "发送参数：" + strEntity);
         return MyApplication.getInstance().getService(1).request(Config.goods_del_url, body);
+    }
+    /**
+     * 删除盘点
+     *
+     * @return
+     */
+    public static Observable<JsonObject> inventoryInfo(int inventory_id) {
+        HashMap<String, String> paramsMap = new HashMap<>();
+        paramsMap.put("inventory_id", String.valueOf(inventory_id));
+        String strEntity = GsonUtils.getJsonStr(paramsMap);
+        RequestBody body = RequestBody.create(MediaType.parse("application/json"), strEntity);
+        Log.e("inventoryInfo", "发送参数：" + strEntity);
+        return MyApplication.getInstance().getService().request(Config.inventory_info_url, body);
     }
 }

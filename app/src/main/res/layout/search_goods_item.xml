@@ -28,7 +28,7 @@
                 android:layout_height="50dp"
                 android:scaleType="centerCrop"
                 android:visibility="gone"
-                android:src="#33000000"
+                android:src="#50000000"
                 android:background="@drawable/img_off_shelf"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="10dp"/>

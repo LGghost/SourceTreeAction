@@ -338,8 +338,10 @@ public class PrintOrderNoSetUpActivity extends BaseActivity {
             p3.add(new Chunk(new LineSeparator()));
             p3.setSpacingBefore(-5);
             document.add(p3);
-            if (order.getDiscount_price() > 0) {
-                Paragraph paragraph = new Paragraph("订单金额：" + String.valueOf(order.getPayable()) + "(优惠" + order.getDiscount_price() + ")", font15);
+            double price = order.getOrder_sum() - order.getPayable();
+            price = (double) Math.round(price * 100) / 100;
+            if (price > 0) {
+                Paragraph paragraph = new Paragraph("订单金额：" + String.valueOf(order.getPayable()) + "(优惠" + price + ")", font15);
                 document.add(paragraph);
             } else {
                 Paragraph paragraph = new Paragraph("订单金额：" + String.valueOf(order.getPayable()), font15);

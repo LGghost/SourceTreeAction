@@ -95,6 +95,7 @@ public class StockListAdapter extends BaseExpandableListAdapter {
             viewHolder.expanded_menu = (ImageView) convertView.findViewById(R.id.expanded_menu);
             viewHolder.expanded_text = (TextView) convertView.findViewById(R.id.expanded_text);
             viewHolder.stock_more = (ImageView) convertView.findViewById(R.id.stock_more);
+            viewHolder.buff = (ImageView) convertView.findViewById(R.id.buff);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (GoodsViewHolder) convertView.getTag();
@@ -102,6 +103,11 @@ public class StockListAdapter extends BaseExpandableListAdapter {
         Goods good = this.goods.get(groupPosition);
         viewHolder.good_name.setText(good.getGoods_no() + " (" + good.getTitle() + ")");
         ImageLoader.getInstance().displayImage(Config.URL_HTTP + "/" + good.getCover(), viewHolder.good_image);
+        if (good.getStatus() != 1) {
+            viewHolder.buff.setVisibility(View.VISIBLE);
+        } else {
+            viewHolder.buff.setVisibility(View.GONE);
+        }
         //这两个为什么不显示数据？
         viewHolder.good_qianhuo.setText(String.valueOf(good.getStore_num()));
         int Owe_num = 0;
@@ -160,7 +166,7 @@ public class StockListAdapter extends BaseExpandableListAdapter {
         if (spec_datas.size() == 2) {
             viewHolder.name.setText(data.getSpec_data().get(0) + "/" + data.getSpec_data().get(1));
         } else if (spec_datas.size() == 1) {
-            viewHolder.name.setText( data.getSpec_data().get(0));
+            viewHolder.name.setText(data.getSpec_data().get(0));
         } else {
             viewHolder.name.setText("无");
         }
@@ -189,6 +195,7 @@ public class StockListAdapter extends BaseExpandableListAdapter {
         public TextView expanded_text;
         public ImageView expanded_menu;
         public ImageView stock_more;
+        public ImageView buff;
 
 
     }

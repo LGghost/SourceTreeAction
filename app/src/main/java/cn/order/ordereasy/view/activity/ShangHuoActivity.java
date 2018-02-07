@@ -50,6 +50,7 @@ import cn.order.ordereasy.adapter.ShangHuoAdapter;
 import cn.order.ordereasy.bean.Goods;
 import cn.order.ordereasy.bean.Product;
 import cn.order.ordereasy.bean.Spec;
+import cn.order.ordereasy.bean.SpecBean;
 import cn.order.ordereasy.presenter.OrderEasyPresenter;
 import cn.order.ordereasy.presenter.OrderEasyPresenterImp;
 import cn.order.ordereasy.utils.Config;
@@ -90,7 +91,7 @@ public class ShangHuoActivity extends BaseActivity implements EasyPermissions.Pe
     private int imagNumber = 0;
     List<String> datas = new ArrayList<>();
     List<String> uploadData = new ArrayList<>();
-
+    SpecBean specBean;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -106,6 +107,7 @@ public class ShangHuoActivity extends BaseActivity implements EasyPermissions.Pe
         shanghuo_recyclerview.setLayoutManager(linearLayoutManager);
         shanghuo_recyclerview.setAdapter(shangHuoAdapter);
         shangHuoAdapter.setOnItemClickLitener(this);
+        specBean = new SpecBean();
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             eidtData(bundle);
@@ -179,6 +181,7 @@ public class ShangHuoActivity extends BaseActivity implements EasyPermissions.Pe
         shangHuoAdapter.setData(strings, false);
         shangHuoAdapter.setImages(images);
         shanghuo_no.setFocusable(false);
+        specBean.setSpec(good.getSpec());
         delete_btn.setVisibility(View.VISIBLE);
     }
 
@@ -289,6 +292,7 @@ public class ShangHuoActivity extends BaseActivity implements EasyPermissions.Pe
         Bundle bundle = new Bundle();
         bundle.putString("flag", flag);
         bundle.putSerializable("data", good);
+        bundle.putSerializable("spec", specBean);
         //再把bundle中的数据传给intent，以传输过去
         intent.putExtras(bundle);
         startActivityForResult(intent, REQUEST_CODE_SELECTSPEC_PREVIEW);

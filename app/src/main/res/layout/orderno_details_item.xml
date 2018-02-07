@@ -44,6 +44,7 @@
                     android:text="123456"
                     android:ellipsize="end"
                     android:maxLines="2"
+                    android:layout_marginRight="10dp"
                     android:textColor="@color/heise"
                     android:textSize="16sp" />
 

@@ -69,7 +69,6 @@
         android:id="@+id/harvest_addr_listview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:divider="@null"
-        android:dividerHeight="0dp"
+        android:dividerHeight="1px"
         android:scrollbars="none"></ListView>
 </LinearLayout>

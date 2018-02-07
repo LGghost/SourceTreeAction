@@ -677,6 +677,13 @@ public abstract class OrderEasyPresenter extends BasePresenter {
      * @return
      */
     public abstract void goodsDel(int goodId);
+
+    /**
+     * 删除盘点
+     *
+     * @return
+     */
+    public abstract void inventoryInfo(int inventory_id);
 }
 
 

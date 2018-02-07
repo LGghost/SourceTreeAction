@@ -35,31 +35,63 @@ public class InventoryListAdapter extends BGAAdapterViewAdapter<Inventory> {
 
     @Override
     protected void setItemChildListener(BGAViewHolderHelper viewHolderHelper) {
-        viewHolderHelper.setItemChildClickListener(R.id.addr_edit);
+        BGASwipeItemLayout swipeItemLayout = viewHolderHelper.getView(R.id.sil_item_swipe_root);
+        swipeItemLayout.setDelegate(new BGASwipeItemLayout.BGASwipeItemLayoutDelegate() {
+            @Override
+            public void onBGASwipeItemLayoutOpened(BGASwipeItemLayout swipeItemLayout) {
+                closeOpenedSwipeItemLayoutWithAnim();
+                mOpenedSil.add(swipeItemLayout);
+            }
+
+            @Override
+            public void onBGASwipeItemLayoutClosed(BGASwipeItemLayout swipeItemLayout) {
+                mOpenedSil.remove(swipeItemLayout);
+            }
+
+            @Override
+            public void onBGASwipeItemLayoutStartOpen(BGASwipeItemLayout swipeItemLayout) {
+                closeOpenedSwipeItemLayoutWithAnim();
+            }
+        });
+        viewHolderHelper.setItemChildClickListener(R.id.tv_item_swipe_delete);
     }
 
     @Override
     public void fillData(BGAViewHolderHelper viewHolderHelper, int position, Inventory model) {
-        viewHolderHelper.setText(R.id.pandian_data, TimeUtil.getTimeStamp2Str(Long.parseLong(model.getCreate_time()),"yyyy-MM-dd"));
+
+        viewHolderHelper.setText(R.id.pandian_data, TimeUtil.getTimeStamp2Str(Long.parseLong(model.getCreate_time()), "yyyy-MM-dd"));
         viewHolderHelper.setText(R.id.pandian_name, model.getUser_name());
 
-        if(model.getIs_boss()==1){
+        if (model.getIs_boss() == 1) {
             viewHolderHelper.setVisibility(R.id.pandian_zhiwei, View.VISIBLE);
-        }else{
-            viewHolderHelper.setVisibility(R.id.pandian_zhiwei,View.GONE);
+        } else {
+            viewHolderHelper.setVisibility(R.id.pandian_zhiwei, View.GONE);
         }
-        if(model.getIs_complete()==1){
-            viewHolderHelper.setText(R.id.pandian_status,"已完成");
-        }else{
-            viewHolderHelper.setText(R.id.pandian_status,"盘点中");
+        if (model.getIs_complete() == 1) {
+            viewHolderHelper.setText(R.id.pandian_status, "已完成");
+        } else {
+            viewHolderHelper.setText(R.id.pandian_status, "盘点中");
         }
-        ImageView imageView=viewHolderHelper.getImageView(R.id.pandian_image);
-        if(!TextUtils.isEmpty(model.getAvatar())) {
+        ImageView imageView = viewHolderHelper.getImageView(R.id.pandian_image);
+        if (!TextUtils.isEmpty(model.getAvatar())) {
             ImageLoader.getInstance().displayImage(Config.URL_HTTP + "/" + model.getAvatar(), imageView);
-        }else{
+        } else {
             imageView.setImageResource(R.drawable.bg_user);
         }
 
     }
 
+    public void closeOpenedSwipeItemLayoutWithAnim() {
+        for (BGASwipeItemLayout sil : mOpenedSil) {
+            sil.closeWithAnim();
+        }
+        mOpenedSil.clear();
+    }
+
+    public void closeOpenedSwipeItemLayout() {
+        for (BGASwipeItemLayout sil : mOpenedSil) {
+            sil.close();
+        }
+        mOpenedSil.clear();
+    }
 }

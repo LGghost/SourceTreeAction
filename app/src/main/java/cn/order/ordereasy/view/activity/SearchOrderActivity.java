@@ -175,6 +175,7 @@ public class SearchOrderActivity extends BaseActivity implements OrderEasyView {
             switch (msg.what) {
                 case 1001:
                     JsonObject result = (JsonObject) msg.obj;
+                    Log.e("SearchOrder", "result:" + result.toString());
                     if (result != null) {
                         int status = result.get("code").getAsInt();
                         if (status == 1) {

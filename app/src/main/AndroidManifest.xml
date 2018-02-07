@@ -738,7 +738,12 @@
             android:label="@string/app_name"
             android:launchMode="singleTop"
             android:theme="@style/AppTheme.Transparent" />/推送消息/\
-
+        <activity
+            android:name="cn.order.ordereasy.view.activity.NameActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent"
+            android:windowSoftInputMode="stateAlwaysVisible" />/姓名/\
         <activity
             android:name=".apshare.ShareEntryActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"

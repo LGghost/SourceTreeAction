@@ -46,6 +46,7 @@ import cn.order.ordereasy.presenter.OrderEasyPresenterImp;
 import cn.order.ordereasy.utils.BitmapUtils;
 import cn.order.ordereasy.utils.Config;
 import cn.order.ordereasy.utils.MyLog;
+import cn.order.ordereasy.utils.ProgressUtil;
 import cn.order.ordereasy.utils.SystemfieldUtils;
 import cn.order.ordereasy.utils.ToastUtil;
 import cn.order.ordereasy.view.OrderEasyView;
@@ -94,11 +95,7 @@ public class PersonalInformationActivity extends BaseActivity implements OrderEa
 
     //姓名显示
     @InjectView(R.id.name)
-    EditText name;
-
-    //修改按钮
-    @InjectView(R.id.send)
-    Button send;
+    TextView name;
 
     private static final int REQUEST_CODE_SELECT_IMG_LG = 3;
     private static final int REQUEST_CODE_CAMERA_IMG_LG = 4;
@@ -136,19 +133,22 @@ public class PersonalInformationActivity extends BaseActivity implements OrderEa
         PersonalInformationActivity.this.finish();
     }
 
-    //返回按钮
-    @OnClick(R.id.send)
-    void send_click() {
-        String user_name = name.getText().toString();
-
-        if (user_name == null || user_name.trim().length() < 2 || user_name.trim().length() > 15) {
-            ToastUtil.show("姓名输入不合格!");
-            return;
-        }
-
-
-        orderEasyPresenter.updateUserInfo(userid, user_name, auths);
+    @OnClick(R.id.gai_name)
+    void gai_name() {
+        Intent intent = new Intent(this, NameActivity.class);
+        intent.putExtra("user_id", userid);
+        intent.putExtra("username", username);
+        startActivityForResult(intent, 1001);
     }
+//    @OnClick(R.id.send)
+//    void send_click() {
+//        String user_name = name.getText().toString();
+//        if (user_name == null || user_name.trim().length() < 2 || user_name.trim().length() > 15) {
+//            ToastUtil.show("姓名输入不合格!");
+//            return;
+//        }
+//        orderEasyPresenter.updateUserInfo(userid, user_name, auths);
+//    }
 
     @Override
     protected void onDestroy() {
@@ -159,26 +159,20 @@ public class PersonalInformationActivity extends BaseActivity implements OrderEa
 
     @Override
     public void showProgress(int type) {
-
+        ProgressUtil.showDialog(this);
     }
 
     @Override
     public void hideProgress(int type) {
-
+        ProgressUtil.dissDialog();
+        if (type != 1) {
+            ToastUtil.show("网络连接失败");
+        }
     }
 
     @Override
     public void loadData(JsonObject data, int type) {
-
-        if (type == 2) {
-            if (data.get("code").getAsInt() == 1) {
-                ToastUtil.show("用户信息修改成功!");
-                setResult(1001);
-                PersonalInformationActivity.this.finish();
-            } else {
-                ToastUtil.show("修改用户信息失败!");
-            }
-        } else if (type == 3) {
+        if (type == 3) {
             MyLog.e("修改头像信息", data.toString());
             if (data.get("code").getAsInt() == 1) {
                 isChange = true;
@@ -292,6 +286,13 @@ public class PersonalInformationActivity extends BaseActivity implements OrderEa
                         e.printStackTrace();
                     }
                     touxiang.setImageBitmap(bm);
+                }
+                break;
+            case 1001:
+                if (data != null) {
+                    String username = data.getExtras().getString("name");
+                    name.setText(username);
+                    isChange = true;
                 }
                 break;
         }

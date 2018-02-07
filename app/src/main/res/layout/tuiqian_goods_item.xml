@@ -19,8 +19,8 @@
             android:layout_height="58dp"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="10dp"
-            android:src="@drawable/dhwy_bg_image"
-            android:scaleType="centerCrop" />
+            android:scaleType="centerCrop"
+            android:src="@drawable/dhwy_bg_image" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -39,10 +39,11 @@
                     android:id="@+id/good_name"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
                     android:layout_weight="1"
-                    android:text="123456"
                     android:ellipsize="end"
                     android:maxLines="2"
+                    android:text="123456"
                     android:textColor="@color/heise"
                     android:textSize="15sp" />
 
@@ -79,8 +80,8 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"

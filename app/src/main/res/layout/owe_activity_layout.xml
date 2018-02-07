@@ -57,6 +57,11 @@
             android:visibility="gone" />
     </FrameLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/fengexian_color" />
+
     <TextView
         android:id="@+id/owe_fahuo"
         android:layout_width="match_parent"
