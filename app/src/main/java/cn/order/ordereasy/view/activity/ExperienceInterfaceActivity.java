@@ -48,9 +48,9 @@ public class ExperienceInterfaceActivity extends BaseActivity {
             if (!TextUtils.isEmpty(agent_mobile)) {
                 kehu_call_phone.setText(agent_mobile);
             }
-            if(type == 0){
+            if (type == 0) {
                 time_title.setText("您的免费体验时间为");
-            }else{
+            } else {
                 time_title.setText("你的使用时间为");
             }
         }
@@ -132,9 +132,7 @@ public class ExperienceInterfaceActivity extends BaseActivity {
     //继续体验
     @OnClick(R.id.continue_to_experience)
     void continue_to_experience() {
-        Intent intent = new Intent(ExperienceInterfaceActivity.this, MainActivity.class);
-        startActivity(intent);
-
+        finish();
     }
 
     //退出登录

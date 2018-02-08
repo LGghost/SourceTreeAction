@@ -75,9 +75,11 @@ public class MyEmployeeAdapter extends BaseAdapter {
         ImageView delete = (ImageView) layout.findViewById(R.id.delete);
         ImageView imageView = (ImageView) layout.findViewById(empimg);
         TextView name = (TextView) layout.findViewById(R.id.name);
+        TextView phone_number = (TextView) layout.findViewById(R.id.phone_number);
         imageView.setBackgroundResource(R.drawable.bg_user);
         name.setText(list.get(i).name);
-        List<Integer> role = list.get(i).getAuth_group_ids();
+        phone_number.setText(list.get(i).getTelephone());
+        List<String> role = list.get(i).getAuth_group_ids();
         String boss = "";
         String shop_keeper = "";
         String salesperson = "";
@@ -90,12 +92,12 @@ public class MyEmployeeAdapter extends BaseAdapter {
         } else {
             delete.setVisibility(View.VISIBLE);
             for (int m = 0; m < role.size(); m++) {
-                if (role.get(m) == 0) {
-                } else if (role.get(m) == 1) {
+                if (Integer.parseInt(role.get(m)) == 0) {
+                } else if (Integer.parseInt(role.get(m)) == 1) {
                     shop_keeper = context.getString(R.string.shop_keeper) + "/";
-                } else if (role.get(m) == 2) {
+                } else if (Integer.parseInt(role.get(m)) == 2) {
                     salesperson = context.getString(R.string.salesperson) + "/";
-                } else if (role.get(m) == 3) {
+                } else if (Integer.parseInt(role.get(m)) == 3) {
                     godown_man = context.getString(R.string.godown_man);
                 }
             }

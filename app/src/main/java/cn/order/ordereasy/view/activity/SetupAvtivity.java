@@ -24,6 +24,8 @@ import com.google.gson.JsonObject;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.umeng.analytics.MobclickAgent;
 
+import java.util.List;
+
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
@@ -172,7 +174,9 @@ public class SetupAvtivity extends BaseActivity implements OrderEasyView {
     //用户名
     @InjectView(R.id.username)
     TextView username;
-
+    //用户名
+    @InjectView(R.id.user_state)
+    TextView user_state;
     //电话号码
     @InjectView(R.id.phone_number)
     TextView phone_number;
@@ -219,12 +223,11 @@ public class SetupAvtivity extends BaseActivity implements OrderEasyView {
     @OnClick(R.id.xiugai)
     void xiugai() {
         Intent intent = new Intent(SetupAvtivity.this, PersonalInformationActivity.class);
+        Bundle bundle = new Bundle();
         if (info != null) {
-            intent.putExtra("user_id", info.user_id);
-            intent.putExtra("user_name", info.name);
-            intent.putExtra("avatar", info.avatar);
+            bundle.putSerializable("data", info);
+            intent.putExtras(bundle);
         }
-
         startActivityForResult(intent, 1001);
     }
 
@@ -352,16 +355,46 @@ public class SetupAvtivity extends BaseActivity implements OrderEasyView {
                 Gson gson = new Gson();
                 UserInfo userinfo = gson.fromJson(jo.toString(), UserInfo.class);
                 info = userinfo;
-                username.setText("用户姓名 :  " + userinfo.name);
-                phone_number.setText(userinfo.telephone);
-                //ImageLoader.getInstance().displayImage(Config.URL_HTTP+"/"+jo3.get("logo").getAsString(),touxiang);
-                String avatar = info.avatar;
+                username.setText(info.getName());
+                phone_number.setText(info.getTelephone());
+                setUserState(userinfo);
+                String avatar = info.getAvatar();
                 if (!TextUtils.isEmpty(avatar)) {
                     ImageLoader.getInstance().displayImage(Config.URL_HTTP + "/" + avatar, touxiang);
                 }
             }
         } else if (type == 3) {
 
+        }
+    }
+
+    private void setUserState(UserInfo userinfo) {
+        String boss = "";
+        String shop_keeper = "";
+        String salesperson = "";
+        String godown_man = "";
+        List<String> role = userinfo.getAuth_group_ids();
+        if (userinfo.getIs_boss() == 1) {
+            boss = getString(R.string.employee_boss);
+            user_state.setText("(" + boss + ")");
+            user_state.setTextColor(getResources().getColor(R.color.shouye_hongse));
+        } else {
+            for (int m = 0; m < role.size(); m++) {
+                if (Integer.parseInt(role.get(m)) == 0) {
+                } else if (Integer.parseInt(role.get(m)) == 1) {
+                    shop_keeper = getString(R.string.shop_keeper) + "/";
+                } else if (Integer.parseInt(role.get(m)) == 2) {
+                    salesperson = getString(R.string.salesperson) + "/";
+                } else if (Integer.parseInt(role.get(m)) == 3) {
+                    godown_man = getString(R.string.godown_man);
+                }
+            }
+            String power = shop_keeper + salesperson + godown_man;
+            if (power.endsWith("/")) {
+                power = power.substring(0, power.length() - 1);
+            }
+            user_state.setText("(" + power + ")");
+            user_state.setTextColor(getResources().getColor(R.color.shouye_lanse));
         }
     }
 }

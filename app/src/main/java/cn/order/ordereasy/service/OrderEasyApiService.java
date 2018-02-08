@@ -1213,7 +1213,7 @@ public class OrderEasyApiService {
     }
 
     //修改用户信息
-    public static Observable<JsonObject> updateUserInfo(int id, String name, List<Integer> list) {
+    public static Observable<JsonObject> updateUserInfo(int id, String name, List<String> list) {
         HashMap<String, Object> paramsMap = new HashMap<>();
         paramsMap.put("user_id", id + "");
         paramsMap.put("name", name);

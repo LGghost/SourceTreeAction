@@ -26,7 +26,7 @@ public class Config {
     public static String TEST_URL="https://test.dinghuo5u.com/";
 
     public static String URL_HTTP ="http://www.dinghuo5u.com";
-    public static String SHARE_URL ="https://www.dinghuo5u.com/share/owe.html?";
+    public static String WX_SERVER_URL ="https://wx.dinghuo5u.com";
     /**
      * 入库
      */

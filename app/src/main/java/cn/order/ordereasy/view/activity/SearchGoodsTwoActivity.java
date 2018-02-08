@@ -60,7 +60,7 @@ public class SearchGoodsTwoActivity extends BaseActivity implements OrderEasyVie
         setColor(this, this.getResources().getColor(R.color.lanse));
         ButterKnife.inject(this);
         orderEasyPresenter = new OrderEasyPresenterImp(this);
-        orderSelectGoodsAdapter = new OrderSelectGoodsAdapter(this);
+        orderSelectGoodsAdapter = new OrderSelectGoodsAdapter(this,selectedDatas);
 
         Bundle bundle = getIntent().getExtras();
         Order order = null;

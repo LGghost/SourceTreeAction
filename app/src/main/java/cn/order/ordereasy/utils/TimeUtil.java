@@ -101,5 +101,14 @@ public class TimeUtil {
         }
         return date;
     }
+    public static String getDate(int time){
+        String date;
+        if (time < 10) {
+            date = "0" + time;
+        } else {
+            date = time + "";
+        }
+        return date;
+    }
 
 }

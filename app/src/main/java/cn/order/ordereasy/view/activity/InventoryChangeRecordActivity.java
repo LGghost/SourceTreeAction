@@ -5,6 +5,7 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -45,6 +46,7 @@ public class InventoryChangeRecordActivity extends BaseActivity implements Order
     private AlertDialog alertDialog;
     private String begindate = "", enddate = "";
     private String beginTime, endTime, time;
+    private String dialogStart, dialogEnd;
     private int type = 0, user_id = -1;
     private List<Fahuo> fahuos = new ArrayList<>();
     private CustomerThingsListAdapter customerThingsListAdapter;
@@ -296,6 +298,8 @@ public class InventoryChangeRecordActivity extends BaseActivity implements Order
             public void onClick(View v) {
                 begindate = "";
                 enddate = "";
+                dialogStart = "";
+                dialogEnd = "";
                 time = "所有时间段";
                 time_text.setText(time);
                 refreshData(false);
@@ -304,7 +308,11 @@ public class InventoryChangeRecordActivity extends BaseActivity implements Order
         });
         //开始时间点击事件
         final TextView kaishi_time = (TextView) window.findViewById(R.id.kaishi_time);
-        kaishi_time.setText(TimeUtil.getTimeStamp2Str(new Date(), "yyyy-MM-dd"));
+        if (TextUtils.isEmpty(dialogStart)) {
+            kaishi_time.setText(TimeUtil.getTimeStamp2Str(new Date(), "yyyy-MM-dd"));
+        } else {
+            kaishi_time.setText(dialogStart);
+        }
         kaishi_time.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -314,20 +322,8 @@ public class InventoryChangeRecordActivity extends BaseActivity implements Order
                     public void onDateSet(DatePicker view, int year, int monthOfYear,
                                           int dayOfMonth) {
                         int month = monthOfYear + 1;
-                        beginTime = month + "." + dayOfMonth;
-                        String monthDate;
-                        String day;
-                        if (month < 10) {
-                            monthDate = "0" + month;
-                        } else {
-                            monthDate = month + "";
-                        }
-                        if (dayOfMonth < 10) {
-                            day = "0" + dayOfMonth;
-                        } else {
-                            day = dayOfMonth + "";
-                        }
-                        kaishi_time.setText(year + "-" + monthDate + "-" + day);
+                        dialogStart = year + "-" + TimeUtil.getDate(month) + "-" + TimeUtil.getDate(dayOfMonth);
+                        kaishi_time.setText(dialogStart);
                     }
                 }, TimeUtil.getCurrentYear(), TimeUtil.getCurrentMonth(), TimeUtil.getCurrentDay()).show();
             }
@@ -335,7 +331,11 @@ public class InventoryChangeRecordActivity extends BaseActivity implements Order
 
         //结束时间点击事件
         final TextView jieshu_time = (TextView) window.findViewById(R.id.jieshu_time);
-        jieshu_time.setText(TimeUtil.getTimeStamp2Str(new Date(), "yyyy-MM-dd"));
+        if (TextUtils.isEmpty(dialogEnd)) {
+            jieshu_time.setText(TimeUtil.getTimeStamp2Str(new Date(), "yyyy-MM-dd"));
+        } else {
+            jieshu_time.setText(dialogEnd);
+        }
         jieshu_time.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -345,20 +345,8 @@ public class InventoryChangeRecordActivity extends BaseActivity implements Order
                     public void onDateSet(DatePicker view, int year, int monthOfYear,
                                           int dayOfMonth) {
                         int month = monthOfYear + 1;
-                        endTime = month + "." + dayOfMonth;
-                        String monthDate;
-                        String day;
-                        if (month < 10) {
-                            monthDate = "0" + month;
-                        } else {
-                            monthDate = month + "";
-                        }
-                        if (dayOfMonth < 10) {
-                            day = "0" + dayOfMonth;
-                        } else {
-                            day = dayOfMonth + "";
-                        }
-                        jieshu_time.setText(year + "-" + monthDate + "-" + day);
+                        dialogEnd = year + "-" + TimeUtil.getDate(month) + "-" + TimeUtil.getDate(dayOfMonth);
+                        jieshu_time.setText(dialogEnd);
                     }
                 }, TimeUtil.getCurrentYear(), TimeUtil.getCurrentMonth(), TimeUtil.getCurrentDay()).show();
             }
@@ -383,10 +371,8 @@ public class InventoryChangeRecordActivity extends BaseActivity implements Order
                 pageCurrent = 1;
                 begindate = kaishi_time.getText().toString();
                 enddate = jieshu_time.getText().toString();
-                if (beginTime == null || endTime == null) {
-                    beginTime = TimeUtil.getDate(begindate);
-                    endTime = TimeUtil.getDate(enddate);
-                }
+                beginTime = TimeUtil.getDate(begindate);
+                endTime = TimeUtil.getDate(enddate);
                 time = beginTime + "-" + endTime;
                 time_text.setText(time);
                 refreshData(false);

@@ -43,6 +43,7 @@
     <string name="godown_man">仓库管理员</string>
 
     <string name="landfall_overdue">登录状态已过期，请重新登录</string>
+    <string name="landfall_overdue2">体验时间已到期</string>
     <string name="landfall_overdue1">服务器升级维护，正在提升用户体验</string>
     <!--调整记录-->
     <string name="adjusting_record">调整记录</string>

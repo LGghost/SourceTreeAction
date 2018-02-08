@@ -40,6 +40,7 @@ import butterknife.InjectView;
 import butterknife.OnClick;
 import cn.order.ordereasy.BuildConfig;
 import cn.order.ordereasy.R;
+import cn.order.ordereasy.bean.Order;
 import cn.order.ordereasy.bean.UserInfo;
 import cn.order.ordereasy.presenter.OrderEasyPresenter;
 import cn.order.ordereasy.presenter.OrderEasyPresenterImp;
@@ -64,7 +65,7 @@ public class PersonalInformationActivity extends BaseActivity implements OrderEa
     private String path = "";
     private boolean isChange = false;
     private List<Integer> auths = new ArrayList<>();
-
+    private UserInfo info;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,9 +74,13 @@ public class PersonalInformationActivity extends BaseActivity implements OrderEa
         setColor(this, this.getResources().getColor(R.color.lanse));
         ButterKnife.inject(this);
         orderEasyPresenter = new OrderEasyPresenterImp(this);
-        userid = this.getIntent().getIntExtra("user_id", 0);
-        username = this.getIntent().getStringExtra("user_name");
-        String avatar = this.getIntent().getStringExtra("avatar");
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            info = (UserInfo) bundle.getSerializable("data");
+        }
+        userid = info.getUser_id();
+        username = info.getName();
+        String avatar = info.getAvatar();
         if (!TextUtils.isEmpty(avatar)) {
             ImageLoader.getInstance().displayImage(Config.URL_HTTP + "/" + avatar, touxiang);
         }
@@ -136,8 +141,11 @@ public class PersonalInformationActivity extends BaseActivity implements OrderEa
     @OnClick(R.id.gai_name)
     void gai_name() {
         Intent intent = new Intent(this, NameActivity.class);
-        intent.putExtra("user_id", userid);
-        intent.putExtra("username", username);
+        Bundle bundle = new Bundle();
+        if (info != null) {
+            bundle.putSerializable("data",info);
+            intent.putExtras(bundle);
+        }
         startActivityForResult(intent, 1001);
     }
 //    @OnClick(R.id.send)

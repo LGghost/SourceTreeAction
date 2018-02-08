@@ -270,12 +270,6 @@ public class FragmentShelves extends Fragment implements OrderEasyView, SwipeRef
                 }
                 DataStorageUtils.getInstance().setGenreGoods(mapList);
                 shelves_fragment_sort.setItemsData(mapList, 0);
-            } else {
-                if (data.get("code").getAsInt() == -7) {
-                    ToastUtil.show(getString(R.string.landfall_overdue));
-                    Intent intent = new Intent(getActivity(), LoginActity.class);
-                    startActivity(intent);
-                }
             }
         } else if (type == 1) {
             if (data != null) {

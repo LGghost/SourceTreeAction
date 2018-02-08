@@ -505,7 +505,7 @@ public abstract class OrderEasyPresenter extends BasePresenter {
      *
      * @param
      */
-    public abstract void updateUserInfo(int id, String name, List<Integer> list);
+    public abstract void updateUserInfo(int id, String name, List<String> list);
 
     /**
      * 修改员工密码

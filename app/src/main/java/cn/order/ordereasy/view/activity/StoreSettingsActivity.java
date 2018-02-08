@@ -373,6 +373,7 @@ public class StoreSettingsActivity extends BaseActivity implements OrderEasyView
                             store_name.setText(shop.get("name").getAsString());
                             tx_store_add.setText(shop.get("address").getAsString());
                             phone_number.setText(shop.get("mobile").getAsString());
+                            ed_call.setText(shop.get("telephone").getAsString());
                             ed_phone.setText(shop.get("mobile").getAsString());
                             ed_store_name.setText(shop.get("name").getAsString());
                             store_add.setText(shop.get("address").getAsString());

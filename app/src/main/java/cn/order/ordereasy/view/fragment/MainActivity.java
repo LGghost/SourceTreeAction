@@ -28,6 +28,7 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.Toast;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.tencent.android.tpush.XGIOperateCallback;
 import com.tencent.android.tpush.XGPushClickedResult;
@@ -74,6 +75,9 @@ public class MainActivity extends FragmentActivity implements OnClickListener, F
     private DisplayMetrics dm;
 
     AlertDialog alertDialog;
+    private JsonArray arr;
+    private String user_id;
+    private String userName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,6 +121,14 @@ public class MainActivity extends FragmentActivity implements OnClickListener, F
         } else {
             Intent intent = new Intent(MainActivity.this, SetupShopActivity.class);
             startActivity(intent);
+        }
+        String userinfo = spPreferences.getString("userinfo", "");
+        if (!TextUtils.isEmpty(userinfo)) {
+            JsonObject user = (JsonObject) GsonUtils.getObj(userinfo, JsonObject.class);
+            Log.e("MainActivity", "user" + user.toString());
+            arr = user.getAsJsonArray("auth_group_ids");
+            user_id = user.get("user_id").getAsString();
+            userName = user.get("name").getAsString();
         }
     }
 
@@ -505,5 +517,27 @@ public class MainActivity extends FragmentActivity implements OnClickListener, F
         statusView.setBackgroundColor(color);
 
         return statusView;
+    }
+
+    public boolean isSalesperson() {
+        if (arr.size() == 1) {
+            for (int i = 0; i < arr.size(); i++) {
+                if (!arr.get(i).getAsString().equals("")) {
+                    if (arr.get(i).getAsInt() == 2) {
+                        return true;
+                    }
+                }
+
+            }
+        }
+        return false;
+    }
+
+    public String getUser_id() {
+        return user_id;
+    }
+
+    public String getUserName() {
+        return userName;
     }
 }

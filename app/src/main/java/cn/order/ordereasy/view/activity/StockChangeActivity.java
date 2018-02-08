@@ -38,7 +38,7 @@ public class StockChangeActivity extends BaseActivity implements OrderEasyView, 
     private String startTime;
     private String endTime;
     private int day = 1;
-
+    private String dialogStart, dialogEnd;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -174,13 +174,20 @@ public class StockChangeActivity extends BaseActivity implements OrderEasyView, 
                 time_text.setText("全部");
                 begindate = "";
                 enddate = "";
+                dialogStart = "";
+                dialogEnd = "";
                 refreshData();
                 alertDialog.dismiss();
             }
         });
         //开始时间点击事件
         final TextView kaishi_time = (TextView) window.findViewById(R.id.kaishi_time);
-        kaishi_time.setText(TimeUtil.getTimeStamp2Str(new Date(), "yyyy-MM-dd"));
+
+        if (TextUtils.isEmpty(dialogStart)) {
+            kaishi_time.setText(TimeUtil.getTimeStamp2Str(new Date(), "yyyy-MM-dd"));
+        } else {
+            kaishi_time.setText(dialogStart);
+        }
         kaishi_time.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -190,21 +197,8 @@ public class StockChangeActivity extends BaseActivity implements OrderEasyView, 
                     public void onDateSet(DatePicker view, int year, int monthOfYear,
                                           int dayOfMonth) {
                         int month = monthOfYear + 1;
-                        String monthDate;
-                        String day;
-                        if (month < 10) {
-                            monthDate = "0" + month;
-                        } else {
-                            monthDate = month + "";
-                        }
-                        if (dayOfMonth < 10) {
-                            day = "0" + dayOfMonth;
-                        } else {
-                            day = dayOfMonth + "";
-                        }
-                        kaishi_time.setText(year + "-" + monthDate + "-" + day);
-//                        begindate = year + "-" + month + "-" + dayOfMonth;
-//                        startTime = month + "." + dayOfMonth;
+                        dialogStart = year + "-" + TimeUtil.getDate(month) + "-" + TimeUtil.getDate(dayOfMonth);
+                        kaishi_time.setText(dialogStart);
                     }
                 }, TimeUtil.getCurrentYear(), TimeUtil.getCurrentMonth(), TimeUtil.getCurrentDay()).show();
             }
@@ -212,7 +206,11 @@ public class StockChangeActivity extends BaseActivity implements OrderEasyView, 
 
         //结束时间点击事件
         final TextView jieshu_time = (TextView) window.findViewById(R.id.jieshu_time);
-        jieshu_time.setText(TimeUtil.getTimeStamp2Str(new Date(), "yyyy-MM-dd"));
+        if (TextUtils.isEmpty(dialogEnd)) {
+            jieshu_time.setText(TimeUtil.getTimeStamp2Str(new Date(), "yyyy-MM-dd"));
+        } else {
+            jieshu_time.setText(dialogEnd);
+        }
         jieshu_time.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -222,19 +220,8 @@ public class StockChangeActivity extends BaseActivity implements OrderEasyView, 
                     public void onDateSet(DatePicker view, int year, int monthOfYear,
                                           int dayOfMonth) {
                         int month = monthOfYear + 1;
-                        String monthDate;
-                        String day;
-                        if (month < 10) {
-                            monthDate = "0" + month;
-                        } else {
-                            monthDate = month + "";
-                        }
-                        if (dayOfMonth < 10) {
-                            day = "0" + dayOfMonth;
-                        } else {
-                            day = dayOfMonth + "";
-                        }
-                        jieshu_time.setText(year + "-" + monthDate + "-" + day);
+                        dialogEnd = year + "-" + TimeUtil.getDate(month) + "-" + TimeUtil.getDate(dayOfMonth);
+                        jieshu_time.setText(dialogEnd);
 //
                     }
                 }, TimeUtil.getCurrentYear(), TimeUtil.getCurrentMonth(), TimeUtil.getCurrentDay()).show();

@@ -29,9 +29,11 @@ public class OrderSelectGoodsAdapter extends BGAAdapterViewAdapter<Goods> {
      * 当前处于打开状态的item
      */
     private List<BGASwipeItemLayout> mOpenedSil = new ArrayList<>();
+    private List<Goods> selectedDatas = new ArrayList<>();
 
-    public OrderSelectGoodsAdapter(Context context) {
+    public OrderSelectGoodsAdapter(Context context, List<Goods> selectedDatas) {
         super(context, R.layout.search_goods_item);
+        this.selectedDatas = selectedDatas;
     }
 
     @Override
@@ -66,7 +68,7 @@ public class OrderSelectGoodsAdapter extends BGAAdapterViewAdapter<Goods> {
             }
 
             ImageLoader.getInstance().displayImage(Config.URL_HTTP + "/" + model.getCover(), imageView);
-            if (model.getIsSelected() == 1) {
+            if (isSelected(model)) {
                 viewHolderHelper.setVisibility(R.id.goods_isSelected, View.VISIBLE);
             } else {
                 viewHolderHelper.setVisibility(R.id.goods_isSelected, View.GONE);
@@ -79,6 +81,14 @@ public class OrderSelectGoodsAdapter extends BGAAdapterViewAdapter<Goods> {
         }
     }
 
+    private boolean isSelected(Goods good) {
+        for (Goods goods : selectedDatas) {
+            if (goods.getGoods_no().equals(good.getGoods_no())) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     public void closeOpenedSwipeItemLayout() {
         for (BGASwipeItemLayout sil : mOpenedSil) {

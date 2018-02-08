@@ -43,7 +43,7 @@ public class EmployeeInformationActivity extends BaseActivity implements OrderEa
     AlertDialog alertDialog;
     OrderEasyPresenter orderEasyPresenter;
     MyEmployee employee;
-    private List<Integer> auths = new ArrayList<>();
+    private List<String> auths = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,12 +64,12 @@ public class EmployeeInformationActivity extends BaseActivity implements OrderEa
         orderEasyPresenter = new OrderEasyPresenterImp(this);
         String shop_keeper = "", salesperson = "", godown_man = "";
         for (int m = 0; m < auths.size(); m++) {
-            if (auths.get(m) == 0) {
-            } else if (auths.get(m) == 1) {
+            if (Integer.parseInt(auths.get(m)) == 0) {
+            } else if (Integer.parseInt(auths.get(m)) == 1) {
                 shop_keeper = getString(R.string.shop_keeper) + "/";
-            } else if (auths.get(m) == 2) {
+            } else if (Integer.parseInt(auths.get(m)) == 2) {
                 salesperson = getString(R.string.salesperson) + "/";
-            } else if (auths.get(m) == 3) {
+            } else if (Integer.parseInt(auths.get(m)) == 3) {
                 godown_man = getString(R.string.godown_man);
             }
         }
@@ -244,17 +244,17 @@ public class EmployeeInformationActivity extends BaseActivity implements OrderEa
             String shop_keeper_str = "", salesperson_str = "", godown_man_str = "";
             int shop_keeper = data.getExtras().getInt("shop_keeper");
             if (shop_keeper != -1) {
-                auths.add(shop_keeper);
+                auths.add(shop_keeper + "");
                 shop_keeper_str = getString(R.string.shop_keeper) + "/";
             }
             int salesperson = data.getExtras().getInt("salesperson");
             if (salesperson != -1) {
-                auths.add(salesperson);
+                auths.add(salesperson + "");
                 salesperson_str = getString(R.string.salesperson) + "/";
             }
             int godown_man = data.getExtras().getInt("godown_man");
             if (godown_man != -1) {
-                auths.add(godown_man);
+                auths.add(godown_man + "");
                 godown_man_str = getString(R.string.godown_man);
             }
             String power = shop_keeper_str + salesperson_str + godown_man_str;

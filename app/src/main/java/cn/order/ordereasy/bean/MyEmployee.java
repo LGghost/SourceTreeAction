@@ -14,7 +14,7 @@ public class MyEmployee extends BaseEntity {
     public String telephone;
     public int is_boss;
     public int status;
-    public List<Integer> auth_group_ids = new ArrayList<>();
+    public List<String> auth_group_ids = new ArrayList<>();
 
     public int getUser_id() {
         return user_id;
@@ -64,11 +64,11 @@ public class MyEmployee extends BaseEntity {
         this.status = status;
     }
 
-    public List<Integer> getAuth_group_ids() {
+    public List<String> getAuth_group_ids() {
         return auth_group_ids;
     }
 
-    public void setAuth_group_ids(List<Integer> auth_group_ids) {
+    public void setAuth_group_ids(List<String> auth_group_ids) {
         this.auth_group_ids = auth_group_ids;
     }
 }

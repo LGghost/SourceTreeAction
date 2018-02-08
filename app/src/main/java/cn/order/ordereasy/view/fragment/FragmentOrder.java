@@ -96,6 +96,7 @@ public class FragmentOrder extends Fragment implements OrderEasyView, AdapterVie
 
     private String begindate, enddate;
     private String beginTime, endTime, time;
+    private String dialogStart, dialogEnd;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -120,7 +121,12 @@ public class FragmentOrder extends Fragment implements OrderEasyView, AdapterVie
         dropdownType = (DropdownListView) rootView.findViewById(R.id.dropdownType);
         dropdownLabel = (DropdownListView) rootView.findViewById(R.id.dropdownLabel);
         dropdownOrder = (DropdownListView) rootView.findViewById(R.id.dropdownOrder);
-        chooseLabel.setText(LABEL_ALL);
+        if (!((MainActivity)getActivity()).isSalesperson()) {
+            chooseLabel.setText(LABEL_ALL);
+        }else{
+            chooseLabel.setText(((MainActivity)getActivity()).getUserName());
+        }
+
         dropdown_in = AnimationUtils.loadAnimation(getActivity(), R.anim.dropdown_in);
         dropdown_out = AnimationUtils.loadAnimation(getActivity(), R.anim.dropdown_out);
         dropdown_mask_out = AnimationUtils.loadAnimation(getActivity(), R.anim.dropdown_mask_out);
@@ -166,7 +172,9 @@ public class FragmentOrder extends Fragment implements OrderEasyView, AdapterVie
             }
             dropdownButtonsController.addType(DataStorageUtils.getInstance().getYuangongLists());
         } else {
-            orderEasyPresenter.getEmployee(1);
+            if (!((MainActivity)getActivity()).isSalesperson()) {
+                orderEasyPresenter.getEmployee(1);
+            }
             refreshData(1, true);
         }
         //新手引导
@@ -217,6 +225,8 @@ public class FragmentOrder extends Fragment implements OrderEasyView, AdapterVie
             public void onClick(View v) {
                 begindate = "";
                 enddate = "";
+                dialogStart = "";
+                dialogEnd = "";
                 time = "所有时间段";
                 chooseType.setText(time);
                 refreshData(1, false);
@@ -225,7 +235,11 @@ public class FragmentOrder extends Fragment implements OrderEasyView, AdapterVie
         });
         //开始时间点击事件
         final TextView kaishi_time = (TextView) window.findViewById(R.id.kaishi_time);
-        kaishi_time.setText(TimeUtil.getTimeStamp2Str(new Date(), "yyyy-MM-dd"));
+        if (TextUtils.isEmpty(dialogStart)) {
+            kaishi_time.setText(TimeUtil.getTimeStamp2Str(new Date(), "yyyy-MM-dd"));
+        } else {
+            kaishi_time.setText(dialogStart);
+        }
         kaishi_time.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -235,20 +249,8 @@ public class FragmentOrder extends Fragment implements OrderEasyView, AdapterVie
                     public void onDateSet(DatePicker view, int year, int monthOfYear,
                                           int dayOfMonth) {
                         int month = monthOfYear + 1;
-                        beginTime = month + "." + dayOfMonth;
-                        String monthDate;
-                        String day;
-                        if (month < 10) {
-                            monthDate = "0" + month;
-                        } else {
-                            monthDate = month + "";
-                        }
-                        if (dayOfMonth < 10) {
-                            day = "0" + dayOfMonth;
-                        } else {
-                            day = dayOfMonth + "";
-                        }
-                        kaishi_time.setText(year + "-" + monthDate + "-" + day);
+                        dialogStart = year + "-" + TimeUtil.getDate(month) + "-" + TimeUtil.getDate(dayOfMonth);
+                        kaishi_time.setText(dialogStart);
                     }
                 }, TimeUtil.getCurrentYear(), TimeUtil.getCurrentMonth(), TimeUtil.getCurrentDay()).show();
             }
@@ -256,7 +258,11 @@ public class FragmentOrder extends Fragment implements OrderEasyView, AdapterVie
 
         //结束时间点击事件
         final TextView jieshu_time = (TextView) window.findViewById(R.id.jieshu_time);
-        jieshu_time.setText(TimeUtil.getTimeStamp2Str(new Date(), "yyyy-MM-dd"));
+        if (TextUtils.isEmpty(dialogEnd)) {
+            jieshu_time.setText(TimeUtil.getTimeStamp2Str(new Date(), "yyyy-MM-dd"));
+        } else {
+            jieshu_time.setText(dialogEnd);
+        }
         jieshu_time.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -266,20 +272,8 @@ public class FragmentOrder extends Fragment implements OrderEasyView, AdapterVie
                     public void onDateSet(DatePicker view, int year, int monthOfYear,
                                           int dayOfMonth) {
                         int month = monthOfYear + 1;
-                        endTime = month + "." + dayOfMonth;
-                        String monthDate;
-                        String day;
-                        if (month < 10) {
-                            monthDate = "0" + month;
-                        } else {
-                            monthDate = month + "";
-                        }
-                        if (dayOfMonth < 10) {
-                            day = "0" + dayOfMonth;
-                        } else {
-                            day = dayOfMonth + "";
-                        }
-                        jieshu_time.setText(year + "-" + monthDate + "-" + day);
+                        dialogEnd = year + "-" + TimeUtil.getDate(month) + "-" + TimeUtil.getDate(dayOfMonth);
+                        jieshu_time.setText(dialogEnd);
                     }
                 }, TimeUtil.getCurrentYear(), TimeUtil.getCurrentMonth(), TimeUtil.getCurrentDay()).show();
             }
@@ -304,10 +298,8 @@ public class FragmentOrder extends Fragment implements OrderEasyView, AdapterVie
                 currentPage = 1;
                 begindate = kaishi_time.getText().toString();
                 enddate = jieshu_time.getText().toString();
-                if (beginTime == null || endTime == null) {
-                    beginTime = TimeUtil.getDate(begindate);
-                    endTime = TimeUtil.getDate(enddate);
-                }
+                beginTime = TimeUtil.getDate(begindate);
+                endTime = TimeUtil.getDate(enddate);
                 time = beginTime + "-" + endTime;
                 chooseType.setText(time);
                 refreshData(1, false);
@@ -691,7 +683,12 @@ public class FragmentOrder extends Fragment implements OrderEasyView, AdapterVie
         }
         Log.e("FragmentOrder", "begindate:" + begindate);
         Log.e("FragmentOrder", "enddate:" + enddate);
-        orderEasyPresenter.getOrdersList(page, filter_type, user_id, begindate, enddate);
+        if (!((MainActivity)getActivity()).isSalesperson()) {
+            orderEasyPresenter.getOrdersList(page, filter_type, user_id, begindate, enddate);
+        }else{
+            orderEasyPresenter.getOrdersList(page, filter_type, ((MainActivity)getActivity()).getUser_id(), begindate, enddate);
+        }
+
 
     }
 

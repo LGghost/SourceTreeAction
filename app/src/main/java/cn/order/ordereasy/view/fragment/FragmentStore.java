@@ -118,6 +118,12 @@ public class FragmentStore extends Fragment implements OrderEasyView, SwipeRefre
             JsonObject user = (JsonObject) GsonUtils.getObj(userinfo, JsonObject.class);
             arr = user.getAsJsonArray("auth_group_ids");
         }
+        //首页左上角的店铺的logo和名称
+        orderEasyPresenter.getStoreInfo();
+        //首页今日交易额，今日开单数，当前欠款数，当前欠货数的数据显示
+        if (is_boss.equals("1") || isAdministrators()) {
+            orderEasyPresenter.getStoreData();
+        }
         //新手引导
         guideDialog = new GuideDialog(1, getActivity());
         return rootView;
@@ -246,9 +252,8 @@ public class FragmentStore extends Fragment implements OrderEasyView, SwipeRefre
         if (!TextUtils.isEmpty(shopinfo)) {
             JsonObject shop = (JsonObject) GsonUtils.getObj(shopinfo, JsonObject.class);
             String key = shop.get("shop_key").getAsString();
-            Uri uri = Uri.parse("https://m.dinghuo5u.com/wx/" + key);
             Intent intent = new Intent(getActivity(), WebViewAcitvity.class);
-            intent.putExtra("key", "https://m.dinghuo5u.com/wx/" + key);
+            intent.putExtra("key", Config.WX_SERVER_URL + "/shop/" + key);
             startActivity(intent);
         }
 
@@ -436,16 +441,8 @@ public class FragmentStore extends Fragment implements OrderEasyView, SwipeRefre
     @Override
     public void onResume() {
         super.onResume();
-        Log.e("FragmentStore", "onResume");
         lay_onclick.setVisibility(View.VISIBLE);
         Countdown();
-        //首页左上角的店铺的logo和名称
-        orderEasyPresenter.getStoreInfo();
-
-        //首页今日交易额，今日开单数，当前欠款数，当前欠货数的数据显示
-        if (is_boss.equals("1") || isAdministrators()) {
-            orderEasyPresenter.getStoreData();
-        }
     }
 
 

@@ -534,7 +534,7 @@
         <activity
             android:name="cn.order.ordereasy.view.activity.ExperienceInterfaceActivity"
             android:label="@string/app_name"
-            android:launchMode="singleTop"
+            android:launchMode="singleTask"
             android:theme="@style/AppTheme.Transparent" />/体验期到了**/\
         <activity
             android:name="cn.order.ordereasy.view.activity.TelListActivity"

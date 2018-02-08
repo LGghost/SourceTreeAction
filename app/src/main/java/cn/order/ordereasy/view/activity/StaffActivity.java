@@ -131,23 +131,25 @@ public class StaffActivity extends BaseActivity implements OrderEasyView, SwipeR
     @Override
     public void loadData(JsonObject data, int type) {
         store_refresh.setRefreshing(false);
-        int status = data.get("code").getAsInt();
-        if (status == 1 && type == 1) {
-            ProgressUtil.dissDialog();
-            Log.e("Staff", "data" + data.toString());
-            Employee employee = (Employee) GsonUtils.getEntity(data.toString(), Employee.class);
-            adapter = new MyEmployeeAdapter(employee.result, this.getApplicationContext(), list_view);
-            list_view.setAdapter(adapter);
-            yuangong_num.setText("( " + employee.result.size() + " )");
-            if (employee.result.size() > 0) {
-                no_data_view.setVisibility(View.GONE);
+        if (data != null) {
+            int status = data.get("code").getAsInt();
+            if (status == 1 && type == 1) {
+                ProgressUtil.dissDialog();
+                Log.e("Staff", "data" + data.toString());
+                Employee employee = (Employee) GsonUtils.getEntity(data.toString(), Employee.class);
+                adapter = new MyEmployeeAdapter(employee.result, this.getApplicationContext(), list_view);
+                list_view.setAdapter(adapter);
+                yuangong_num.setText("( " + employee.result.size() + " )");
+                if (employee.result.size() > 0) {
+                    no_data_view.setVisibility(View.GONE);
+                } else {
+                    no_data_view.setVisibility(View.VISIBLE);
+                }
             } else {
-                no_data_view.setVisibility(View.VISIBLE);
-            }
-        } else {
-            ProgressUtil.dissDialog();
-            if (status == -1 || status == -9) {
-                no_data_view.setVisibility(View.VISIBLE);
+                ProgressUtil.dissDialog();
+                if (status == -1 || status == -9) {
+                    no_data_view.setVisibility(View.VISIBLE);
+                }
             }
         }
     }

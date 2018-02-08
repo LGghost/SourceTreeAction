@@ -37,6 +37,12 @@ public class UmengUtils {
         share(context, -1, null, title, listener);
     }
 
+    public String getUrl(String key, int id) {
+        String url;
+        url = Config.WX_SERVER_URL + "/shop/" + key + "#" + "/goods-details?id=" + id;
+        return url;
+    }
+
     public void share(final Context context, int id, String cover, final String title, final UMShareListener listener) {
         SharedPreferences spPreferences = context.getSharedPreferences("user", 0);
         String shopinfo = spPreferences.getString("shopinfo", "");
@@ -46,10 +52,11 @@ public class UmengUtils {
             final String url;
             String imgUrl;
             if (id == -1) {
-                url = "https://m.dinghuo5u.com/wx/" + key;
+                url = Config.WX_SERVER_URL + "/shop/" + key;
             } else {
-                url = "https://m.dinghuo5u.com/wx/" + key + "/goods?id=" + id;
+                url = getUrl(key, id);
             }
+            Log.e("UmengUtils", "url：" + url);
             Log.e("UmengUtils", "图片：" + cover);
             if (cover == null) {
                 imgUrl = Config.URL_HTTP + "/" + shop.get("logo").getAsString();
@@ -80,16 +87,13 @@ public class UmengUtils {
     public void share(Context context, int id, UMShareListener listener) {
         SharedPreferences spPreferences = context.getSharedPreferences("user", 0);
         String shopinfo = spPreferences.getString("shopinfo", "");
-
         if (!TextUtils.isEmpty(shopinfo)) {
             JsonObject shop = (JsonObject) GsonUtils.getObj(shopinfo, JsonObject.class);
-            Log.e("ArrearsHistory", "" + shop.toString());
-            String shop_id = shop.get("shop_id").getAsString();
+//            String shop_id = shop.get("shop_id").getAsString();
             String shop_key = shop.get("shop_key").getAsString();
-            String singKey = id + shop_id + shop_key;
+//            String singKey = id + shop_id + shop_key;
             String shareUrl;
-            shareUrl = Config.SHARE_URL + "key=" + Md5Utils.StrToMd5(singKey) + "&cid=" + id + "&sid=" + shop_id;
-            Log.e("UmengUtils", shareUrl);
+            shareUrl = Config.WX_SERVER_URL + "/shop/" + shop_key + "#/book";
             UMWeb web = new UMWeb(shareUrl);
             web.setTitle(shop.get("name").getAsString());//标题
             web.setDescription("欠款历史");//描述

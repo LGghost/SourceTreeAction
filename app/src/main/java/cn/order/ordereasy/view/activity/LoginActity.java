@@ -42,6 +42,7 @@ import cn.order.ordereasy.R;
 import cn.order.ordereasy.presenter.OrderEasyPresenter;
 import cn.order.ordereasy.presenter.OrderEasyPresenterImp;
 import cn.order.ordereasy.utils.ClearEditText;
+import cn.order.ordereasy.utils.DataStorageUtils;
 import cn.order.ordereasy.utils.ProgressUtil;
 import cn.order.ordereasy.utils.ToastUtil;
 import cn.order.ordereasy.view.OrderEasyView;
@@ -207,22 +208,11 @@ public class LoginActity extends BaseActivity implements OrderEasyView {
                             editor.putString("userinfo", user.toString());
                             editor.putString("is_boss", is_boss);
                             editor.commit();
+                            DataStorageUtils.getInstance().cleanData();
                             Intent mainIntent = new Intent(LoginActity.this, MainActivity.class);
                             mainIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(mainIntent);
                             finish();
-
-
-                        } else {
-                            if (status == -7) {
-                            } else if (status == -22) {
-                                Intent intent = new Intent(LoginActity.this, ExperienceInterfaceActivity.class);
-                                Bundle bundle = new Bundle();
-                                bundle.putString("flag", "other");
-                                intent.putExtras(bundle);
-                                startActivity(intent);
-                                finish();
-                            }
                         }
                     }
                     Log.e("登录获取基本信息", result.toString());

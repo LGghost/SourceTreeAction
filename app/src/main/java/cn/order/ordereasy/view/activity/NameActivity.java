@@ -12,6 +12,7 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 import cn.order.ordereasy.R;
+import cn.order.ordereasy.bean.UserInfo;
 import cn.order.ordereasy.presenter.OrderEasyPresenter;
 import cn.order.ordereasy.presenter.OrderEasyPresenterImp;
 import cn.order.ordereasy.utils.ClearEditText;
@@ -21,10 +22,10 @@ import cn.order.ordereasy.view.OrderEasyView;
 
 public class NameActivity extends BaseActivity implements OrderEasyView {
     private OrderEasyPresenter orderEasyPresenter;
-    private List<Integer> auths = new ArrayList<>();
+    private List<String> auths = new ArrayList<>();
     private int userid;
     private String userName;
-
+    private UserInfo info;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,8 +36,10 @@ public class NameActivity extends BaseActivity implements OrderEasyView {
         orderEasyPresenter = new OrderEasyPresenterImp(this);
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
-            userid = bundle.getInt("user_id");
-            userName = bundle.getString("username");
+            info = (UserInfo) bundle.getSerializable("data");
+            userid = info.getUser_id();
+            userName = info.getName();
+            auths = info.getAuth_group_ids();
             name.setText(userName);
         }
     }

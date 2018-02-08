@@ -49,7 +49,7 @@ public class StockSearchGoodsActivity extends BaseActivity implements OrderEasyV
     OrderEasyPresenter orderEasyPresenter;
     OrderSelectGoodsAdapter orderSelectGoodsAdapter;
     List<Goods> datas = new ArrayList<>();
-
+    List<Goods> selectedDatas = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,7 +58,7 @@ public class StockSearchGoodsActivity extends BaseActivity implements OrderEasyV
         setColor(this, this.getResources().getColor(R.color.lanse));
         ButterKnife.inject(this);
         orderEasyPresenter = new OrderEasyPresenterImp(this);
-        orderSelectGoodsAdapter = new OrderSelectGoodsAdapter(this);
+        orderSelectGoodsAdapter = new OrderSelectGoodsAdapter(this,selectedDatas);
         sousuo_listview.setAdapter(orderSelectGoodsAdapter);
         sousuo_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

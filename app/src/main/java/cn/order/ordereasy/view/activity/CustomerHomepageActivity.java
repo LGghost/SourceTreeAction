@@ -2,6 +2,7 @@ package cn.order.ordereasy.view.activity;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -80,6 +81,7 @@ public class CustomerHomepageActivity extends BaseActivity implements OrderEasyV
     private int fahuoCurrentPage = 1, fahuoPageTotal = 1;
     private boolean isFrist = true;
     private boolean isChange = false;
+    private JsonArray arr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,6 +100,12 @@ public class CustomerHomepageActivity extends BaseActivity implements OrderEasyV
                 customer_id = c.getCustomer_id();
                 orderEasyPresenter.getCustomerList1();
             }
+        }
+        SharedPreferences spPreferences = getSharedPreferences("user", 0);
+        String userinfo = spPreferences.getString("userinfo", "");
+        if (!TextUtils.isEmpty(userinfo)) {
+            JsonObject user = (JsonObject) GsonUtils.getObj(userinfo, JsonObject.class);
+            arr = user.getAsJsonArray("auth_group_ids");
         }
         customerMoneyListAdapter = new CustomerMoneyListAdapter(this);
         customerOrderListAdapter = new CustomerOrderListAdapter(this);
@@ -192,7 +200,9 @@ public class CustomerHomepageActivity extends BaseActivity implements OrderEasyV
                 }
             }
         } else {
-            orderEasyPresenter.getOperationRecordList(customer_id, "1");
+            if (!isSalesperson()) {
+                orderEasyPresenter.getOperationRecordList(customer_id, "1");
+            }
         }
         Log.e("CustomerHomepage", "isBilling():" + DataStorageUtils.getInstance().isBilling());
         if (DataStorageUtils.getInstance().isBilling()) {
@@ -826,5 +836,19 @@ public class CustomerHomepageActivity extends BaseActivity implements OrderEasyV
     @Override
     public void onRefresh() {
         refreshData();
+    }
+
+    private boolean isSalesperson() {
+        if (arr.size() == 1) {
+            for (int i = 0; i < arr.size(); i++) {
+                if (!arr.get(i).getAsString().equals("")) {
+                    if (arr.get(i).getAsInt() == 2) {
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
     }
 }

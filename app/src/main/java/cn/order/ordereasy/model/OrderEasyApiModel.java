@@ -439,7 +439,7 @@ public interface OrderEasyApiModel {
     /**
      * 修改员工信息
      */
-    Subscription updateUserInfo(int id, String name, List<Integer> list);
+    Subscription updateUserInfo(int id, String name, List<String> list);
 
     /**
      * 修改员工密码

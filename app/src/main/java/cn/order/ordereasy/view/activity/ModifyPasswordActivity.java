@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -38,6 +40,9 @@ public class ModifyPasswordActivity extends BaseActivity implements OrderEasyVie
     private String tel;
     //    private String password;
     private OrderEasyPresenter orderEasyPresenter;
+    private boolean isOld = false;
+    private boolean isNew = false;
+    private boolean isQueren = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -65,7 +70,6 @@ public class ModifyPasswordActivity extends BaseActivity implements OrderEasyVie
     //手机号码显示
     @InjectView(R.id.phone_number)
     TextView phone_number;
-
     //原密码输入框
     @InjectView(R.id.old_password)
     EditText old_password;
@@ -78,6 +82,12 @@ public class ModifyPasswordActivity extends BaseActivity implements OrderEasyVie
     @InjectView(R.id.queren_password)
     EditText queren_password;
 
+    @InjectView(R.id.old_image)
+    ImageView old_image;
+    @InjectView(R.id.new_image)
+    ImageView new_image;
+    @InjectView(R.id.queren_image)
+    ImageView queren_image;
     //确认按钮
     @InjectView(R.id.queren)
     Button queren;
@@ -87,6 +97,49 @@ public class ModifyPasswordActivity extends BaseActivity implements OrderEasyVie
     @OnClick(R.id.return_click)
     void return_click() {
         ModifyPasswordActivity.this.finish();
+    }
+
+    @OnClick(R.id.old_image)
+    void old_image() {
+        if (isOld) {
+            isOld = false;
+            old_image.setImageResource(R.drawable.icon_guanbimima);
+            old_password.setTransformationMethod(PasswordTransformationMethod.getInstance());
+        } else {
+            isOld = true;
+            old_image.setImageResource(R.drawable.icon_xianshimima);
+            old_password.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+            old_password.setSelection(old_password.getText().length());
+        }
+
+    }
+
+    @OnClick(R.id.new_image)
+    void new_image() {
+        if (isNew) {
+            isNew = false;
+            new_image.setImageResource(R.drawable.icon_guanbimima);
+            new_password.setTransformationMethod(PasswordTransformationMethod.getInstance());
+        } else {
+            isNew = true;
+            new_image.setImageResource(R.drawable.icon_xianshimima);
+            new_password.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+            new_password.setSelection(new_password.getText().length());
+        }
+    }
+
+    @OnClick(R.id.queren_image)
+    void queren_image() {
+        if (isQueren) {
+            isQueren = false;
+            queren_image.setImageResource(R.drawable.icon_guanbimima);
+            queren_password.setTransformationMethod(PasswordTransformationMethod.getInstance());
+        } else {
+            isQueren = true;
+            queren_image.setImageResource(R.drawable.icon_xianshimima);
+            queren_password.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+            queren_password.setSelection(queren_password.getText().length());
+        }
     }
 
     //确认按钮
@@ -145,6 +198,7 @@ public class ModifyPasswordActivity extends BaseActivity implements OrderEasyVie
             ToastUtil.show(data.get("message").getAsString());
         }
     }
+
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
         if (ev.getAction() == MotionEvent.ACTION_DOWN) {

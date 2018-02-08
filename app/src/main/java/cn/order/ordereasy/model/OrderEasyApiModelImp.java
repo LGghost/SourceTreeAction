@@ -1375,7 +1375,7 @@ public class OrderEasyApiModelImp implements OrderEasyApiModel {
     }
 
     @Override
-    public Subscription updateUserInfo(int id, String name,List<Integer> list) {
+    public Subscription updateUserInfo(int id, String name,List<String> list) {
         Observable<JsonObject> request = OrderEasyApiService.updateUserInfo(id, name,list);
         Subscription sub = request.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

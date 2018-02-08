@@ -21,6 +21,7 @@ import cn.order.ordereasy.R;
 import cn.order.ordereasy.bean.Goods;
 import cn.order.ordereasy.utils.GsonUtils;
 import cn.order.ordereasy.utils.MyLog;
+import cn.order.ordereasy.utils.UmengUtils;
 
 public class FragmentPreview extends Fragment {
     private WebView webview;
@@ -35,7 +36,7 @@ public class FragmentPreview extends Fragment {
     }
 
     private void initData() {
-        if(goods == null){
+        if (goods == null) {
             return;
         }
         WebSettings webSettings = webview.getSettings();
@@ -53,7 +54,7 @@ public class FragmentPreview extends Fragment {
         if (!TextUtils.isEmpty(shopinfo)) {
             JsonObject shop = (JsonObject) GsonUtils.getObj(shopinfo, JsonObject.class);
             String key = shop.get("shop_key").getAsString();
-            String url = "https://m.dinghuo5u.com/wx/" + key + "/goods?id=" + goods.getGoods_id() + "&preview=true";
+            String url = UmengUtils.getInstance().getUrl(key, goods.getGoods_id());
             webview.loadUrl(url);
             MyLog.e("店铺网址信息", url);
         }

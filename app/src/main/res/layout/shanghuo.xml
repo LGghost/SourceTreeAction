@@ -491,19 +491,34 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="@color/white"
-                android:orientation="horizontal"
-                android:paddingBottom="15dp"
-                android:paddingTop="15dp">
+                android:orientation="horizontal">
 
-                <TextView
+                <LinearLayout
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="10dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="隐藏价格（仅店内可见）"
-                    android:textColor="@color/heise"
-                    android:textSize="16sp" />
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="10dp"
+                        android:text="隐藏微店货品销售价"
+                        android:textColor="@color/heise"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="2dp"
+                        android:text="用于微信店铺中隐藏货品销售价格"
+                        android:textColor="@color/touzi_huise"
+                        android:textSize="13sp" />
+                </LinearLayout>
 
                 <ToggleButton
                     android:id="@+id/mTogBtn"
@@ -530,19 +545,34 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="@color/white"
-                android:orientation="horizontal"
-                android:paddingBottom="15dp"
-                android:paddingTop="15dp">
+                android:orientation="horizontal">
 
-                <TextView
+                <LinearLayout
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="10dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="隐藏货品库存"
-                    android:textColor="@color/heise"
-                    android:textSize="16sp" />
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="10dp"
+                        android:text="隐藏微店货品库存"
+                        android:textColor="@color/heise"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="2dp"
+                        android:text="用于微信店铺中隐藏货品库存"
+                        android:textColor="@color/touzi_huise"
+                        android:textSize="13sp" />
+                </LinearLayout>
 
                 <ToggleButton
                     android:id="@+id/stTogBtn"
@@ -570,18 +600,34 @@
                 android:layout_height="50dp"
                 android:background="@color/white"
                 android:orientation="horizontal"
-                android:paddingBottom="15dp"
-                android:paddingTop="15dp">
+                >
 
-                <TextView
+                <LinearLayout
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="10dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="隐藏货品销量"
-                    android:textColor="@color/heise"
-                    android:textSize="16sp" />
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="10dp"
+                        android:text="隐藏微店货品销量"
+                        android:textColor="@color/heise"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="2dp"
+                        android:text="用于微信店铺中隐藏货品销售数量"
+                        android:textColor="@color/touzi_huise"
+                        android:textSize="13sp" />
+                </LinearLayout>
 
                 <ToggleButton
                     android:id="@+id/svTogBtn"
@@ -597,11 +643,13 @@
                     android:textOn="" />
 
             </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
                 android:layout_marginBottom="10dp"
                 android:background="@color/fengexian_color" />
+
             <Button
                 android:id="@+id/delete_btn"
                 android:layout_width="match_parent"
@@ -612,7 +660,7 @@
                 android:text="删除货品"
                 android:textColor="@color/shouye_hongse"
                 android:textSize="18sp"
-                android:visibility="gone"/>
+                android:visibility="gone" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

@@ -53,7 +53,6 @@ public class ConfirmBillingGoodsItemAdapter extends BaseAdapter {
             convertView = LayoutInflater.from(context).inflate(
                     R.layout.confirm_billing_goods_list_item_item, parent, false);
             viewHolder.name = (TextView) convertView.findViewById(R.id.guige_name);
-            viewHolder.num = (TextView) convertView.findViewById(R.id.guige_num);
             viewHolder.shuliang = (TextView) convertView.findViewById(R.id.shuliang);
 
             convertView.setTag(viewHolder);
@@ -61,19 +60,21 @@ public class ConfirmBillingGoodsItemAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         Product data = this.data.get(position);
+        String price;
+        if (data.getDefault_price() != -1) {
+            price = "(¥" + data.getDefault_price() + ")";
+        } else {
+            price = "(¥" + data.getSell_price() + ")";
+        }
         if (data.getSpec_data().size() > 0) {
             if (data.getSpec_data().size() == 1) {
-                viewHolder.name.setText(FileUtils.cutOutString(6, data.getSpec_data().get(0)));
+
+                viewHolder.name.setText(data.getSpec_data().get(0) + price);
             } else if (data.getSpec_data().size() == 2) {
-                viewHolder.name.setText(FileUtils.cutOutString(4, data.getSpec_data().get(0)) + "/" + FileUtils.cutOutString(4, data.getSpec_data().get(1)));
+                viewHolder.name.setText(data.getSpec_data().get(0) + "/" + data.getSpec_data().get(1) + price);
             }
         } else {
             viewHolder.name.setText("无");
-        }
-        if (data.getDefault_price() != -1) {
-            viewHolder.num.setText(data.getDefault_price() + "");
-        } else {
-            viewHolder.num.setText(data.getSell_price() + "");
         }
         viewHolder.shuliang.setText("x" + data.getNum());
 
@@ -81,9 +82,7 @@ public class ConfirmBillingGoodsItemAdapter extends BaseAdapter {
     }
 
     class ViewHolder {
-
         public TextView name;
-        public TextView num;
         public TextView jiage;
         public TextView shuliang;
         public ImageView jia;

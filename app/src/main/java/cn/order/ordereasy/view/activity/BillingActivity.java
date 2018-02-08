@@ -137,6 +137,7 @@ public class BillingActivity extends BaseActivity implements OrderEasyView {
             @Override
             public void onItemChildClick(ViewGroup parent, View childView, int position) {
                 if (childView.getId() == R.id.kaidan_shanchu) {
+
                     orderSelectGoodsListAdapter.removeItem(position);
                     order.setGoods_list(orderSelectGoodsListAdapter.getData());
                     orderSelectGoodsListAdapter.notifyDataSetChanged();

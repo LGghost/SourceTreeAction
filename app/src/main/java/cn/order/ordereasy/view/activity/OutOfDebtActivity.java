@@ -67,8 +67,10 @@ public class OutOfDebtActivity extends BaseActivity implements OrderEasyView, Tu
         if (bundle != null) {
             flag = bundle.getString("flag");
             order1 = (Order) bundle.getSerializable("data");
-            kehu_name.setText(order1.getCustomer_name());
-            orderEasyPresenter.getOweOrdersList(-1, order1.getOrder_id());
+            if (order1 != null) {
+                kehu_name.setText(order1.getCustomer_name());
+                orderEasyPresenter.getOweOrdersList(-1, order1.getOrder_id());
+            }
         }
 
     }
@@ -110,6 +112,9 @@ public class OutOfDebtActivity extends BaseActivity implements OrderEasyView, Tu
 
     @OnClick(R.id.goto_fahuo)
     void goto_fahuo() {
+        if (order == null) {
+            return;
+        }
         order.setOrder_type(3);
         order.setOriginal_order_id(order.getOrder_id());
         order.setCustomer_id(order1.getCustomer_id());
@@ -128,13 +133,13 @@ public class OutOfDebtActivity extends BaseActivity implements OrderEasyView, Tu
             order.getGoods_list().get(i).setProduct_list(products);
         }
         boolean isNull = false;
-        for(Goods good : order.getGoods_list()){
-            if(good.getPrice() > 0){
+        for (Goods good : order.getGoods_list()) {
+            if (good.getPrice() > 0) {
                 isNull = true;
                 break;
             }
         }
-        if(isNull) {
+        if (isNull) {
             Intent intent = new Intent(this, OrderNoConfirmActivity.class);
             //利用bundle来存取数据
             Bundle bundle = new Bundle();
@@ -145,7 +150,7 @@ public class OutOfDebtActivity extends BaseActivity implements OrderEasyView, Tu
             startActivity(intent);
             setResult(1001);
             finish();
-        }else{
+        } else {
             ToastUtil.show("请选择发货货品");
         }
 //        orderEasyPresenter.Add_Odder(order);

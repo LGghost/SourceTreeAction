@@ -130,6 +130,14 @@ public class InventorySearchActivity extends BaseActivity implements OrderEasyVi
     @OnClick(R.id.et_search)
     void search() {
         Intent intent = new Intent(InventorySearchActivity.this, SearchGoodsActivity.class);
+        //利用bundle来存取数据
+        Bundle bundle = new Bundle();
+        bundle.putString("flag", "inventory");
+        Order order = new Order();
+        order.setGoods_list(goods);
+        bundle.putSerializable("data", order);
+        //再把bundle中的数据传给intent，以传输过去
+        intent.putExtras(bundle);
         startActivityForResult(intent, 1002);
     }
 

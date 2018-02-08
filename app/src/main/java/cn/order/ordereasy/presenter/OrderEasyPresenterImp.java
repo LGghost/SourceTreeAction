@@ -52,6 +52,7 @@ public class OrderEasyPresenterImp extends OrderEasyPresenter implements OrderEa
     public void onSuccess(JsonObject res, int type) {
         orderEasyView.hideProgress(1);
         orderEasyView.loadData(res, type);
+
         if (res != null) {
             int status = res.get("code").getAsInt();
             if (status == 1) {
@@ -68,11 +69,11 @@ public class OrderEasyPresenterImp extends OrderEasyPresenter implements OrderEa
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 MyApplication.getInstance().mContext.startActivity(intent);
             } else if (status == -21 || status == -22) {
-                ToastUtil.show(MyApplication.getInstance().mContext.getString(R.string.landfall_overdue));
+                ToastUtil.show(MyApplication.getInstance().mContext.getString(R.string.landfall_overdue2));
                 Intent intent = new Intent(MyApplication.getInstance().mContext, ExperienceInterfaceActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 MyApplication.getInstance().mContext.startActivity(intent);
             } else {
+                Log.e("OrderEasyPresenterImp", "type:" + type);
                 String message = res.get("message").getAsString();
                 if (!TextUtils.isEmpty(message)) {
                     ToastUtil.show(message);
@@ -822,7 +823,7 @@ public class OrderEasyPresenterImp extends OrderEasyPresenter implements OrderEa
     }
 
     @Override
-    public void updateUserInfo(int id, String name, List<Integer> list) {
+    public void updateUserInfo(int id, String name, List<String> list) {
         orderEasyView.showProgress(1);
         if (NetWorkUtils.isNetworkConnected(MyApplication.getInstance().mContext)) {
             addSubscription(orderEasyApiModel.updateUserInfo(id, name, list));
@@ -1087,6 +1088,7 @@ public class OrderEasyPresenterImp extends OrderEasyPresenter implements OrderEa
             orderEasyView.hideProgress(2);
         }
     }
+
     //订单修改和确认
     @Override
     public void orderConfirm(Order order) {
@@ -1097,6 +1099,7 @@ public class OrderEasyPresenterImp extends OrderEasyPresenter implements OrderEa
             orderEasyView.hideProgress(2);
         }
     }
+
     // 删除订单
     @Override
     public void goodsDel(int goodId) {

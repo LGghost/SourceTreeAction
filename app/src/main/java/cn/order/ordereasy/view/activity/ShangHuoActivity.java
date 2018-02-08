@@ -92,6 +92,7 @@ public class ShangHuoActivity extends BaseActivity implements EasyPermissions.Pe
     List<String> datas = new ArrayList<>();
     List<String> uploadData = new ArrayList<>();
     SpecBean specBean;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -129,16 +130,17 @@ public class ShangHuoActivity extends BaseActivity implements EasyPermissions.Pe
         } else {
             warning_togbtn.setChecked(false);
         }
-        if(good.getIs_hidden_price() == 1){
+        if (good.getIs_hidden_price() == 1) {
             mTogBtn.setChecked(true);
         }
-        if(good.getIs_hidden_store() == 1){
+        if (good.getIs_hidden_store() == 1) {
             stTogBtn.setChecked(true);
         }
-        if(good.getIs_hidden_sales_num() == 1){
+        if (good.getIs_hidden_sales_num() == 1) {
             svTogBtn.setChecked(true);
         }
         List<Spec> specs = good.getSpec();
+
         StringBuilder sb = new StringBuilder();
         if (specs.size() > 0) {
             good.setSpec(specs);
@@ -160,11 +162,14 @@ public class ShangHuoActivity extends BaseActivity implements EasyPermissions.Pe
                     sb.append("\n");
                 }
             }
+        } else {
+
         }
         if (TextUtils.isEmpty(sb.toString())) {
-            shanghuo_spec.setText("无");
+            shanghuo_spec.setText("无规格");
+        } else {
+            shanghuo_spec.setText(sb.toString());
         }
-        shanghuo_spec.setText(sb.toString());
         String desc = good.getDescription();
         if (!TextUtils.isEmpty(desc)) {
             shanghuo_desc.setText("已填写");
@@ -356,11 +361,12 @@ public class ShangHuoActivity extends BaseActivity implements EasyPermissions.Pe
             uploadData();
         }
     }
+
     @OnClick(R.id.delete_btn)
-    void delete_btn()
-    {
+    void delete_btn() {
         showdialogs(1);
     }
+
     private void uploadData() {
         //遍历找出最大和最小金额
         List<Product> products = good.getProduct_list();
@@ -472,9 +478,9 @@ public class ShangHuoActivity extends BaseActivity implements EasyPermissions.Pe
         TextView title_name = (TextView) window.findViewById(R.id.title_name);
         title_name.setText("温馨提示");
         TextView text_conten = (TextView) window.findViewById(R.id.text_conten);
-        if(type == 0){
+        if (type == 0) {
             text_conten.setText("您确认要退出货品编辑吗？");
-        }else{
+        } else {
             text_conten.setText("您确认要删除货品吗？");
         }
 
@@ -494,9 +500,9 @@ public class ShangHuoActivity extends BaseActivity implements EasyPermissions.Pe
         queren.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(type == 0){
+                if (type == 0) {
                     ShangHuoActivity.this.finish();
-                }else{
+                } else {
                     orderEasyPresenter.goodsDel(good.getGoods_id());
                 }
                 alertDialog.dismiss();
@@ -847,8 +853,8 @@ public class ShangHuoActivity extends BaseActivity implements EasyPermissions.Pe
                             showToast("删除成功！");
                             ProgressUtil.dissDialog();
                             Intent intent = new Intent();
-                            intent.putExtra("flag","delete");
-                            setResult(1001,intent);
+                            intent.putExtra("flag", "delete");
+                            setResult(1001, intent);
                             finish();
                         }
                     }
@@ -917,8 +923,8 @@ public class ShangHuoActivity extends BaseActivity implements EasyPermissions.Pe
                             showToast("修改成功！");
                             ProgressUtil.dissDialog();
                             Intent intent = new Intent();
-                            intent.putExtra("flag","detail");
-                            setResult(1001,intent);
+                            intent.putExtra("flag", "detail");
+                            setResult(1001, intent);
                             finish();
                         }
                     }

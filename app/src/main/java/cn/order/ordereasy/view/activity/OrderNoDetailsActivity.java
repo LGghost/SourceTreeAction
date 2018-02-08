@@ -342,6 +342,9 @@ public class OrderNoDetailsActivity extends BaseActivity implements OrderEasyVie
     //去发货
     @OnClick(R.id.fahuo)
     void fahuo_click() {
+        if(order == null){
+            return;
+        }
         if (order.getIs_close() == 1) {
             ToastUtil.show("已关闭订单不能进行此操作");
             return;

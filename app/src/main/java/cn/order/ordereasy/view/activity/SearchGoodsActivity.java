@@ -66,7 +66,6 @@ public class SearchGoodsActivity extends BaseActivity implements OrderEasyView, 
         setColor(this, this.getResources().getColor(R.color.lanse));
         ButterKnife.inject(this);
         orderEasyPresenter = new OrderEasyPresenterImp(this);
-        orderSelectGoodsAdapter = new OrderSelectGoodsAdapter(this);
         search_refresh.setDelegate(this);
         search_refresh.setRefreshViewHolder(new NormalRefreshViewHolder(mApp, true));
         Bundle bundle = getIntent().getExtras();
@@ -78,6 +77,7 @@ public class SearchGoodsActivity extends BaseActivity implements OrderEasyView, 
         List<Goods> goods = order.getGoods_list();
         if (goods == null) goods = new ArrayList<>();
         selectedDatas = goods;
+        orderSelectGoodsAdapter = new OrderSelectGoodsAdapter(this,selectedDatas);
         sousuo_listview.setAdapter(orderSelectGoodsAdapter);
         if (DataStorageUtils.getInstance().getShelvesGoods().size() > 0) {
             Log.e("SearchGoodsActivity", "进入缓存");
