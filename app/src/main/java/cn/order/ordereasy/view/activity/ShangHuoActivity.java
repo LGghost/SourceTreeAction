@@ -147,6 +147,9 @@ public class ShangHuoActivity extends BaseActivity implements EasyPermissions.Pe
             for (Spec s : specs) {
                 List<String> values = s.getValues();
                 if (values == null) values = new ArrayList<>();
+                if (s.getSpec_id() == 0) {
+                    return;
+                }
                 sb.append(s.getName() + "：");
                 for (int i = 0; i < values.size(); i++) {
 //                        sb.append(values.get(i));
@@ -162,9 +165,8 @@ public class ShangHuoActivity extends BaseActivity implements EasyPermissions.Pe
                     sb.append("\n");
                 }
             }
-        } else {
-
         }
+
         if (TextUtils.isEmpty(sb.toString())) {
             shanghuo_spec.setText("无规格");
         } else {
@@ -293,6 +295,26 @@ public class ShangHuoActivity extends BaseActivity implements EasyPermissions.Pe
     //规格管理点击事件
     @OnClick(R.id.guige)
     void guige() {
+        if (flag.equals("detail")) {
+            List<Spec> specs = good.getSpec();
+            if (specs != null) {
+                if (specs.size() > 0) {
+                    if (TextUtils.isEmpty(specs.get(0).getName())
+                            || specs.get(0).getName().equals("无")
+                            || specs.get(0).getName().equals("无规格")) {
+                        showdialogs(2);
+                        return;
+                    }
+                } else {
+                    showdialogs(2);
+                    return;
+                }
+            } else {
+                showdialogs(2);
+                return;
+            }
+
+        }
         Intent intent = new Intent(ShangHuoActivity.this, GuigeGuanliActivity.class);
         Bundle bundle = new Bundle();
         bundle.putString("flag", flag);
@@ -403,6 +425,12 @@ public class ShangHuoActivity extends BaseActivity implements EasyPermissions.Pe
             showToast("请重新设置价格！");
             return;
         }
+        if (flag.equals("detail")) {
+            if (!equalList(specBean.getSpec(), good.getSpec()) && !isBaocun) {
+                showToast("请重新设置价格！");
+                return;
+            }
+        }
         if (warning_togbtn.isChecked()) {
             good.setIs_enable_stock_warn(1);
             if (warning_high.getText().toString().equals("")) {
@@ -478,16 +506,23 @@ public class ShangHuoActivity extends BaseActivity implements EasyPermissions.Pe
         TextView title_name = (TextView) window.findViewById(R.id.title_name);
         title_name.setText("温馨提示");
         TextView text_conten = (TextView) window.findViewById(R.id.text_conten);
+        View view1 = window.findViewById(R.id.view1);
+        //按钮1点击事件
+        TextView quxiao = (TextView) window.findViewById(R.id.quxiao);
         if (type == 0) {
             text_conten.setText("您确认要退出货品编辑吗？");
-        } else {
+            quxiao.setText("继续编辑");
+        } else if (type == 1) {
             text_conten.setText("您确认要删除货品吗？");
+            quxiao.setText("继续编辑");
+        } else {
+            text_conten.setText("为了确保数据准确，无规格货品不能再次修改规格");
+            quxiao.setVisibility(View.GONE);
+            view1.setVisibility(View.GONE);
+
         }
 
 
-        //按钮1点击事件
-        TextView quxiao = (TextView) window.findViewById(R.id.quxiao);
-        quxiao.setText("继续编辑");
         quxiao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -502,7 +537,7 @@ public class ShangHuoActivity extends BaseActivity implements EasyPermissions.Pe
             public void onClick(View v) {
                 if (type == 0) {
                     ShangHuoActivity.this.finish();
-                } else {
+                } else if (type == 1) {
                     orderEasyPresenter.goodsDel(good.getGoods_id());
                 }
                 alertDialog.dismiss();
@@ -602,9 +637,7 @@ public class ShangHuoActivity extends BaseActivity implements EasyPermissions.Pe
             SharedPreferences sp = getSharedPreferences("price", 0);
             List<Spec> specs = good.getSpec();
             if (specs == null) specs = new ArrayList<>();
-            List<Product> products = good.getProduct_list();
-            products.clear();
-            if (products == null) products = new ArrayList<>();
+            List<Product> products = new ArrayList<>();
             String nonePrice = sp.getString("无", "");
             double noneCb = 0;
             double noneXs = 0;
@@ -627,6 +660,9 @@ public class ShangHuoActivity extends BaseActivity implements EasyPermissions.Pe
                             List<String> spec_data = new ArrayList<>();
                             spec_data.add(value);
                             product.setSpec_data(spec_data);
+                            if (flag.equals("detail")) {
+                                setProductId(product);
+                            }
                             //遍历属性价格
                             String price = sp.getString(value, "");
                             Log.e("ShangHuoActivity", "price:" + price);
@@ -663,6 +699,9 @@ public class ShangHuoActivity extends BaseActivity implements EasyPermissions.Pe
                             List<String> spec_data = new ArrayList<>();
                             spec_data.add(value);
                             product.setSpec_data(spec_data);
+                            if (flag.equals("detail")) {
+                                setProductId(product);
+                            }
                             //遍历属性价格
                             String price = sp.getString(value, "");
                             Log.e("ShangHuoActivity", "price:" + price);
@@ -688,6 +727,9 @@ public class ShangHuoActivity extends BaseActivity implements EasyPermissions.Pe
                             List<String> spec_data = new ArrayList<>();
                             spec_data.add(value);
                             product.setSpec_data(spec_data);
+                            if (flag.equals("detail")) {
+                                setProductId(product);
+                            }
                             //遍历属性价格
                             String price = sp.getString(value, "");
                             Log.e("ShangHuoActivity", "price:" + price);
@@ -715,6 +757,9 @@ public class ShangHuoActivity extends BaseActivity implements EasyPermissions.Pe
                                 spec_data.add(values.get(i));
                                 spec_data.add(values1.get(j));
                                 product.setSpec_data(spec_data);
+                                if (flag.equals("detail")) {
+                                    setProductId(product);
+                                }
                                 //遍历属性价格
                                 String suxing = values.get(i) + "/" + values1.get(j);
                                 String price = sp.getString(suxing, "");
@@ -748,6 +793,7 @@ public class ShangHuoActivity extends BaseActivity implements EasyPermissions.Pe
                 product.setCost_price(noneCb);
                 products.add(product);
             }
+            good.setProduct_list(products);
         } else if (resultCode == 9001) {
             Bundle bundle = data.getExtras();
             String res = bundle.getString("data");
@@ -767,10 +813,7 @@ public class ShangHuoActivity extends BaseActivity implements EasyPermissions.Pe
 
     @Override
     public void hideProgress(int type) {
-        if (type == 2) {
-            ProgressUtil.dissDialog();
-            ToastUtil.show("网络连接失败");
-        }
+        ProgressUtil.dissDialog();
         if (type == 0 && datas.size() > 0) {
             imagNumber++;
             if (imagNumber < datas.size()) {
@@ -930,14 +973,6 @@ public class ShangHuoActivity extends BaseActivity implements EasyPermissions.Pe
                     }
                     Log.e("修改信息", result.toString());
                     break;
-                case 1007:
-                    ProgressUtil.dissDialog();
-                    ToastUtil.show("出错了哟~");
-                    break;
-                case 9999:
-                    ProgressUtil.dissDialog();
-                    ToastUtil.show("网络有问题哟~");
-                    break;
             }
         }
     };
@@ -949,5 +984,18 @@ public class ShangHuoActivity extends BaseActivity implements EasyPermissions.Pe
         }
         return super.onKeyDown(keyCode, event);
 
+    }
+
+    private void setProductId(Product product) {
+        isBaocun = true;
+        for (int i = 0; i < good.getProduct_list().size(); i++) {
+            if (equalList(product.getSpec_data(), good.getProduct_list().get(i).getSpec_data())) {
+                product.setProduct_id(good.getProduct_list().get(i).getProduct_id());
+            }
+        }
+    }
+
+    public boolean equalList(List list1, List list2) {
+        return (list1.size() == list2.size()) && list1.containsAll(list2);
     }
 }

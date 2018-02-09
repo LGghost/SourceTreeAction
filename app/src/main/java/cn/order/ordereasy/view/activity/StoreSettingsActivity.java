@@ -388,12 +388,12 @@ public class StoreSettingsActivity extends BaseActivity implements OrderEasyView
                             ImageLoader.getInstance().clearDiskCache();
                             ImageLoader.getInstance().clearMemoryCache();
                             if (!TextUtils.isEmpty(logo)) {
-                                ImageLoader.getInstance().displayImage(Config.URL_HTTP + logo, store_image);
-                                ImageLoader.getInstance().displayImage(Config.URL_HTTP + logo, store_logo);
+                                ImageLoader.getInstance().displayImage(logo, store_image);
+                                ImageLoader.getInstance().displayImage(logo, store_logo);
                             }
                             if (!TextUtils.isEmpty(wx_qrcode)) {
-                                ImageLoader.getInstance().displayImage(Config.URL_HTTP + wx_qrcode, store_erweima);
-                                ImageLoader.getInstance().displayImage(Config.URL_HTTP + wx_qrcode, wx_logo);
+                                ImageLoader.getInstance().displayImage(wx_qrcode, store_erweima);
+                                ImageLoader.getInstance().displayImage(wx_qrcode, wx_logo);
                             }
 
                         }

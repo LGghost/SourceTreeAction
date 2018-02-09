@@ -205,7 +205,7 @@ public class DailyActivity extends BaseActivity implements OrderEasyView, SwipeR
             }
         });
         popwindows.setBtnStatusText("账本详情");
-        popwindows.setBtnBottomText("前往日报");
+        popwindows.setBtnBottomText("往期日报");
         popwindows.setFristImageView(R.drawable.img_zhangben);
         popwindows.setSecondImageView(R.drawable.img_ribao);
         popwindows.showPopupWindow(more);

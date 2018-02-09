@@ -42,7 +42,7 @@ public class DataStorageUtils {
 
     //客户分类列表
     private List<DiscountCustomer> discountCustomers = new ArrayList<>();
-
+    private Customer retailCustomer;
     private boolean isShanghuo = false;
     private boolean isBilling = false;
     private boolean isCustomer = false;
@@ -200,6 +200,14 @@ public class DataStorageUtils {
 
     public void setDiscountCustomers(List<DiscountCustomer> discountCustomers) {
         this.discountCustomers = discountCustomers;
+    }
+
+    public Customer getRetailCustomer() {
+        return retailCustomer;
+    }
+
+    public void setRetailCustomer(Customer retailCustomer) {
+        this.retailCustomer = retailCustomer;
     }
 
     public void cleanCustomerHomePage() {

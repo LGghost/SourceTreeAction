@@ -146,6 +146,16 @@ public class GuigeShuxingSelectListActivity extends BaseActivity implements Orde
         queren.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (TextUtils.isEmpty(ed_type_name.getText().toString())) {
+                    ToastUtil.show("属性不能为空");
+                    alertDialog.dismiss();
+                    return;
+                }
+                if (ed_type_name.getText().toString().equals("无") || ed_type_name.getText().toString().equals("无规格")) {
+                    ToastUtil.show(ed_type_name.getText().toString() + "不能用于属性名称");
+                    alertDialog.dismiss();
+                    return;
+                }
                 orderEasyPresenter.addSpecValueInfo(Integer.parseInt(id), ed_type_name.getText().toString());
                 name = ed_type_name.getText().toString();
                 alertDialog.dismiss();

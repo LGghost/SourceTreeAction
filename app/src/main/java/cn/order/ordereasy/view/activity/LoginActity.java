@@ -39,10 +39,12 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 import cn.order.ordereasy.R;
+import cn.order.ordereasy.bean.Customer;
 import cn.order.ordereasy.presenter.OrderEasyPresenter;
 import cn.order.ordereasy.presenter.OrderEasyPresenterImp;
 import cn.order.ordereasy.utils.ClearEditText;
 import cn.order.ordereasy.utils.DataStorageUtils;
+import cn.order.ordereasy.utils.GsonUtils;
 import cn.order.ordereasy.utils.ProgressUtil;
 import cn.order.ordereasy.utils.ToastUtil;
 import cn.order.ordereasy.view.OrderEasyView;
@@ -202,6 +204,10 @@ public class LoginActity extends BaseActivity implements OrderEasyView {
                             //成功
                             JsonObject shop = result.getAsJsonObject("result").getAsJsonObject("shop_info");
                             JsonObject user = result.getAsJsonObject("result").getAsJsonObject("user_info");
+                            JsonObject retailInfo = result.getAsJsonObject("result").getAsJsonObject("retail_info");
+                            Customer customer = (Customer) GsonUtils.getEntity(retailInfo.toString(), Customer.class);
+                            //保存零售客
+                            DataStorageUtils.getInstance().setRetailCustomer(customer);
                             String is_boss = user.get("is_boss").toString();
                             SharedPreferences.Editor editor = spPreferences.edit();
                             editor.putString("shopinfo", shop.toString());

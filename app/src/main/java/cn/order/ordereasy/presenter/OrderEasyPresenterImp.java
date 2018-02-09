@@ -71,6 +71,7 @@ public class OrderEasyPresenterImp extends OrderEasyPresenter implements OrderEa
             } else if (status == -21 || status == -22) {
                 ToastUtil.show(MyApplication.getInstance().mContext.getString(R.string.landfall_overdue2));
                 Intent intent = new Intent(MyApplication.getInstance().mContext, ExperienceInterfaceActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 MyApplication.getInstance().mContext.startActivity(intent);
             } else {
                 Log.e("OrderEasyPresenterImp", "type:" + type);
@@ -90,12 +91,12 @@ public class OrderEasyPresenterImp extends OrderEasyPresenter implements OrderEa
 
     @Override
     public void onFailure(Throwable e) {
+        orderEasyView.hideProgress(1);
         Log.e("ShangHuo", "失败：" + e);
         if (e.toString().equals("java.net.SocketTimeoutException: connect timed out")) {
-            orderEasyView.hideProgress(2);
+            ToastUtil.show("没有获取到数据");
         } else {
             ToastUtil.show(MyApplication.getInstance().mContext.getString(R.string.landfall_overdue1) + "<03>");
-            orderEasyView.hideProgress(0);
         }
     }
 

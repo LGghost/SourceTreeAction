@@ -65,6 +65,8 @@ public class FenleiGuanliActivity extends BaseActivity implements OrderEasyView,
     AlertDialog alertDialog;
     private List<TopicLabelObject> list;
     private Context mContext;
+    private List<Map<String, Object>> mapList = new ArrayList<>();
+    private List<TopicLabelObject> mapList1 = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,7 +112,6 @@ public class FenleiGuanliActivity extends BaseActivity implements OrderEasyView,
             if (list.get(0).getId() == -1) {
                 list.remove(0);
             }
-            List<Map<String, Object>> mapList = new ArrayList<>();
             for (TopicLabelObject labelObject : list) {
                 Map<String, Object> map = new HashMap<>();
                 map.put("title", labelObject.getName());
@@ -430,14 +431,13 @@ public class FenleiGuanliActivity extends BaseActivity implements OrderEasyView,
                         int status = result.get("code").getAsInt();
                         if (status == 1) {
                             //成功
+                            mapList1.clear();
+                            mapList.clear();
                             JsonArray jsonArray = result.get("result").getAsJsonArray();
-                            List<Map<String, Object>> mapList = new ArrayList<>();
-                            List<TopicLabelObject> mapList1 = new ArrayList<>();
                             for (int i = 0; i < jsonArray.size(); i++) {
                                 JsonObject jsonObject = jsonArray.get(i).getAsJsonObject();
                                 TopicLabelObject topicLabelObject1 = new TopicLabelObject(jsonObject.get("category_id").getAsInt(), jsonObject.get("goods_num").getAsInt(), jsonObject.get("name").getAsString(), 0);
                                 mapList1.add(topicLabelObject1);
-
                                 Map<String, Object> map = new HashMap<>();
                                 map.put("title", jsonObject.get("name").getAsString());
                                 map.put("id", jsonObject.get("category_id").getAsInt());
@@ -455,13 +455,21 @@ public class FenleiGuanliActivity extends BaseActivity implements OrderEasyView,
                     result = (JsonObject) msg.obj;
                     if (result != null) {
                         int status = result.get("code").getAsInt();
-                        //String message=result.get("message").getAsString();
                         if (status == 1) {
                             showToast("新增成功！");
-                            orderEasyPresenter.getCategoryInfo();
+                            Log.e("FenleiGuanli", "result:" + result.toString());
+                            JsonObject jsonObject = result.get("result").getAsJsonObject();
+                            TopicLabelObject topicLabelObject1 = new TopicLabelObject(jsonObject.get("category_id").getAsInt(), jsonObject.get("goods_num").getAsInt(), jsonObject.get("name").getAsString(), 0);
+                            mapList1.add(0,topicLabelObject1);
+                            Map<String, Object> map = new HashMap<>();
+                            map.put("title", jsonObject.get("name").getAsString());
+                            map.put("id", jsonObject.get("category_id").getAsInt());
+                            map.put("num", jsonObject.get("goods_num").getAsString());
+                            mapList.add(1,map);
                         }
+                        DataStorageUtils.getInstance().setGenreGoods(mapList1);
+                        mAdapter.setData(mapList);
                     }
-                    Log.e("新增信息", result.toString());
                     break;
                 case 1003:
                     result = (JsonObject) msg.obj;

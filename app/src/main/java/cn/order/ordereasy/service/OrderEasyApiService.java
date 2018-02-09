@@ -172,7 +172,7 @@ public class OrderEasyApiService {
         String strEntity = GsonUtils.getJsonStr(paramsMap);
         RequestBody body = RequestBody.create(MediaType.parse("application/json"), strEntity);
         Log.e("setupStore", "发送参数：" + strEntity);
-        return MyApplication.getInstance().getService().request(Config.store_setup_url, body);
+        return MyApplication.getInstance().getService(1).request(Config.store_setup_url, body);
     }
 
     /**
@@ -185,7 +185,7 @@ public class OrderEasyApiService {
         String strEntity = GsonUtils.getJsonStr(paramsMap);
         RequestBody body = RequestBody.create(MediaType.parse("application/json"), strEntity);
         Log.e("getStoreInfo", "发送参数：" + strEntity);
-        return MyApplication.getInstance().getService().request(Config.store_info_url, body);
+        return MyApplication.getInstance().getService(1).request(Config.store_info_url, body);
     }
 
     /**
@@ -241,7 +241,7 @@ public class OrderEasyApiService {
         String strEntity = GsonUtils.getJsonStr(paramsMap);
         RequestBody body = RequestBody.create(MediaType.parse("application/json"), strEntity);
         Log.e("getStoreInfo", "发送参数：" + strEntity);
-        return MyApplication.getInstance().getService().request(Config.category_info, body);
+        return MyApplication.getInstance().getService(1).request(Config.category_info, body);
     }
 
     /**
@@ -271,7 +271,7 @@ public class OrderEasyApiService {
         String strEntity = GsonUtils.getJsonStr(paramsMap);
         RequestBody body = RequestBody.create(MediaType.parse("application/json"), strEntity);
         Log.e("getStoreInfo", "发送参数：" + strEntity);
-        return MyApplication.getInstance().getService().request(Config.category_add_info, body);
+        return MyApplication.getInstance().getService(1).request(Config.category_add_info, body);
     }
 
     /**
@@ -288,7 +288,7 @@ public class OrderEasyApiService {
         String strEntity = GsonUtils.getJsonStr(paramsMap);
         RequestBody body = RequestBody.create(MediaType.parse("application/json"), strEntity);
         Log.e("getStoreInfo", "发送参数：" + strEntity);
-        return MyApplication.getInstance().getService().request(Config.category_update_info, body);
+        return MyApplication.getInstance().getService(1).request(Config.category_update_info, body);
     }
 
     /**
@@ -301,7 +301,7 @@ public class OrderEasyApiService {
         String strEntity = GsonUtils.getJsonStr(paramsMap);
         RequestBody body = RequestBody.create(MediaType.parse("application/json"), strEntity);
         Log.e("getStoreInfo", "发送参数：" + strEntity);
-        return MyApplication.getInstance().getService().request(Config.spec_get_info, body);
+        return MyApplication.getInstance().getService(1).request(Config.spec_get_info, body);
     }
 
     /**
@@ -326,7 +326,7 @@ public class OrderEasyApiService {
         String strEntity = GsonUtils.getJsonStr(paramsMap);
         RequestBody body = RequestBody.create(MediaType.parse("application/json"), strEntity);
         Log.e("getStoreInfo", "发送参数：" + strEntity);
-        return MyApplication.getInstance().getService().request(Config.spec_del_value_info, body);
+        return MyApplication.getInstance().getService(1).request(Config.spec_del_value_info, body);
     }
 
     /**
@@ -342,7 +342,7 @@ public class OrderEasyApiService {
         String strEntity = GsonUtils.getJsonStr(paramsMap);
         RequestBody body = RequestBody.create(MediaType.parse("application/json"), strEntity);
         Log.e("getStoreInfo", "发送参数：" + strEntity);
-        return MyApplication.getInstance().getService().request(Config.spec_add_info, body);
+        return MyApplication.getInstance().getService(1).request(Config.spec_add_info, body);
     }
 
 
@@ -361,7 +361,7 @@ public class OrderEasyApiService {
         String strEntity = GsonUtils.getJsonStr(paramsMap);
         RequestBody body = RequestBody.create(MediaType.parse("application/json"), strEntity);
         Log.e("getStoreInfo", "发送参数：" + strEntity);
-        return MyApplication.getInstance().getService().request(Config.spec_value_add_info, body);
+        return MyApplication.getInstance().getService(1).request(Config.spec_value_add_info, body);
     }
 
     /**
@@ -374,7 +374,7 @@ public class OrderEasyApiService {
         String strEntity = GsonUtils.getJsonStr(good);
         RequestBody body = RequestBody.create(MediaType.parse("application/json"), strEntity);
         Log.e("setupStore", "发送参数：" + strEntity);
-        return MyApplication.getInstance().getService().request(Config.goods_add_url, body);
+        return MyApplication.getInstance().getService(1).request(Config.goods_add_url, body);
     }
 
     /**
@@ -387,7 +387,7 @@ public class OrderEasyApiService {
         String strEntity = GsonUtils.getJsonStr(good);
         RequestBody body = RequestBody.create(MediaType.parse("application/json"), strEntity);
         Log.e("setupStore", "发送参数：" + strEntity);
-        return MyApplication.getInstance().getService().request(Config.goods_edit_url, body);
+        return MyApplication.getInstance().getService(1).request(Config.goods_edit_url, body);
     }
 
     /**
@@ -462,7 +462,7 @@ public class OrderEasyApiService {
         String strEntity = GsonUtils.getJsonStr(paramsMap);
         RequestBody body = RequestBody.create(MediaType.parse("application/json"), strEntity);
         Log.e("setupStore", "发送参数：" + strEntity);
-        return MyApplication.getInstance().getService().request(Config.good_make_status_url, body);
+        return MyApplication.getInstance().getService(1).request(Config.good_make_status_url, body);
     }
 
     /**
@@ -724,7 +724,7 @@ public class OrderEasyApiService {
         String strEntity = GsonUtils.getJsonStr(paramsMap);
         RequestBody body = RequestBody.create(MediaType.parse("application/json"), strEntity);
         Log.e("setupStore", "发送参数：" + strEntity);
-        return MyApplication.getInstance().getService().request(Config.amount_today_url, body);
+        return MyApplication.getInstance().getService(1).request(Config.amount_today_url, body);
     }
 
     /**
@@ -1348,7 +1348,7 @@ public class OrderEasyApiService {
         String strEntity = GsonUtils.getJsonStr(paramsMap);
         RequestBody body = RequestBody.create(MediaType.parse("application/json"), strEntity);
         Log.e("initStoreInfo", "发送参数：" + strEntity);
-        return MyApplication.getInstance().getService().request(Config.init_shop_url, body);
+        return MyApplication.getInstance().getService(1).request(Config.init_shop_url, body);
     }
 
     /**

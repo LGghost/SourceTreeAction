@@ -408,22 +408,12 @@ public class BillingActivity extends BaseActivity implements OrderEasyView {
 
     @OnClick(R.id.kaidan_lingshoushang)
     void lingshou() {
-        SharedPreferences sp = getSharedPreferences("customers", 0);
-        String data = sp.getString("customers", "");
-        if (!TextUtils.isEmpty(data)) {
-            JsonArray array = (JsonArray) GsonUtils.getObj(data, JsonArray.class);
-            for (int i = 0; i < array.size(); i++) {
-                Customer customer = (Customer) GsonUtils.getEntity(array.get(i).toString(), Customer.class);
-                if (customer.getName().equals("零售客")) {
-                    order.setCustomer_id(customer.getCustomer_id());
-                    order.setCustomer_name(customer.getName());
-
-                }
-            }
-        }
-        order_name.setText("零售商");
-        order_tel.setText("无");
-        order.setTelephone("无");
+        Customer customer = DataStorageUtils.getInstance().getRetailCustomer();
+        order.setCustomer_id(customer.getCustomer_id());
+        order.setCustomer_name(customer.getName());
+        order_name.setText(customer.getName());
+        order_tel.setText(customer.getTelephone());
+        order.setTelephone(customer.getTelephone());
         layout_order_view1.setVisibility(View.GONE);
         layout_order_view2.setVisibility(View.VISIBLE);
     }

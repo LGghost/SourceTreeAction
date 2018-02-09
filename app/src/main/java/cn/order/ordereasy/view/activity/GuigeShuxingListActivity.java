@@ -147,7 +147,12 @@ public class GuigeShuxingListActivity extends BaseActivity implements OrderEasyV
         queren.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String name = ed_type_name.getText().toString();
+                name = ed_type_name.getText().toString();
+                if (name.equals("无") || name.equals("无规格")) {
+                    ToastUtil.show(name + "不能用于规格名称");
+                    alertDialog.dismiss();
+                    return;
+                }
                 if (TextUtils.isEmpty(name)) {
                     ToastUtil.show("属性不能为空");
                     alertDialog.dismiss();
@@ -160,7 +165,6 @@ public class GuigeShuxingListActivity extends BaseActivity implements OrderEasyV
                     }
                 }
                 orderEasyPresenter.addSpecValueInfo(Integer.parseInt(id), ed_type_name.getText().toString());
-                name = ed_type_name.getText().toString();
                 alertDialog.dismiss();
             }
         });
@@ -308,21 +312,6 @@ public class GuigeShuxingListActivity extends BaseActivity implements OrderEasyV
                         }
                     }
                     Log.e("信息", result.toString());
-                    break;
-                case 1002:
-
-                    break;
-                case 1003:
-
-                    break;
-                case 1004:
-
-                    break;
-                case 1007:
-                    ToastUtil.show("出错了哟~");
-                    break;
-                case 9999:
-                    ToastUtil.show("网络有问题哟~");
                     break;
             }
         }

@@ -1,6 +1,7 @@
 package cn.order.ordereasy.view.activity;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -13,6 +14,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -82,6 +84,7 @@ public class CustomerHomepageActivity extends BaseActivity implements OrderEasyV
     private boolean isFrist = true;
     private boolean isChange = false;
     private JsonArray arr;
+    private AlertDialog alertDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -381,11 +384,15 @@ public class CustomerHomepageActivity extends BaseActivity implements OrderEasyV
         if (customer == null) {
             return;
         }
-        Intent intent = new Intent(CustomerHomepageActivity.this, ModifyCustomerActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("id", customer.getCustomer_id());
-        intent.putExtras(bundle);
-        startActivityForResult(intent, 1004);
+        if (customer.getIs_retail() != 1) {
+            Intent intent = new Intent(CustomerHomepageActivity.this, ModifyCustomerActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("id", customer.getCustomer_id());
+            intent.putExtras(bundle);
+            startActivityForResult(intent, 1004);
+        } else {
+            showdialogs();
+        }
     }
 
 
@@ -744,6 +751,9 @@ public class CustomerHomepageActivity extends BaseActivity implements OrderEasyV
                                     name = customer.getName();
                                 }
                                 customer.setName(name);
+                                if (customer.getIs_retail() == 1) {
+                                    DataStorageUtils.getInstance().setRetailCustomer(customer);
+                                }
                                 datas.add(customer);
                             }
                             DataStorageUtils.getInstance().setCustomerLists(datas);
@@ -850,5 +860,44 @@ public class CustomerHomepageActivity extends BaseActivity implements OrderEasyV
         }
 
         return false;
+    }
+
+
+    //弹出框
+    private void showdialogs() {
+        alertDialog = new AlertDialog.Builder(this).create();
+        View view = View.inflate(this, R.layout.tanchuang_view, null);
+        alertDialog.setView(view);
+
+        alertDialog.show();
+        Window window = alertDialog.getWindow();
+        //window.setContentView(view);
+        window.setContentView(R.layout.tanchuang_view_textview);
+        //标题
+        TextView title_name = (TextView) window.findViewById(R.id.title_name);
+        title_name.setText("温馨提示");
+        TextView text_conten = (TextView) window.findViewById(R.id.text_conten);
+        View view1 = window.findViewById(R.id.view1);
+        //按钮1点击事件
+        TextView quxiao = (TextView) window.findViewById(R.id.quxiao);
+        text_conten.setText("零售商的客户信息不应许被修改");
+        quxiao.setVisibility(View.GONE);
+        view1.setVisibility(View.GONE);
+
+        quxiao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
+
+        //按钮2确认点击事件
+        final TextView queren = (TextView) window.findViewById(R.id.queren);
+        queren.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
     }
 }

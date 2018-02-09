@@ -180,6 +180,9 @@ public class SelcetSortCustomerActivity extends BaseActivity implements BGAOnIte
                             name = customer.getName();
                         }
                         customer.setName(name);
+                        if(customer.getIs_retail() == 1){
+                            DataStorageUtils.getInstance().setRetailCustomer(customer);
+                        }
                         datas.add(customer);
                     }
                     DataStorageUtils.getInstance().setCustomerLists(datas);

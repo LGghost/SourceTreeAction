@@ -342,7 +342,7 @@ public class OrderNoDetailsActivity extends BaseActivity implements OrderEasyVie
     //去发货
     @OnClick(R.id.fahuo)
     void fahuo_click() {
-        if(order == null){
+        if (order == null) {
             return;
         }
         if (order.getIs_close() == 1) {
@@ -372,6 +372,9 @@ public class OrderNoDetailsActivity extends BaseActivity implements OrderEasyVie
     //退欠货
     @OnClick(R.id.tuiqianhuo)
     void tuiqianhuo() {
+        if (order == null) {
+            return;
+        }
         if (order.getIs_close() == 1) {
             ToastUtil.show("已关闭订单不能进行此操作");
             return;
@@ -536,6 +539,9 @@ public class OrderNoDetailsActivity extends BaseActivity implements OrderEasyVie
                                     name = customer.getName();
                                 }
                                 customer.setName(name);
+                                if (customer.getIs_retail() == 1) {
+                                    DataStorageUtils.getInstance().setRetailCustomer(customer);
+                                }
                                 list.add(customer);
                             }
                             DataStorageUtils.getInstance().setCustomerLists(list);

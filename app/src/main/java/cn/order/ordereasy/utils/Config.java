@@ -110,12 +110,12 @@ public class Config {
     /**
      * 店铺设置
      */
-    public final static String store_setup_url = "api/user/shop/setting";
+    public final static String store_setup_url = "shop/setting";
 
     /**
      * 店铺信息
      */
-    public final static String store_info_url = "api/user/shop/index";
+    public final static String store_info_url = "shop/index";
 
     /**
      * 上传店铺图片
@@ -125,12 +125,12 @@ public class Config {
     /**
      * 分类信息
      */
-    public final static String category_info ="api/goods/category/index";
+    public final static String category_info ="goods/categoryList";
 
     /**
      * 修改分类
      */
-    public final static String category_update_info="api/goods/category/edit";
+    public final static String category_update_info="goods/categoryEdit";
 
     /**
      * 删除分类
@@ -140,17 +140,17 @@ public class Config {
     /**
      * 新增分类
      */
-    public final static String category_add_info="api/goods/category/add";
+    public final static String category_add_info="goods/categoryAdd";
 
     /**
      * 规格信息
      */
-    public final static String spec_get_info="api/goods/spec/index";
+    public final static String spec_get_info="goods/specList";
 
     /**
      * 添加规格
      */
-    public final static String spec_add_info="api/goods/spec/add";
+    public final static String spec_add_info="goods/specAdd";
 
     /**
      * 删除规格
@@ -160,17 +160,17 @@ public class Config {
     /**
      * 删除规格属性
      */
-    public final static String spec_del_value_info="api/goods/spec/value_del";
+    public final static String spec_del_value_info="goods/specDelValue";
 
     /**
      * 添加规格属性
      */
-    public final static String spec_value_add_info="api/goods/spec/value_add";
+    public final static String spec_value_add_info="goods/specAddValue";
 
     /**
      * 添加商品
      */
-    public final static String goods_add_url="api/goods/goods/add";
+    public final static String goods_add_url="goods/add";
     /**
      * 货品操作记录
      */
@@ -184,7 +184,7 @@ public class Config {
     /**
      * 商品编辑
      */
-    public final static String goods_edit_url=" api/goods/goods/edit";
+    public final static String goods_edit_url="goods/edit";
 
     /**
      * 商品详情
@@ -220,7 +220,7 @@ public class Config {
     /**
      * 商品上下架
      */
-    public final static String good_make_status_url="api/goods/goods/status";
+    public final static String good_make_status_url="goods/status";
 
 
     /**
@@ -336,7 +336,7 @@ public class Config {
     /**
      * 今日数据
      */
-    public final static String amount_today_url="api/user/shop/daily";
+    public final static String amount_today_url="shop/daily";
 
     /**
      * 首页获取今日交易额，今日开单数，当前欠款数，当前欠货数的数据
@@ -441,7 +441,7 @@ public class Config {
     /**
      * 店铺初始化
      */
-    public final static String init_shop_url="api/user/shop/initialization";
+    public final static String init_shop_url="shop/initialization";
 
     /**
      * 修改头像

@@ -244,12 +244,6 @@ public class SearchGoodsThreeActivity extends BaseActivity implements OrderEasyV
                         }
                     }
                     Log.e("信息",result.toString());
-
-                case 1007:
-                    ToastUtil.show("出错了哟~");
-                    break;
-                case 9999:
-                    ToastUtil.show("网络有问题哟~");
                     break;
             }
         }

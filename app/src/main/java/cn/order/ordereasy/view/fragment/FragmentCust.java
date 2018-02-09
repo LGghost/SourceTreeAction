@@ -64,7 +64,6 @@ public class FragmentCust extends Fragment implements OrderEasyView, SwipeRefres
     private CustomerListAdapter customerListAdapter;
     private CustomerListTwoAdapter customerListTwoAdapter;
     private SelectCustomerAdapter selectCustomerAdapter;
-    SharedPreferences sp;
     List<Customer> datas = new ArrayList<>();
 
     @InjectView(R.id.indexview)
@@ -77,7 +76,6 @@ public class FragmentCust extends Fragment implements OrderEasyView, SwipeRefres
         if (rootView == null) {
             rootView = inflater.inflate(R.layout.fragment_cust, null);
         }
-        sp = getActivity().getSharedPreferences("customers", 0);
         ButterKnife.inject(this, rootView);
         orderEasyPresenter = new OrderEasyPresenterImp(this);
         // 缓存的rootView需要判断是否已经被加过parent，
@@ -332,7 +330,6 @@ public class FragmentCust extends Fragment implements OrderEasyView, SwipeRefres
                             datas = new ArrayList<>();
                             JsonArray jsonArray = result.get("result").getAsJsonArray();
                             if (jsonArray.size() > 0) {
-                                sp.edit().putString("customers", result.get("result").toString()).commit();
                                 kehu_num.setText("(" + jsonArray.size() + ")");
                             }
                             for (int i = 0; i < jsonArray.size(); i++) {
@@ -344,6 +341,9 @@ public class FragmentCust extends Fragment implements OrderEasyView, SwipeRefres
                                     name = customer.getName();
                                 }
                                 customer.setName(name);
+                                if (customer.getIs_retail() == 1) {
+                                    DataStorageUtils.getInstance().setRetailCustomer(customer);
+                                }
                                 datas.add(customer);
                             }
                             ReceivableCmp cmp = new ReceivableCmp();
@@ -369,12 +369,6 @@ public class FragmentCust extends Fragment implements OrderEasyView, SwipeRefres
                     break;
                 case 100:
                     mTopcTv.setVisibility(View.GONE);
-                    break;
-                case 1007:
-                    ToastUtil.show("出错了哟~");
-                    break;
-                case 9999:
-                    ToastUtil.show("网络有问题哟~");
                     break;
             }
         }
@@ -445,7 +439,6 @@ public class FragmentCust extends Fragment implements OrderEasyView, SwipeRefres
                     message.what = 1004;
 
                 }
-
                 break;
             default:
                 break;

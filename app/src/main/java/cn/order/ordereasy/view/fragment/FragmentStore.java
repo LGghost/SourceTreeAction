@@ -377,9 +377,8 @@ public class FragmentStore extends Fragment implements OrderEasyView, SwipeRefre
         if (!TextUtils.isEmpty(shopinfo)) {
             JsonObject shop = (JsonObject) GsonUtils.getObj(shopinfo, JsonObject.class);
             String key = shop.get("shop_key").getAsString();
-            Uri uri = Uri.parse("https://m.dinghuo5u.com/wx/" + key);
             Intent intent = new Intent(getActivity(), WebViewAcitvity.class);
-            intent.putExtra("key", "https://m.dinghuo5u.com/wx/" + key);
+            intent.putExtra("key", Config.WX_SERVER_URL + "/shop/" + key);
             startActivity(intent);
         }
     }
@@ -529,7 +528,7 @@ public class FragmentStore extends Fragment implements OrderEasyView, SwipeRefre
                 if (jo2 == null) return;
                 JsonObject jo3 = jo2.getAsJsonObject("shop_info");
 
-                ImageLoader.getInstance().displayImage(Config.URL_HTTP + "/" + jo3.get("logo").getAsString(), logo_click);
+                ImageLoader.getInstance().displayImage(jo3.get("logo").getAsString(), logo_click);
                 shop_name.setText(jo3.get("name").getAsString());
             }
             if (msg.what == 1003) {
@@ -584,15 +583,12 @@ public class FragmentStore extends Fragment implements OrderEasyView, SwipeRefre
                                 name = customer.getName();
                             }
                             customer.setName(name);
+                            if(customer.getIs_retail() == 1){
+                                DataStorageUtils.getInstance().setRetailCustomer(customer);
+                            }
                             datas.add(customer);
                         }
                         DataStorageUtils.getInstance().setCustomerLists(datas);
-                    } else {
-                        if (status == -7) {
-                            ToastUtil.show(getString(R.string.landfall_overdue));
-                            Intent intent = new Intent(getActivity(), LoginActity.class);
-                            startActivity(intent);
-                        }
                     }
                 }
                 Log.e("信息", result.toString());

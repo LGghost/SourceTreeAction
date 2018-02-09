@@ -13,6 +13,7 @@ public class Customer extends BaseEntity {
     private String customer_name = "";
     private int customer_id = 0;
     private int sale_num = 0;
+    private int is_retail = 0;
     private String telephone = "";
     private int level = 0;
     private double receivable = 0;
@@ -26,6 +27,7 @@ public class Customer extends BaseEntity {
     private int rank_discount = 100;        // 分类等级折扣
     private int rank_id = 0;            // 分类等级id
     private String rank_name = "";        // 分类等级名称
+
     public String getTopic() {
         return topic;
     }
@@ -152,6 +154,14 @@ public class Customer extends BaseEntity {
 
     public void setRank_name(String rank_name) {
         this.rank_name = rank_name;
+    }
+
+    public int getIs_retail() {
+        return is_retail;
+    }
+
+    public void setIs_retail(int is_retail) {
+        this.is_retail = is_retail;
     }
 
     //模糊查询
