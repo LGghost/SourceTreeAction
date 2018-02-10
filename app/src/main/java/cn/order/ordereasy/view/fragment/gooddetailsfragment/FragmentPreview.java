@@ -54,7 +54,7 @@ public class FragmentPreview extends Fragment {
         if (!TextUtils.isEmpty(shopinfo)) {
             JsonObject shop = (JsonObject) GsonUtils.getObj(shopinfo, JsonObject.class);
             String key = shop.get("shop_key").getAsString();
-            String url = UmengUtils.getInstance().getUrl(key, goods.getGoods_id());
+            String url = UmengUtils.getInstance().getUrl(key, goods.getGoods_id(), true);
             webview.loadUrl(url);
             MyLog.e("店铺网址信息", url);
         }

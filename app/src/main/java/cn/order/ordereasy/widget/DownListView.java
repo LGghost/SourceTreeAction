@@ -22,6 +22,7 @@ import java.util.List;
 
 import cn.order.ordereasy.R;
 import cn.order.ordereasy.bean.TopicLabelObject;
+import cn.order.ordereasy.utils.DataStorageUtils;
 import cn.order.ordereasy.utils.ScreenUtil;
 import cn.order.ordereasy.utils.SystemfieldUtils;
 
@@ -70,6 +71,7 @@ public class DownListView extends LinearLayout {
                 // TODO Auto-generated method stub
 
                 if (isHigh) {
+                    dataList = DataStorageUtils.getInstance().getGenreGoods();
                     if (dataList.get(0).getId() != -1) {
                         TopicLabelObject topicLabel = new TopicLabelObject(-1, -1, "全部分类", 1);
                         dataList.add(0, topicLabel);
@@ -172,6 +174,10 @@ public class DownListView extends LinearLayout {
         this.number.setVisibility(View.VISIBLE);
     }
 
+    public void setText(String text) {
+        this.editText.setText(text);
+    }
+
     public void setHigh(boolean isHigh) {
         this.isHigh = isHigh;
     }
@@ -210,6 +216,7 @@ public class DownListView extends LinearLayout {
 
     public interface DownItemClickListener {
         void selected(TopicLabelObject topic);
+
         void onClick(boolean isShow);
     }
 

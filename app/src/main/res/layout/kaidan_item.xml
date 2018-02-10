@@ -26,10 +26,10 @@
             <TextView
                 android:id="@+id/discount_text"
                 android:layout_width="match_parent"
-                android:layout_height="20dp"
+                android:layout_height="15dp"
                 android:gravity="center"
                 android:text="0.8折"
-                android:textSize="14sp"
+                android:textSize="11sp"
                 android:textColor="@color/heise"
                 android:background="#99ffa500"/>
         </RelativeLayout>

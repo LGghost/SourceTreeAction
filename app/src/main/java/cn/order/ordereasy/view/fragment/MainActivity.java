@@ -78,6 +78,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener, F
     private JsonArray arr;
     private String user_id;
     private String userName;
+    private int is_boss;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,6 +127,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener, F
         if (!TextUtils.isEmpty(userinfo)) {
             JsonObject user = (JsonObject) GsonUtils.getObj(userinfo, JsonObject.class);
             Log.e("MainActivity", "user" + user.toString());
+            is_boss = user.get("is_boss").getAsInt();
             arr = user.getAsJsonArray("auth_group_ids");
             user_id = user.get("user_id").getAsString();
             userName = user.get("name").getAsString();
@@ -520,14 +522,16 @@ public class MainActivity extends FragmentActivity implements OnClickListener, F
     }
 
     public boolean isSalesperson() {
-        if (arr.size() == 1) {
-            for (int i = 0; i < arr.size(); i++) {
-                if (!arr.get(i).getAsString().equals("")) {
-                    if (arr.get(i).getAsInt() == 2) {
-                        return true;
+        if (is_boss != 1) {
+            if (arr.size() == 1) {
+                for (int i = 0; i < arr.size(); i++) {
+                    if (!arr.get(i).getAsString().equals("")) {
+                        if (arr.get(i).getAsInt() == 2) {
+                            return true;
+                        }
                     }
-                }
 
+                }
             }
         }
         return false;

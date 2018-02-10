@@ -457,18 +457,8 @@ public class FenleiGuanliActivity extends BaseActivity implements OrderEasyView,
                         int status = result.get("code").getAsInt();
                         if (status == 1) {
                             showToast("新增成功！");
-                            Log.e("FenleiGuanli", "result:" + result.toString());
-                            JsonObject jsonObject = result.get("result").getAsJsonObject();
-                            TopicLabelObject topicLabelObject1 = new TopicLabelObject(jsonObject.get("category_id").getAsInt(), jsonObject.get("goods_num").getAsInt(), jsonObject.get("name").getAsString(), 0);
-                            mapList1.add(0,topicLabelObject1);
-                            Map<String, Object> map = new HashMap<>();
-                            map.put("title", jsonObject.get("name").getAsString());
-                            map.put("id", jsonObject.get("category_id").getAsInt());
-                            map.put("num", jsonObject.get("goods_num").getAsString());
-                            mapList.add(1,map);
+                            orderEasyPresenter.getCategoryInfo();
                         }
-                        DataStorageUtils.getInstance().setGenreGoods(mapList1);
-                        mAdapter.setData(mapList);
                     }
                     break;
                 case 1003:
@@ -494,12 +484,6 @@ public class FenleiGuanliActivity extends BaseActivity implements OrderEasyView,
                         }
                     }
                     Log.e("保存信息", result.toString());
-                    break;
-                case 1007:
-                    ToastUtil.show("出错了哟~");
-                    break;
-                case 9999:
-                    ToastUtil.show("网络有问题哟~");
                     break;
             }
         }

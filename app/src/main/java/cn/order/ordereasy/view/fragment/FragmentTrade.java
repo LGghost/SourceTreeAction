@@ -176,132 +176,133 @@ public class FragmentTrade extends Fragment implements OrderEasyView, LoadMoreLi
         ProgressUtil.dissDialog();
         listView.setLoadCompleted();
         store_refresh.setRefreshing(false);
-
-        if (type == 4) {//全部交易数据
-            if (data.get("code").getAsInt() == 1)//表示请求成功
-            {
-                //分页处理
-                JsonObject page = data.getAsJsonObject("result").getAsJsonObject("page");
-                if (pageCurrent == 1) {
-                    Log.e("LOG", "----3");
-                    if (mylist1.size() > 0) {
-                        mylist1.clear();
-                    }
-                    Log.e("LOG", "----4");
-                    if (mylist2.size() > 0) {
-                        mylist2.clear();
-                    }
-                }
-                pageTotal = page.get("page_total").getAsInt();
-
-                out.setText(data.getAsJsonObject("result").getAsJsonObject("total").get("trade_sum").getAsString());
-                in.setText(data.getAsJsonObject("result").getAsJsonObject("total").get("sale_num").getAsString());
-                JsonArray array = data.getAsJsonObject("result").getAsJsonArray("page_list");
-                if (this.type == 1) {
-                    if (pageCurrent != 1) {
-                        dataSize = mylist1.size();
-                    }
-                    if (array.size() > 0) {
-                        for (int i = 0; i < array.size(); i++) {
-                            Mylist2 list = new Mylist2();
-                            list.goods_id = array.get(i).getAsJsonObject().get("goods_id").getAsInt();
-                            list.goods_no = array.get(i).getAsJsonObject().get("goods_no").getAsString();
-                            list.title = array.get(i).getAsJsonObject().get("title").getAsString();
-                            list.cover = array.get(i).getAsJsonObject().get("cover").getAsString();
-                            list.sale_num = array.get(i).getAsJsonObject().get("sale_num").getAsString();
-                            list.trade_sum = array.get(i).getAsJsonObject().get("trade_sum").getAsString();
-                            mylist1.add(list);
-                        }
-
-                        if (adapter2 == null) {
-                            adapter2 = new BookingAdapter2(getActivity());
-                            adapter2.setData(mylist1);
-                            listView.setAdapter(adapter2);
-                        } else {
-                            adapter2.setData(mylist1);
-                            listView.setAdapter(adapter2);
-                        }
-                        Log.e("FragmentTrade", "pageCurrent：" + pageCurrent);
-                        if (pageCurrent != 1) {
-                            listView.setSelection(dataSize - 1);
-                        } else {
-                            listView.setSelection(0);
-                        }
-                        store_refresh.setVisibility(View.VISIBLE);
-                        no_data_view.setVisibility(View.GONE);
-                    } else {
+        if (data != null) {
+            if (type == 4) {//全部交易数据
+                if (data.get("code").getAsInt() == 1)//表示请求成功
+                {
+                    //分页处理
+                    JsonObject page = data.getAsJsonObject("result").getAsJsonObject("page");
+                    if (pageCurrent == 1) {
+                        Log.e("LOG", "----3");
                         if (mylist1.size() > 0) {
                             mylist1.clear();
                         }
-                        adapter2.setData(mylist1);
-                        store_refresh.setVisibility(View.GONE);
-                        no_data_view.setVisibility(View.VISIBLE);
-
-                    }
-                } else {
-                    Log.e("LOG", "----5");
-                    if (pageCurrent != 1) {
-                        dataSize = mylist2.size();
-                    }
-                    Log.e("LOG", "----6");
-                    if (array.size() > 0) {
-                        for (int i = 0; i < array.size(); i++) {
-                            TradeCustomer tradeCustomer = new TradeCustomer();
-                            tradeCustomer.setCustomer_id(array.get(i).getAsJsonObject().get("customer_id").getAsInt());
-                            tradeCustomer.setTrade_sum(array.get(i).getAsJsonObject().get("trade_sum").getAsDouble());
-                            tradeCustomer.setSale_num(array.get(i).getAsJsonObject().get("sale_num").getAsInt());
-                            tradeCustomer.setCustomer_name(array.get(i).getAsJsonObject().get("customer_name").getAsString());
-                            tradeCustomer.setLevel(array.get(i).getAsJsonObject().get("level").getAsInt());
-                            mylist2.add(tradeCustomer);
-                        }
-                        Log.e("LOG", "----7");
-                        if (tradeAdapter == null) {
-                            tradeAdapter = new TradeCustomerAdapter(getActivity(), 1);
-                            tradeAdapter.setData(mylist2);
-                            listView.setAdapter(tradeAdapter);
-                            Log.e("LOG", "----8");
-                        } else {
-                            Log.e("LOG", "----9");
-                            tradeAdapter.setData(mylist2);
-                            listView.setAdapter(tradeAdapter);
-                            Log.e("LOG", "----10");
-                        }
-                        if (pageCurrent != 1) {
-                            Log.e("LOG", "----11");
-                            listView.setSelection(dataSize - 1);
-                        } else {
-                            Log.e("LOG", "----12");
-                            listView.setSelection(0);
-                        }
-                        store_refresh.setVisibility(View.VISIBLE);
-                        no_data_view.setVisibility(View.GONE);
-                    } else {
+                        Log.e("LOG", "----4");
                         if (mylist2.size() > 0) {
                             mylist2.clear();
                         }
-                        tradeAdapter.setData(mylist2);
-                        store_refresh.setVisibility(View.GONE);
-                        no_data_view.setVisibility(View.VISIBLE);
+                    }
+                    pageTotal = page.get("page_total").getAsInt();
+
+                    out.setText(data.getAsJsonObject("result").getAsJsonObject("total").get("trade_sum").getAsString());
+                    in.setText(data.getAsJsonObject("result").getAsJsonObject("total").get("sale_num").getAsString());
+                    JsonArray array = data.getAsJsonObject("result").getAsJsonArray("page_list");
+                    if (this.type == 1) {
+                        if (pageCurrent != 1) {
+                            dataSize = mylist1.size();
+                        }
+                        if (array.size() > 0) {
+                            for (int i = 0; i < array.size(); i++) {
+                                Mylist2 list = new Mylist2();
+                                list.goods_id = array.get(i).getAsJsonObject().get("goods_id").getAsInt();
+                                list.goods_no = array.get(i).getAsJsonObject().get("goods_no").getAsString();
+                                list.title = array.get(i).getAsJsonObject().get("title").getAsString();
+                                list.cover = array.get(i).getAsJsonObject().get("cover").getAsString();
+                                list.sale_num = array.get(i).getAsJsonObject().get("sale_num").getAsString();
+                                list.trade_sum = array.get(i).getAsJsonObject().get("trade_sum").getAsString();
+                                mylist1.add(list);
+                            }
+
+                            if (adapter2 == null) {
+                                adapter2 = new BookingAdapter2(getActivity());
+                                adapter2.setData(mylist1);
+                                listView.setAdapter(adapter2);
+                            } else {
+                                adapter2.setData(mylist1);
+                                listView.setAdapter(adapter2);
+                            }
+                            Log.e("FragmentTrade", "pageCurrent：" + pageCurrent);
+                            if (pageCurrent != 1) {
+                                listView.setSelection(dataSize - 1);
+                            } else {
+                                listView.setSelection(0);
+                            }
+                            store_refresh.setVisibility(View.VISIBLE);
+                            no_data_view.setVisibility(View.GONE);
+                        } else {
+                            if (mylist1.size() > 0) {
+                                mylist1.clear();
+                            }
+                            adapter2.setData(mylist1);
+                            store_refresh.setVisibility(View.GONE);
+                            no_data_view.setVisibility(View.VISIBLE);
+
+                        }
+                    } else {
+                        Log.e("LOG", "----5");
+                        if (pageCurrent != 1) {
+                            dataSize = mylist2.size();
+                        }
+                        Log.e("LOG", "----6");
+                        if (array.size() > 0) {
+                            for (int i = 0; i < array.size(); i++) {
+                                TradeCustomer tradeCustomer = new TradeCustomer();
+                                tradeCustomer.setCustomer_id(array.get(i).getAsJsonObject().get("customer_id").getAsInt());
+                                tradeCustomer.setTrade_sum(array.get(i).getAsJsonObject().get("trade_sum").getAsDouble());
+                                tradeCustomer.setSale_num(array.get(i).getAsJsonObject().get("sale_num").getAsInt());
+                                tradeCustomer.setCustomer_name(array.get(i).getAsJsonObject().get("customer_name").getAsString());
+                                tradeCustomer.setLevel(array.get(i).getAsJsonObject().get("level").getAsInt());
+                                mylist2.add(tradeCustomer);
+                            }
+                            Log.e("LOG", "----7");
+                            if (tradeAdapter == null) {
+                                tradeAdapter = new TradeCustomerAdapter(getActivity(), 1);
+                                tradeAdapter.setData(mylist2);
+                                listView.setAdapter(tradeAdapter);
+                                Log.e("LOG", "----8");
+                            } else {
+                                Log.e("LOG", "----9");
+                                tradeAdapter.setData(mylist2);
+                                listView.setAdapter(tradeAdapter);
+                                Log.e("LOG", "----10");
+                            }
+                            if (pageCurrent != 1) {
+                                Log.e("LOG", "----11");
+                                listView.setSelection(dataSize - 1);
+                            } else {
+                                Log.e("LOG", "----12");
+                                listView.setSelection(0);
+                            }
+                            store_refresh.setVisibility(View.VISIBLE);
+                            no_data_view.setVisibility(View.GONE);
+                        } else {
+                            if (mylist2.size() > 0) {
+                                mylist2.clear();
+                            }
+                            tradeAdapter.setData(mylist2);
+                            store_refresh.setVisibility(View.GONE);
+                            no_data_view.setVisibility(View.VISIBLE);
+                        }
                     }
                 }
-            }
-        } else if (type == 5) {//员工数据
-            JsonArray jsonArray = data.get("result").getAsJsonArray();
-            if (jsonArray != null) {
-                for (int i = 0; i < jsonArray.size(); i++) {
-                    JsonObject jsonObject = jsonArray.get(i).getAsJsonObject();
-                    String name = jsonObject.get("name").getAsString();
-                    if (jsonObject.get("is_boss").getAsInt() == 1) {
-                        name = name + "(老板)";
+            } else if (type == 5) {//员工数据
+                JsonArray jsonArray = data.get("result").getAsJsonArray();
+                if (jsonArray != null) {
+                    for (int i = 0; i < jsonArray.size(); i++) {
+                        JsonObject jsonObject = jsonArray.get(i).getAsJsonObject();
+                        String name = jsonObject.get("name").getAsString();
+                        if (jsonObject.get("is_boss").getAsInt() == 1) {
+                            name = name + "(老板)";
+                        }
+                        TopicLabelObject topicLabelObject1 = new TopicLabelObject(jsonObject.get("user_id").getAsInt(), 1, name, 0);
+                        mapList.add(topicLabelObject1);
                     }
-                    TopicLabelObject topicLabelObject1 = new TopicLabelObject(jsonObject.get("user_id").getAsInt(), 1, name, 0);
-                    mapList.add(topicLabelObject1);
+                    DataStorageUtils.getInstance().setYuangongLists(mapList);
                 }
-                DataStorageUtils.getInstance().setYuangongLists(mapList);
             }
         }
-    }
 
+    }
 
     private void showdialogs(final int type) {
         alertDialog = new AlertDialog.Builder(getActivity()).create();

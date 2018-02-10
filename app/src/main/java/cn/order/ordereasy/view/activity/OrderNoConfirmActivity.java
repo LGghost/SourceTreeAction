@@ -81,9 +81,12 @@ public class OrderNoConfirmActivity extends BaseActivity implements OrderEasyVie
         orderEasyPresenter = new OrderEasyPresenterImp(this);
         if (bundle != null) {
             flag = bundle.getString("flag");
-            if (flag.equals("tuihuo")) {
+            if (flag.equals("tuiqianhuo")) {
                 pay_type.setText("应退");
                 title_name.setText("退欠货订单确定");
+            } else if (flag.equals("tuihuo")) {
+                pay_type.setText("应退");
+                title_name.setText("退货订单确定");
             }
             order = (Order) bundle.getSerializable("data");
             initData();
@@ -202,9 +205,11 @@ public class OrderNoConfirmActivity extends BaseActivity implements OrderEasyVie
         order.setUser_name(user.get("name").getAsString());
         order.setDiscount_price(price);
         order.setOperate_num(num);
-        if (flag.equals("tuihuo")) {
+        if (flag.equals("tuiqianhuo")) {
             order.setOrder_type(3);
-        } else {
+        } else if(flag.equals("tuihuo")){
+            order.setOrder_type(2);
+        }else{
             order.setOrder_type(1);
         }
         order.setSubtotal(price);
@@ -380,6 +385,10 @@ public class OrderNoConfirmActivity extends BaseActivity implements OrderEasyVie
                             bundle.putSerializable("order", order);
                             intent.putExtras(bundle);
                             startActivity(intent);
+                            if(flag.equals("tuihuo")){
+                                DataStorageUtils.getInstance().setBilling(true);
+                                setResult(1003);
+                            }
                             finish();
 
                         }
@@ -396,15 +405,8 @@ public class OrderNoConfirmActivity extends BaseActivity implements OrderEasyVie
                             finish();
                         }
                     }
-
                     break;
 
-                case 1007:
-                    ToastUtil.show("出错了哟~");
-                    break;
-                case 9999:
-                    ToastUtil.show("网络有问题哟~");
-                    break;
             }
         }
     };

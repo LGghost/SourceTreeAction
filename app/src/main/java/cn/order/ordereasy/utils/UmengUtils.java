@@ -37,9 +37,23 @@ public class UmengUtils {
         share(context, -1, null, title, listener);
     }
 
-    public String getUrl(String key, int id) {
-        String url;
-        url = Config.WX_SERVER_URL + "/shop/" + key + "#" + "/goods-details?id=" + id;
+    public String getUrl(String key, int id, boolean isPreview) {
+        String url = Config.WX_SERVER_URL + "/shop/" + key + "/goods-details?id=" + id;
+        if (isPreview) {
+            url = url + "&preview=true";
+        }
+        return url;
+    }
+
+    public String shareUrl(Context context) {
+        SharedPreferences spPreferences = context.getSharedPreferences("user", 0);
+        String shopinfo = spPreferences.getString("shopinfo", "");
+        String url = "";
+        if (!TextUtils.isEmpty(shopinfo)) {
+            final JsonObject shop = (JsonObject) GsonUtils.getObj(shopinfo, JsonObject.class);
+            String key = shop.get("shop_key").getAsString();
+            url = Config.WX_SERVER_URL + "/shop/" + key;
+        }
         return url;
     }
 
@@ -54,7 +68,7 @@ public class UmengUtils {
             if (id == -1) {
                 url = Config.WX_SERVER_URL + "/shop/" + key;
             } else {
-                url = getUrl(key, id);
+                url = getUrl(key, id, false);
             }
             Log.e("UmengUtils", "url：" + url);
             Log.e("UmengUtils", "图片：" + cover);
@@ -93,7 +107,7 @@ public class UmengUtils {
             String shop_key = shop.get("shop_key").getAsString();
 //            String singKey = id + shop_id + shop_key;
             String shareUrl;
-            shareUrl = Config.WX_SERVER_URL + "/shop/" + shop_key + "#/book";
+            shareUrl = Config.WX_SERVER_URL + "/shop/" + shop_key + "/book";
             UMWeb web = new UMWeb(shareUrl);
             web.setTitle(shop.get("name").getAsString());//标题
             web.setDescription("欠款历史");//描述

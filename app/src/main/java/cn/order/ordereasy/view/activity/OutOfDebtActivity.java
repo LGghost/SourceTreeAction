@@ -143,7 +143,7 @@ public class OutOfDebtActivity extends BaseActivity implements OrderEasyView, Tu
             Intent intent = new Intent(this, OrderNoConfirmActivity.class);
             //利用bundle来存取数据
             Bundle bundle = new Bundle();
-            bundle.putString("flag", "tuihuo");
+            bundle.putString("flag", "tuiqianhuo");
             bundle.putSerializable("data", order);
             //再把bundle中的数据传给intent，以传输过去
             intent.putExtras(bundle);

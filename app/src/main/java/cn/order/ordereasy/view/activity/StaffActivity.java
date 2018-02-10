@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -11,14 +12,20 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 import cn.order.ordereasy.R;
 import cn.order.ordereasy.adapter.MyEmployeeAdapter;
+import cn.order.ordereasy.bean.Customer;
 import cn.order.ordereasy.bean.Employee;
+import cn.order.ordereasy.bean.MyEmployee;
 import cn.order.ordereasy.presenter.OrderEasyPresenter;
 import cn.order.ordereasy.presenter.OrderEasyPresenterImp;
 import cn.order.ordereasy.utils.GsonUtils;
@@ -136,11 +143,32 @@ public class StaffActivity extends BaseActivity implements OrderEasyView, SwipeR
             if (status == 1 && type == 1) {
                 ProgressUtil.dissDialog();
                 Log.e("Staff", "data" + data.toString());
-                Employee employee = (Employee) GsonUtils.getEntity(data.toString(), Employee.class);
-                adapter = new MyEmployeeAdapter(employee.result, this.getApplicationContext(), list_view);
+                JsonArray jsonArray = data.get("result").getAsJsonArray();
+                List<MyEmployee> list = new ArrayList<>();
+                for (int i = 0; i < jsonArray.size(); i++) {
+                    MyEmployee myEmployee = new MyEmployee();
+                    if (jsonArray.get(i).getAsJsonObject().get("is_boss").getAsInt() == 1) {
+                        myEmployee.setUser_id(jsonArray.get(i).getAsJsonObject().get("user_id").getAsInt());
+                        myEmployee.setName(jsonArray.get(i).getAsJsonObject().get("name").getAsString());
+                        myEmployee.setAvatar(jsonArray.get(i).getAsJsonObject().get("avatar").getAsString());
+                        myEmployee.setTelephone(jsonArray.get(i).getAsJsonObject().get("telephone").getAsString());
+                        myEmployee.setIs_boss(jsonArray.get(i).getAsJsonObject().get("is_boss").getAsInt());
+                        myEmployee.setStatus(jsonArray.get(i).getAsJsonObject().get("status").getAsInt());
+                        String auth_group_ids = jsonArray.get(i).getAsJsonObject().get("auth_group_ids").getAsString();
+                        List<String> authList = new ArrayList<>();
+                        if (!TextUtils.isEmpty(auth_group_ids) && auth_group_ids.length() == 1) {
+                            authList.add(auth_group_ids);
+                        }
+                        myEmployee.setAuth_group_ids(authList);
+                    } else {
+                        myEmployee = (MyEmployee) GsonUtils.getEntity(jsonArray.get(i).toString(), MyEmployee.class);
+                    }
+                    list.add(myEmployee);
+                }
+                adapter = new MyEmployeeAdapter(list, this.getApplicationContext(), list_view);
                 list_view.setAdapter(adapter);
-                yuangong_num.setText("( " + employee.result.size() + " )");
-                if (employee.result.size() > 0) {
+                yuangong_num.setText("( " + list.size() + " )");
+                if (list.size() > 0) {
                     no_data_view.setVisibility(View.GONE);
                 } else {
                     no_data_view.setVisibility(View.VISIBLE);

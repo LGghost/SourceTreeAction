@@ -1,6 +1,7 @@
 package cn.order.ordereasy.view.activity;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -12,6 +13,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.ImageView;
@@ -47,6 +49,8 @@ import static cn.order.ordereasy.R.id.webView;
  */
 
 public class WebViewAcitvity extends BaseActivity {
+    private AlertDialog alertDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,7 +72,7 @@ public class WebViewAcitvity extends BaseActivity {
         web_view_content.getSettings().setJavaScriptEnabled(true);
         web_view_content.getSettings().setDomStorageEnabled(true);
         web_view_content.loadUrl(key);
-
+        showdialogs();
     }
 
     //找到控件ID
@@ -186,6 +190,44 @@ public class WebViewAcitvity extends BaseActivity {
             }
         });
 
+    }
+
+    //弹出框
+    private void showdialogs() {
+        alertDialog = new AlertDialog.Builder(this).create();
+        View view = View.inflate(this, R.layout.tanchuang_view, null);
+        alertDialog.setView(view);
+
+        alertDialog.show();
+        Window window = alertDialog.getWindow();
+        //window.setContentView(view);
+        window.setContentView(R.layout.tanchuang_view_textview);
+        //标题
+        TextView title_name = (TextView) window.findViewById(R.id.title_name);
+        title_name.setText("温馨提示");
+        TextView text_conten = (TextView) window.findViewById(R.id.text_conten);
+        View view1 = window.findViewById(R.id.view1);
+        //按钮1点击事件
+        TextView quxiao = (TextView) window.findViewById(R.id.quxiao);
+        text_conten.setText("微信店铺仅用于在手机微信端下单，在App内仅供预览，请勿执行下单操作");
+        quxiao.setVisibility(View.GONE);
+        view1.setVisibility(View.GONE);
+
+        quxiao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
+
+        //按钮2确认点击事件
+        final TextView queren = (TextView) window.findViewById(R.id.queren);
+        queren.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
     }
 
     /**

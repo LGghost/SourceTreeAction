@@ -44,7 +44,7 @@ public class AboutActivity extends BaseActivity {
             e.printStackTrace();
         }
         version = info.versionName;
-        version_text.setText("订货无忧 " + version + " (20180130—11)");
+        version_text.setText("订货无忧 " + version + " (20180210—11)");
     }
 
     //找到控件ID

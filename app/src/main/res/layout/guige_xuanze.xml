@@ -48,7 +48,7 @@
         android:layout_height="wrap_content"
         android:background="@color/activity_bac"
         android:padding="10dp"
-        android:text="温馨提示：为了确保数据准确，货品信息保存后，则不可修改已有价格，只能新增规格属性。"
+        android:text="温馨提示：为了确保数据准确，货品信息保存后，则不可修改已有规格，只能新增规格属性。"
         android:textColor="@color/touzi_huise"
         android:textSize="14sp" />
     <LinearLayout

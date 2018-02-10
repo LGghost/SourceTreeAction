@@ -69,12 +69,12 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/lvse"
+        android:background="#99B2DB4D"
         android:gravity="center"
         android:paddingBottom="3dp"
         android:paddingTop="3dp"
         android:text="您可以选择店内所有货品进行退货"
-        android:textColor="@color/heise" />
+        android:textColor="@color/touzi_huise" />
 
 
     <LinearLayout

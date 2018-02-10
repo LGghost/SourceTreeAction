@@ -179,7 +179,7 @@ public class Config {
     /**
      * 商品列表
      */
-    public final static String goods_list_url="api/goods/goods/index";
+    public final static String goods_list_url="goods/index";
 
     /**
      * 商品编辑
@@ -189,7 +189,7 @@ public class Config {
     /**
      * 商品详情
      */
-    public final static String goods_info_url=" api/goods/goods/info";
+    public final static String goods_info_url="goods/info";
 
     /**
      * 开单
@@ -309,7 +309,7 @@ public class Config {
     /**
      * 调整客户欠款
      */
-    public final static String cust_adjustment_url="api/customer/AccountLog/adjustment";
+    public final static String cust_adjustment_url="customer/accountLogAdjust";
     /**
      * 账单公开接口
      */
@@ -347,13 +347,13 @@ public class Config {
      * 获取员工列表
      * @return
      */
-    public final static String get_employee_url="api/user/user/index";
+    public final static String get_employee_url="user/index";
 
     /**
      * 添加员工
      * @return
      */
-    public final static String add_employee_url="api/user/user/add";
+    public final static String add_employee_url="user/add";
 
     /**
      * 盘点单列表
@@ -410,13 +410,13 @@ public class Config {
     /**
      * 修改用户信息接口
      */
-    public final static String update_userinfo_url="api/user/user/edit";
+    public final static String update_userinfo_url="user/edit";
 
 
     /**
      * 修改用户密码接口
      */
-    public final static String update_userpass_url="api/user/user/password";
+    public final static String update_userpass_url="user/password";
 
     /**
      * 账本页面，次数接口

@@ -159,7 +159,7 @@ public class ReturnGoodsActivity extends BaseActivity implements OrderEasyView {
         bundle.putSerializable("data", order);
         //再把bundle中的数据传给intent，以传输过去
         intent.putExtras(bundle);
-        startActivityForResult(intent, 1002);
+        startActivityForResult(intent, 1003);
     }
 
     //扫一扫点击事件
@@ -177,7 +177,7 @@ public class ReturnGoodsActivity extends BaseActivity implements OrderEasyView {
         }
     }
 
-    //去退款按钮
+    //去退
     @OnClick(R.id.btn_commit)
     void btn_commit() {
         if (tuihuoNumber == 0) {
@@ -191,7 +191,7 @@ public class ReturnGoodsActivity extends BaseActivity implements OrderEasyView {
         bundle.putSerializable("data", order);
         //再把bundle中的数据传给intent，以传输过去
         intent.putExtras(bundle);
-        startActivity(intent);
+        startActivityForResult(intent,1003);
     }
 
     @Override
@@ -286,6 +286,9 @@ public class ReturnGoodsActivity extends BaseActivity implements OrderEasyView {
             orderSelectGoodsListAdapter.notifyDataSetChanged();
             //initAdapterLister();
         }
+       if(resultCode == 1003){
+           finish();
+       }
     }
 
     @Override
@@ -359,12 +362,6 @@ public class ReturnGoodsActivity extends BaseActivity implements OrderEasyView {
                         }
                     }
                     Log.e("退货信息", result.toString());
-                    break;
-                case 1007:
-                    ToastUtil.show("出错了哟~");
-                    break;
-                case 9999:
-                    ToastUtil.show("网络有问题哟~");
                     break;
             }
         }

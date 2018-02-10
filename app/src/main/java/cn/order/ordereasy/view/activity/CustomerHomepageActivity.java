@@ -85,6 +85,7 @@ public class CustomerHomepageActivity extends BaseActivity implements OrderEasyV
     private boolean isChange = false;
     private JsonArray arr;
     private AlertDialog alertDialog;
+    private int is_boss;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,6 +109,8 @@ public class CustomerHomepageActivity extends BaseActivity implements OrderEasyV
         String userinfo = spPreferences.getString("userinfo", "");
         if (!TextUtils.isEmpty(userinfo)) {
             JsonObject user = (JsonObject) GsonUtils.getObj(userinfo, JsonObject.class);
+            Log.e("JJF", "user:" + user.toString());
+            is_boss = user.get("is_boss").getAsInt();
             arr = user.getAsJsonArray("auth_group_ids");
         }
         customerMoneyListAdapter = new CustomerMoneyListAdapter(this);
@@ -203,8 +206,12 @@ public class CustomerHomepageActivity extends BaseActivity implements OrderEasyV
                 }
             }
         } else {
-            if (!isSalesperson()) {
+            if (is_boss == 1) {
                 orderEasyPresenter.getOperationRecordList(customer_id, "1");
+            } else {
+                if (!isSalesperson()) {
+                    orderEasyPresenter.getOperationRecordList(customer_id, "1");
+                }
             }
         }
         Log.e("CustomerHomepage", "isBilling():" + DataStorageUtils.getInstance().isBilling());
@@ -490,6 +497,7 @@ public class CustomerHomepageActivity extends BaseActivity implements OrderEasyV
         if (customer == null) {
             return;
         }
+        isChange = true;
         Intent intent = new Intent(CustomerHomepageActivity.this, ReturnGoodsActivity.class);
         Bundle bundle = new Bundle();
         bundle.putSerializable("data", customer);
@@ -774,12 +782,7 @@ public class CustomerHomepageActivity extends BaseActivity implements OrderEasyV
 
                     Log.e("保存信息", result.toString());
                     break;
-                case 1007:
-                    ToastUtil.show("出错了哟~");
-                    break;
-                case 9999:
-                    ToastUtil.show("网络有问题哟~");
-                    break;
+
             }
 
         }
@@ -880,7 +883,7 @@ public class CustomerHomepageActivity extends BaseActivity implements OrderEasyV
         View view1 = window.findViewById(R.id.view1);
         //按钮1点击事件
         TextView quxiao = (TextView) window.findViewById(R.id.quxiao);
-        text_conten.setText("零售商的客户信息不应许被修改");
+        text_conten.setText("零售客的客户信息不允许修改");
         quxiao.setVisibility(View.GONE);
         view1.setVisibility(View.GONE);
 

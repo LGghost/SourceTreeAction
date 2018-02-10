@@ -41,6 +41,7 @@ import cn.order.ordereasy.R;
 import cn.order.ordereasy.adapter.SpecViewAdapter;
 import cn.order.ordereasy.presenter.OrderEasyPresenter;
 import cn.order.ordereasy.presenter.OrderEasyPresenterImp;
+import cn.order.ordereasy.utils.DataStorageUtils;
 import cn.order.ordereasy.utils.ToastUtil;
 import cn.order.ordereasy.view.OrderEasyView;
 import cn.order.ordereasy.widget.NormalRefreshViewHolder;
@@ -256,6 +257,7 @@ public class SpecificationsGuanliActivity extends BaseActivity implements OrderE
                             }
                             edit.commit();
                             mAdapter.setData(mapList);
+                            DataStorageUtils.getInstance().setGuigeLists(mapList);
                         }
                     }
                     Log.e("信息",result.toString());

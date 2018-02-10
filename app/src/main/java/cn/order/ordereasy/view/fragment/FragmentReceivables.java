@@ -44,6 +44,7 @@ public class FragmentReceivables extends Fragment implements OrderEasyView, Swip
     private String startTime;
     private String endTime;
     private String dialogStart, dialogEnd;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.the_books_view_three, container, false);
@@ -95,7 +96,7 @@ public class FragmentReceivables extends Fragment implements OrderEasyView, Swip
 
     @OnClick(R.id.layout)
     void layout() {
-        Intent intent= new Intent(getActivity(), CashierRecordActivity.class);
+        Intent intent = new Intent(getActivity(), CashierRecordActivity.class);
         startActivity(intent);
     }
 
@@ -124,8 +125,8 @@ public class FragmentReceivables extends Fragment implements OrderEasyView, Swip
                 double d1in = data.getAsJsonObject("result").getAsJsonObject("cash").get("in_money").getAsDouble();
                 double d1out = data.getAsJsonObject("result").getAsJsonObject("cash").get("out_money").getAsDouble();
                 Log.e("TheBooks", "" + d1in);
-                tv1in.setText(d1in + "");
-                tv1out.setText(d1out + "");
+                tv1in.setText("" + d1in);
+                tv1out.setText("" + d1out);
                 double d2in = data.getAsJsonObject("result").getAsJsonObject("alipay").get("in_money").getAsDouble();
                 double d2out = data.getAsJsonObject("result").getAsJsonObject("alipay").get("out_money").getAsDouble();
                 tv2in.setText(d2in + "");
@@ -142,8 +143,8 @@ public class FragmentReceivables extends Fragment implements OrderEasyView, Swip
                 double d5out = data.getAsJsonObject("result").getAsJsonObject("other").get("out_money").getAsDouble();
                 tv5in.setText(d5in + "");
                 tv5out.setText(d5out + "");
-                in.setText("" + (d1in + d2in + d3in + d4in + d5in));
-                out.setText("" + (d1out + d2out + d3out + d4out + d5out));
+                in.setText("¥" + (d1in + d2in + d3in + d4in + d5in));
+                out.setText("¥" + (d1out + d2out + d3out + d4out + d5out));
             }
         }
     }

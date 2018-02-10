@@ -145,7 +145,7 @@ public class FragmentStore extends Fragment implements OrderEasyView, SwipeRefre
     public void onRefresh() {
         //首页下拉刷新，只需要更新今日交易额，今日开单数，当前欠款数，当前欠货数的数据显示
         if (is_boss.equals("1") || isAdministrators()) {
-            orderEasyPresenter.getNumToday2(1);
+            orderEasyPresenter.getStoreData();
         } else {
             store_refresh.setRefreshing(false);
         }
@@ -253,7 +253,7 @@ public class FragmentStore extends Fragment implements OrderEasyView, SwipeRefre
             JsonObject shop = (JsonObject) GsonUtils.getObj(shopinfo, JsonObject.class);
             String key = shop.get("shop_key").getAsString();
             Intent intent = new Intent(getActivity(), WebViewAcitvity.class);
-            intent.putExtra("key", Config.WX_SERVER_URL + "/shop/" + key);
+            intent.putExtra("key", Config.WX_SERVER_URL + "/shop/" + key + "?preview=true");
             startActivity(intent);
         }
 
@@ -378,7 +378,7 @@ public class FragmentStore extends Fragment implements OrderEasyView, SwipeRefre
             JsonObject shop = (JsonObject) GsonUtils.getObj(shopinfo, JsonObject.class);
             String key = shop.get("shop_key").getAsString();
             Intent intent = new Intent(getActivity(), WebViewAcitvity.class);
-            intent.putExtra("key", Config.WX_SERVER_URL + "/shop/" + key);
+            intent.putExtra("key", Config.WX_SERVER_URL + "/shop/" + key + "?preview=true");
             startActivity(intent);
         }
     }
@@ -532,6 +532,7 @@ public class FragmentStore extends Fragment implements OrderEasyView, SwipeRefre
                 shop_name.setText(jo3.get("name").getAsString());
             }
             if (msg.what == 1003) {
+                Log.e("FragmentStore", "刷新");
                 JsonObject jo1 = (JsonObject) msg.obj;
                 JsonObject jo2 = jo1.getAsJsonObject("result");
                 if (jo2 == null) {
@@ -583,7 +584,7 @@ public class FragmentStore extends Fragment implements OrderEasyView, SwipeRefre
                                 name = customer.getName();
                             }
                             customer.setName(name);
-                            if(customer.getIs_retail() == 1){
+                            if (customer.getIs_retail() == 1) {
                                 DataStorageUtils.getInstance().setRetailCustomer(customer);
                             }
                             datas.add(customer);

@@ -66,7 +66,7 @@ public class QRCodePreviewActivity extends BaseActivity implements DownImage.Com
             downImage.setCompletionListener(this);
             Bitmap bitmap = QRCodeEncoder.syncEncodeQRCode(n, 256, Color.BLACK);
             erweima_img.setImageBitmap(bitmap);
-            no.setText("货品编码：" + n);
+            no.setText("货品编号：" + n);
             name.setText("货品名称：" + title);
         }
     }

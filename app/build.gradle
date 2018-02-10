@@ -16,8 +16,8 @@ android {
         applicationId "cn.order.ordereasy"
         minSdkVersion 19
         targetSdkVersion 25
-        versionCode 3
-        versionName "3.2.1"
+        versionCode 1
+        versionName "3.5.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         ndk {
             abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a'

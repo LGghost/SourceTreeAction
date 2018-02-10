@@ -69,11 +69,11 @@ public class OrderNoDetailsActivity extends BaseActivity implements OrderEasyVie
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        orderEasyPresenter = new OrderEasyPresenterImp(this);
-        ProgressUtil.showDialog(OrderNoDetailsActivity.this);
         setContentView(R.layout.orderno_details);
         setColor(this, this.getResources().getColor(R.color.lanse));
         ButterKnife.inject(this);
+        orderEasyPresenter = new OrderEasyPresenterImp(this);
+        ProgressUtil.showDialog(OrderNoDetailsActivity.this);
         initRefreshLayout();
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
@@ -92,7 +92,7 @@ public class OrderNoDetailsActivity extends BaseActivity implements OrderEasyVie
         store_refresh.setOnRefreshListener(this);
     }
 
-    private void showdialogs() {
+    private void showdialogs(final int type) {
         alertDialog = new AlertDialog.Builder(this).create();
         View view = View.inflate(this, R.layout.tanchuang_view, null);
         alertDialog.setView(view);
@@ -103,11 +103,15 @@ public class OrderNoDetailsActivity extends BaseActivity implements OrderEasyVie
         window.setContentView(R.layout.tanchuang_view_textview);
         //标题
         TextView title_name = (TextView) window.findViewById(R.id.title_name);
-        title_name.setText("温馨提示");
+
         TextView text_conten = (TextView) window.findViewById(R.id.text_conten);
-        text_conten.setText("您确认要关闭此订单吗？");
-
-
+        if (type == 1) {
+            title_name.setText("确定审核此微信订单吗？");
+            text_conten.setText("确定后将不能修改此订单了");
+        } else {
+            title_name.setText("温馨提示");
+            text_conten.setText("您确认要关闭此订单吗？");
+        }
         //按钮1点击事件
         TextView quxiao = (TextView) window.findViewById(R.id.quxiao);
         quxiao.setText("取消");
@@ -123,7 +127,13 @@ public class OrderNoDetailsActivity extends BaseActivity implements OrderEasyVie
         queren.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                orderEasyPresenter.closeOrder(order.getOrder_id());
+                if (type == 1) {
+                    order.setAct("done");
+                    orderEasyPresenter.orderConfirm(order);
+                    ProgressUtil.showDialog(OrderNoDetailsActivity.this);
+                } else {
+                    orderEasyPresenter.closeOrder(order.getOrder_id());
+                }
                 alertDialog.dismiss();
             }
         });
@@ -165,7 +175,10 @@ public class OrderNoDetailsActivity extends BaseActivity implements OrderEasyVie
     //订单人姓名
     @InjectView(R.id.order_name)
     TextView order_name;
-
+    @InjectView(R.id.goto_shoukuan)
+    TextView goto_shoukuan;
+    @InjectView(R.id.order_audit)
+    TextView order_audit;
     //订单人欠款数
     @InjectView(R.id.qiankuan_money_num)
     TextView qiankuan_money_num;
@@ -174,9 +187,6 @@ public class OrderNoDetailsActivity extends BaseActivity implements OrderEasyVie
     @InjectView(R.id.phone_number)
     TextView phone_number;
 
-    //点击去收款
-    @InjectView(R.id.goto_shoukuan)
-    TextView goto_shoukuan;
 
     //点击去选择修改地址
     @InjectView(R.id.xuanze_shouhuo_addr)
@@ -205,11 +215,9 @@ public class OrderNoDetailsActivity extends BaseActivity implements OrderEasyVie
     //开单日期
     @InjectView(R.id.data_time)
     TextView data_time;
-
     //订单金额
     @InjectView(R.id.order_money_num)
     TextView order_money_num;
-
     //总欠货数量
     @InjectView(R.id.qianhuo_num)
     TextView qianhuo_num;
@@ -415,15 +423,14 @@ public class OrderNoDetailsActivity extends BaseActivity implements OrderEasyVie
     //关闭微信订单
     @OnClick(R.id.wechat_close)
     void wechat_close() {
-        showdialogs();
+        showdialogs(0);
     }
 
     //确定微信订单
     @OnClick(R.id.queding)
     void queding() {
-        order.setAct("done");
-        orderEasyPresenter.orderConfirm(order);
-        ProgressUtil.showDialog(this);
+        showdialogs(1);
+
     }
 
     @OnClick(R.id.order_record)
@@ -613,12 +620,6 @@ public class OrderNoDetailsActivity extends BaseActivity implements OrderEasyVie
                         }
                     }
                     break;
-                case 1007:
-                    ToastUtil.show("出错了哟~");
-                    break;
-                case 9999:
-                    ToastUtil.show("网络有问题哟~");
-                    break;
             }
         }
     };
@@ -646,15 +647,18 @@ public class OrderNoDetailsActivity extends BaseActivity implements OrderEasyVie
         if (order.getIs_wechat() == 1) {
             if (order.getOrder_status() == 1) {
                 view_switcher.setDisplayedChild(1);
+                order_audit.setVisibility(View.VISIBLE);
+                goto_shoukuan.setVisibility(View.GONE);
             } else {
                 view_switcher.setDisplayedChild(0);
+                order_audit.setVisibility(View.GONE);
+                goto_shoukuan.setVisibility(View.VISIBLE);
             }
         } else {
             view_switcher.setDisplayedChild(0);
         }
         switch (order.getOrder_type()) {
             case 1:
-
                 if (order.getIs_wechat() == 1) {
                     type_image.setImageResource(R.drawable.img_weixin);
                 } else {
@@ -743,7 +747,7 @@ public class OrderNoDetailsActivity extends BaseActivity implements OrderEasyVie
             close_text.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    showdialogs();
+                    showdialogs(0);
                 }
             });
 

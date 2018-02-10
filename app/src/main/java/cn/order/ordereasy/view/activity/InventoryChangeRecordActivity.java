@@ -69,6 +69,7 @@ public class InventoryChangeRecordActivity extends BaseActivity implements Order
         listview.setAdapter(customerThingsListAdapter);
         inventory_employee.setHigh(false);
         inventory_record.setHigh(false);
+        inventory_employee.setText("全部员工");
         if (DataStorageUtils.getInstance().getYuangongLists().size() > 0) {
             if (!DataStorageUtils.getInstance().getYuangongLists().get(0).getName().equals("全部员工")) {
                 TopicLabelObject topicLabelObject = new TopicLabelObject(-1, 0, "全部员工", 0);

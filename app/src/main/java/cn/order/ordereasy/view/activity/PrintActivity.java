@@ -36,6 +36,7 @@ import cn.order.ordereasy.utils.ImgUtils;
 import cn.order.ordereasy.utils.Pos;
 import cn.order.ordereasy.utils.ProgressUtil;
 import cn.order.ordereasy.utils.ToastUtil;
+import cn.order.ordereasy.utils.UmengUtils;
 
 /**
  * Created by Administrator on 2017/9/13.
@@ -81,7 +82,7 @@ public class PrintActivity extends BaseActivity {
 
     private void initQR() {
         ProgressUtil.showDialog(this);
-        Bitmap bitmap = QRCodeEncoder.syncEncodeQRCode("uri:https:/www.dinghuo5u.com", 256);
+        Bitmap bitmap = QRCodeEncoder.syncEncodeQRCode(UmengUtils.getInstance().shareUrl(this), 256);
         erweima_img.setImageBitmap(bitmap);
         ProgressUtil.dissDialog();
     }

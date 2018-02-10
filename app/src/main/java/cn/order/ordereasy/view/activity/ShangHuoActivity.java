@@ -148,7 +148,7 @@ public class ShangHuoActivity extends BaseActivity implements EasyPermissions.Pe
                 List<String> values = s.getValues();
                 if (values == null) values = new ArrayList<>();
                 if (s.getSpec_id() == 0) {
-                    return;
+                    break;
                 }
                 sb.append(s.getName() + "：");
                 for (int i = 0; i < values.size(); i++) {
@@ -162,15 +162,16 @@ public class ShangHuoActivity extends BaseActivity implements EasyPermissions.Pe
                     sb.append(values.get(i));
                 }
                 if (specs.size() > 1) {
-                    sb.append("\n");
+                    sb.append("a%");
                 }
             }
         }
 
         if (TextUtils.isEmpty(sb.toString())) {
             shanghuo_spec.setText("无规格");
+            shanghuo_spec1.setVisibility(View.GONE);
         } else {
-            shanghuo_spec.setText(sb.toString());
+            setText(shanghuo_spec, shanghuo_spec1, sb.toString());
         }
         String desc = good.getDescription();
         if (!TextUtils.isEmpty(desc)) {
@@ -192,6 +193,18 @@ public class ShangHuoActivity extends BaseActivity implements EasyPermissions.Pe
         delete_btn.setVisibility(View.VISIBLE);
     }
 
+    private void setText(TextView text, TextView text1, String str) {
+        String[] list = str.split("a%");
+        if (list.length == 1) {
+            text1.setVisibility(View.GONE);
+            text.setText(list[0]);
+        } else {
+            text1.setVisibility(View.VISIBLE);
+            text.setText(list[0]);
+            text1.setText(list[1]);
+        }
+    }
+
     //返回按钮
     @InjectView(R.id.return_click)
     ImageView return_click;
@@ -205,6 +218,8 @@ public class ShangHuoActivity extends BaseActivity implements EasyPermissions.Pe
     TextView shanghuo_desc;
     @InjectView(R.id.shanghuo_spec)
     TextView shanghuo_spec;
+    @InjectView(R.id.shanghuo_spec1)
+    TextView shanghuo_spec1;
     @InjectView(R.id.shanghuo_price)
     TextView shanghuo_price;
 
@@ -422,14 +437,8 @@ public class ShangHuoActivity extends BaseActivity implements EasyPermissions.Pe
             return;
         }
         if (!isFind) {
-            showToast("请重新设置价格！");
+            showToast("货品销售价不能全为0");
             return;
-        }
-        if (flag.equals("detail")) {
-            if (!equalList(specBean.getSpec(), good.getSpec()) && !isBaocun) {
-                showToast("请重新设置价格！");
-                return;
-            }
         }
         if (warning_togbtn.isChecked()) {
             good.setIs_enable_stock_warn(1);
@@ -611,18 +620,21 @@ public class ShangHuoActivity extends BaseActivity implements EasyPermissions.Pe
                             sb.append("/");
                         }
                         sb.append(values.get(i));
-
                     }
                     if (specs.size() > 1) {
-                        sb.append("\n");
+                        sb.append("a%");
                     }
                 }
             }
             if (TextUtils.isEmpty(sb.toString())) {
-                shanghuo_spec.setText("无");
+                shanghuo_spec.setText("无规格");
+                shanghuo_spec1.setVisibility(View.GONE);
+            } else {
+                setText(shanghuo_spec, shanghuo_spec1, sb.toString());
             }
-            shanghuo_spec.setText(sb.toString());
-            shanghuo_spec.setTextSize(13);
+            if (flag.equals("detail")) {
+                setEditPrice();
+            }
         } else if (resultCode == REQUEST_CODE_DESCRIPTION_PREVIEW) {
             Bundle bundle = data.getExtras();
             String desc = bundle.getString("desc");
@@ -632,6 +644,7 @@ public class ShangHuoActivity extends BaseActivity implements EasyPermissions.Pe
             Log.e("ShanghuoActivity", "setFocusable");
 //            setFocusable(true);
             good.setDescription(desc);
+
         } else if (resultCode == REQUEST_CODE_PRICE_PREVIEW) {
             shanghuo_price.setText("已填写");
             SharedPreferences sp = getSharedPreferences("price", 0);
@@ -660,10 +673,10 @@ public class ShangHuoActivity extends BaseActivity implements EasyPermissions.Pe
                             List<String> spec_data = new ArrayList<>();
                             spec_data.add(value);
                             product.setSpec_data(spec_data);
-                            if (flag.equals("detail")) {
-                                setProductId(product);
-                            }
                             //遍历属性价格
+                            if (flag.equals("detail")) {
+                                setProductId1(product);
+                            }
                             String price = sp.getString(value, "");
                             Log.e("ShangHuoActivity", "price:" + price);
                             if (!TextUtils.isEmpty(price)) {
@@ -700,7 +713,7 @@ public class ShangHuoActivity extends BaseActivity implements EasyPermissions.Pe
                             spec_data.add(value);
                             product.setSpec_data(spec_data);
                             if (flag.equals("detail")) {
-                                setProductId(product);
+                                setProductId1(product);
                             }
                             //遍历属性价格
                             String price = sp.getString(value, "");
@@ -728,7 +741,7 @@ public class ShangHuoActivity extends BaseActivity implements EasyPermissions.Pe
                             spec_data.add(value);
                             product.setSpec_data(spec_data);
                             if (flag.equals("detail")) {
-                                setProductId(product);
+                                setProductId1(product);
                             }
                             //遍历属性价格
                             String price = sp.getString(value, "");
@@ -758,7 +771,7 @@ public class ShangHuoActivity extends BaseActivity implements EasyPermissions.Pe
                                 spec_data.add(values1.get(j));
                                 product.setSpec_data(spec_data);
                                 if (flag.equals("detail")) {
-                                    setProductId(product);
+                                    setProductId1(product);
                                 }
                                 //遍历属性价格
                                 String suxing = values.get(i) + "/" + values1.get(j);
@@ -805,6 +818,90 @@ public class ShangHuoActivity extends BaseActivity implements EasyPermissions.Pe
             }
             MyLog.e("扫一扫返回数据", res);
         }
+    }
+
+    private void setEditPrice() {
+        List<Spec> specs = good.getSpec();
+        List<Product> products = new ArrayList<>();
+        if (specs.size() > 0) {
+            //如果已经选择了规格
+            if (specs.size() == 1) {
+                List<String> values = specs.get(0).getValues();
+                if (values == null) values = new ArrayList<>();
+                if (values.size() > 0) {
+                    for (String value : values) {
+                        double cb = 0, xs = 0;
+                        Product product = new Product();
+                        List<String> spec_data = new ArrayList<>();
+                        spec_data.add(value);
+                        product.setSpec_data(spec_data);
+                        if (!setProductId(product)) {
+                            product.setSell_price(cb);
+                            product.setCost_price(xs);
+                        }
+                        products.add(product);
+                    }
+
+                } else {
+                    Product product = new Product();
+                    product.setSpec_data(Arrays.asList(new String[]{"无"}));
+                    product.setSell_price(0);
+                    product.setCost_price(0);
+                    products.add(product);
+                }
+
+            } else {
+                List<String> values = specs.get(0).getValues();
+                List<String> values1 = specs.get(1).getValues();
+                if (values1.size() == 0) {
+                    for (String value : values) {
+                        double cb = 0, xs = 0;
+                        Product product = new Product();
+                        List<String> spec_data = new ArrayList<>();
+                        spec_data.add(value);
+                        product.setSpec_data(spec_data);
+                        if (!setProductId(product)) {
+                            product.setSell_price(cb);
+                            product.setCost_price(xs);
+                        }
+                        products.add(product);
+                    }
+                }
+                if (values.size() == 0) {
+                    for (String value : values1) {
+                        double cb = 0, xs = 0;
+                        Product product = new Product();
+                        List<String> spec_data = new ArrayList<>();
+                        spec_data.add(value);
+                        product.setSpec_data(spec_data);
+                        if (!setProductId(product)) {
+                            product.setSell_price(cb);
+                            product.setCost_price(xs);
+                        }
+                        products.add(product);
+                    }
+                }
+                if (values.size() != 0 && values1.size() != 0) {
+                    for (int i = 0; i < values.size(); i++) {
+                        for (int j = 0; j < values1.size(); j++) {
+                            double cb = 0, xs = 0;
+                            Product product = new Product();
+                            List<String> spec_data = new ArrayList<>();
+                            spec_data.add(values.get(i));
+                            spec_data.add(values1.get(j));
+                            product.setSpec_data(spec_data);
+                            if (!setProductId(product)) {
+                                product.setSell_price(cb);
+                                product.setCost_price(xs);
+                            }
+                            products.add(product);
+                        }
+                    }
+                }
+
+            }
+        }
+        good.setProduct_list(products);
     }
 
     @Override
@@ -986,7 +1083,20 @@ public class ShangHuoActivity extends BaseActivity implements EasyPermissions.Pe
 
     }
 
-    private void setProductId(Product product) {
+    private boolean setProductId(Product product) {
+        isBaocun = false;
+        for (int i = 0; i < good.getProduct_list().size(); i++) {
+            if (equalList(product.getSpec_data(), good.getProduct_list().get(i).getSpec_data())) {
+                product.setProduct_id(good.getProduct_list().get(i).getProduct_id());
+                product.setSell_price(good.getProduct_list().get(i).getSell_price());
+                product.setCost_price(good.getProduct_list().get(i).getCost_price());
+                isBaocun = true;
+            }
+        }
+        return isBaocun;
+    }
+
+    private void setProductId1(Product product) {
         isBaocun = true;
         for (int i = 0; i < good.getProduct_list().size(); i++) {
             if (equalList(product.getSpec_data(), good.getProduct_list().get(i).getSpec_data())) {
