@@ -55,7 +55,7 @@ public class SelcetSortCustomerActivity extends BaseActivity implements BGAOnIte
         adapter.setOnItemChildClickListener(this);
         if (flag.equals("edit")) {
             initData();
-        }else{
+        } else {
             adapter.setData(DataStorageUtils.getInstance().getSelectCustomer());
         }
     }
@@ -111,12 +111,11 @@ public class SelcetSortCustomerActivity extends BaseActivity implements BGAOnIte
                 ProgressUtil.showDialog(this);
                 orderEasyPresenter.customertoRank(customer_ids, rank_id);
             }
-            customerList.removeAll(cusData);
             customerList.addAll(cusData);
             adapter.setData(customerList);
-            if(customerList.size() > 0){
+            if (customerList.size() > 0) {
                 no_data_view.setVisibility(View.GONE);
-            }else{
+            } else {
                 no_data_view.setVisibility(View.VISIBLE);
             }
         }
@@ -154,12 +153,14 @@ public class SelcetSortCustomerActivity extends BaseActivity implements BGAOnIte
             int status = data.get("code").getAsInt();
             if (status == 1) {
                 DataStorageUtils.getInstance().cleanSelectCustomer();
+                DataStorageUtils.getInstance().setAddCustomer(true);
                 ToastUtil.show("添加成功");
             }
         }
         if (type == 1) {
             int status = data.get("code").getAsInt();
             if (status == 1) {
+                DataStorageUtils.getInstance().setAddCustomer(true);
                 ToastUtil.show("修改成功");
             }
         }
@@ -168,7 +169,7 @@ public class SelcetSortCustomerActivity extends BaseActivity implements BGAOnIte
                 int status = data.get("code").getAsInt();
                 if (status == 1) {
                     //成功
-                    Log.e("FragmentStore","result:"+ data.toString());
+                    Log.e("FragmentStore", "result:" + data.toString());
                     List<Customer> datas = new ArrayList<>();
                     JsonArray jsonArray = data.get("result").getAsJsonArray();
                     for (int i = 0; i < jsonArray.size(); i++) {
@@ -180,7 +181,7 @@ public class SelcetSortCustomerActivity extends BaseActivity implements BGAOnIte
                             name = customer.getName();
                         }
                         customer.setName(name);
-                        if(customer.getIs_retail() == 1){
+                        if (customer.getIs_retail() == 1) {
                             DataStorageUtils.getInstance().setRetailCustomer(customer);
                         }
                         datas.add(customer);
@@ -192,9 +193,9 @@ public class SelcetSortCustomerActivity extends BaseActivity implements BGAOnIte
                         }
                     }
                     adapter.setData(customerList);
-                    if(customerList.size() > 0){
+                    if (customerList.size() > 0) {
                         no_data_view.setVisibility(View.GONE);
-                    }else{
+                    } else {
                         no_data_view.setVisibility(View.VISIBLE);
                     }
                 }

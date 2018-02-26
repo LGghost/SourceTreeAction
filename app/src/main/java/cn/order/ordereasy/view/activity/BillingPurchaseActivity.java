@@ -359,7 +359,7 @@ public class BillingPurchaseActivity extends BaseActivity {
 
                 order_name.setText(bean.getName());
                 order_tel.setVisibility(View.VISIBLE);
-                order_tel.setText("欠供应商款：" + bean.getArrears());
+                order_tel.setText("欠供应商款：" + bean.getDebt());
             }
         }
 

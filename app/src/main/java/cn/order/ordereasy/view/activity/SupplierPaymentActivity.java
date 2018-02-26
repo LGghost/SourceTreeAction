@@ -38,7 +38,7 @@ public class SupplierPaymentActivity extends BaseActivity {
 
     private void initData() {
         supplier_name.setText(bean.getName());
-        supplier_fund.setText(bean.getArrears() + "");
+        supplier_fund.setText(bean.getDebt() + "");
         business_time_text.setText(TimeUtil.getTimeStamp2Str(new Date(), "yyyy-MM-dd"));
         if (!TextUtils.isEmpty(bean.getRemarks())) {
             supplier_remarks_text.setVisibility(View.VISIBLE);

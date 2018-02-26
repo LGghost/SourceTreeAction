@@ -4,25 +4,40 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.InputType;
 import android.text.TextUtils;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.gson.JsonObject;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 import cn.order.ordereasy.R;
+import cn.order.ordereasy.bean.Order;
 import cn.order.ordereasy.bean.SupplierBean;
+import cn.order.ordereasy.presenter.OrderEasyPresenter;
+import cn.order.ordereasy.presenter.OrderEasyPresenterImp;
+import cn.order.ordereasy.utils.GsonUtils;
+import cn.order.ordereasy.utils.ProgressUtil;
 import cn.order.ordereasy.utils.ToastUtil;
+import cn.order.ordereasy.view.OrderEasyView;
 
-public class SupplierDetailsActivity extends BaseActivity {
+public class SupplierDetailsActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener, OrderEasyView {
     private SupplierBean bean;
     private AlertDialog alertDialog;
+    private OrderEasyPresenter orderEasyPresenter;
+    private int supplier_id;
+    private boolean isEdit = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,20 +45,23 @@ public class SupplierDetailsActivity extends BaseActivity {
         setContentView(R.layout.supplier_details_activity);
         setColor(this, this.getResources().getColor(R.color.lanse));
         ButterKnife.inject(this);
+        orderEasyPresenter = new OrderEasyPresenterImp(this);//网络请求
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
-            bean = (SupplierBean) bundle.getSerializable("data");
+            SupplierBean supplierBean = (SupplierBean) bundle.getSerializable("data");
+            supplier_id = supplierBean.getSupplier_id();
+            refreshData(true);
         }
-        initData();
     }
 
     private void initData() {
+        store_refresh.setOnRefreshListener(this);
         supplier_name.setText(bean.getName());
-        user_name.setText(bean.getUser());
-        phone_number.setText(bean.getPhone());
-        call_number.setText(bean.getCall());
+        user_name.setText(bean.getContact());
+        phone_number.setText(bean.getMobile());
+        call_number.setText(bean.getTel());
         address.setText(bean.getAddress());
-        money_num.setText(bean.getArrears() + "");
+        money_num.setText(bean.getDebt() + "");
     }
 
     @InjectView(R.id.supplier_name)
@@ -59,9 +77,15 @@ public class SupplierDetailsActivity extends BaseActivity {
     @InjectView(R.id.money_num)
     TextView money_num;
 
+    @InjectView(R.id.store_refresh)
+    SwipeRefreshLayout store_refresh;
+
     //返回按钮
     @OnClick(R.id.return_click)
     void return_click() {
+        if (isEdit) {
+            setResult(1001);
+        }
         finish();
     }
 
@@ -70,7 +94,7 @@ public class SupplierDetailsActivity extends BaseActivity {
     void supplier_edit() {
         Intent intent = new Intent(this, AddSuppliersActivity.class);
         intent.putExtra("data", bean);
-        startActivity(intent);
+        startActivityForResult(intent, 1001);
     }
 
     //修改
@@ -134,7 +158,7 @@ public class SupplierDetailsActivity extends BaseActivity {
             }
         });
         //hint内容
-        ed_type_name.setHint(bean.getArrears() + "");
+        ed_type_name.setHint(bean.getDebt() + "");
         //限制输入长度
 //        ed_type_name.setFilters(new InputFilter[]{new InputFilter.LengthFilter(6)});
 
@@ -156,7 +180,7 @@ public class SupplierDetailsActivity extends BaseActivity {
                 String remarks = supplier_remarks_text.getText().toString();
                 if (!TextUtils.isEmpty(addr)) {
                     money_num.setText(addr);
-                    bean.setArrears(Double.parseDouble(addr));
+                    bean.setDebt(Double.parseDouble(addr));
                 } else {
                     ToastUtil.show("请输入欠供应商款数");
                 }
@@ -196,8 +220,73 @@ public class SupplierDetailsActivity extends BaseActivity {
     //打电话
     @OnClick(R.id.call_up_layout)
     void call_up_layout() {
-        Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + bean.getPhone()));
+        Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + bean.getMobile()));
         startActivity(intent);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == 1001) {
+            isEdit = true;
+            refreshData(false);
+        }
+    }
+
+    @Override
+    public void onRefresh() {
+        //下拉刷新
+        refreshData(false);
+    }
+
+    public void refreshData(boolean isShow) {
+        if (isShow) {
+            ProgressUtil.showDialog(this);
+        }
+        orderEasyPresenter.supplierInfo(supplier_id);
+    }
+
+    @Override
+    public void showProgress(int type) {
+
+    }
+
+    @Override
+    public void hideProgress(int type) {
+        if (type != 1) {
+            ToastUtil.show("网络连接失败");
+        }
+        ProgressUtil.dissDialog();
+        //关闭刷新控件
+        store_refresh.setRefreshing(false);
+    }
+
+    @Override
+    public void loadData(JsonObject data, int type) {
+        //关闭刷新控件
+        store_refresh.setRefreshing(false);
+        if (data != null) {
+            int status = data.get("code").getAsInt();
+            if (status == 1) {
+                //处理返回的数据
+                Log.e("SupplierDetailsActivity", "" + data.toString());
+                bean = (SupplierBean) GsonUtils.getEntity(data.get("result").getAsJsonObject().toString(), SupplierBean.class);
+                if (bean != null) {
+                    initData();
+                } else {
+                    showToast("数据异常");
+                }
+            }
+        }
+    }
+
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (isEdit) {
+                setResult(1001);
+            }
+            finish();
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 }

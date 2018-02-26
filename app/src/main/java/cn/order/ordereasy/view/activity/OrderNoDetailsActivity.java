@@ -71,9 +71,9 @@ public class OrderNoDetailsActivity extends BaseActivity implements OrderEasyVie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.orderno_details);
         setColor(this, this.getResources().getColor(R.color.lanse));
-        ButterKnife.inject(this);
-        orderEasyPresenter = new OrderEasyPresenterImp(this);
-        ProgressUtil.showDialog(OrderNoDetailsActivity.this);
+        ButterKnife.inject(this);//ButterKnife是控件注入框架
+        orderEasyPresenter = new OrderEasyPresenterImp(this);//网络请求
+        ProgressUtil.showDialog(OrderNoDetailsActivity.this);//正在加载对话框
         initRefreshLayout();
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
@@ -92,7 +92,7 @@ public class OrderNoDetailsActivity extends BaseActivity implements OrderEasyVie
         store_refresh.setOnRefreshListener(this);
     }
 
-    private void showdialogs(final int type) {
+    private void showdialogs(final int type) {//跟据type判断是否是微信订单
         alertDialog = new AlertDialog.Builder(this).create();
         View view = View.inflate(this, R.layout.tanchuang_view, null);
         alertDialog.setView(view);
@@ -320,7 +320,7 @@ public class OrderNoDetailsActivity extends BaseActivity implements OrderEasyVie
         customer.setReceivable(Double.parseDouble(qiankuan_money_num.getText().toString()));
         Log.e("JJFa", "Name:" + order.getCustomer_name() + "Receivable:" + order.getPayable());
         bundle.putSerializable("data", customer);
-        intent.putExtra("flag", "order");
+        intent.putExtra("flag", "order1");
         intent.putExtras(bundle);
         startActivityForResult(intent, 1004);
     }

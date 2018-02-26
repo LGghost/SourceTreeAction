@@ -43,6 +43,10 @@ public class SupplierAdapter extends BaseAdapter implements
         this.phoneBookIndexs = phoneBookIndexs;
     }
 
+    public List<SupplierIndex> getData() {
+        return phoneBookIndexs;
+    }
+
     public void addDataToList(List<SupplierIndex> phoneBookIndexs) {
         this.phoneBookIndexs.addAll(phoneBookIndexs);
         notifyDataSetChanged();
@@ -102,15 +106,15 @@ public class SupplierAdapter extends BaseAdapter implements
             }
             final SupplierBean phoneBook = phoneBookIndex.getSupplierBean();
             phoneBookViewHolder.name.setText(phoneBook.getName());
-            phoneBookViewHolder.arrears.setText("欠供应商款：" + phoneBook.getArrears());
-            phoneBookViewHolder.user.setText("负责人：" + phoneBook.getUser());
+            phoneBookViewHolder.arrears.setText("欠供应商款：" + phoneBook.getDebt());
+            phoneBookViewHolder.user.setText("负责人：" + phoneBook.getContact());
             convertView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (!type.equals("bill")) {
-                        Intent intent = new Intent(context, SupplierDetailsActivity.class);
-                        intent.putExtra("data", phoneBook);
-                        context.startActivity(intent);
+                        if (lister != null) {
+                            lister.startActivity(phoneBook);
+                        }
                     } else {
                         if (lister != null) {
                             lister.choose(phoneBook);
@@ -178,6 +182,8 @@ public class SupplierAdapter extends BaseAdapter implements
 
     public interface OnItemClickListener {
         void choose(SupplierBean phoneBook);
+
+        void startActivity(SupplierBean phoneBook);
     }
 }
 

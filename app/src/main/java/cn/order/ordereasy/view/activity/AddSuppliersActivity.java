@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -19,6 +20,8 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.lljjcoder.city_20170724.CityPickerView;
 import com.lljjcoder.city_20170724.bean.CityBean;
 import com.lljjcoder.city_20170724.bean.DistrictBean;
@@ -29,9 +32,15 @@ import butterknife.InjectView;
 import butterknife.OnClick;
 import cn.order.ordereasy.R;
 import cn.order.ordereasy.bean.SupplierBean;
+import cn.order.ordereasy.bean.SupplierIndex;
+import cn.order.ordereasy.presenter.OrderEasyPresenter;
+import cn.order.ordereasy.presenter.OrderEasyPresenterImp;
+import cn.order.ordereasy.utils.GsonUtils;
+import cn.order.ordereasy.utils.ProgressUtil;
 import cn.order.ordereasy.utils.ToastUtil;
+import cn.order.ordereasy.view.OrderEasyView;
 
-public class AddSuppliersActivity extends BaseActivity {
+public class AddSuppliersActivity extends BaseActivity implements OrderEasyView {
     private String name;
     private String contacts;
     private String phone;
@@ -40,7 +49,12 @@ public class AddSuppliersActivity extends BaseActivity {
     private String payment;
     private String remarks;
     private String region;
+    private String province1;
+    private String city1;
+    private String district1;
     private SupplierBean bean;
+    private OrderEasyPresenter orderEasyPresenter;
+    private boolean isEdit = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,15 +62,18 @@ public class AddSuppliersActivity extends BaseActivity {
         setContentView(R.layout.add_suppliers_activity);
         setColor(this, this.getResources().getColor(R.color.lanse));
         ButterKnife.inject(this);
+        orderEasyPresenter = new OrderEasyPresenterImp(this);//网络请求
         Bundle bundle = getIntent().getExtras();
-        if (bundle != null) {
+        if (bundle != null) {//编辑供应商
+            isEdit = true;
             bean = (SupplierBean) bundle.getSerializable("data");
             supplier_name.setText(bean.getName());
-            supplier_contacts.setText(bean.getUser());
-            supplier_phone.setText(bean.getPhone());
-            supplier_call.setText(bean.getCall());
+            supplier_contacts.setText(bean.getContact());
+            supplier_phone.setText(bean.getMobile());
+            supplier_call.setText(bean.getTel());
             supplier_address.setText(bean.getAddress());
-            supplier_payment.setText(bean.getArrears() + "");
+            supplier_payment.setText(bean.getDebt() + "");
+            region_text.setText(bean.getProvince() + bean.getCity() + bean.getDistrict());
             if (!TextUtils.isEmpty(bean.getRemarks())) {
                 supplier_remarks_text.setVisibility(View.VISIBLE);
                 supplier_remarks.setVisibility(View.GONE);
@@ -115,8 +132,47 @@ public class AddSuppliersActivity extends BaseActivity {
         if (TextUtils.isEmpty(name)) {
             ToastUtil.show("请输入供应商名称");
             return;
+        } else {
+            if (name.length() > 16) {
+                ToastUtil.show("供应商名称不能超过16个字");
+                return;
+            }
         }
-        finish();
+        if (remarks.length() > 96) {
+            ToastUtil.show("备注不能超过96个字");
+            return;
+        }
+        if (phone.length() > 20) {
+            ToastUtil.show("手机号不能超过20个字");
+            return;
+        }
+        if (call.length() > 20) {
+            ToastUtil.show("电话号不能超过20个字");
+            return;
+        }
+        if (address.length() > 96) {
+            ToastUtil.show("地址不能超过96个字");
+            return;
+        }
+        SupplierBean supplierBean = new SupplierBean();
+        supplierBean.setName(name);
+        supplierBean.setContact(contacts);
+        supplierBean.setTel(call);
+        supplierBean.setMobile(phone);
+        if (!TextUtils.isEmpty(payment)) {
+            supplierBean.setDebt(Double.parseDouble(payment));
+        }
+        supplierBean.setProvince(province1);
+        supplierBean.setCity(city1);
+        supplierBean.setDistrict(district1);
+        supplierBean.setAddress(address);
+        supplierBean.setRemarks(remarks);
+        if (isEdit) {
+            supplierBean.setSupplier_id(bean.getSupplier_id());
+            orderEasyPresenter.supplierEdit(supplierBean);
+        } else {
+            orderEasyPresenter.supplierAdd(supplierBean);
+        }
     }
 
     @OnClick(R.id.supplier_contacts_image)
@@ -161,7 +217,10 @@ public class AddSuppliersActivity extends BaseActivity {
                 //ProvinceBean 省份信息
                 //CityBean     城市信息
                 //DistrictBean 区县信息
-                region_text.setText(city.getName() + district.getName() + province.getName());
+                province1 = province.getName();
+                city1 = city.getName();
+                district1 = district.getName();
+                region_text.setText(province1 + city1 + district1);
             }
 
             @Override
@@ -288,5 +347,33 @@ public class AddSuppliersActivity extends BaseActivity {
             finishActivity();
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    public void showProgress(int type) {
+        ProgressUtil.showDialog(this);
+    }
+
+    @Override
+    public void hideProgress(int type) {
+        ProgressUtil.dissDialog();
+    }
+
+    @Override
+    public void loadData(JsonObject data, int type) {
+        Log.e("AddSuppliers", "data:" + data.toString());
+        if (data != null) {
+            int status = data.get("code").getAsInt();
+            if (status == 1) {
+                //成功
+                if (!isEdit) {
+                    ToastUtil.show("添加成功");
+                } else {
+                    ToastUtil.show("修改成功");
+                }
+                setResult(1001);
+                finish();
+            }
+        }
     }
 }

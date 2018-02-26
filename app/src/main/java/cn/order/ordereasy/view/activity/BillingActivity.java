@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -45,6 +46,7 @@ import cn.order.ordereasy.utils.GsonUtils;
 import cn.order.ordereasy.utils.ProgressUtil;
 import cn.order.ordereasy.utils.SystemfieldUtils;
 import cn.order.ordereasy.utils.ToastUtil;
+import cn.order.ordereasy.utils.UpdataApp;
 import cn.order.ordereasy.view.OrderEasyView;
 
 /**
@@ -80,7 +82,7 @@ public class BillingActivity extends BaseActivity implements OrderEasyView {
         mTogBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (order.getIs_wechat() == 1) {
+                if (order.getIs_wechat() == 1) {//修改微信订单跳到开单界面（现场收款，现场发货不让点击）
                     if (order.getOrder_status() == 1) {
                         ToastUtil.show("修改订单不能更改状态");
                         if (xianTag == 1) {
@@ -101,7 +103,7 @@ public class BillingActivity extends BaseActivity implements OrderEasyView {
         rTogBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (order.getIs_wechat() == 1) {
+                if (order.getIs_wechat() == 1) {//修改微信订单跳到开单界面（现场收款，现场发货不让点击）
                     if (order.getOrder_status() == 1) {
                         ToastUtil.show("修改订单不能更改状态");
                         if (shoukuanTag == 1) {
@@ -119,14 +121,14 @@ public class BillingActivity extends BaseActivity implements OrderEasyView {
                 }
             }
         });
-        ButterKnife.inject(this);
+        ButterKnife.inject(this);//ButterKnife是控件注入框架
 
-        orderEasyPresenter = new OrderEasyPresenterImp(this);
+        orderEasyPresenter = new OrderEasyPresenterImp(this);//网络请求接口（MVP模式）
         orderSelectGoodsListAdapter = new OrderSelectGoodsListAdapter(this);
         goods_listview.setFocusable(false);
         orderSelectGoodsListAdapter.setOnMoneyItemClickListener(new OrderSelectGoodsListAdapter.MoneyClickLister() {
             @Override
-            public void changeData(double price, int num) {
+            public void changeData(double price, int num) {//适配器中选定个数通过接口传递到界面显示
                 number = num;
                 kaidan_order_money.setText(FileUtils.getMathNumber(price));
                 kaidan_order_num.setText("共" + orderSelectGoodsListAdapter.getData().size() + "种货品 (总数量：" + number + ")");
@@ -136,12 +138,8 @@ public class BillingActivity extends BaseActivity implements OrderEasyView {
         orderSelectGoodsListAdapter.setOnItemChildClickListener(new BGAOnItemChildClickListener() {
             @Override
             public void onItemChildClick(ViewGroup parent, View childView, int position) {
-                if (childView.getId() == R.id.kaidan_shanchu) {
-
-                    orderSelectGoodsListAdapter.removeItem(position);
-                    order.setGoods_list(orderSelectGoodsListAdapter.getData());
-                    orderSelectGoodsListAdapter.notifyDataSetChanged();
-                    orderSelectGoodsListAdapter.changeData();
+                if (childView.getId() == R.id.kaidan_shanchu) {//删除选定的货品
+                    showdialogs(1, position);
                 }
             }
         });
@@ -149,7 +147,7 @@ public class BillingActivity extends BaseActivity implements OrderEasyView {
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             flag = bundle.getString("flag");
-            if (flag.equals("custhome")) {
+            if (flag.equals("custhome")) {//从客户界面跳转过来开单
                 Customer customer = (Customer) bundle.getSerializable("data");
                 this.order.setCustomer_id(customer.getCustomer_id());
                 this.order.setCustomer_name(customer.getCustomer_name());
@@ -164,16 +162,17 @@ public class BillingActivity extends BaseActivity implements OrderEasyView {
                 layout_order_view1.setVisibility(View.GONE);
                 layout_order_view2.setVisibility(View.VISIBLE);
             }
-            if (flag.equals("details")) {
+            if (flag.equals("details")) {//订单详情跳转过来的开单
                 order = (Order) bundle.getSerializable("Order");
                 if (order.getIs_wechat() == 1) {
-                    if (order.getOrder_status() == 1) {
+                    if (order.getOrder_status() == 1) {//微信订单区分
                         title_text.setText("修改订单");
                         xiugai.setVisibility(View.GONE);
                         xianTag = order.getIs_deliver();
                         shoukuanTag = order.getIs_payment();
-                        orderSelectGoodsListAdapter.setFlag("details");
                     }
+                } else {
+                    orderSelectGoodsListAdapter.setFlag("details");//设置适配器中第一项是否展开
                 }
                 double receivable = bundle.getDouble("receivable");
                 order_name.setText(order.getCustomer_name() + " (总欠款：¥" + receivable + ")");
@@ -192,12 +191,12 @@ public class BillingActivity extends BaseActivity implements OrderEasyView {
         searchGoods();
     }
 
-    private void searchGoods() {
+    private void searchGoods() {//获取商品列表用来比较
         ProgressUtil.showDialog(this);
         orderEasyPresenter.getGoodsList();
     }
 
-    private void screenData(List<Goods> data) {
+    private void screenData(List<Goods> data) {//订单详情界面跳转过来需要记录以前选中的货品个数价格这里用来对比添加
         List<Goods> data1 = order.getGoods_list();
         List<Goods> data2 = new ArrayList<>();
         double tPrice = 0;
@@ -299,7 +298,7 @@ public class BillingActivity extends BaseActivity implements OrderEasyView {
     @InjectView(R.id.title_text)
     TextView title_text;
 
-    private void showdialogs() {
+    private void showdialogs(final int type, final int position) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         View view = View.inflate(this, R.layout.tanchuang_view_textview, null);
         //标题
@@ -309,11 +308,15 @@ public class BillingActivity extends BaseActivity implements OrderEasyView {
         final TextView queren = (TextView) view.findViewById(R.id.queren);
         builder.setView(view);
         alertDialog = builder.create();
-
-        title_name.setText("温馨提示");
-        text_conten.setText("您确认要取消开单吗？");
-        //按钮1点击事件
-        quxiao.setText("继续开单");
+        if (type == 0) {
+            title_name.setText("温馨提示");
+            text_conten.setText("您确认要取消开单吗？");
+            //按钮1点击事件
+            quxiao.setText("继续开单");
+        } else {
+            title_name.setVisibility(View.GONE);
+            text_conten.setText("确认要删除货品吗？");
+        }
         quxiao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -324,7 +327,14 @@ public class BillingActivity extends BaseActivity implements OrderEasyView {
         queren.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BillingActivity.this.finish();
+                if (type == 0) {
+                    BillingActivity.this.finish();
+                } else {
+                    orderSelectGoodsListAdapter.removeItem(position);
+                    order.setGoods_list(orderSelectGoodsListAdapter.getData());
+                    orderSelectGoodsListAdapter.notifyDataSetChanged();
+                    orderSelectGoodsListAdapter.changeData();
+                }
                 alertDialog.dismiss();
             }
         });
@@ -350,7 +360,7 @@ public class BillingActivity extends BaseActivity implements OrderEasyView {
     //返回按钮
     @OnClick(R.id.return_click)
     void return_click() {
-        showdialogs();
+        showdialogs(0, 0);
     }
 
     //扫一扫点击事件
@@ -699,7 +709,7 @@ public class BillingActivity extends BaseActivity implements OrderEasyView {
     }
 
     @Override
-    public void loadData(JsonObject data, int type) {
+    public void loadData(JsonObject data, int type) {//网络请求数据返回接口，数据通过异步转化不需要用handler再转一次（这里我没有修改了）data返回的数据，type用来区分那个接口
         Message message = new Message();
         ProgressUtil.dissDialog();
         switch (type) {
@@ -793,9 +803,10 @@ public class BillingActivity extends BaseActivity implements OrderEasyView {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if ((keyCode == KeyEvent.KEYCODE_BACK)) {
-            showdialogs();
+            showdialogs(0, 0);
         }
         return super.onKeyDown(keyCode, event);
 
     }
+
 }

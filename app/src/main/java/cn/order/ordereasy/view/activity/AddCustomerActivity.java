@@ -131,6 +131,7 @@ public class AddCustomerActivity extends BaseActivity implements OrderEasyView, 
     @OnClick(R.id.piliang_daoru)
     void daoru() {
         Intent intent = new Intent(AddCustomerActivity.this, TelListActivity.class);
+        intent.putExtra("flag","Customer");
         startActivity(intent);
         finish();
     }

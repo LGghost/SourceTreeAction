@@ -55,7 +55,7 @@ public class SupplierIndex {
         List<SupplierIndex> list = new ArrayList<>();
 
         for (int i = 0; i < data.size(); i++) {
-            if (data.get(i).getSupplierBean().getName().contains(likename) || data.get(i).getSupplierBean().getPhone().contains(likename) ) {
+            if (data.get(i).getSupplierBean().getName().contains(likename) || data.get(i).getSupplierBean().getMobile().contains(likename) ) {
                 list.add(data.get(i));
             }
         }

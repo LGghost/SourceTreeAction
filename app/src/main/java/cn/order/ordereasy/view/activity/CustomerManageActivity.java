@@ -3,6 +3,7 @@ package cn.order.ordereasy.view.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,7 @@ import butterknife.OnClick;
 import cn.bingoogolapple.androidcommon.adapter.BGAOnItemChildClickListener;
 import cn.order.ordereasy.R;
 import cn.order.ordereasy.adapter.CustomerManageAdapter;
+import cn.order.ordereasy.bean.Customer;
 import cn.order.ordereasy.bean.DiscountCustomer;
 import cn.order.ordereasy.presenter.OrderEasyPresenter;
 import cn.order.ordereasy.presenter.OrderEasyPresenterImp;
@@ -84,6 +86,16 @@ public class CustomerManageActivity extends BaseActivity implements OrderEasyVie
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        if (DataStorageUtils.getInstance().isAddCustomer()) {//根据isAddCustomer字段来判断刷新数据（添加分类完成isAddCustomer设置为true）
+            DataStorageUtils.getInstance().setAddCustomer(false);
+            orderEasyPresenter.getCustomerList1();
+        }
+
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == 1001) {
@@ -127,16 +139,28 @@ public class CustomerManageActivity extends BaseActivity implements OrderEasyVie
                 } else {
                     no_data_view.setVisibility(View.VISIBLE);
                 }
-            } else {
-                if (status == -1||status == -9) {
-                    String message = data.get("message").getAsString();
-                    ToastUtil.show(message);
-                    no_data_view.setVisibility(View.VISIBLE);
-                }
-                if (status == -7) {
-                    ToastUtil.show(getString(R.string.landfall_overdue));
-                    Intent intent = new Intent(CustomerManageActivity.this, LoginActity.class);
-                    startActivity(intent);
+            }
+        }
+        if (type == 4) {
+            if (data != null) {
+                int status = data.get("code").getAsInt();
+                if (status == 1) {
+                    //成功
+                    Log.e("FragmentStore", "result:" + data.toString());
+                    List<Customer> datas = new ArrayList<>();
+                    JsonArray jsonArray = data.get("result").getAsJsonArray();
+                    for (int i = 0; i < jsonArray.size(); i++) {
+                        Customer customer = (Customer) GsonUtils.getEntity(jsonArray.get(i).toString(), Customer.class);
+                        String name = "";
+                        if (TextUtils.isEmpty(customer.getName())) {
+                            name = "-";
+                        } else {
+                            name = customer.getName();
+                        }
+                        customer.setName(name);
+                        datas.add(customer);
+                    }
+                    DataStorageUtils.getInstance().setCustomerLists(datas);
                 }
             }
         }

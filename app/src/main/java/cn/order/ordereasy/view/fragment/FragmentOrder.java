@@ -104,7 +104,7 @@ public class FragmentOrder extends Fragment implements OrderEasyView, AdapterVie
         if (rootView == null) {
             rootView = inflater.inflate(R.layout.fragment_order, null);
         }
-        ButterKnife.inject(this, rootView);
+        ButterKnife.inject(this, rootView);//ButterKnife是控件注入框架
         // 缓存的rootView需要判断是否已经被加过parent，
         // 如果有parent需要从parent删除，要不然会发生这个rootview已经有parent的错误。
         ViewGroup parent = (ViewGroup) rootView.getParent();
@@ -112,7 +112,7 @@ public class FragmentOrder extends Fragment implements OrderEasyView, AdapterVie
             parent.removeView(rootView);
         }
 
-        orderEasyPresenter = new OrderEasyPresenterImp(this);
+        orderEasyPresenter = new OrderEasyPresenterImp(this);//网络请求接口
         //listView = (ListView) getActivity().findViewById(R.id.listView);
         mask = rootView.findViewById(R.id.mask);
         chooseType = (DropdownButton) rootView.findViewById(R.id.chooseType);
@@ -121,10 +121,10 @@ public class FragmentOrder extends Fragment implements OrderEasyView, AdapterVie
         dropdownType = (DropdownListView) rootView.findViewById(R.id.dropdownType);
         dropdownLabel = (DropdownListView) rootView.findViewById(R.id.dropdownLabel);
         dropdownOrder = (DropdownListView) rootView.findViewById(R.id.dropdownOrder);
-        if (!((MainActivity)getActivity()).isSalesperson()) {
+        if (!((MainActivity) getActivity()).isSalesperson()) {//判断是否是销售员
             chooseLabel.setText(LABEL_ALL);
-        }else{
-            chooseLabel.setText(((MainActivity)getActivity()).getUserName());
+        } else {
+            chooseLabel.setText(((MainActivity) getActivity()).getUserName());
         }
 
         dropdown_in = AnimationUtils.loadAnimation(getActivity(), R.anim.dropdown_in);
@@ -160,7 +160,7 @@ public class FragmentOrder extends Fragment implements OrderEasyView, AdapterVie
         listView.setAdapter(customerOrderListAdapter);
         listView.setOnItemClickListener(this);
 
-        if (DataStorageUtils.getInstance().getOrderLists().size() > 0) {
+        if (DataStorageUtils.getInstance().getOrderLists().size() > 0) {//判断类存储里是否有数据
             orders = DataStorageUtils.getInstance().getOrderLists();
             pageTotal = DataStorageUtils.getInstance().getPageTotal();
             if (orders.size() > 0) {
@@ -172,7 +172,7 @@ public class FragmentOrder extends Fragment implements OrderEasyView, AdapterVie
             }
             dropdownButtonsController.addType(DataStorageUtils.getInstance().getYuangongLists());
         } else {
-            if (!((MainActivity)getActivity()).isSalesperson()) {
+            if (!((MainActivity) getActivity()).isSalesperson() && !((MainActivity) getActivity()).isStockman()) {//销售员和仓库管理员没有权限获取员工
                 orderEasyPresenter.getEmployee(1);
             }
             refreshData(1, true);
@@ -192,7 +192,7 @@ public class FragmentOrder extends Fragment implements OrderEasyView, AdapterVie
     public void onResume() {
         super.onResume();
         Log.e("FragmentOrder", "onResume");
-        if (DataStorageUtils.getInstance().isBilling()) {
+        if (DataStorageUtils.getInstance().isBilling()) {//根据isBilling字段来判断刷新数据（开单完成isBilling设置为true）
             DataStorageUtils.getInstance().setBilling(false);
             refreshData(1, false);
         }
@@ -229,7 +229,7 @@ public class FragmentOrder extends Fragment implements OrderEasyView, AdapterVie
                 dialogEnd = "";
                 time = "所有时间段";
                 chooseType.setText(time);
-                refreshData(1, false);
+                refreshData(1, false);//调用网络请求获取数据
                 alertDialog.dismiss();
             }
         });
@@ -247,7 +247,7 @@ public class FragmentOrder extends Fragment implements OrderEasyView, AdapterVie
 
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear,
-                                          int dayOfMonth) {
+                                          int dayOfMonth) {//时间选择框
                         int month = monthOfYear + 1;
                         dialogStart = year + "-" + TimeUtil.getDate(month) + "-" + TimeUtil.getDate(dayOfMonth);
                         kaishi_time.setText(dialogStart);
@@ -330,7 +330,7 @@ public class FragmentOrder extends Fragment implements OrderEasyView, AdapterVie
     }
 
     @Override
-    public void loadData(JsonObject data, int type) {
+    public void loadData(JsonObject data, int type) {//网络请求数据返回接口，数据通过异步转化不需要用handler再转一次（这里我没有修改了）data返回的数据，type用来区分那个接口
         Message message = new Message();
         ProgressUtil.dissDialog();
         listView.setLoadCompleted();
@@ -391,6 +391,7 @@ public class FragmentOrder extends Fragment implements OrderEasyView, AdapterVie
 
     @Override
     public void onRefresh() {
+        //下拉刷新
         refreshData(1, false);
     }
 
@@ -677,10 +678,10 @@ public class FragmentOrder extends Fragment implements OrderEasyView, AdapterVie
         }
         Log.e("FragmentOrder", "begindate:" + begindate);
         Log.e("FragmentOrder", "enddate:" + enddate);
-        if (!((MainActivity)getActivity()).isSalesperson()) {
+        if (!((MainActivity) getActivity()).isSalesperson()) {
             orderEasyPresenter.getOrdersList(page, filter_type, user_id, begindate, enddate);
-        }else{
-            orderEasyPresenter.getOrdersList(page, filter_type, ((MainActivity)getActivity()).getUser_id(), begindate, enddate);
+        } else {
+            orderEasyPresenter.getOrdersList(page, filter_type, ((MainActivity) getActivity()).getUser_id(), begindate, enddate);
         }
 
 

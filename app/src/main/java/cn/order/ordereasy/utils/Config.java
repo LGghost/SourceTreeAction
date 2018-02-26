@@ -520,6 +520,29 @@ public class Config {
      */
     public final static String inventory_info_url="/api/goods/inventory/del";
 
+    /**
+     * 供货商列表
+     */
+    public final static String supplier_index_url="supplier/index";
+    /**
+     * 添加供货商
+     */
+    public final static String supplier_add_url="supplier/add";
+
+    /**
+     * 编辑供货商
+     */
+    public final static String supplier_edit_url="supplier/edit";
+    /**
+     * 导入供货商
+     */
+    public final static String supplier_import_url="supplier/import";
+
+    /**
+     * 供货商信息
+     */
+    public final static String supplier_info_url="supplier/info";
+
     public static String getExtSDCardPath()
     {
         String state = Environment.getExternalStorageState();

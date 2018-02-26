@@ -70,6 +70,8 @@ public class OperationRecordActivity extends BaseActivity implements OrderEasyVi
     TextView see_yuandan;
     @InjectView(R.id.type)
     TextView type;
+    @InjectView(R.id.caozuo_state)//操作状态
+    TextView caozuo_state;
     //操作人姓名
     @InjectView(R.id.caozuoren_name)
     TextView caozuoren_name;
@@ -85,7 +87,8 @@ public class OperationRecordActivity extends BaseActivity implements OrderEasyVi
     //查看物流
     @InjectView(R.id.wuliu_button_onclick)
     TextView wuliu_button_onclick;
-
+    @InjectView(R.id.jilu_name)
+    TextView jilu_name;
     //操作类型
     @InjectView(R.id.caozuo_type)
     TextView caozuo_type;
@@ -162,11 +165,15 @@ public class OperationRecordActivity extends BaseActivity implements OrderEasyVi
                 benci_num.setText(data.getAsJsonObject("result").get("out_number").getAsString());
                 caozuo_type.setText("发货");
                 order_id = data.getAsJsonObject("result").get("order_id").getAsInt();
+                caozuo_state.setText("已发货");
+                jilu_name.setText("发货记录");
             } else if (operate_type == Config.Operate_TYPE_REDELIVER) {
                 order_id = -1;
                 this.type.setText("本次总退货");
                 benci_num.setText(data.getAsJsonObject("result").get("in_number").getAsString());
                 caozuo_type.setText("退货");
+                caozuo_state.setText("已退货");
+                jilu_name.setText("退货记录");
             }
 
             gong_num.setText(String.valueOf(goods.size()));

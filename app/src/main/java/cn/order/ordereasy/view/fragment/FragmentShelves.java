@@ -66,7 +66,7 @@ public class FragmentShelves extends Fragment implements OrderEasyView, SwipeRef
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.shelves_fragment_layout, container, false);
-        ButterKnife.inject(this, view);
+        ButterKnife.inject(this, view);//ButterKnife是控件注入框架
         initData();
         //新手引导
         new GuideDialog(2, getActivity());
@@ -74,26 +74,26 @@ public class FragmentShelves extends Fragment implements OrderEasyView, SwipeRef
     }
 
     private void initData() {
-        orderEasyPresenter = new OrderEasyPresenterImp(this);
+        orderEasyPresenter = new OrderEasyPresenterImp(this);//网络请求接口
         mAdapter = new GoodListAdapter(getActivity());
         listview.setAdapter(mAdapter);
         store_refresh.setOnRefreshListener(this);
-        shelves_state = getList(getActivity().getResources().getStringArray(R.array.shelves_state));
-        shelves_array = getList(getActivity().getResources().getStringArray(R.array.shelves_array));
-        shelves_fragment_state.setItemsData(shelves_state, 1);
+        shelves_state = getList(getActivity().getResources().getStringArray(R.array.shelves_state));//状态数据
+        shelves_array = getList(getActivity().getResources().getStringArray(R.array.shelves_array));//排序数据
+        shelves_fragment_state.setItemsData(shelves_state, 1);//自定义控件设置数据
         shelves_fragment_array.setItemsData(shelves_array, 0);
         shelves_fragment_sort.setHigh(true);
         if (DataStorageUtils.getInstance().getShelvesGoods().size() > 0) {
             datas = DataStorageUtils.getInstance().getShelvesGoods();
-            screenData(sort, state, array);
+            screenData(sort, state, array);//数据筛选
         } else {
-            refreshData(true);
+            refreshData(true);//网络请求数据
         }
         if (DataStorageUtils.getInstance().getGenreGoods().size() > 0) {
             shelves_sort = DataStorageUtils.getInstance().getGenreGoods();
             shelves_fragment_sort.setItemsData(shelves_sort, 0);
         } else {
-            orderEasyPresenter.getCategoryInfo();
+            orderEasyPresenter.getCategoryInfo();//网络获取商品分类信息
         }
         initSetOnListener();
     }
@@ -239,7 +239,7 @@ public class FragmentShelves extends Fragment implements OrderEasyView, SwipeRef
     public void onResume() {
         super.onResume();
         Log.e("FragmentShelves", "onResume");
-        if (DataStorageUtils.getInstance().isShanghuo()) {
+        if (DataStorageUtils.getInstance().isShanghuo()) {//根据isShanghuo字段来判断刷新数据（上货完成isShanghuo设置为true）
             DataStorageUtils.getInstance().setShanghuo(false);
             refreshData(false);
         }
@@ -255,7 +255,7 @@ public class FragmentShelves extends Fragment implements OrderEasyView, SwipeRef
     }
 
     @Override
-    public void loadData(JsonObject data, int type) {
+    public void loadData(JsonObject data, int type) {//网络请求数据返回接口，数据通过异步转化不需要用handler再转一次data返回的数据，type用来区分那个接口
         store_refresh.setRefreshing(false);
 
         if (type == 0) {//全部交易数据
@@ -331,7 +331,7 @@ public class FragmentShelves extends Fragment implements OrderEasyView, SwipeRef
     }
 
     private void screenData(int sort, int state, int array) {
-        List<Goods> changData = DataCompareUtils.screenData(datas, sort, state, array);
+        List<Goods> changData = DataCompareUtils.screenData(datas, sort, state, array);//筛选数据的工具类
         shelves_fragment_sort.setEditText(changData.size());
         mAdapter.setData(changData);
         mAdapter.notifyDataSetChanged();
@@ -356,7 +356,7 @@ public class FragmentShelves extends Fragment implements OrderEasyView, SwipeRef
     @Override
     public void onItemChildClick(ViewGroup parent, View childView, int position) {
         Goods goods = mAdapter.getData().get(position);
-        UmengUtils.getInstance().share(getActivity(), goods.getGoods_id(), goods.getCover(), goods.getTitle(), shareListener);
+        UmengUtils.getInstance().share(getActivity(), goods.getGoods_id(), goods.getCover(), goods.getTitle(), shareListener);//友盟分享
     }
 
     private UMShareListener shareListener = new UMShareListener() {

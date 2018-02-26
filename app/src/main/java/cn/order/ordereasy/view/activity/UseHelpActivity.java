@@ -79,7 +79,6 @@ public class UseHelpActivity extends BaseActivity {
     void video_course_layout() {
         Intent intent = new Intent(this, VideoCourseActivity.class);
         startActivity(intent);
-
     }
 
 

@@ -111,12 +111,12 @@ public class ShangHuoActivity extends BaseActivity implements EasyPermissions.Pe
         specBean = new SpecBean();
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
-            eidtData(bundle);
+            eidtData(bundle);//货品详情编辑跳转过来的
         }
-        getSharedPreferences("price", 0).edit().clear().commit();
+        getSharedPreferences("price", 0).edit().clear().commit();//这里用文件的形式记录价格和属性（建议用类的形式存储）
     }
 
-    private void eidtData(Bundle bundle) {
+    private void eidtData(Bundle bundle) {//需要展示以前货品的属性
         good = (Goods) bundle.getSerializable("data");
         flag = bundle.getString("flag");
         shanghuo_no.setText(good.getGoods_no());
@@ -142,7 +142,7 @@ public class ShangHuoActivity extends BaseActivity implements EasyPermissions.Pe
         List<Spec> specs = good.getSpec();
 
         StringBuilder sb = new StringBuilder();
-        if (specs.size() > 0) {
+        if (specs.size() > 0) {//获取货品的规格属性值
             good.setSpec(specs);
             for (Spec s : specs) {
                 List<String> values = s.getValues();
@@ -310,7 +310,7 @@ public class ShangHuoActivity extends BaseActivity implements EasyPermissions.Pe
     //规格管理点击事件
     @OnClick(R.id.guige)
     void guige() {
-        if (flag.equals("detail")) {
+        if (flag.equals("detail")) {//区分是否是货品详情编辑跳转过来的
             List<Spec> specs = good.getSpec();
             if (specs != null) {
                 if (specs.size() > 0) {
@@ -388,13 +388,13 @@ public class ShangHuoActivity extends BaseActivity implements EasyPermissions.Pe
     void baocun() {
         Log.e("ShangHuoActivity", "图片：" + datas.size());
         datas.removeAll(uploadData);
-        if (datas != null && datas.size() > 0) {
+        if (datas != null && datas.size() > 0) {//先上传选择的图片
             ProgressUtil.showDialog(this);
             File file = new File(datas.get(0));
             Log.e("ShangHuo", "file长度：" + file.length());
             uploadData.add(datas.get(0));
             orderEasyPresenter.uploadGoodImg(datas.get(0));
-        } else {
+        } else {//再上传规格属性和价格等
             uploadData();
         }
     }
@@ -404,7 +404,7 @@ public class ShangHuoActivity extends BaseActivity implements EasyPermissions.Pe
         showdialogs(1);
     }
 
-    private void uploadData() {
+    private void uploadData() {//一些条件的判断，符合条件才允许上传
         //遍历找出最大和最小金额
         List<Product> products = good.getProduct_list();
         List<Map<String, Object>> images = (List<Map<String, Object>>) good.getImages();
@@ -492,7 +492,7 @@ public class ShangHuoActivity extends BaseActivity implements EasyPermissions.Pe
             good.setIs_enable_stock_warn(0);
         }
         good.setTitle(name);
-        if (flag.equals("detail")) {
+        if (flag.equals("detail")) {//区分是否是货品详情编辑跳转过来的
             ProgressUtil.showDialog(this);
             orderEasyPresenter.updateGood(good);
         } else {
@@ -632,7 +632,7 @@ public class ShangHuoActivity extends BaseActivity implements EasyPermissions.Pe
             } else {
                 setText(shanghuo_spec, shanghuo_spec1, sb.toString());
             }
-            if (flag.equals("detail")) {
+            if (flag.equals("detail")) {//区分是否是货品详情编辑跳转过来的
                 setEditPrice();
             }
         } else if (resultCode == REQUEST_CODE_DESCRIPTION_PREVIEW) {
@@ -647,7 +647,7 @@ public class ShangHuoActivity extends BaseActivity implements EasyPermissions.Pe
 
         } else if (resultCode == REQUEST_CODE_PRICE_PREVIEW) {
             shanghuo_price.setText("已填写");
-            SharedPreferences sp = getSharedPreferences("price", 0);
+            SharedPreferences sp = getSharedPreferences("price", 0);//通过文件形式获取价格（建议用类形式便于比较）
             List<Spec> specs = good.getSpec();
             if (specs == null) specs = new ArrayList<>();
             List<Product> products = new ArrayList<>();
@@ -820,7 +820,7 @@ public class ShangHuoActivity extends BaseActivity implements EasyPermissions.Pe
         }
     }
 
-    private void setEditPrice() {
+    private void setEditPrice() {//需要设置价格和规格
         List<Spec> specs = good.getSpec();
         List<Product> products = new ArrayList<>();
         if (specs.size() > 0) {

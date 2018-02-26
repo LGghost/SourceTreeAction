@@ -1,23 +1,16 @@
 package cn.order.ordereasy.view.activity;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.InputType;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.WindowManager;
-import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
@@ -32,6 +25,7 @@ import butterknife.InjectView;
 import butterknife.OnClick;
 import cn.order.ordereasy.R;
 import cn.order.ordereasy.adapter.StockListAdapter;
+import cn.order.ordereasy.bean.Customer;
 import cn.order.ordereasy.bean.Goods;
 import cn.order.ordereasy.bean.Product;
 import cn.order.ordereasy.bean.TopicLabelObject;
@@ -42,7 +36,6 @@ import cn.order.ordereasy.utils.DataStorageUtils;
 import cn.order.ordereasy.utils.GsonUtils;
 import cn.order.ordereasy.utils.ProgressUtil;
 import cn.order.ordereasy.utils.ScreenUtil;
-import cn.order.ordereasy.utils.SystemfieldUtils;
 import cn.order.ordereasy.utils.ToastUtil;
 import cn.order.ordereasy.view.OrderEasyView;
 import cn.order.ordereasy.widget.DownListView;
@@ -58,6 +51,7 @@ public class StockManageActivity extends BaseActivity implements OrderEasyView, 
     private int state = 1;
     private int array = -1;
     private PopupWindow mPopupWindow;
+    private Goods good;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +59,10 @@ public class StockManageActivity extends BaseActivity implements OrderEasyView, 
         setContentView(R.layout.stock_manage_layout);
         setColor(this, this.getResources().getColor(R.color.lanse));
         ButterKnife.inject(this);
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            good = (Goods) bundle.getSerializable("data");
+        }
         initData();
     }
 
@@ -327,6 +325,17 @@ public class StockManageActivity extends BaseActivity implements OrderEasyView, 
             no_data_view.setVisibility(View.GONE);
         } else {
             no_data_view.setVisibility(View.VISIBLE);
+        }
+        if(good != null){
+            List<Goods> goodData = stockListAdapter.getGoods();
+            for (int i = 0; i < goodData.size(); i++) {
+                if (goodData.get(i).getGoods_no().equals(good.getGoods_no())) {
+                    list_view.expandGroup(i);
+                    list_view.setSelectedGroup(i);
+                } else {
+                    list_view.collapseGroup(i);
+                }
+            }
         }
     }
 

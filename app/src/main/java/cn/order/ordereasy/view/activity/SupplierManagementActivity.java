@@ -1,12 +1,10 @@
 package cn.order.ordereasy.view.activity;
 
-import android.Manifest;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.provider.ContactsContract;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -15,12 +13,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AbsListView;
-import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -32,20 +32,24 @@ import butterknife.InjectView;
 import butterknife.OnClick;
 import cn.order.ordereasy.R;
 import cn.order.ordereasy.adapter.SupplierAdapter;
-import cn.order.ordereasy.adapter.billingPurchaseAdapter;
-import cn.order.ordereasy.bean.Customer;
 import cn.order.ordereasy.bean.SupplierBean;
 import cn.order.ordereasy.bean.SupplierIndex;
+import cn.order.ordereasy.presenter.OrderEasyPresenter;
+import cn.order.ordereasy.presenter.OrderEasyPresenterImp;
+import cn.order.ordereasy.utils.GsonUtils;
+import cn.order.ordereasy.utils.ProgressUtil;
 import cn.order.ordereasy.utils.ScreenUtil;
+import cn.order.ordereasy.utils.ToastUtil;
+import cn.order.ordereasy.view.OrderEasyView;
 import cn.order.ordereasy.widget.CharacterParser;
 import cn.order.ordereasy.widget.IndexView;
 import cn.order.ordereasy.widget.PinnedSectionListView;
-import cn.order.ordereasy.widget.PinyinComparator;
 
-public class SupplierManagementActivity extends BaseActivity implements AbsListView.OnScrollListener, IndexView.Delegate, SwipeRefreshLayout.OnRefreshListener, SupplierAdapter.OnItemClickListener {
+public class SupplierManagementActivity extends BaseActivity implements AbsListView.OnScrollListener, IndexView.Delegate, SwipeRefreshLayout.OnRefreshListener, SupplierAdapter.OnItemClickListener, OrderEasyView {
     private SupplierAdapter adapter;
     private List<SupplierIndex> phoneBookIndexs = new ArrayList<>();
     private String type = "supplier";
+    private OrderEasyPresenter orderEasyPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,13 +59,12 @@ public class SupplierManagementActivity extends BaseActivity implements AbsListV
         ButterKnife.inject(this);
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
-            type = bundle.getString("type");
+            type = bundle.getString("type");//区分开单的时候选择供应商
         }
 
         getList();
         adapter = new SupplierAdapter(this, type);
         supplier_listview.setAdapter(adapter);
-        adapter.addDataToList(getSortData());
         adapter.setOnItemClickListener(this);
         indexview.bringToFront();
         tv_listindexview_tip.bringToFront();
@@ -101,129 +104,8 @@ public class SupplierManagementActivity extends BaseActivity implements AbsListV
 
 
     public void getList() {
-        SupplierIndex phoneBookIndex = new SupplierIndex();
-        SupplierBean phoneBook = new SupplierBean();
-        phoneBook.setOrder_id(1);
-        phoneBook.setName("北京xxx供应商");
-        phoneBook.setUser("张三");
-        phoneBook.setArrears(125.00);
-        phoneBook.setAddress("湖南省长沙市岳麓区罗马广场");
-        phoneBook.setPhone("18822222222");
-        phoneBook.setCall("0731-88888888");
-        phoneBookIndex.setSupplierBean(phoneBook);
-
-        SupplierIndex phoneBookIndex1 = new SupplierIndex();
-        SupplierBean phoneBook1 = new SupplierBean();
-        phoneBook1.setOrder_id(2);
-        phoneBook1.setName("成都xxx供应商");
-        phoneBook1.setUser("王五");
-        phoneBook1.setArrears(10.00);
-        phoneBook1.setAddress("湖南省长沙市岳麓区罗马广场");
-        phoneBook1.setPhone("18822222222");
-        phoneBook1.setCall("0731-88888888");
-        phoneBookIndex1.setSupplierBean(phoneBook1);
-
-
-        SupplierIndex phoneBookIndex2 = new SupplierIndex();
-        SupplierBean phoneBook2 = new SupplierBean();
-        phoneBook2.setOrder_id(3);
-        phoneBook2.setName("零散xxx供应商");
-        phoneBook2.setUser("无");
-        phoneBook2.setArrears(1.00);
-        phoneBook2.setAddress("湖南省长沙市岳麓区罗马广场");
-        phoneBook2.setPhone("18822222222");
-        phoneBook2.setCall("0731-88888888");
-        phoneBookIndex2.setSupplierBean(phoneBook2);
-
-        SupplierIndex phoneBookIndex3 = new SupplierIndex();
-        SupplierBean phoneBook3 = new SupplierBean();
-        phoneBook3.setOrder_id(4);
-        phoneBook3.setName("上海xxx供应商");
-        phoneBook3.setUser("李四");
-        phoneBook3.setArrears(120.00);
-        phoneBook3.setAddress("湖南省长沙市岳麓区罗马广场");
-        phoneBook3.setPhone("18822222222");
-        phoneBook3.setCall("0731-88888888");
-        phoneBookIndex3.setSupplierBean(phoneBook3);
-
-        SupplierIndex phoneBookIndex4 = new SupplierIndex();
-        SupplierBean phoneBook4 = new SupplierBean();
-        phoneBook4.setOrder_id(5);
-        phoneBook4.setName("深圳xxx供应商");
-        phoneBook4.setUser("刘德华");
-        phoneBook4.setArrears(520.00);
-        phoneBook4.setAddress("湖南省长沙市岳麓区罗马广场");
-        phoneBook4.setPhone("18822222222");
-        phoneBook4.setCall("0731-88888888");
-        phoneBookIndex4.setSupplierBean(phoneBook4);
-
-        SupplierIndex phoneBookIndex5 = new SupplierIndex();
-        SupplierBean phoneBook5 = new SupplierBean();
-        phoneBook5.setOrder_id(6);
-        phoneBook5.setName("长沙xxx供应商");
-        phoneBook5.setUser("赵六");
-        phoneBook5.setArrears(105.00);
-        phoneBook5.setAddress("湖南省长沙市岳麓区罗马广场");
-        phoneBook5.setPhone("18822222222");
-        phoneBook5.setCall("0731-88888888");
-        phoneBookIndex5.setSupplierBean(phoneBook5);
-
-        SupplierIndex phoneBookIndex6 = new SupplierIndex();
-        SupplierBean phoneBook6 = new SupplierBean();
-        phoneBook6.setOrder_id(7);
-        phoneBook6.setName("武汉xxx供应商");
-        phoneBook6.setUser("钱四");
-        phoneBook6.setArrears(55.00);
-        phoneBook6.setAddress("湖南省长沙市岳麓区罗马广场");
-        phoneBook6.setPhone("18822222222");
-        phoneBook6.setCall("0731-88888888");
-        phoneBookIndex6.setSupplierBean(phoneBook6);
-
-        SupplierIndex phoneBookIndex7 = new SupplierIndex();
-        SupplierBean phoneBook7 = new SupplierBean();
-        phoneBook7.setOrder_id(8);
-        phoneBook7.setName("南京xxx供应商");
-        phoneBook7.setUser("小四");
-        phoneBook7.setArrears(111.00);
-        phoneBook7.setAddress("湖南省长沙市岳麓区罗马广场");
-        phoneBook7.setPhone("18822222222");
-        phoneBook7.setCall("0731-88888888");
-        phoneBookIndex7.setSupplierBean(phoneBook7);
-
-        SupplierIndex phoneBookIndex8 = new SupplierIndex();
-        SupplierBean phoneBook8 = new SupplierBean();
-        phoneBook8.setOrder_id(9);
-        phoneBook8.setName("贵阳xxx供应商");
-        phoneBook8.setUser("小吴");
-        phoneBook8.setArrears(125.00);
-        phoneBook8.setAddress("湖南省长沙市岳麓区罗马广场");
-        phoneBook8.setPhone("18822222222");
-        phoneBook8.setCall("0731-88888888");
-        phoneBookIndex8.setSupplierBean(phoneBook8);
-
-        SupplierIndex phoneBookIndex9 = new SupplierIndex();
-        SupplierBean phoneBook9 = new SupplierBean();
-        phoneBook9.setOrder_id(10);
-        phoneBook9.setName("云南xxx供应商");
-        phoneBook9.setUser("寻弋");
-        phoneBook9.setArrears(120.00);
-        phoneBook9.setAddress("湖南省长沙市岳麓区罗马广场");
-        phoneBook9.setPhone("18822222222");
-        phoneBook9.setCall("0731-88888888");
-        phoneBookIndex9.setSupplierBean(phoneBook9);
-
-        phoneBookIndexs.add(phoneBookIndex);
-        phoneBookIndexs.add(phoneBookIndex1);
-        phoneBookIndexs.add(phoneBookIndex2);
-        phoneBookIndexs.add(phoneBookIndex3);
-        phoneBookIndexs.add(phoneBookIndex4);
-        phoneBookIndexs.add(phoneBookIndex5);
-        phoneBookIndexs.add(phoneBookIndex6);
-        phoneBookIndexs.add(phoneBookIndex7);
-        phoneBookIndexs.add(phoneBookIndex8);
-        phoneBookIndexs.add(phoneBookIndex9);
-        supplier_num.setText("(" + phoneBookIndexs.size() + ")");
-
+        orderEasyPresenter = new OrderEasyPresenterImp(this);//网络请求
+        refreshData(true);
     }
 
 
@@ -269,6 +151,56 @@ public class SupplierManagementActivity extends BaseActivity implements AbsListV
         return phoneBookIndexs1;
     }
 
+    @Override
+    public void showProgress(int type) {
+    }
+
+    @Override
+    public void hideProgress(int type) {
+        if (type != 1) {
+            ToastUtil.show("网络连接失败");
+        }
+        store_refresh.setRefreshing(false);
+        ProgressUtil.dissDialog();
+    }
+
+    @Override
+    public void loadData(JsonObject data, int type) {
+        Log.e("SupplierManagement", "data:" + data.toString());
+        if (data != null) {
+            int status = data.get("code").getAsInt();
+            if (status == 1) {
+                //成功
+                phoneBookIndexs.clear();
+                JsonArray jsonArray = data.getAsJsonObject("result").getAsJsonArray("list");
+                if (jsonArray.size() > 0) {
+                    supplier_num.setText("(" + jsonArray.size() + ")");
+                }
+                for (int i = 0; i < jsonArray.size(); i++) {
+                    SupplierBean supplierBean = (SupplierBean) GsonUtils.getEntity(jsonArray.get(i).toString(), SupplierBean.class);
+                    SupplierIndex phoneBookIndex = new SupplierIndex();
+                    phoneBookIndex.setSupplierBean(supplierBean);
+                    phoneBookIndexs.add(phoneBookIndex);
+                }
+                adapter.setData(getSortData());
+                adapter.notifyDataSetChanged();
+                if (adapter.getData().size() > 0) {
+                    no_data_view.setVisibility(View.GONE);
+                } else {
+                    no_data_view.setVisibility(View.VISIBLE);
+                }
+            }
+        }
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == 1001 || resultCode == 1002) {
+            refreshData(false);
+        }
+    }
 
     class PinyinComparator implements Comparator<SupplierIndex> {
 
@@ -369,17 +301,16 @@ public class SupplierManagementActivity extends BaseActivity implements AbsListV
             @Override
             public void onClick(View v) {//新增供应商
                 Intent intent = new Intent(SupplierManagementActivity.this, AddSuppliersActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, 1001);
                 popupWindow.dismiss();
             }
         });
         supplier_import.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {//通讯录导入
-                String[] perms = {Manifest.permission.READ_CONTACTS, Manifest.permission.READ_PHONE_STATE};
-                Intent intent = new Intent(Intent.ACTION_PICK,
-                        ContactsContract.Contacts.CONTENT_URI);
-                startActivityForResult(intent, 0);
+                Intent intent = new Intent(SupplierManagementActivity.this, TelListActivity.class);
+                intent.putExtra("flag", "Supplier");
+                startActivityForResult(intent, 1002);
                 popupWindow.dismiss();
             }
         });
@@ -388,12 +319,14 @@ public class SupplierManagementActivity extends BaseActivity implements AbsListV
 
     @Override
     public void onRefresh() {
-        store_refresh.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                store_refresh.setRefreshing(false);
-            }
-        }, 1000);
+        refreshData(false);
+    }
+
+    public void refreshData(boolean isShow) {
+        if (isShow) {
+            ProgressUtil.showDialog(this);
+        }
+        orderEasyPresenter.supplierIndex();
     }
 
     @Override
@@ -402,5 +335,12 @@ public class SupplierManagementActivity extends BaseActivity implements AbsListV
         intent.putExtra("data", phoneBook);
         setResult(1006, intent);
         finish();
+    }
+
+    @Override
+    public void startActivity(SupplierBean phoneBook) {
+        Intent intent = new Intent(this, SupplierDetailsActivity.class);
+        intent.putExtra("data", phoneBook);
+        startActivityForResult(intent, 1001);
     }
 }

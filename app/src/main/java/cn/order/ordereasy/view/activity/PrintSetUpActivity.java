@@ -33,16 +33,16 @@ public class PrintSetUpActivity extends BaseActivity {
     }
 
     @OnClick(R.id.a4_layout)
-    void a4_layout() {
-        if (SystemfieldUtils.isAppInstalled(this)) {
-            new CreatePdfTask(0).execute();
+    void a4_layout() {//A4纸模板
+        if (SystemfieldUtils.isAppInstalled(this)) {//判断是否安装了打印软件
+            new CreatePdfTask(0).execute();//异步生成pdf文件
         } else {
             ToastUtil.show("请先安装PrintShare打印工具");
         }
     }
 
     @OnClick(R.id.zhenshi_layout)
-    void zhenshi_layout() {
+    void zhenshi_layout() {//针式纸模板
         if (SystemfieldUtils.isAppInstalled(this)) {
             new CreatePdfTask(1).execute();
         } else {
@@ -76,7 +76,7 @@ public class PrintSetUpActivity extends BaseActivity {
         @Override
         protected void onPostExecute(String file) {
             ProgressUtil.dissDialog();
-            PdfManager.print(PrintSetUpActivity.this, file);
+            PdfManager.print(PrintSetUpActivity.this, file);//跳转到PrintShare打印界面中进行打印
         }
     }
 }

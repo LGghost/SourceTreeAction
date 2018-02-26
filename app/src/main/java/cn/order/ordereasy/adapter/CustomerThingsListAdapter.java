@@ -3,6 +3,7 @@ package cn.order.ordereasy.adapter;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -94,7 +95,7 @@ public class CustomerThingsListAdapter extends BGAAdapterViewAdapter<Fahuo> {
                 break;
         }
         fahuo.setText(type);
-        if (model.getOperate_type() == 6) {
+        if (model.getOperate_type() == 3 || model.getOperate_type() == 6) {
             if (model.getIn_number() == 0) {
                 viewHolderHelper.setText(R.id.goods_num, "-" + model.getOut_number());
             } else if (model.getOut_number() == 0) {

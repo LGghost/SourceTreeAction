@@ -78,6 +78,47 @@
 
         </LinearLayout>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/fengexian_color" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:orientation="horizontal"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="10dp"
+                android:text="状态"
+                android:textColor="@color/heise"
+                android:textSize="16sp" />
+
+
+            <TextView
+                android:id="@+id/caozuo_state"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="10dp"
+                android:gravity="right"
+                android:text=""
+                android:textColor="@color/touzi_huise"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/fengexian_color" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -109,6 +150,10 @@
 
         </LinearLayout>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/fengexian_color" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -174,6 +219,10 @@
 
         </LinearLayout>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/fengexian_color" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -211,9 +260,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
                     android:layout_alignParentRight="true"
-                    android:gravity="center_vertical"
                     android:layout_marginRight="10dp"
                     android:background="@drawable/yuanjiao_but_hongse"
+                    android:gravity="center_vertical"
                     android:paddingLeft="8dp"
                     android:paddingRight="8dp"
                     android:text="查看物流"
@@ -223,6 +272,10 @@
             </RelativeLayout>
         </LinearLayout>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/fengexian_color" />
 
         <LinearLayout
             android:layout_width="match_parent"

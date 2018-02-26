@@ -10,6 +10,7 @@ import cn.order.ordereasy.bean.Delivery;
 import cn.order.ordereasy.bean.Goods;
 import cn.order.ordereasy.bean.Order;
 import cn.order.ordereasy.bean.Redelivery;
+import cn.order.ordereasy.bean.SupplierBean;
 import cn.order.ordereasy.service.OrderEasyApiService;
 import cn.order.ordereasy.utils.Md5Utils;
 import rx.Observable;
@@ -41,7 +42,7 @@ public class OrderEasyApiModelImp implements OrderEasyApiModel {
                 .subscribe(new Action1<JsonObject>() {
                     @Override
                     public void call(JsonObject data) {
-                        orderEasyOnListener.onSuccess(data, 1);
+                        orderEasyOnListener.onSuccess(data, 1);//这里写死了接口返回type,可以把接口加个字段动态设置下面的接口都一样
                     }
                 }, new Action1<Throwable>() {
                     @Override
@@ -1944,6 +1945,101 @@ public class OrderEasyApiModelImp implements OrderEasyApiModel {
                     @Override
                     public void call(JsonObject data) {
                         orderEasyOnListener.onSuccess(data, 2);
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        orderEasyOnListener.onFailure(throwable);
+                    }
+                });
+        return sub;
+    }
+
+    @Override
+    public Subscription supplierIndex() {
+        Observable<JsonObject> request = OrderEasyApiService.supplierIndex();
+        Subscription sub = request.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<JsonObject>() {
+                    @Override
+                    public void call(JsonObject data) {
+                        orderEasyOnListener.onSuccess(data, 0);
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        orderEasyOnListener.onFailure(throwable);
+                    }
+                });
+        return sub;
+    }
+
+    @Override
+    public Subscription supplierAdd(SupplierBean supplierBean) {
+        Observable<JsonObject> request = OrderEasyApiService.supplierAdd(supplierBean);
+        Subscription sub = request.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<JsonObject>() {
+                    @Override
+                    public void call(JsonObject data) {
+                        orderEasyOnListener.onSuccess(data, 0);
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        orderEasyOnListener.onFailure(throwable);
+                    }
+                });
+        return sub;
+    }
+
+    @Override
+    public Subscription supplierEdit(SupplierBean supplierBean) {
+        Observable<JsonObject> request = OrderEasyApiService.supplierEdit(supplierBean);
+        Subscription sub = request.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<JsonObject>() {
+                    @Override
+                    public void call(JsonObject data) {
+                        orderEasyOnListener.onSuccess(data, 1);
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        orderEasyOnListener.onFailure(throwable);
+                    }
+                });
+        return sub;
+    }
+
+    @Override
+    public Subscription supplierImport(List<SupplierBean> supplierList) {
+        Observable<JsonObject> request = OrderEasyApiService.supplierImport(supplierList);
+        Subscription sub = request.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<JsonObject>() {
+                    @Override
+                    public void call(JsonObject data) {
+                        orderEasyOnListener.onSuccess(data, 0);
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        orderEasyOnListener.onFailure(throwable);
+                    }
+                });
+        return sub;
+    }
+
+    @Override
+    public Subscription supplierInfo(int supplier_id) {
+        Observable<JsonObject> request = OrderEasyApiService.supplierInfo(supplier_id);
+        Subscription sub = request.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<JsonObject>() {
+                    @Override
+                    public void call(JsonObject data) {
+                        orderEasyOnListener.onSuccess(data, 0);
                     }
                 }, new Action1<Throwable>() {
                     @Override

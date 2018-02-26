@@ -135,6 +135,12 @@ public class OrderNoConfirmActivity extends BaseActivity implements OrderEasyVie
         }
         DecimalFormat df = new DecimalFormat("0.00");
         yingfu_money.setText("" + df.format(price));
+
+        if (order.getIs_wechat() == 1) {
+            if (order.getOrder_status() == 1) {
+                queren_tijiao.setText("确认修改");
+            }
+        }
     }
 
     //找到控件ID
@@ -207,9 +213,9 @@ public class OrderNoConfirmActivity extends BaseActivity implements OrderEasyVie
         order.setOperate_num(num);
         if (flag.equals("tuiqianhuo")) {
             order.setOrder_type(3);
-        } else if(flag.equals("tuihuo")){
+        } else if (flag.equals("tuihuo")) {
             order.setOrder_type(2);
-        }else{
+        } else {
             order.setOrder_type(1);
         }
         order.setSubtotal(price);
@@ -385,7 +391,7 @@ public class OrderNoConfirmActivity extends BaseActivity implements OrderEasyVie
                             bundle.putSerializable("order", order);
                             intent.putExtras(bundle);
                             startActivity(intent);
-                            if(flag.equals("tuihuo")){
+                            if (flag.equals("tuihuo")) {
                                 DataStorageUtils.getInstance().setBilling(true);
                                 setResult(1003);
                             }

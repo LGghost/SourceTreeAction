@@ -3,9 +3,12 @@ package cn.order.ordereasy.view.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import java.text.DecimalFormat;
@@ -21,6 +24,7 @@ import cn.order.ordereasy.bean.DiscountCustomer;
 import cn.order.ordereasy.presenter.OrderEasyPresenter;
 import cn.order.ordereasy.presenter.OrderEasyPresenterImp;
 import cn.order.ordereasy.utils.DataStorageUtils;
+import cn.order.ordereasy.utils.GsonUtils;
 import cn.order.ordereasy.utils.ProgressUtil;
 import cn.order.ordereasy.utils.ToastUtil;
 import cn.order.ordereasy.view.OrderEasyView;
@@ -152,10 +156,12 @@ public class AddCustomerSortActivity extends BaseActivity implements OrderEasyVi
     @Override
     public void loadData(JsonObject data, int type) {
         ProgressUtil.dissDialog();
+        DataStorageUtils.getInstance().setAddCustomer(true);
         if (type == 0) {
             int status = data.get("code").getAsInt();
             if (status == 1) {
                 DataStorageUtils.getInstance().cleanSelectCustomer();
+
                 ToastUtil.show("添加成功");
                 setResult(1001);
                 finish();

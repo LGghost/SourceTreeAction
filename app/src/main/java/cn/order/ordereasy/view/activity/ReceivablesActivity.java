@@ -8,6 +8,7 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -32,6 +33,7 @@ import cn.order.ordereasy.bean.Money;
 import cn.order.ordereasy.bean.Order;
 import cn.order.ordereasy.presenter.OrderEasyPresenter;
 import cn.order.ordereasy.presenter.OrderEasyPresenterImp;
+import cn.order.ordereasy.utils.DataStorageUtils;
 import cn.order.ordereasy.utils.GsonUtils;
 import cn.order.ordereasy.utils.ProgressUtil;
 import cn.order.ordereasy.utils.ToastUtil;
@@ -70,9 +72,31 @@ public class ReceivablesActivity extends BaseActivity implements OrderEasyView, 
             customer = (Customer) bundle.getSerializable("data");
             kehu_name.setText(customer.getName());
             flag = bundle.getString("flag");
-            zong_qiankuan.setText(String.valueOf(customer.getReceivable()));
+            zong_qiankuan.setText(getAllReceivable(customer.getCustomer_id()));
+        }
+        Log.e("JJF", "flag:" + flag);
+        if (flag.equals("tuihuo") || flag.equals("tuiqianhuo")) {
+            cashier_state_layout.setVisibility(View.VISIBLE);
+            cashier_state.setText("本次应退金额：");
+            state_number.setText("¥" + String.valueOf(customer.getReceivable()));
+        } else if (flag.equals("order")) {
+            cashier_state_layout.setVisibility(View.VISIBLE);
+            cashier_state.setText("本次应付金额：");
+            cashier_state.setTextColor(getResources().getColor(R.color.shouye_hongse));
+            state_number.setText("¥" + String.valueOf(customer.getReceivable()));
+            tuikuan.setVisibility(View.GONE);
         }
 
+    }
+
+    private String getAllReceivable(int customer_id) {
+        List<Customer> list = DataStorageUtils.getInstance().getCustomerLists();
+        for (Customer customer1 : list) {
+            if (customer_id == customer1.getCustomer_id()) {
+                return String.valueOf(customer1.getReceivable());
+            }
+        }
+        return "";
     }
 
     //找到控件ID
@@ -121,6 +145,12 @@ public class ReceivablesActivity extends BaseActivity implements OrderEasyView, 
     @InjectView(R.id.ed_qita)
     EditText ed_qita;
 
+    @InjectView(R.id.cashier_state_layout)
+    LinearLayout cashier_state_layout;
+    @InjectView(R.id.cashier_state)
+    TextView cashier_state;
+    @InjectView(R.id.state_number)
+    TextView state_number;
 
     //需要的点击事件
     //返回按钮
@@ -153,6 +183,12 @@ public class ReceivablesActivity extends BaseActivity implements OrderEasyView, 
 
     @OnClick(R.id.queren)
     void save() {
+        if (flag.equals("tuihuo")) {
+            if (type == 1) {
+                ToastUtil.show("改单和退货只允许退款操作");
+                return;
+            }
+        }
         if (type == 1) {
             orderEasyPresenter.addOrderPay(customer.getCustomer_id(), 1, cash, wechat, alipay, card, other);
         } else if (type == 2) {
@@ -232,7 +268,7 @@ public class ReceivablesActivity extends BaseActivity implements OrderEasyView, 
                             } else {
                                 showToast("退款成功");
                             }
-                            if (flag != null && flag.equals("order")) {
+                            if (flag != null && flag.equals("order1")) {
                                 setResult(1004);
                             } else {
                                 setResult(1001);

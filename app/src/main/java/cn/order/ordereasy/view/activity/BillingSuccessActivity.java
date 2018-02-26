@@ -135,6 +135,7 @@ public class BillingSuccessActivity extends BaseActivity {
         customer.setName(customer.getCustomer_name());
         customer.setReceivable(customer.getTrade_money());
         bundle.putSerializable("data", customer);
+        intent.putExtra("flag", flag);
         intent.putExtras(bundle);
         startActivity(intent);
     }

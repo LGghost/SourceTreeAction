@@ -1,5 +1,6 @@
 package cn.order.ordereasy.adapter;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.util.Log;
 import android.view.View;
@@ -35,6 +36,7 @@ public class StockAdapter extends BGAAdapterViewAdapter<Goods> {
     private int index = 0;
     private StockChildAdapter adapter;
     private CheckChildAdapter checkAdapter;
+    private AlertDialog alertDialog;
 
     public StockAdapter(Context context, int sign) {
         super(context, R.layout.ruku_item_one);
@@ -121,8 +123,7 @@ public class StockAdapter extends BGAAdapterViewAdapter<Goods> {
         shanchu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                removeItem(position);
-                Totalnumber();
+                showdialogs(position);
             }
         });
         lay_onclick.setOnClickListener(new View.OnClickListener() {
@@ -214,5 +215,35 @@ public class StockAdapter extends BGAAdapterViewAdapter<Goods> {
      */
     public void setOnItemClickListener(MyItemClickListener listener) {
         this.mItemClickListener = listener;
+    }
+
+    private void showdialogs(final int position) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        View view = View.inflate(context, R.layout.tanchuang_view_textview, null);
+        //标题
+        final TextView title_name = (TextView) view.findViewById(R.id.title_name);
+        final TextView text_conten = (TextView) view.findViewById(R.id.text_conten);
+        final TextView quxiao = (TextView) view.findViewById(R.id.quxiao);
+        final TextView queren = (TextView) view.findViewById(R.id.queren);
+        builder.setView(view);
+        alertDialog = builder.create();
+        title_name.setVisibility(View.GONE);
+        text_conten.setText("确认要删除货品吗？");
+        quxiao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
+        //按钮2确认点击事件
+        queren.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                removeItem(position);
+                Totalnumber();
+                alertDialog.dismiss();
+            }
+        });
+        alertDialog.show();
     }
 }

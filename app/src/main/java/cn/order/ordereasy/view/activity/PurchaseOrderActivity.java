@@ -556,10 +556,10 @@ public class PurchaseOrderActivity extends BaseActivity implements OrderEasyView
         Bundle bundle = new Bundle();
         SupplierBean bean = new SupplierBean();
         bean.setName(order1.getCustomer_name());
-        bean.setUser("员工1");
-        bean.setPhone("18248251541");
-        bean.setCall("0736_456845");
-        bean.setArrears(order1.getPayable());
+        bean.setContact("员工1");
+        bean.setMobile("18248251541");
+        bean.setTel("0736_456845");
+        bean.setDebt(order1.getPayable());
         ArrearsBean arrearsBean = new ArrearsBean();
         arrearsBean.setCreate_time("1516867571");
         arrearsBean.setCustomer_id(1);

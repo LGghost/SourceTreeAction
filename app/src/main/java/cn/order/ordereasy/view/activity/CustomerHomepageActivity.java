@@ -176,44 +176,7 @@ public class CustomerHomepageActivity extends BaseActivity implements OrderEasyV
         } else {
             orderEasyPresenter.getRecordList(customer_id, "1");
         }
-        if (DataStorageUtils.getInstance().getChMoneyLists().size() > 0) {
-            moneys = DataStorageUtils.getInstance().getChMoneyLists();
-            moneyPageTotal = DataStorageUtils.getInstance().getMoneyPageTotal();
-            customerMoneyListAdapter.setData(moneys);
-            customerMoneyListAdapter.notifyDataSetChanged();
-            if (dataType == 1) {
-                if (customerMoneyListAdapter.getData().size() > 0) {
-                    no_data_image.setVisibility(View.GONE);
-                } else {
-                    no_data_image.setVisibility(View.VISIBLE);
-                }
-            }
-        } else {
-            orderEasyPresenter.getOrderRecordLlist(customer_id, "1");
 
-        }
-        if (DataStorageUtils.getInstance().getChFahuoLists().size() > 0) {
-            fahuos = DataStorageUtils.getInstance().getChFahuoLists();
-            fahuoPageTotal = DataStorageUtils.getInstance().getFahuoPageTotal();
-            customerThingsListAdapter.setData(fahuos);
-            customerThingsListAdapter.notifyDataSetChanged();
-
-            if (dataType == 2) {
-                if (customerThingsListAdapter.getData().size() > 0) {
-                    no_data_image.setVisibility(View.GONE);
-                } else {
-                    no_data_image.setVisibility(View.VISIBLE);
-                }
-            }
-        } else {
-            if (is_boss == 1) {
-                orderEasyPresenter.getOperationRecordList(customer_id, "1");
-            } else {
-                if (!isSalesperson()) {
-                    orderEasyPresenter.getOperationRecordList(customer_id, "1");
-                }
-            }
-        }
         Log.e("CustomerHomepage", "isBilling():" + DataStorageUtils.getInstance().isBilling());
         if (DataStorageUtils.getInstance().isBilling()) {
             if (isChange) {
@@ -420,8 +383,6 @@ public class CustomerHomepageActivity extends BaseActivity implements OrderEasyV
         bbtn3.setBackgroundColor(getResources().getColor(R.color.white));
         customerOrderListAdapter.setData(orders);
         khzy_lsitview.setAdapter(customerOrderListAdapter);
-
-
     }
 
 
@@ -437,8 +398,23 @@ public class CustomerHomepageActivity extends BaseActivity implements OrderEasyV
         bbtn2.setBackgroundColor(getResources().getColor(R.color.shouye_lanse));
         bbtn1.setBackgroundColor(getResources().getColor(R.color.white));
         bbtn3.setBackgroundColor(getResources().getColor(R.color.white));
-        customerMoneyListAdapter.setData(moneys);
+//        customerMoneyListAdapter.setData(moneys);
         khzy_lsitview.setAdapter(customerMoneyListAdapter);
+        if (DataStorageUtils.getInstance().getChMoneyLists().size() > 0) {
+            moneys = DataStorageUtils.getInstance().getChMoneyLists();
+            moneyPageTotal = DataStorageUtils.getInstance().getMoneyPageTotal();
+            customerMoneyListAdapter.setData(moneys);
+            customerMoneyListAdapter.notifyDataSetChanged();
+            if (dataType == 1) {
+                if (customerMoneyListAdapter.getData().size() > 0) {
+                    no_data_image.setVisibility(View.GONE);
+                } else {
+                    no_data_image.setVisibility(View.VISIBLE);
+                }
+            }
+        } else {
+            orderEasyPresenter.getOrderRecordLlist(customer_id, "1");
+        }
 //        content_view.removeAllViews();
 //        view = LayoutInflater.from(this).inflate(R.layout.the_books_view_two, null);
 //        content_view.addView(view);
@@ -456,8 +432,31 @@ public class CustomerHomepageActivity extends BaseActivity implements OrderEasyV
         bbtn3.setBackgroundColor(getResources().getColor(R.color.shouye_lanse));
         bbtn1.setBackgroundColor(getResources().getColor(R.color.white));
         bbtn2.setBackgroundColor(getResources().getColor(R.color.white));
-        customerThingsListAdapter.setData(fahuos);
+//        customerThingsListAdapter.setData(fahuos);
         khzy_lsitview.setAdapter(customerThingsListAdapter);
+        if (DataStorageUtils.getInstance().getChFahuoLists().size() > 0) {
+            fahuos = DataStorageUtils.getInstance().getChFahuoLists();
+            fahuoPageTotal = DataStorageUtils.getInstance().getFahuoPageTotal();
+            customerThingsListAdapter.setData(fahuos);
+            customerThingsListAdapter.notifyDataSetChanged();
+
+            if (dataType == 2) {
+                if (customerThingsListAdapter.getData().size() > 0) {
+                    no_data_image.setVisibility(View.GONE);
+                } else {
+                    no_data_image.setVisibility(View.VISIBLE);
+                }
+            }
+        } else {
+            orderEasyPresenter.getOperationRecordList(customer_id, "1");
+//            if (is_boss == 1) {
+//                orderEasyPresenter.getOperationRecordList(customer_id, "1");
+//            } else {
+//                if (!isSalesperson()) {
+//                    orderEasyPresenter.getOperationRecordList(customer_id, "1");
+//                }
+//            }
+        }
     }
 
     /***
@@ -473,6 +472,7 @@ public class CustomerHomepageActivity extends BaseActivity implements OrderEasyV
         Intent intent = new Intent(CustomerHomepageActivity.this, ReceivablesActivity.class);
         Bundle bundle = new Bundle();
         bundle.putSerializable("data", customer);
+        intent.putExtra("flag", "order1");
         intent.putExtras(bundle);
         startActivityForResult(intent, 1001);
     }
@@ -798,7 +798,13 @@ public class CustomerHomepageActivity extends BaseActivity implements OrderEasyV
         } else if (dataType == 1) {
             orderEasyPresenter.getOrderRecordLlist(customer.getCustomer_id(), "1");
         } else if (dataType == 2) {
-            orderEasyPresenter.getOperationRecordList(customer.getCustomer_id(), "1");
+            if (is_boss == 1) {
+                orderEasyPresenter.getOperationRecordList(customer_id, "1");
+            } else {
+                if (!isSalesperson()) {
+                    orderEasyPresenter.getOperationRecordList(customer_id, "1");
+                }
+            }
         }
     }
 

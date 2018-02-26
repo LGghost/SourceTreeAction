@@ -63,7 +63,7 @@ public class ProcurementDetailsActivity extends BaseActivity implements SwipeRef
         store_refresh.setOnRefreshListener(this);
         order_num.setText(bean.getDelete_time());
         order_name.setText(bean.getCustomer_name());
-        money_number.setText(bean1.getArrears() + "");
+        money_number.setText(bean1.getDebt() + "");
         kaidanren_name.setText(bean.getUser_name());
         data_time.setText(bean.getCreate_time());
         if (bean.getType() == 2) {

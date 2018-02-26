@@ -54,9 +54,9 @@ public class DetailsGoodsActivity extends FragmentActivity implements OrderEasyV
     private boolean isEdit = false;
     private PopWinShare popwindows;
     private FragmentManager manager;
-    private FragmentStcokSales stcoksalesFragment;
-    private FragmentPreview previewFragment;
-    private FragmentTransaction transaction;
+    private FragmentStcokSales stcoksalesFragment;//库存销量界面
+    private FragmentPreview previewFragment;//货品预览界面
+    private FragmentTransaction transaction;//Tragment管理类
     private Fragment mCurrentFragment = null; // 记录当前显示的Fragment
     private OrderEasyPresenter orderEasyPresenter;
     private int goodId = 0;
@@ -71,11 +71,11 @@ public class DetailsGoodsActivity extends FragmentActivity implements OrderEasyV
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.details_goods_layout);
-        setColor(this, this.getResources().getColor(R.color.lanse));
-        ButterKnife.inject(this);
+        setColor(this, this.getResources().getColor(R.color.lanse));//状态栏改变颜色
+        ButterKnife.inject(this);//ButterKnife是控件注入框架
         Bundle bundle = getIntent().getExtras();
         isSales = bundle.getBoolean("isSales");
-        if (isSales) {
+        if (isSales) {//判断是否是账本中欠数跳过来的
             more.setVisibility(View.VISIBLE);
             bottom_layout.setVisibility(View.VISIBLE);
         } else {
@@ -90,7 +90,7 @@ public class DetailsGoodsActivity extends FragmentActivity implements OrderEasyV
 
     private void initData() {
         orderEasyPresenter = new OrderEasyPresenterImp(this);
-        refreshData(true);
+        refreshData(true);//网络请求
         stcoksalesFragment = new FragmentStcokSales();
         previewFragment = new FragmentPreview();
         manager = getSupportFragmentManager();
@@ -110,7 +110,7 @@ public class DetailsGoodsActivity extends FragmentActivity implements OrderEasyV
         orderEasyPresenter.getOweGoodsList(goodId);
     }
 
-    private FragmentTransaction switchFragment(Fragment targetFragment) {
+    private FragmentTransaction switchFragment(Fragment targetFragment) {//Fragment切换
 
         FragmentTransaction transaction = getSupportFragmentManager()
                 .beginTransaction();
@@ -185,6 +185,9 @@ public class DetailsGoodsActivity extends FragmentActivity implements OrderEasyV
     @OnClick(R.id.kcgl)
     void kcgl() {
         Intent intent = new Intent(this, StockManageActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("data", goods);
+        intent.putExtras(bundle);
         startActivity(intent);
     }
 
@@ -243,7 +246,7 @@ public class DetailsGoodsActivity extends FragmentActivity implements OrderEasyV
             isEdit = true;
             if (data != null) {
                 String flag = data.getExtras().getString("flag");
-                if (flag.equals("delete")) {
+                if (flag.equals("delete")) {//编辑时删除了商品直接返回上一个界面
                     Intent intent = new Intent();
                     intent.putExtra("isEdit", isEdit);
                     setResult(1001, intent);
@@ -251,7 +254,7 @@ public class DetailsGoodsActivity extends FragmentActivity implements OrderEasyV
                     return;
                 }
             }
-            refreshData(false);
+            refreshData(false);//刷新数据
         }
     }
 
@@ -271,7 +274,7 @@ public class DetailsGoodsActivity extends FragmentActivity implements OrderEasyV
     }
 
     @Override
-    public void loadData(JsonObject data, int type) {
+    public void loadData(JsonObject data, int type) {//网络返回数据接口
         if (type == 0) {
             if (data != null) {
                 int status = data.get("code").getAsInt();

@@ -153,7 +153,7 @@ public class PurchaseRecordActivity extends BaseActivity implements AdapterView.
                 Bundle bundle = new Bundle();
                 Money money = new Money();
                 money.setCustomer_name(bean.getName());
-                money.setCustomer_id(bean.getOrder_id());
+                money.setCustomer_id(bean.getSupplier_id());
                 if (arrearsBean.getType() == 3) {
                     money.setPayment_type(1);
                 } else {
@@ -164,7 +164,7 @@ public class PurchaseRecordActivity extends BaseActivity implements AdapterView.
                 money.setUser_name(arrearsBean.getUser_name());
                 money.setPayment_way(0);
                 bundle.putSerializable("data", money);
-                bundle.putString("tel", bean.getPhone());
+                bundle.putString("tel", bean.getIs_retail());
                 intent1.putExtras(bundle);
                 startActivity(intent1);
                 break;

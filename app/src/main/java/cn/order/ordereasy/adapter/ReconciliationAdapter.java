@@ -54,7 +54,7 @@ public class ReconciliationAdapter extends BaseAdapter {
             holder = (ReconciliationViewHold) view.getTag();
         }
         holder.name.setText(my.getName());
-        holder.money.setText("¥" + my.getArrears());
+        holder.money.setText("¥" + my.getDebt());
         return view;
     }
 

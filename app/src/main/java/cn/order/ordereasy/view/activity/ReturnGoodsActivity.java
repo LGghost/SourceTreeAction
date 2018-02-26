@@ -1,5 +1,6 @@
 package cn.order.ordereasy.view.activity;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -55,6 +56,7 @@ public class ReturnGoodsActivity extends BaseActivity implements OrderEasyView {
     OrderSelectGoodsListAdapter orderSelectGoodsListAdapter;
     private OrderEasyPresenter orderEasyPresenter;
     private int tuihuoNumber;
+    private AlertDialog alertDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -99,9 +101,7 @@ public class ReturnGoodsActivity extends BaseActivity implements OrderEasyView {
             @Override
             public void onItemChildClick(ViewGroup parent, View childView, int position) {
                 if (childView.getId() == R.id.kaidan_shanchu) {
-                    orderSelectGoodsListAdapter.removeItem(position);
-                    order.setGoods_list(orderSelectGoodsListAdapter.getData());
-                    orderSelectGoodsListAdapter.notifyDataSetChanged();
+                    showdialogs(position);
                 }
             }
         });
@@ -172,7 +172,7 @@ public class ReturnGoodsActivity extends BaseActivity implements OrderEasyView {
             bundle.putInt("code", 9001);
             intent.putExtras(bundle);
             startActivityForResult(intent, 9001);
-        }else{
+        } else {
             ToastUtil.show(getString(R.string.open_permissions));
         }
     }
@@ -191,7 +191,7 @@ public class ReturnGoodsActivity extends BaseActivity implements OrderEasyView {
         bundle.putSerializable("data", order);
         //再把bundle中的数据传给intent，以传输过去
         intent.putExtras(bundle);
-        startActivityForResult(intent,1003);
+        startActivityForResult(intent, 1003);
     }
 
     @Override
@@ -286,9 +286,9 @@ public class ReturnGoodsActivity extends BaseActivity implements OrderEasyView {
             orderSelectGoodsListAdapter.notifyDataSetChanged();
             //initAdapterLister();
         }
-       if(resultCode == 1003){
-           finish();
-       }
+        if (resultCode == 1003) {
+            finish();
+        }
     }
 
     @Override
@@ -366,4 +366,36 @@ public class ReturnGoodsActivity extends BaseActivity implements OrderEasyView {
             }
         }
     };
+
+    private void showdialogs(final int position) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        View view = View.inflate(this, R.layout.tanchuang_view_textview, null);
+        //标题
+        final TextView title_name = (TextView) view.findViewById(R.id.title_name);
+        final TextView text_conten = (TextView) view.findViewById(R.id.text_conten);
+        final TextView quxiao = (TextView) view.findViewById(R.id.quxiao);
+        final TextView queren = (TextView) view.findViewById(R.id.queren);
+        builder.setView(view);
+        alertDialog = builder.create();
+        title_name.setVisibility(View.GONE);
+        text_conten.setText("确认要删除货品吗？");
+        quxiao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
+        //按钮2确认点击事件
+        queren.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                orderSelectGoodsListAdapter.removeItem(position);
+                order.setGoods_list(orderSelectGoodsListAdapter.getData());
+                orderSelectGoodsListAdapter.notifyDataSetChanged();
+                orderSelectGoodsListAdapter.changeData();
+                alertDialog.dismiss();
+            }
+        });
+        alertDialog.show();
+    }
 }

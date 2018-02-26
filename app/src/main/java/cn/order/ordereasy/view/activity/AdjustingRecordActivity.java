@@ -80,6 +80,10 @@ public class AdjustingRecordActivity extends BaseActivity implements OrderEasyVi
     TextView caozuo_type;
     @InjectView(R.id.caozuo_jilu_listview)
     ListView caozuo_jilu_listview;
+    @InjectView(R.id.jilu_name)
+    TextView jilu_name;
+    @InjectView(R.id.caozuo_state)
+    TextView caozuo_state;
 
 
     //需要的点击事件
@@ -131,25 +135,39 @@ public class AdjustingRecordActivity extends BaseActivity implements OrderEasyVi
                 case 1:
                     typeText.setText("本次总入库");
                     benci_num.setText(data.getAsJsonObject("result").get("in_number").getAsString());
+                    jilu_name.setText("入库记录");
+                    caozuo_state.setText("已入库");
                     break;
                 case 2:
                     typeText.setText("本次总出库");
                     benci_num.setText(data.getAsJsonObject("result").get("out_number").getAsString());
+                    jilu_name.setText("出库记录");
+                    caozuo_state.setText("已出库");
                     break;
                 case 3:
-                    typeText.setText("本次总调整");
-                    benci_num.setText(data.getAsJsonObject("result").get("in_number").getAsString());
-                    break;
                 case 6:
-                    benci_num.setText("+" + data.getAsJsonObject("result").get("in_number").getAsString() + "(-" + data.getAsJsonObject("result").get("out_number").getAsString() + ")");
+                    typeText.setText("本次总调整");
+                    if (data.getAsJsonObject("result").get("in_number").getAsInt() == 0) {
+                        benci_num.setText("-" + data.getAsJsonObject("result").get("out_number").getAsString());
+                    } else if (data.getAsJsonObject("result").get("out_number").getAsInt() == 0) {
+                        benci_num.setText("+" + data.getAsJsonObject("result").get("in_number").getAsString());
+                    } else {
+                        benci_num.setText("+" + data.getAsJsonObject("result").get("in_number").getAsString() + "(-" + data.getAsJsonObject("result").get("out_number").getAsString() + ")");
+                    }
+                    jilu_name.setText("调整记录");
+                    caozuo_state.setText("已调整");
                     break;
                 case 7:
                     typeText.setText("本次采购入库");
                     benci_num.setText(data.getAsJsonObject("result").get("out_number").getAsString());
+                    jilu_name.setText("入库记录");
+                    caozuo_state.setText("已入库");
                     break;
                 case 8:
                     typeText.setText("本次采购退货");
                     benci_num.setText(data.getAsJsonObject("result").get("in_number").getAsString());
+                    jilu_name.setText("采购退货记录");
+                    caozuo_state.setText("已退货");
                     break;
                 default:
                     typeText.setText("本次操作");

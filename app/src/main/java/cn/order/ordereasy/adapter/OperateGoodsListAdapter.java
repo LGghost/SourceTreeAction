@@ -55,7 +55,13 @@ public class OperateGoodsListAdapter extends BGAAdapterViewAdapter<Goods> {
             viewHolderHelper.setText(R.id.huopin_num, "本次出库数量：" + model.getNum());
             viewHolderHelper.setText(R.id.huopin_type, "出库数量");
         } else if (type == 3) {
-            viewHolderHelper.setText(R.id.huopin_num, "本次调整数量：" + model.getNum());
+            if (model.getStore_num() == 0) {
+                viewHolderHelper.setText(R.id.huopin_num, "本次调整数量：" + model.getNum());
+            } else if (model.getNum() == 0) {
+                viewHolderHelper.setText(R.id.huopin_num, "本次调整数量：" + "-" + model.getStore_num());
+            } else {
+                viewHolderHelper.setText(R.id.huopin_num, "本次调整数量：" + "+" + model.getNum() + "(-" + model.getStore_num() + ")");
+            }
             viewHolderHelper.setText(R.id.huopin_type, "调整数量");
         } else if (type == 4) {
             viewHolderHelper.setText(R.id.huopin_num, "本次发货数量：" + model.getNum());
@@ -66,6 +72,8 @@ public class OperateGoodsListAdapter extends BGAAdapterViewAdapter<Goods> {
         } else if (type == 6) {
             if (model.getStore_num() == 0) {
                 viewHolderHelper.setText(R.id.huopin_num, "本次调整数量：" + model.getNum());
+            } else if (model.getNum() == 0) {
+                viewHolderHelper.setText(R.id.huopin_num, "本次调整数量：" + "-" + model.getStore_num());
             } else {
                 viewHolderHelper.setText(R.id.huopin_num, "本次调整数量：" + "+" + model.getNum() + "(-" + model.getStore_num() + ")");
             }

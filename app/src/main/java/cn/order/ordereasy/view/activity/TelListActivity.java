@@ -38,6 +38,7 @@ import cn.order.ordereasy.R;
 import cn.order.ordereasy.adapter.TelListAdapter;
 import cn.order.ordereasy.bean.ContactInfo;
 import cn.order.ordereasy.bean.Customer;
+import cn.order.ordereasy.bean.SupplierBean;
 import cn.order.ordereasy.presenter.OrderEasyPresenter;
 import cn.order.ordereasy.presenter.OrderEasyPresenterImp;
 import cn.order.ordereasy.utils.DataStorageUtils;
@@ -67,6 +68,7 @@ public class TelListActivity extends BaseActivity implements OrderEasyView, Easy
     private TelListAdapter telListAdapter;
     private List<ContactInfo> mp = new ArrayList<>();
     OrderEasyPresenter orderEasyPresenter;
+    private String flag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +79,11 @@ public class TelListActivity extends BaseActivity implements OrderEasyView, Easy
         cr = getContentResolver();
         orderEasyPresenter = new OrderEasyPresenterImp(this);
         ButterKnife.inject(this);
+
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {//编辑供应商
+            flag = bundle.getString("flag");
+        }
         //拿到内容访问者
         //得到listView
         telListAdapter = new TelListAdapter(this);
@@ -172,7 +179,11 @@ public class TelListActivity extends BaseActivity implements OrderEasyView, Easy
             int status = data.get("code").getAsInt();
             if (status == 1) {
                 showToast("添加成功！");
-                DataStorageUtils.getInstance().setCustomer(true);
+                if (flag.equals("Customer")) {
+                    DataStorageUtils.getInstance().setCustomer(true);
+                } else {
+                    setResult(1002);
+                }
                 finish();
             }
         }
@@ -230,18 +241,39 @@ public class TelListActivity extends BaseActivity implements OrderEasyView, Easy
     @OnClick(R.id.baocun)
     void baocun() {
         List<Customer> datas = new ArrayList<>();
+        List<SupplierBean> datas1 = new ArrayList<>();
         for (ContactInfo data : mp) {
-            if (data.getIsCheck() == 1) {
-                Customer customer = new Customer();
-                customer.setName(data.getName());
-                customer.setTelephone(data.getNumber());
-                datas.add(customer);
+            if (flag.equals("Customer")) {
+                if (data.getIsCheck() == 1) {
+                    Customer customer = new Customer();
+                    customer.setName(data.getName());
+                    customer.setTelephone(data.getNumber());
+                    datas.add(customer);
+                }
+            } else {
+                if (data.getIsCheck() == 1) {
+                    SupplierBean supplierBean = new SupplierBean();
+                    supplierBean.setName(data.getName());
+                    supplierBean.setMobile(data.getNumber());
+                    datas1.add(supplierBean);
+                }
             }
         }
-        if (datas.size() < 1) {
-            showToast("请至少选择一条数据！");
-            return;
+        if (flag.equals("Customer")) {
+            if (datas.size() < 1) {
+                showToast("请至少选择一条数据！");
+                return;
+            }
+            //添加客户
+            orderEasyPresenter.importCustomers(datas);
+        } else {
+            if (datas1.size() < 1) {
+                showToast("请至少选择一条数据！");
+                return;
+            }
+            //批量添加供应商
+            orderEasyPresenter.supplierImport(datas1);
         }
-        orderEasyPresenter.importCustomers(datas);
+
     }
 }

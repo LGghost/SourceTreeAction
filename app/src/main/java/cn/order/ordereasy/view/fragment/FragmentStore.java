@@ -93,9 +93,8 @@ public class FragmentStore extends Fragment implements OrderEasyView, SwipeRefre
                              Bundle savedInstanceState) {
         if (rootView == null) {
             rootView = inflater.inflate(R.layout.fragment_store, null);
-
         }
-        ButterKnife.inject(this, rootView);
+        ButterKnife.inject(this, rootView);//ButterKnife是控件注入框架
 
         // 缓存的rootView需要判断是否已经被加过parent，
         // 如果有parent需要从parent删除，要不然会发生这个rootview已经有parent的错误。
@@ -104,8 +103,8 @@ public class FragmentStore extends Fragment implements OrderEasyView, SwipeRefre
             parent.removeView(rootView);
         }
         initRefreshLayout();
-        SharedPreferences spPreferences = getActivity().getSharedPreferences("user", 0);
-        String shopinfo = spPreferences.getString("shopinfo", "");
+        SharedPreferences spPreferences = getActivity().getSharedPreferences("user", 0);//文件存储
+        String shopinfo = spPreferences.getString("shopinfo", "");//获取店铺信息
         is_boss = spPreferences.getString("is_boss", "");
 
         if (!TextUtils.isEmpty(shopinfo)) {
@@ -119,10 +118,10 @@ public class FragmentStore extends Fragment implements OrderEasyView, SwipeRefre
             arr = user.getAsJsonArray("auth_group_ids");
         }
         //首页左上角的店铺的logo和名称
-        orderEasyPresenter.getStoreInfo();
+        orderEasyPresenter.getStoreInfo();//网络请求
         //首页今日交易额，今日开单数，当前欠款数，当前欠货数的数据显示
         if (is_boss.equals("1") || isAdministrators()) {
-            orderEasyPresenter.getStoreData();
+            orderEasyPresenter.getStoreData();//网络请求
         }
         //新手引导
         guideDialog = new GuideDialog(1, getActivity());
@@ -135,6 +134,7 @@ public class FragmentStore extends Fragment implements OrderEasyView, SwipeRefre
     SwipeRefreshLayout store_refresh;
 
     private void initRefreshLayout() {
+        //网络请求获取数据
         orderEasyPresenter = new OrderEasyPresenterImp(this);
         store_refresh.setOnRefreshListener(this);
         orderEasyPresenter.isUpdataApp();
@@ -462,7 +462,7 @@ public class FragmentStore extends Fragment implements OrderEasyView, SwipeRefre
     }
 
     @Override
-    public void loadData(JsonObject data, int type) {
+    public void loadData(JsonObject data, int type) {//网络请求数据返回接口，数据通过异步转化不需要用handler再转一次（这里我没有修改了）data返回的数据，type用来区分那个接口
         Message message = new Message();
         store_refresh.setRefreshing(false);
         switch (type) {
@@ -560,7 +560,7 @@ public class FragmentStore extends Fragment implements OrderEasyView, SwipeRefre
                         String version1 = data.getAsJsonObject("result").get("ver").getAsString();
                         info1 = data.getAsJsonObject("result").get("info").getAsString();
                         url = data.getAsJsonObject("result").get("url").getAsString();
-                        if (SystemfieldUtils.getVersion(getActivity()) < SystemfieldUtils.getVersionId(version1)) {
+                        if (SystemfieldUtils.getVersion(getActivity()) < SystemfieldUtils.getVersionId(version1)) {//是否是最新版本
                             showUpdatadialogs();
                         }
                     }
@@ -604,7 +604,7 @@ public class FragmentStore extends Fragment implements OrderEasyView, SwipeRefre
     };
 
     /**
-     * 60秒倒计时
+     * 5秒倒计时
      */
     private void Countdown() {
         new Thread() {
@@ -662,14 +662,14 @@ public class FragmentStore extends Fragment implements OrderEasyView, SwipeRefre
         queren.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new UpdataApp(getActivity(), url);
-                guideDialog.setGuide();
+                new UpdataApp(getActivity(), url);//下载新版本安装
+                guideDialog.setGuide();//初始化新手引导页
                 alertDialog.dismiss();
             }
         });
     }
 
-    private boolean isAdministrators() {
+    private boolean isAdministrators() {//判断是否是管理员
         for (int i = 0; i < arr.size(); i++) {
             if (arr.get(i).getAsInt() == 1) {
                 return true;

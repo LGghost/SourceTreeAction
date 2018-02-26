@@ -44,7 +44,7 @@ public class OrderSelectGoodsListAdapter extends BGAAdapterViewAdapter<Goods> {
 
     private MoneyClickLister lister;
     private int index = 0;
-    private int discount = 100;
+    private int discount = 100;//折扣
     private String flag = "bill";
 
     public OrderSelectGoodsListAdapter(Context context) {
@@ -89,7 +89,7 @@ public class OrderSelectGoodsListAdapter extends BGAAdapterViewAdapter<Goods> {
         mPrice.setText(FileUtils.getMathNumber(model.getPrice()));
         ImageView imageView = viewHolderHelper.getImageView(R.id.kaidan_goodimg);
         ImageLoader.getInstance().displayImage(Config.URL_HTTP + "/" + model.getCover(), imageView);
-        if (discount == 100) {
+        if (discount == 100) {//100无折扣，隐藏折扣图标
             discount_text.setVisibility(View.GONE);
         } else {
             discount_text.setVisibility(View.VISIBLE);
@@ -104,7 +104,7 @@ public class OrderSelectGoodsListAdapter extends BGAAdapterViewAdapter<Goods> {
         adapter.setDiscount(discount);
         listView.setAdapter(adapter);
         lay_1.setTag(position);
-        if (!flag.equals("details")) {
+        if (!flag.equals("details")) {//区分微信订单默认展开第一项
             if (position == index) {
                 gon_layout.setVisibility(View.VISIBLE);
                 kaidan_isshow.setText("收起");
@@ -123,12 +123,12 @@ public class OrderSelectGoodsListAdapter extends BGAAdapterViewAdapter<Goods> {
         adapter.setOnItemClickListener(new GoodsSpecsAdapter.MyItemClickListener() {
 
             @Override
-            public void onInputClick(double tPrice, int tNumber) {
+            public void onInputClick(double tPrice, int tNumber) {//统计listview中选择的数量和价格
                 model.setNum(tNumber);
                 model.setPrice(tPrice);
                 mNumber.setText(tNumber + "");
                 mPrice.setText(FileUtils.getMathNumber(tPrice));
-                changeData();
+                changeData();//传递到主界面
             }
 
         });
@@ -192,7 +192,7 @@ public class OrderSelectGoodsListAdapter extends BGAAdapterViewAdapter<Goods> {
         listView.setLayoutParams(params);
     }
 
-    public interface MoneyClickLister {
+    public interface MoneyClickLister {//统计总数量和价格
         void changeData(double price, int num);
     }
 

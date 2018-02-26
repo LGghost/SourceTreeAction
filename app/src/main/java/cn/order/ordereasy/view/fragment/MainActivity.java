@@ -53,10 +53,10 @@ import cn.order.ordereasy.view.activity.ShangHuoActivity;
 
 public class MainActivity extends FragmentActivity implements OnClickListener, FragmentStore.setFragmentPageListen {
     // 定义Fragment页面
-    private FragmentShelves fragmentThings;
-    private FragmentStore fragmentStore;
-    private FragmentOrder fragmentOrder;
-    private FragmentCust fragmentCust;
+    private FragmentShelves fragmentThings;//货架界面
+    private FragmentStore fragmentStore;//店铺界面
+    private FragmentOrder fragmentOrder;//订单界面
+    private FragmentCust fragmentCust;//客户界面
     private FragmentManager manager;
     private boolean isFrist = false;
     private Fragment mCurrentFragment = null; // 记录当前显示的Fragment
@@ -84,7 +84,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener, F
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setColor(this, this.getResources().getColor(R.color.lanse));
+        setColor(this, this.getResources().getColor(R.color.lanse));//设置状态栏背景颜色
 
         initView();
         initData();
@@ -188,7 +188,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener, F
 
         // 给按钮图片设置监听
         toggleImageView.setOnClickListener(this);
-        SharedPreferences spPreferences = getSharedPreferences("user", 0);
+        SharedPreferences spPreferences = getSharedPreferences("user", 0);//通过文件获取用户信息
         int isLogin = spPreferences.getInt("isLogin", 0);
         if (isLogin == 0) {
             Intent intent = new Intent(this, LoginActity.class);
@@ -196,7 +196,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener, F
         }
     }
 
-    private FragmentTransaction switchFragment(Fragment targetFragment) {
+    private FragmentTransaction switchFragment(Fragment targetFragment) {//界面切换
 
         FragmentTransaction transaction = getSupportFragmentManager()
                 .beginTransaction();
@@ -382,7 +382,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener, F
         yaoqing.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UmengUtils.getInstance().share(MainActivity.this, "欢迎光临本店", shareListener);
+                UmengUtils.getInstance().share(MainActivity.this, "欢迎光临本店", shareListener);//友盟分享
                 alertDialog.dismiss();
             }
         });
@@ -521,12 +521,27 @@ public class MainActivity extends FragmentActivity implements OnClickListener, F
         return statusView;
     }
 
-    public boolean isSalesperson() {
+    public boolean isSalesperson() {//判断是否是销售员
         if (is_boss != 1) {
             if (arr.size() == 1) {
                 for (int i = 0; i < arr.size(); i++) {
                     if (!arr.get(i).getAsString().equals("")) {
                         if (arr.get(i).getAsInt() == 2) {
+                            return true;
+                        }
+                    }
+
+                }
+            }
+        }
+        return false;
+    }
+    public boolean isStockman() {//判断是否是仓库管理员
+        if (is_boss != 1) {
+            if (arr.size() == 1) {
+                for (int i = 0; i < arr.size(); i++) {
+                    if (!arr.get(i).getAsString().equals("")) {
+                        if (arr.get(i).getAsInt() == 3) {
                             return true;
                         }
                     }

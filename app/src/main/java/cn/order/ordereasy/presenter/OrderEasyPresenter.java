@@ -9,6 +9,7 @@ import cn.order.ordereasy.bean.Goods;
 import cn.order.ordereasy.bean.InventoryInfo;
 import cn.order.ordereasy.bean.Order;
 import cn.order.ordereasy.bean.Redelivery;
+import cn.order.ordereasy.bean.SupplierBean;
 import rx.Subscription;
 
 /**
@@ -684,6 +685,40 @@ public abstract class OrderEasyPresenter extends BasePresenter {
      * @return
      */
     public abstract void inventoryInfo(int inventory_id);
+
+    /**
+     * 供货商列表
+     *
+     * @return
+     */
+    public abstract void supplierIndex();
+
+    /**
+     * 增加供货商
+     *
+     * @return
+     */
+    public abstract void supplierAdd(SupplierBean supplierBean);
+
+    /**
+     * 编辑供货商
+     *
+     * @return
+     */
+    public abstract void supplierEdit(SupplierBean supplierBean);
+    /**
+     * 导入供货商
+     *
+     * @return
+     */
+    public abstract void supplierImport(List<SupplierBean> supplierList);
+
+    /**
+     * 供货商信息
+     *
+     * @return
+     */
+    public abstract void supplierInfo(int supplier_id);
 }
 
 

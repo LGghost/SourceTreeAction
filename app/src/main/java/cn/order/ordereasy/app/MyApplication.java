@@ -46,11 +46,11 @@ public class MyApplication extends Application {
     }
 
 
-    public OrderEasyApi getService() {
+    public OrderEasyApi getService() {//旧的网络请求方法
         return RequestUtils.getInstance(this).getKoalaApiService();
     }
 
-    public OrderEasyApi getService(int type) {
+    public OrderEasyApi getService(int type) {//新的网络请求方法type=0代表旧接口，type=1新接口
         return RequestUtils.getInstance(this).getKoalaApiService(type);
 
     }
@@ -58,7 +58,7 @@ public class MyApplication extends Application {
     /**
      * 配置ImageLoder
      */
-    private void configImageLoader() {
+    private void configImageLoader() {//图片处理框架
         // 初始化ImageLoader
         @SuppressWarnings("deprecation")
         DisplayImageOptions options = new DisplayImageOptions.Builder().showStubImage(R.drawable.dhwy_bg_image) // 设置图片下载期间显示的图片

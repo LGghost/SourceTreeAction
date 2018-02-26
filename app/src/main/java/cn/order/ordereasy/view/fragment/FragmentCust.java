@@ -206,7 +206,7 @@ public class FragmentCust extends Fragment implements OrderEasyView, SwipeRefres
     public void onResume() {
         super.onResume();
         Log.e("FragmentCust", "onResume");
-        if (DataStorageUtils.getInstance().isCustomer()) {
+        if (DataStorageUtils.getInstance().isCustomer()) {//根据isCustomer字段来判断刷新数据（客户编辑删除等界面完成isCustomer设置为true）
             DataStorageUtils.getInstance().setCustomer(false);
             refreshData(false);
         }
@@ -231,8 +231,8 @@ public class FragmentCust extends Fragment implements OrderEasyView, SwipeRefres
         bbtn1.setBackgroundColor(getResources().getColor(R.color.shouye_lanse));
         bbtn2.setBackgroundColor(getResources().getColor(R.color.white));
         bbtn3.setBackgroundColor(getResources().getColor(R.color.white));
-        ReceivableCmp cmp = new ReceivableCmp();
-        Collections.sort(datas, cmp);
+        ReceivableCmp cmp = new ReceivableCmp();//跟据欠款筛选条件
+        Collections.sort(datas, cmp);//筛选数据
         customerListAdapter.setData(datas);
         kehu_listview.setAdapter(customerListAdapter);
         customerListAdapter.notifyDataSetChanged();
@@ -258,7 +258,7 @@ public class FragmentCust extends Fragment implements OrderEasyView, SwipeRefres
         bbtn3.setBackgroundColor(getResources().getColor(R.color.white));
         mIndexView.setVisibility(View.GONE);
         mTopcTv.setVisibility(View.GONE);
-        OweCmp cmp = new OweCmp();
+        OweCmp cmp = new OweCmp();//跟据欠货筛选条件
         Collections.sort(datas, cmp);
         customerListTwoAdapter.setData(datas);
         kehu_listview.setAdapter(customerListTwoAdapter);
@@ -272,6 +272,7 @@ public class FragmentCust extends Fragment implements OrderEasyView, SwipeRefres
     }
 
     private void selectBbtn3() {
+
         // 按钮点击时改变颜色和背景
         // 文字颜色
         text_3.setTextColor(getResources().getColor(R.color.white));
@@ -281,7 +282,7 @@ public class FragmentCust extends Fragment implements OrderEasyView, SwipeRefres
         bbtn3.setBackgroundColor(getResources().getColor(R.color.shouye_lanse));
         bbtn1.setBackgroundColor(getResources().getColor(R.color.white));
         bbtn2.setBackgroundColor(getResources().getColor(R.color.white));
-        sortData();
+        sortData();//按A-Z排序
         mIndexView.setVisibility(View.VISIBLE);
         selectCustomerAdapter.setData(datas);
         kehu_listview.setAdapter(selectCustomerAdapter);

@@ -70,7 +70,7 @@ public class DownListView extends LinearLayout {
             public void onClick(View v) {
                 // TODO Auto-generated method stub
 
-                if (isHigh) {
+                if (isHigh) {//货架全部分类由于全部分类这项后台数据没有需要手动添加
                     dataList = DataStorageUtils.getInstance().getGenreGoods();
                     if (dataList.get(0).getId() != -1) {
                         TopicLabelObject topicLabel = new TopicLabelObject(-1, -1, "全部分类", 1);

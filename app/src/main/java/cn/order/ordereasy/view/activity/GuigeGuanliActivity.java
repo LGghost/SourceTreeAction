@@ -73,7 +73,7 @@ public class GuigeGuanliActivity extends BaseActivity implements OrderEasyView {
 
         guige_xuanze_view.setVisibility(View.GONE);
         guige_xuanze_view2.setVisibility(View.GONE);
-        if (bundle != null) {
+        if (bundle != null) {//区分是否是货品详情编辑跳转过来的
             Goods good = (Goods) bundle.getSerializable("data");
             SpecBean specBean = (SpecBean) bundle.getSerializable("spec");
             flag = bundle.getString("flag");
@@ -84,7 +84,7 @@ public class GuigeGuanliActivity extends BaseActivity implements OrderEasyView {
         }
     }
 
-    private void initData() {
+    private void initData() {//编辑跳转过来需要把原有的规格属性显示，不能删除原来的规格属性只能添加新的
         if (datas == null) datas = new ArrayList<>();
         if (datas1.size() == 1) {
             List<String> values = datas1.get(0).getValues();

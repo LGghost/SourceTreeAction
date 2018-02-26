@@ -135,7 +135,7 @@
                 android:layout_height="@dimen/size25"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="6dp"
-                android:background="@drawable/icon__xiao_add"
+                android:background="@drawable/icon_add"
                 android:focusable="false" />
         </LinearLayout>
 

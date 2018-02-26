@@ -61,7 +61,7 @@ public class RequestUtils {
         return instance;
     }
 
-    public OrderEasyApi getKoalaApiService() {
+    public OrderEasyApi getKoalaApiService() {//以前网络请求调用的方法
         client = getNewHttpClient(context, 0);
         retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
@@ -72,11 +72,11 @@ public class RequestUtils {
         return retrofit.create(OrderEasyApi.class);
     }
 
-    public OrderEasyApi getKoalaApiService(int type) {
+    public OrderEasyApi getKoalaApiService(int type) {//新网络请求调用的方法
         if (type == 0) {
-            URL = BASE_URL;
+            URL = BASE_URL;//老接口
         } else {
-            URL = BASE_URL_V1;
+            URL = BASE_URL_V1;//新接口
         }
         client = getNewHttpClient(context, type);
         retrofit = new Retrofit.Builder()
@@ -95,7 +95,7 @@ public class RequestUtils {
             @Override
             public Response intercept(Chain chain) throws IOException {
                 Request request = chain.request();
-                if (type == 0) {
+                if (type == 0) {//老接口没有添加请求头
                     if (NetWorkUtils.isNetworkConnected(context)) {
                         SharedPreferences spPreferences = context.getSharedPreferences("user", 0);
                         String token = spPreferences.getString("token", "");
@@ -113,7 +113,7 @@ public class RequestUtils {
                         }
 
                     }
-                } else {
+                } else {//新接口添加了请求头
                     if (NetWorkUtils.isNetworkConnected(context)) {
                         SharedPreferences spPreferences = context.getSharedPreferences("user", 0);
                         String token = spPreferences.getString("token", "");

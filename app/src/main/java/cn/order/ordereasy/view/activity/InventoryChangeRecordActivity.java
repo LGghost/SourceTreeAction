@@ -3,6 +3,7 @@ package cn.order.ordereasy.view.activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
@@ -37,6 +38,7 @@ import cn.order.ordereasy.utils.ProgressUtil;
 import cn.order.ordereasy.utils.TimeUtil;
 import cn.order.ordereasy.utils.ToastUtil;
 import cn.order.ordereasy.view.OrderEasyView;
+import cn.order.ordereasy.view.fragment.MainActivity;
 import cn.order.ordereasy.widget.DownListView;
 import cn.order.ordereasy.widget.LoadMoreListView;
 
@@ -50,6 +52,8 @@ public class InventoryChangeRecordActivity extends BaseActivity implements Order
     private int type = 0, user_id = -1;
     private List<Fahuo> fahuos = new ArrayList<>();
     private CustomerThingsListAdapter customerThingsListAdapter;
+    private int is_boss;
+    private JsonArray arr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +61,14 @@ public class InventoryChangeRecordActivity extends BaseActivity implements Order
         setContentView(R.layout.inventory_change_record);
         setColor(this, this.getResources().getColor(R.color.lanse));
         ButterKnife.inject(this);
+        SharedPreferences spPreferences = getSharedPreferences("user", 0);
+        String userinfo = spPreferences.getString("userinfo", "");
+        if (!TextUtils.isEmpty(userinfo)) {
+            JsonObject user = (JsonObject) GsonUtils.getObj(userinfo, JsonObject.class);
+            is_boss = user.get("is_boss").getAsInt();
+            arr = user.getAsJsonArray("auth_group_ids");
+
+        }
         initSetOnListener();
     }
 
@@ -77,7 +89,9 @@ public class InventoryChangeRecordActivity extends BaseActivity implements Order
             }
             inventory_employee.setItemsData(DataStorageUtils.getInstance().getYuangongLists(), 0);
         } else {
-            orderEasyPresenter.getEmployee(1);
+            if (!isSalesperson() && !isStockman()) {
+                orderEasyPresenter.getEmployee(1);
+            }
         }
 
         inventory_record.setItemsData(getList(this.getResources().getStringArray(R.array.stock_array)), 0);
@@ -387,5 +401,37 @@ public class InventoryChangeRecordActivity extends BaseActivity implements Order
             ProgressUtil.showDialog(this);
         }
         orderEasyPresenter.getOperationRecordList(pageCurrent, type, user_id, begindate, enddate);
+    }
+
+    public boolean isSalesperson() {
+        if (is_boss != 1) {
+            if (arr.size() == 1) {
+                for (int i = 0; i < arr.size(); i++) {
+                    if (!arr.get(i).getAsString().equals("")) {
+                        if (arr.get(i).getAsInt() == 2) {
+                            return true;
+                        }
+                    }
+
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean isStockman() {
+        if (is_boss != 1) {
+            if (arr.size() == 1) {
+                for (int i = 0; i < arr.size(); i++) {
+                    if (!arr.get(i).getAsString().equals("")) {
+                        if (arr.get(i).getAsInt() == 3) {
+                            return true;
+                        }
+                    }
+
+                }
+            }
+        }
+        return false;
     }
 }

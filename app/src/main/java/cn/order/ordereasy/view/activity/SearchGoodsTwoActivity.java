@@ -74,7 +74,7 @@ public class SearchGoodsTwoActivity extends BaseActivity implements OrderEasyVie
         sousuo_listview.setAdapter(orderSelectGoodsAdapter);
         if (DataStorageUtils.getInstance().getShelvesGoods().size() > 0) {
             datas = DataStorageUtils.getInstance().getShelvesGoods();
-            orderSelectGoodsAdapter.setData(datas);
+//            orderSelectGoodsAdapter.setData(datas);
             initData();
         } else {
             orderEasyPresenter.getGoodsList();

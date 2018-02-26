@@ -107,8 +107,8 @@ public class PrintOrderNoSetUpActivity extends BaseActivity {
     }
 
     @OnClick(R.id.a4_layout)
-    void a4_layout() {
-        if (SystemfieldUtils.isAppInstalled(this)) {
+    void a4_layout() {//A4纸模板
+        if (SystemfieldUtils.isAppInstalled(this)) {//判断是否安装了PrintShare打印工具
             new CreatePdfTask(0).execute();
         } else {
             ToastUtil.show("请先安装PrintShare打印工具");
@@ -116,7 +116,7 @@ public class PrintOrderNoSetUpActivity extends BaseActivity {
     }
 
     @OnClick(R.id.zhenshi_layout)
-    void zhenshi_layout() {
+    void zhenshi_layout() {//针式纸模板
         if (SystemfieldUtils.isAppInstalled(this)) {
             new CreatePdfTask(1).execute();
         } else {
@@ -156,14 +156,14 @@ public class PrintOrderNoSetUpActivity extends BaseActivity {
     private void createOrderNoPdf(Order order, int type) {
         Rectangle rectangle;
         Document document;
-        if (type == 0) {
+        if (type == 0) {//区分A4纸和针式
             rectangle = PageSize.A4;
             document = new Document(rectangle, 20, 20, 50, 60);
         } else {
             rectangle = new RectangleReadOnly(682.0F, 793.0F);
             document = new Document(rectangle, 20, 20, 50, 60);
         }
-        outPdf = Config.DIR_IMAGE_PATH1 + "outPdf.pdf";
+        outPdf = Config.DIR_IMAGE_PATH1 + "outPdf.pdf";//文件保存的路径
         PdfWriter writer = null;
         try {
             writer = PdfWriter.getInstance(document, new FileOutputStream(outPdf));
@@ -171,7 +171,7 @@ public class PrintOrderNoSetUpActivity extends BaseActivity {
             document.open();
             BaseFont bfChinese = null;
             bfChinese = BaseFont.createFont("STSong-Light", "UniGB-UCS2-H", BaseFont.NOT_EMBEDDED);
-            Font font18 = new Font(bfChinese, 18, Font.BOLD);
+            Font font18 = new Font(bfChinese, 18, Font.BOLD);//自定义字体大小
             Font font15 = new Font(bfChinese, 15, Font.BOLD);
             Font font10 = new Font(bfChinese, 10, Font.BOLD);
             Font font9 = new Font(bfChinese, 9, Font.BOLD);
@@ -182,7 +182,7 @@ public class PrintOrderNoSetUpActivity extends BaseActivity {
             PdfPCell cell4 = new PdfPCell(new Paragraph(shopName, font18));
             PdfPCell cell5 = new PdfPCell(new Paragraph("销售单", font10));
             cell5.setPaddingTop(8);
-            cell4.setBorder(0);
+            cell4.setBorder(0);//设置边框
             cell5.setBorder(0);
             table1.addCell(cell4);
             table1.addCell(cell5);

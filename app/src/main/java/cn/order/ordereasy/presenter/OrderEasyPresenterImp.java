@@ -19,6 +19,7 @@ import cn.order.ordereasy.bean.Goods;
 import cn.order.ordereasy.bean.InventoryInfo;
 import cn.order.ordereasy.bean.Order;
 import cn.order.ordereasy.bean.Redelivery;
+import cn.order.ordereasy.bean.SupplierBean;
 import cn.order.ordereasy.model.OrderEasyApiModel;
 import cn.order.ordereasy.model.OrderEasyApiModelImp;
 import cn.order.ordereasy.utils.HttpsUtil;
@@ -1121,4 +1122,57 @@ public class OrderEasyPresenterImp extends OrderEasyPresenter implements OrderEa
             orderEasyView.hideProgress(2);
         }
     }
+
+    //供货商列表
+    @Override
+    public void supplierIndex() {
+        orderEasyView.showProgress(0);
+        if (NetWorkUtils.isNetworkConnected(MyApplication.getInstance().mContext)) {
+            addSubscription(orderEasyApiModel.supplierIndex());
+        } else {
+            orderEasyView.hideProgress(2);
+        }
+    }
+    //增加供货商
+    @Override
+    public void supplierAdd(SupplierBean supplierBean) {
+        orderEasyView.showProgress(0);
+        if (NetWorkUtils.isNetworkConnected(MyApplication.getInstance().mContext)) {
+            addSubscription(orderEasyApiModel.supplierAdd(supplierBean));
+        } else {
+            orderEasyView.hideProgress(2);
+        }
+    }
+    //编辑供货商
+    @Override
+    public void supplierEdit(SupplierBean supplierBean) {
+        orderEasyView.showProgress(0);
+        if (NetWorkUtils.isNetworkConnected(MyApplication.getInstance().mContext)) {
+            addSubscription(orderEasyApiModel.supplierEdit(supplierBean));
+        } else {
+            orderEasyView.hideProgress(2);
+        }
+    }
+    //导入供货商
+    @Override
+    public void supplierImport(List<SupplierBean> supplierList) {
+        orderEasyView.showProgress(0);
+        if (NetWorkUtils.isNetworkConnected(MyApplication.getInstance().mContext)) {
+            addSubscription(orderEasyApiModel.supplierImport(supplierList));
+        } else {
+            orderEasyView.hideProgress(2);
+        }
+    }
+    //导入供货商
+    @Override
+    public void supplierInfo(int supplier_id) {
+        orderEasyView.showProgress(0);
+        if (NetWorkUtils.isNetworkConnected(MyApplication.getInstance().mContext)) {
+            addSubscription(orderEasyApiModel.supplierInfo(supplier_id));
+        } else {
+            orderEasyView.hideProgress(2);
+        }
+    }
+
+
 }

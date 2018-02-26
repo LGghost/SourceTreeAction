@@ -27,8 +27,8 @@ import cn.order.ordereasy.utils.TimeUtil;
 
 public class FragmentStcokSales extends Fragment {
     private FragmentManager manager;
-    private FragmentChildStcok childStcokFragment;
-    private FragmentCustomer customerFragment;
+    private FragmentChildStcok childStcokFragment;//库存及欠货
+    private FragmentCustomer customerFragment;//购买客户
     private Fragment mCurrentFragment = null; // 记录当前显示的Fragment
     private Goods good;
     private int goodId = 0;

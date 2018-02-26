@@ -8,6 +8,7 @@ import cn.order.ordereasy.bean.Delivery;
 import cn.order.ordereasy.bean.Goods;
 import cn.order.ordereasy.bean.Order;
 import cn.order.ordereasy.bean.Redelivery;
+import cn.order.ordereasy.bean.SupplierBean;
 import rx.Subscription;
 
 public interface OrderEasyApiModel {
@@ -606,12 +607,14 @@ public interface OrderEasyApiModel {
      * @return
      */
     Subscription exportStatus(int log_id);
+
     /**
      * 贷款申请
      *
      * @return
      */
-    Subscription loanAsk(String telephone,String name,String purpose,String identity,String gender);
+    Subscription loanAsk(String telephone, String name, String purpose, String identity, String gender);
+
     /**
      * 订单修改和确认
      *
@@ -633,5 +636,41 @@ public interface OrderEasyApiModel {
      * @return
      */
     Subscription inventoryInfo(int inventory_id);
+
+    /**
+     * 供货商列表
+     *
+     * @return
+     */
+    Subscription supplierIndex();
+
+    /**
+     * 增加供货商
+     *
+     * @return
+     */
+    Subscription supplierAdd(SupplierBean supplierBean);
+
+    /**
+     * 编辑供货商
+     *
+     * @return
+     */
+    Subscription supplierEdit(SupplierBean supplierBean);
+
+    /**
+     * 导入供货商
+     *
+     * @return
+     */
+    Subscription supplierImport(List<SupplierBean> supplierList);
+
+    /**
+     * 供货商信息
+     *
+     * @return
+     */
+    Subscription supplierInfo(int supplier_id);
+
 
 }

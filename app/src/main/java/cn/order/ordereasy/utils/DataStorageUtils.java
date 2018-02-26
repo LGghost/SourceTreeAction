@@ -46,7 +46,7 @@ public class DataStorageUtils {
     private boolean isShanghuo = false;
     private boolean isBilling = false;
     private boolean isCustomer = false;
-
+    private boolean isAddCustomer = false;
     private DataStorageUtils() {
     }
 
@@ -200,6 +200,14 @@ public class DataStorageUtils {
 
     public void setDiscountCustomers(List<DiscountCustomer> discountCustomers) {
         this.discountCustomers = discountCustomers;
+    }
+
+    public boolean isAddCustomer() {
+        return isAddCustomer;
+    }
+
+    public void setAddCustomer(boolean addCustomer) {
+        isAddCustomer = addCustomer;
     }
 
     public Customer getRetailCustomer() {
