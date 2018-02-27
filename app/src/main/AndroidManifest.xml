@@ -205,18 +205,21 @@
             android:name="cn.order.ordereasy.view.activity.SearchGoodsTwoActivity"
             android:label="@string/app_name"
             android:launchMode="singleTop"
-            android:theme="@style/AppTheme.Transparent" />/货架模糊搜索activity**/
+            android:theme="@style/AppTheme.Transparent"
+            android:windowSoftInputMode="stateAlwaysVisible" />/货架模糊搜索activity**/
 
         <activity
             android:name="cn.order.ordereasy.view.activity.SearchGoodsThreeActivity"
             android:label="@string/app_name"
             android:launchMode="singleTop"
-            android:theme="@style/AppTheme.Transparent" />/*客户搜索界面2activity**/
+            android:theme="@style/AppTheme.Transparent"
+            android:windowSoftInputMode="stateAlwaysVisible" />/*客户搜索界面2activity**/
         <activity
             android:name="cn.order.ordereasy.view.activity.SearchOrderActivity"
             android:label="@string/app_name"
             android:launchMode="singleTop"
-            android:theme="@style/AppTheme.Transparent" />/**订单搜索界面2activity**/
+            android:theme="@style/AppTheme.Transparent"
+            android:windowSoftInputMode="stateAlwaysVisible" />/**订单搜索界面2activity**/
 
         <activity
             android:name="cn.order.ordereasy.view.activity.ShangHuoActivity"

@@ -124,7 +124,7 @@ public class ExperienceInterfaceActivity extends BaseActivity {
     //访问官网
     @OnClick(R.id.guanwang_net)
     void guanwang_net() {
-        Uri uri = Uri.parse("https://dinghuo5u.com");
+        Uri uri = Uri.parse("https://www.dinghuo5u.com");
         Intent it = new Intent(Intent.ACTION_VIEW, uri);
         startActivity(it);
     }

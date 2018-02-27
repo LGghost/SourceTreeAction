@@ -81,6 +81,9 @@ public class AddSuppliersActivity extends BaseActivity implements OrderEasyView 
                 supplier_remarks_text.setText(bean.getRemarks());
             }
             delete_supplier.setVisibility(View.VISIBLE);
+            initial_payment_layout.setVisibility(View.GONE);
+            initial_payment_view.setVisibility(View.GONE);
+            initial_payment_view1.setVisibility(View.GONE);
         }
 
     }
@@ -112,6 +115,12 @@ public class AddSuppliersActivity extends BaseActivity implements OrderEasyView 
     FrameLayout remarks_frame_layout;
     @InjectView(R.id.delete_supplier)
     LinearLayout delete_supplier;
+    @InjectView(R.id.initial_payment_layout)
+    LinearLayout initial_payment_layout;
+    @InjectView(R.id.initial_payment_view)
+    View initial_payment_view;
+    @InjectView(R.id.initial_payment_view1)
+    View initial_payment_view1;
 
     //返回按钮
     @OnClick(R.id.return_click)

@@ -6,7 +6,7 @@ import java.util.List;
 public class SupplierBean extends BaseEntity {
     private int supplier_id;//供应商ID
     private String name;//供应商名称
-    private String is_retail;//是否是零售商
+    private int is_retail;//是否是零售商
     private String contact;//负责人
     private String mobile;//移动电话
     private String tel;//电话
@@ -16,6 +16,7 @@ public class SupplierBean extends BaseEntity {
     private String district;//地区
     private String address;//地址
     private String remark;
+
     public int getSupplier_id() {
         return supplier_id;
     }
@@ -32,11 +33,11 @@ public class SupplierBean extends BaseEntity {
         this.name = name;
     }
 
-    public String getIs_retail() {
+    public int getIs_retail() {
         return is_retail;
     }
 
-    public void setIs_retail(String is_retail) {
+    public void setIs_retail(int is_retail) {
         this.is_retail = is_retail;
     }
 
@@ -116,7 +117,7 @@ public class SupplierBean extends BaseEntity {
         List<SupplierBean> list = new ArrayList<>();
 
         for (int i = 0; i < data.size(); i++) {
-            if (data.get(i).getName().contains(likename) || data.get(i).getTel().contains(likename) ) {
+            if (data.get(i).getName().contains(likename) || data.get(i).getTel().contains(likename)) {
                 list.add(data.get(i));
             }
         }

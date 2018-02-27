@@ -185,6 +185,7 @@ public class InventoryChangeRecordActivity extends BaseActivity implements Order
             ToastUtil.show("网络连接失败");
         }
         ProgressUtil.dissDialog();
+        store_refresh.setRefreshing(false);
     }
 
     @Override

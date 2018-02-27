@@ -27,6 +27,16 @@ public class SystemfieldUtils {
         // 渠道标志
         deviceId.append("a");
         try {
+            //IMEI（imei）
+            TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+            String imei = tm.getDeviceId();
+            if (!TextUtils.isEmpty(imei)) {
+                deviceId.append("imei");
+                deviceId.append(imei);
+                Log.e("SystemfieldUtils", "deviceId:" + deviceId.toString());
+                return deviceId.toString();
+            }
+
             //wifi mac地址
             WifiManager wifi = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
             WifiInfo info = wifi.getConnectionInfo();
@@ -36,14 +46,7 @@ public class SystemfieldUtils {
                 deviceId.append(wifiMac);
                 return deviceId.toString();
             }
-            //IMEI（imei）
-            TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-            String imei = tm.getDeviceId();
-            if (!TextUtils.isEmpty(imei)) {
-                deviceId.append("imei");
-                deviceId.append(imei);
-                return deviceId.toString();
-            }
+
             //序列号（sn）
             String sn = tm.getSimSerialNumber();
             if (!TextUtils.isEmpty(sn)) {

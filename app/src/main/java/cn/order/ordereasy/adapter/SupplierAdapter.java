@@ -3,6 +3,7 @@ package cn.order.ordereasy.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -107,7 +108,9 @@ public class SupplierAdapter extends BaseAdapter implements
             final SupplierBean phoneBook = phoneBookIndex.getSupplierBean();
             phoneBookViewHolder.name.setText(phoneBook.getName());
             phoneBookViewHolder.arrears.setText("欠供应商款：" + phoneBook.getDebt());
-            phoneBookViewHolder.user.setText("负责人：" + phoneBook.getContact());
+            if(!TextUtils.isEmpty(phoneBook.getContact())){
+                phoneBookViewHolder.user.setText("负责人：" + phoneBook.getContact());
+            }
             convertView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

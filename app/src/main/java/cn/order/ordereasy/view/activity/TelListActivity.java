@@ -1,6 +1,7 @@
 package cn.order.ordereasy.view.activity;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.content.ContentResolver;
 import android.content.CursorLoader;
 import android.database.Cursor;
@@ -28,6 +29,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -36,6 +38,7 @@ import butterknife.InjectView;
 import butterknife.OnClick;
 import cn.order.ordereasy.R;
 import cn.order.ordereasy.adapter.TelListAdapter;
+import cn.order.ordereasy.bean.BaseEntity;
 import cn.order.ordereasy.bean.ContactInfo;
 import cn.order.ordereasy.bean.Customer;
 import cn.order.ordereasy.bean.SupplierBean;
@@ -69,6 +72,7 @@ public class TelListActivity extends BaseActivity implements OrderEasyView, Easy
     private List<ContactInfo> mp = new ArrayList<>();
     OrderEasyPresenter orderEasyPresenter;
     private String flag;
+    private AlertDialog alertDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -264,16 +268,50 @@ public class TelListActivity extends BaseActivity implements OrderEasyView, Easy
                 showToast("请至少选择一条数据！");
                 return;
             }
-            //添加客户
-            orderEasyPresenter.importCustomers(datas);
+            showdialogs(datas);
         } else {
             if (datas1.size() < 1) {
                 showToast("请至少选择一条数据！");
                 return;
             }
-            //批量添加供应商
-            orderEasyPresenter.supplierImport(datas1);
+            showdialogs(datas1);
         }
 
+    }
+
+    private void showdialogs(final List<?> list) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        View view = View.inflate(this, R.layout.tanchuang_view_textview, null);
+        //标题
+        final TextView title_name = (TextView) view.findViewById(R.id.title_name);
+        final TextView text_conten = (TextView) view.findViewById(R.id.text_conten);
+        final TextView quxiao = (TextView) view.findViewById(R.id.quxiao);
+        final TextView queren = (TextView) view.findViewById(R.id.queren);
+        builder.setView(view);
+        alertDialog = builder.create();
+        title_name.setText("温馨提示");
+        text_conten.setText("确认要导入选择的联系人吗？");
+        //按钮1点击事件
+        quxiao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
+        //按钮2确认点击事件
+        queren.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (flag.equals("Customer")) {
+                    //添加客户
+                    orderEasyPresenter.importCustomers((List<Customer>) list);
+                } else {
+                    //批量添加供应商
+                    orderEasyPresenter.supplierImport((List<SupplierBean>) list);
+                }
+                alertDialog.dismiss();
+            }
+        });
+        alertDialog.show();
     }
 }

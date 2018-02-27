@@ -122,16 +122,16 @@ public class RequestUtils {
                                     .addHeader("Content-Type", "application/json;charset=UTF-8")
                                     .addHeader("token", token)
                                     .addHeader("platform", "android")
-                                    .addHeader("device_id", SystemfieldUtils.getDeviceId(context))
-                                    .addHeader("modal ", SystemfieldUtils.getSystemModel() + "/" + SystemfieldUtils.getDeviceBrand() + "/" + SystemfieldUtils.getSystemVersion())
+                                    .addHeader("deviceId", SystemfieldUtils.getDeviceId(context))
+                                    .addHeader("modal", SystemfieldUtils.getSystemModel() + "/" + SystemfieldUtils.getDeviceBrand() + "/" + SystemfieldUtils.getSystemVersion())
                                     .cacheControl(CacheControl.FORCE_CACHE)
                                     .build();
                         } else {
                             request = request.newBuilder()
                                     .addHeader("Content-Type", "application/json;charset=UTF-8")
                                     .addHeader("platform", "android")
-                                    .addHeader("device_id", SystemfieldUtils.getDeviceId(context))
-                                    .addHeader("modal ", SystemfieldUtils.getSystemModel() + "/" + SystemfieldUtils.getDeviceBrand() + "/" + SystemfieldUtils.getSystemVersion())
+                                    .addHeader("deviceId", SystemfieldUtils.getDeviceId(context))
+                                    .addHeader("modal", SystemfieldUtils.getSystemModel() + "/" + SystemfieldUtils.getDeviceBrand() + "/" + SystemfieldUtils.getSystemVersion())
                                     .cacheControl(CacheControl.FORCE_CACHE)
                                     .build();
                         }

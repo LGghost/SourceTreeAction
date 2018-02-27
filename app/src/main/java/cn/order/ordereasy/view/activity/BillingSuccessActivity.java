@@ -54,7 +54,7 @@ public class BillingSuccessActivity extends BaseActivity {
             flag = bundle.getString("flag");
             customer = (Customer) bundle.getSerializable("data");
             order = (Order) bundle.getSerializable("order");
-            if (flag.equals("tuihuo")) {
+            if (flag.equals("tuihuo")||flag.equals("tuiqianhuo")) {
                 type_text.setText("应退金额");
             }
             MyLog.e("金额", customer.getTrade_money() + "," + customer.getCustomer_name());

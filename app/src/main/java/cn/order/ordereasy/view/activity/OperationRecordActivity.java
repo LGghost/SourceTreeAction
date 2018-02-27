@@ -42,6 +42,7 @@ public class OperationRecordActivity extends BaseActivity implements OrderEasyVi
     int order_id = -1;
     private String delivery_name;
     private String delivery_no;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,7 +72,7 @@ public class OperationRecordActivity extends BaseActivity implements OrderEasyVi
     @InjectView(R.id.type)
     TextView type;
     @InjectView(R.id.caozuo_state)//操作状态
-    TextView caozuo_state;
+            TextView caozuo_state;
     //操作人姓名
     @InjectView(R.id.caozuoren_name)
     TextView caozuoren_name;
@@ -106,9 +107,9 @@ public class OperationRecordActivity extends BaseActivity implements OrderEasyVi
     //查看w物流
     @OnClick(R.id.wuliu_button_onclick)
     void wuliu_button_onclick() {
-        Intent intent =new Intent( OperationRecordActivity.this,LogisticsMessageActivity.class);
-        intent.putExtra("delivery_name",delivery_name);
-        intent.putExtra("delivery_no",delivery_no);
+        Intent intent = new Intent(OperationRecordActivity.this, LogisticsMessageActivity.class);
+        intent.putExtra("delivery_name", delivery_name);
+        intent.putExtra("delivery_no", delivery_no);
         startActivity(intent);
 
     }
@@ -158,6 +159,7 @@ public class OperationRecordActivity extends BaseActivity implements OrderEasyVi
             int operate_type = data.getAsJsonObject("result").get("operate_type").getAsInt();
             delivery_name = data.getAsJsonObject("result").get("delivery_name").getAsString();
             delivery_no = data.getAsJsonObject("result").get("delivery_no").getAsString();
+            int delivery_status = data.getAsJsonObject("result").get("delivery_status").getAsInt();
             see_yuandan.setVisibility(View.GONE);
             if (operate_type == Config.Operate_TYPE_DELIVER) {
                 see_yuandan.setVisibility(View.VISIBLE);
@@ -165,7 +167,11 @@ public class OperationRecordActivity extends BaseActivity implements OrderEasyVi
                 benci_num.setText(data.getAsJsonObject("result").get("out_number").getAsString());
                 caozuo_type.setText("发货");
                 order_id = data.getAsJsonObject("result").get("order_id").getAsInt();
-                caozuo_state.setText("已发货");
+                if (delivery_status == 1) {
+                    caozuo_state.setText("已发货");
+                }else{
+                    caozuo_state.setText("已确定发货");
+                }
                 jilu_name.setText("发货记录");
             } else if (operate_type == Config.Operate_TYPE_REDELIVER) {
                 order_id = -1;

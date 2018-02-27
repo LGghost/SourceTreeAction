@@ -61,7 +61,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="20dp"
-                    android:text="北京供应商"
+                    android:text="供应商名称"
                     android:textColor="@color/heise"
                     android:textSize="18sp" />
 
@@ -85,7 +85,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="4dp"
                         android:layout_marginTop="4dp"
-                        android:text="张三"
+                        android:text="无"
                         android:textColor="@color/touzi_huise"
                         android:textSize="16sp" />
                 </LinearLayout>
@@ -111,7 +111,7 @@
                         android:layout_marginLeft="4dp"
                         android:layout_marginTop="4dp"
                         android:layout_weight="1"
-                        android:text="18279874561"
+                        android:text="无"
                         android:textColor="@color/touzi_huise"
                         android:textSize="16sp" />
 
@@ -130,7 +130,7 @@
                         android:layout_marginLeft="4dp"
                         android:layout_marginRight="10dp"
                         android:layout_marginTop="4dp"
-                        android:text="0731-88888888"
+                        android:text="无"
                         android:textColor="@color/touzi_huise"
                         android:textSize="16sp" />
                 </LinearLayout>
@@ -154,9 +154,10 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="4dp"
+                        android:layout_marginRight="10dp"
                         android:layout_marginTop="4dp"
                         android:layout_weight="1"
-                        android:text="湖南省长沙市岳麓区罗马广场"
+                        android:text="无"
                         android:textColor="@color/touzi_huise"
                         android:textSize="16sp" />
                 </LinearLayout>
@@ -165,6 +166,50 @@
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
                     android:layout_marginTop="20dp"
+                    android:background="@color/fengexian_color" />
+
+                <LinearLayout
+                    android:id="@+id/supplier_remarks_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:background="@color/white">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:gravity="center_vertical"
+                        android:text="@string/order_remarks"
+                        android:textColor="@color/heise"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/supplier_remarks"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:layout_weight="1"
+                        android:ellipsize="end"
+                        android:gravity="center_vertical"
+                        android:hint="无"
+                        android:maxEms="10"
+                        android:singleLine="true"
+                        android:textColor="@color/heise"
+                        android:textSize="15sp" />
+
+                    <ImageView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginRight="10dp"
+                        android:background="@drawable/youjiantou" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
                     android:background="@color/fengexian_color" />
 
                 <LinearLayout
@@ -186,7 +231,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="4dp"
                         android:layout_weight="1"
-                        android:text="¥125.00"
+                        android:text="¥0.00"
                         android:textColor="@color/heise"
                         android:textSize="16sp" />
 

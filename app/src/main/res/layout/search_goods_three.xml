@@ -26,7 +26,7 @@
             android:background="@drawable/shape_corner"
             android:drawableLeft="@drawable/icon_s_search"
             android:drawablePadding="8dp"
-            android:hint="请输入客户号/手机号码搜索客户"
+            android:hint="请输入客户名称/手机号码搜索客户"
             android:paddingLeft="10dp"
             android:textColor="@color/touzi_huise"
             android:textSize="13sp" />

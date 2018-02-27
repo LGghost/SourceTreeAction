@@ -164,7 +164,7 @@ public class PurchaseRecordActivity extends BaseActivity implements AdapterView.
                 money.setUser_name(arrearsBean.getUser_name());
                 money.setPayment_way(0);
                 bundle.putSerializable("data", money);
-                bundle.putString("tel", bean.getIs_retail());
+                bundle.putString("tel", bean.getMobile());
                 intent1.putExtras(bundle);
                 startActivity(intent1);
                 break;

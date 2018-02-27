@@ -14,6 +14,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -56,12 +57,25 @@ public class SupplierDetailsActivity extends BaseActivity implements SwipeRefres
 
     private void initData() {
         store_refresh.setOnRefreshListener(this);
-        supplier_name.setText(bean.getName());
-        user_name.setText(bean.getContact());
-        phone_number.setText(bean.getMobile());
-        call_number.setText(bean.getTel());
-        address.setText(bean.getAddress());
+        if (!TextUtils.isEmpty(bean.getName())) {
+            supplier_name.setText(bean.getName());
+        }
+        if (!TextUtils.isEmpty(bean.getContact())) {
+            user_name.setText(bean.getContact());
+        }
+        if (!TextUtils.isEmpty(bean.getMobile())) {
+            phone_number.setText(bean.getMobile());
+        }
+
+        if (!TextUtils.isEmpty(bean.getTel())) {
+            call_number.setText(bean.getTel());
+        }
+        if (!TextUtils.isEmpty(bean.getAddress())) {
+            address.setText(bean.getAddress());
+        }
         money_num.setText(bean.getDebt() + "");
+        supplier_remarks.setText(bean.getRemarks());
+
     }
 
     @InjectView(R.id.supplier_name)
@@ -76,9 +90,12 @@ public class SupplierDetailsActivity extends BaseActivity implements SwipeRefres
     TextView address;
     @InjectView(R.id.money_num)
     TextView money_num;
+    @InjectView(R.id.supplier_remarks)
+    TextView supplier_remarks;
 
     @InjectView(R.id.store_refresh)
     SwipeRefreshLayout store_refresh;
+
 
     //返回按钮
     @OnClick(R.id.return_click)
@@ -89,12 +106,50 @@ public class SupplierDetailsActivity extends BaseActivity implements SwipeRefres
         finish();
     }
 
+    //备注
+    @OnClick(R.id.supplier_remarks_layout)
+    void supplier_remarks_layout() {
+        Intent intent = new Intent(this, RemarksActivity.class);
+        intent.putExtra("content", bean.getRemarks());
+        intent.putExtra("type", 1);
+        startActivity(intent);
+    }
+
     //编辑
     @OnClick(R.id.supplier_edit)
     void supplier_edit() {
-        Intent intent = new Intent(this, AddSuppliersActivity.class);
-        intent.putExtra("data", bean);
-        startActivityForResult(intent, 1001);
+        if (bean.getIs_retail() == 0) {
+            Intent intent = new Intent(this, AddSuppliersActivity.class);
+            intent.putExtra("data", bean);
+            startActivityForResult(intent, 1001);
+        } else {
+            showdialogs();
+        }
+    }
+
+    private void showdialogs() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        View view = View.inflate(this, R.layout.tanchuang_view_textview, null);
+        //标题
+        final TextView title_name = (TextView) view.findViewById(R.id.title_name);
+        final TextView text_conten = (TextView) view.findViewById(R.id.text_conten);
+        final TextView quxiao = (TextView) view.findViewById(R.id.quxiao);
+        final TextView queren = (TextView) view.findViewById(R.id.queren);
+        View view1 = view.findViewById(R.id.view1);
+        builder.setView(view);
+        alertDialog = builder.create();
+        title_name.setText("温馨提示");
+        text_conten.setText("零散供应商的信息不允许被修改");
+        view1.setVisibility(View.GONE);
+        quxiao.setVisibility(View.GONE);
+        //按钮2确认点击事件
+        queren.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
+        alertDialog.show();
     }
 
     //修改
