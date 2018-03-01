@@ -34,7 +34,7 @@
             android:textSize="14sp" />
 
         <TextView
-            android:id="@+id/textView14"
+            android:id="@+id/fahuo_num"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"

@@ -47,6 +47,7 @@ public class DataStorageUtils {
     private boolean isBilling = false;
     private boolean isCustomer = false;
     private boolean isAddCustomer = false;
+    private boolean isPurchaseBilling = false;//采购开单
     private DataStorageUtils() {
     }
 
@@ -216,6 +217,14 @@ public class DataStorageUtils {
 
     public void setRetailCustomer(Customer retailCustomer) {
         this.retailCustomer = retailCustomer;
+    }
+
+    public boolean isPurchaseBilling() {
+        return isPurchaseBilling;
+    }
+
+    public void setPurchaseBilling(boolean purchaseBilling) {
+        isPurchaseBilling = purchaseBilling;
     }
 
     public void cleanCustomerHomePage() {

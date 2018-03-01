@@ -28,9 +28,14 @@ public class SearchOrderListAdapter extends BGAAdapterViewAdapter<OrderList> {
     private List<BGASwipeItemLayout> mOpenedSil = new ArrayList<>();
 
     private DetailCustomersAdapter.MyItemClickListener mItemClickListener;
+    private String flag;
 
     public SearchOrderListAdapter(Context context) {
         super(context, R.layout.customer_homepage_item_one);
+    }
+
+    public void setFlag(String flag) {
+        this.flag = flag;
     }
 
     @Override
@@ -42,14 +47,25 @@ public class SearchOrderListAdapter extends BGAAdapterViewAdapter<OrderList> {
     @Override
     public void fillData(BGAViewHolderHelper viewHolderHelper, int position, OrderList model) {
         viewHolderHelper.setText(R.id.order_code, model.getOrder_no());
-        String name = model.getCustomer_name();
+
+        String name = "";
+        if (flag.equals("purchase")) {
+            name = model.getSupplier_name();
+        } else {
+            name = model.getCustomer_name();
+        }
         if (!TextUtils.isEmpty(name)) {
             name = String.valueOf(PinyinUtil.getFirstStr(name));
         } else if (name == null) {
             viewHolderHelper.setText(R.id.name_shou_zimu, "订");
         }
         viewHolderHelper.setText(R.id.name_shou_zimu, name);
-        viewHolderHelper.setText(R.id.kehu_name, model.getCustomer_name());
+        if (flag.equals("purchase")) {
+            viewHolderHelper.setText(R.id.kehu_name, model.getSupplier_name());
+        } else {
+            viewHolderHelper.setText(R.id.kehu_name, model.getCustomer_name());
+        }
+
         viewHolderHelper.setText(R.id.data_time, TimeUtil.getTimeStamp2Str(Long.parseLong(model.getCreate_time()), "yyyy-MM-dd HH:mm:ss"));
         viewHolderHelper.setText(R.id.kaidan_num, String.valueOf(model.getOrder_num()));
 
@@ -113,9 +129,10 @@ public class SearchOrderListAdapter extends BGAAdapterViewAdapter<OrderList> {
 
     /**
      * 设置Item点击监听、、、、
+     *
      * @param listener
      */
-    public void setOnItemClickListener(DetailCustomersAdapter.MyItemClickListener listener){
+    public void setOnItemClickListener(DetailCustomersAdapter.MyItemClickListener listener) {
         this.mItemClickListener = listener;
     }
 

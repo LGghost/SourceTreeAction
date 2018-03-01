@@ -194,7 +194,7 @@ public class AddSuppliersActivity extends BaseActivity implements OrderEasyView 
 
     @OnClick(R.id.delete_supplier)
     void delete_supplier() {//删除供应商
-
+        orderEasyPresenter.supplierDel(bean.getSupplier_id());
     }
 
     @OnClick(R.id.region_layout)
@@ -371,17 +371,33 @@ public class AddSuppliersActivity extends BaseActivity implements OrderEasyView 
     @Override
     public void loadData(JsonObject data, int type) {
         Log.e("AddSuppliers", "data:" + data.toString());
-        if (data != null) {
-            int status = data.get("code").getAsInt();
-            if (status == 1) {
-                //成功
-                if (!isEdit) {
-                    ToastUtil.show("添加成功");
-                } else {
-                    ToastUtil.show("修改成功");
+        if (type == 0 || type == 1) {
+            if (data != null) {
+                int status = data.get("code").getAsInt();
+                if (status == 1) {
+                    //成功
+                    if (!isEdit) {
+                        ToastUtil.show("添加成功");
+                    } else {
+                        ToastUtil.show("修改成功");
+                    }
+                    Intent intent = new Intent();
+                    intent.putExtra("flag","edit");
+                    setResult(1001);
+                    finish();
                 }
-                setResult(1001);
-                finish();
+            }
+        } else if (type == 2) {
+            if (data != null) {
+                int status = data.get("code").getAsInt();
+                if (status == 1) {
+                    //成功
+                    ToastUtil.show("删除成功");
+                    Intent intent = new Intent();
+                    intent.putExtra("flag","del");
+                    setResult(1001,intent);
+                    finish();
+                }
             }
         }
     }

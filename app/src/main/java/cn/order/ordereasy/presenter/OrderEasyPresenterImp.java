@@ -1133,6 +1133,7 @@ public class OrderEasyPresenterImp extends OrderEasyPresenter implements OrderEa
             orderEasyView.hideProgress(2);
         }
     }
+
     //增加供货商
     @Override
     public void supplierAdd(SupplierBean supplierBean) {
@@ -1143,6 +1144,7 @@ public class OrderEasyPresenterImp extends OrderEasyPresenter implements OrderEa
             orderEasyView.hideProgress(2);
         }
     }
+
     //编辑供货商
     @Override
     public void supplierEdit(SupplierBean supplierBean) {
@@ -1153,6 +1155,7 @@ public class OrderEasyPresenterImp extends OrderEasyPresenter implements OrderEa
             orderEasyView.hideProgress(2);
         }
     }
+
     //导入供货商
     @Override
     public void supplierImport(List<SupplierBean> supplierList) {
@@ -1163,12 +1166,123 @@ public class OrderEasyPresenterImp extends OrderEasyPresenter implements OrderEa
             orderEasyView.hideProgress(2);
         }
     }
+
     //导入供货商
     @Override
     public void supplierInfo(int supplier_id) {
         orderEasyView.showProgress(0);
         if (NetWorkUtils.isNetworkConnected(MyApplication.getInstance().mContext)) {
             addSubscription(orderEasyApiModel.supplierInfo(supplier_id));
+        } else {
+            orderEasyView.hideProgress(2);
+        }
+    }
+
+    @Override
+    public void supplierAccountLogAdjust(int supplier_id, double debt, String remark) {
+        orderEasyView.showProgress(0);
+        if (NetWorkUtils.isNetworkConnected(MyApplication.getInstance().mContext)) {
+            addSubscription(orderEasyApiModel.supplierAccountLogAdjust(supplier_id, debt, remark));
+        } else {
+            orderEasyView.hideProgress(2);
+        }
+    }
+
+    @Override
+    public void supplierPay(int supplier_id, int order_id, int payment_type, double cash, double wechat, double alipay, double bank_card, double other, String remark, String create_time) {
+        orderEasyView.showProgress(0);
+        if (NetWorkUtils.isNetworkConnected(MyApplication.getInstance().mContext)) {
+            addSubscription(orderEasyApiModel.supplierPay(supplier_id, order_id, payment_type, cash, wechat, alipay, bank_card, other, remark, create_time));
+        } else {
+            orderEasyView.hideProgress(2);
+        }
+    }
+
+    @Override
+    public void supplierAddOrder(Order order) {
+        orderEasyView.showProgress(0);
+        if (NetWorkUtils.isNetworkConnected(MyApplication.getInstance().mContext)) {
+            addSubscription(orderEasyApiModel.supplierAddOrder(order));
+        } else {
+            orderEasyView.hideProgress(2);
+        }
+    }
+
+    @Override
+    public void supplierOrderList(int page, String filter_type, String user_id, String start_time, String end_time) {
+        orderEasyView.showProgress(0);
+        if (NetWorkUtils.isNetworkConnected(MyApplication.getInstance().mContext)) {
+            addSubscription(orderEasyApiModel.supplierOrderList(page, filter_type, user_id, start_time, end_time));
+        } else {
+            orderEasyView.hideProgress(2);
+        }
+    }
+
+    @Override
+    public void searchPurchaseList(int page, String keyword) {
+        orderEasyView.showProgress(0);
+        if (NetWorkUtils.isNetworkConnected(MyApplication.getInstance().mContext)) {
+            addSubscription(orderEasyApiModel.searchPurchaseList(page, keyword));
+        } else {
+            orderEasyView.hideProgress(2);
+        }
+    }
+
+    @Override
+    public void supplierOrderInfo(int order_id, String order_no) {
+        orderEasyView.showProgress(0);
+        if (NetWorkUtils.isNetworkConnected(MyApplication.getInstance().mContext)) {
+            addSubscription(orderEasyApiModel.supplierOrderInfo(order_id, order_no));
+        } else {
+            orderEasyView.hideProgress(2);
+        }
+    }
+
+    @Override
+    public void supplierOrderClose(int order_id) {
+        orderEasyView.showProgress(0);
+        if (NetWorkUtils.isNetworkConnected(MyApplication.getInstance().mContext)) {
+            addSubscription(orderEasyApiModel.supplierOrderClose(order_id));
+        } else {
+            orderEasyView.hideProgress(2);
+        }
+    }
+
+    @Override
+    public void suplierAccountLog(int supplier_id) {
+        orderEasyView.showProgress(0);
+        if (NetWorkUtils.isNetworkConnected(MyApplication.getInstance().mContext)) {
+            addSubscription(orderEasyApiModel.suplierAccountLog(supplier_id));
+        } else {
+            orderEasyView.hideProgress(2);
+        }
+    }
+
+    @Override
+    public void supplierWaitInStore(int supplier_id, int order_id) {
+        orderEasyView.showProgress(0);
+        if (NetWorkUtils.isNetworkConnected(MyApplication.getInstance().mContext)) {
+            addSubscription(orderEasyApiModel.supplierWaitInStore(supplier_id,order_id));
+        } else {
+            orderEasyView.hideProgress(2);
+        }
+    }
+
+    @Override
+    public void supplierGoInStore(List<Delivery> deliveries) {
+        orderEasyView.showProgress(0);
+        if (NetWorkUtils.isNetworkConnected(MyApplication.getInstance().mContext)) {
+            addSubscription(orderEasyApiModel.supplierGoInStore(deliveries));
+        } else {
+            orderEasyView.hideProgress(2);
+        }
+    }
+
+    @Override
+    public void supplierDel(int supplier_id) {
+        orderEasyView.showProgress(0);
+        if (NetWorkUtils.isNetworkConnected(MyApplication.getInstance().mContext)) {
+            addSubscription(orderEasyApiModel.supplierDel(supplier_id));
         } else {
             orderEasyView.hideProgress(2);
         }

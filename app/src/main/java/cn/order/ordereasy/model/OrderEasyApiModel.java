@@ -672,5 +672,72 @@ public interface OrderEasyApiModel {
      */
     Subscription supplierInfo(int supplier_id);
 
+    /**
+     * 供应商应付款调整
+     *
+     * @return
+     */
+    Subscription supplierAccountLogAdjust(int supplier_id, double debt, String remark);
+
+    /**
+     * 向供应商付款
+     *
+     * @return
+     */
+    Subscription supplierPay(int supplier_id, int order_id, int payment_type, double cash, double wechat, double alipay, double bank_card, double other, String remark, String create_time);
+    /**
+     * 开采购单
+     *
+     * @return
+     */
+    Subscription supplierAddOrder(Order order);
+    /**
+     * 采购订单列表
+     *
+     * @return
+     */
+    Subscription supplierOrderList(int page, String filter_type, String user_id, String start_time, String end_time);
+
+
+    /**
+     * 搜索采购订单
+     *
+     * @param page
+     * @param keyword
+     * @return
+     */
+    Subscription searchPurchaseList(int page, String keyword);
+    /**
+     * 采购订单详情
+     * @return
+     */
+    Subscription supplierOrderInfo(int order_id, String order_no);
+
+    /**
+     * 关闭采购单
+     * @return
+     */
+    Subscription supplierOrderClose(int order_id);
+    /**
+     * 对账列表
+     * @return
+     */
+    Subscription suplierAccountLog(int supplier_id);
+
+    /**
+     * 未入库列表
+     * @return
+     */
+    Subscription supplierWaitInStore(int supplier_id,int order_id);
+    /**
+     * 去入库
+     * @return
+     */
+    Subscription supplierGoInStore(List<Delivery> deliveries);
+    /**
+     * 删除供货商
+     * @return
+     */
+    Subscription supplierDel(int supplier_id);
 
 }

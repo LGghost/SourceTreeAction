@@ -1,14 +1,17 @@
 package cn.order.ordereasy.view.activity;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
@@ -19,27 +22,29 @@ import butterknife.InjectView;
 import butterknife.OnClick;
 import cn.order.ordereasy.R;
 import cn.order.ordereasy.adapter.OrderDetailAdapter;
-import cn.order.ordereasy.bean.ArrearsBean;
 import cn.order.ordereasy.bean.Customer;
 import cn.order.ordereasy.bean.Goods;
 import cn.order.ordereasy.bean.Order;
 import cn.order.ordereasy.bean.Product;
-import cn.order.ordereasy.bean.Spec;
 import cn.order.ordereasy.bean.SupplierBean;
 import cn.order.ordereasy.presenter.OrderEasyPresenter;
 import cn.order.ordereasy.presenter.OrderEasyPresenterImp;
+import cn.order.ordereasy.utils.DataStorageUtils;
 import cn.order.ordereasy.utils.GsonUtils;
 import cn.order.ordereasy.utils.ProgressUtil;
+import cn.order.ordereasy.utils.TimeUtil;
 import cn.order.ordereasy.utils.ToastUtil;
 import cn.order.ordereasy.view.OrderEasyView;
 import cn.order.ordereasy.widget.CustomExpandableListView;
 
 public class ProcurementDetailsActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener, OrderEasyView {
-    private ArrearsBean bean;
-    private SupplierBean bean1;
     private OrderEasyPresenter orderEasyPresenter;
     private Order order;
     private OrderDetailAdapter adapter;
+    private String order_no;
+    private SupplierBean supplierBean;
+    private AlertDialog alertDialog;
+    private int id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,11 +54,13 @@ public class ProcurementDetailsActivity extends BaseActivity implements SwipeRef
         ButterKnife.inject(this);
         orderEasyPresenter = new OrderEasyPresenterImp(this);
         Bundle bundle = getIntent().getExtras();
+
         if (bundle != null) {
-            bean = (ArrearsBean) bundle.getSerializable("data");
-            bean1 = (SupplierBean) bundle.getSerializable("bean");
+            id = bundle.getInt("id");
+            order_no = bundle.getString("order_no");
+            Log.e("JJF", "id" + id);
+            orderEasyPresenter.supplierOrderInfo(id, order_no);
         }
-        initRefreshLayout();
         orderno_list_view.setGroupIndicator(null);
         orderno_list_view.setFocusable(false);
     }
@@ -61,21 +68,27 @@ public class ProcurementDetailsActivity extends BaseActivity implements SwipeRef
 
     private void initRefreshLayout() {
         store_refresh.setOnRefreshListener(this);
-        order_num.setText(bean.getDelete_time());
-        order_name.setText(bean.getCustomer_name());
-        money_number.setText(bean1.getDebt() + "");
-        kaidanren_name.setText(bean.getUser_name());
-        data_time.setText(bean.getCreate_time());
-        if (bean.getType() == 2) {
+        int owe_num = 0, oper_num = 0;
+        for (Goods good : order.getGoods_list()) {
+            for (Product product : good.getProduct_list()) {
+                owe_num += product.getOwe_num();
+                oper_num += product.getOperate_num();
+            }
+        }
+        order_num.setText(order.getOrder_no());
+        order_name.setText(supplierBean.getName());
+        money_number.setText(supplierBean.getDebt() + "");
+        kaidanren_name.setText(order.getUser_name());
+        data_time.setText(TimeUtil.getTimeStamp2Str(Long.parseLong(order.getCreate_time()), "yyyy-MM-dd HH:mm:ss"));
+        if (order.getOrder_type() == 2) {
             bottom_layout.setVisibility(View.GONE);
             youhui_layout.setVisibility(View.GONE);
             jine_text.setText("本次应退：¥");
             jine_text.setTextColor(getResources().getColor(R.color.touzi_huise));
             order_money_num.setTextColor(getResources().getColor(R.color.touzi_huise));
-            huopin_leixing.setText("总采购退货输出：");
+            huopin_leixing.setText("总采购退货数：");
             type_image.setImageResource(R.drawable.img_tuidan_sign);
-//            orderEasyPresenter.getOrderInfo(1331);
-            yaohuo_num.setText("11");
+            yaohuo_num.setText(oper_num + "");
         } else {
             bottom_layout.setVisibility(View.VISIBLE);
             youhui_layout.setVisibility(View.VISIBLE);
@@ -83,145 +96,45 @@ public class ProcurementDetailsActivity extends BaseActivity implements SwipeRef
             jine_text.setTextColor(getResources().getColor(R.color.heise));
             order_money_num.setTextColor(getResources().getColor(R.color.heise));
             type_image.setImageResource(R.drawable.img_dingdan);
-//            orderEasyPresenter.getOrderInfo(1321);
-            yaohuo_num.setText("1650");
+            yaohuo_num.setText(oper_num + "");
         }
-        order_money_num.setText(bean.getMoney() + "");
-        initData();
+        order_money_num.setText(order.getPayable() + "");
+
+        int status = order.getIs_close();
+        if (status == 1) {
+            qianhuo_layout.setVisibility(View.GONE);
+            yiguanbi.setVisibility(View.VISIBLE);
+            goto_shoukuan.setVisibility(View.GONE);
+        }
+        if (order.getIs_close() == 1 || owe_num != oper_num) {
+            guanbi_image.setImageResource(R.drawable.icon_zailaiyidan);
+            close_text.setText("再来一单");
+            close_text.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(ProcurementDetailsActivity.this, BillingPurchaseActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putDouble("receivable", supplierBean.getDebt());
+                    bundle.putSerializable("Order", order);
+                    bundle.putString("flag", "details");
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                    finish();
+                }
+            });
+        } else {
+            guanbi_image.setImageResource(R.drawable.icon_guanbi);
+            close_text.setText("关闭订单");
+            close_text.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showdialogs();
+                }
+            });
+
+        }
     }
 
-    private void initData() {
-        List<Goods> goodslist = new ArrayList<>();
-        Goods goods = new Goods();
-        goods.setGoods_no("1241234");
-        goods.setTitle("皮鞋");
-        List<Product> product_list = new ArrayList<>();
-        Product product = new Product();
-        List<String> spec_datas = new ArrayList<>();
-        spec_datas.add("白色");
-        spec_datas.add("大码");
-        product.setSpec_data(spec_datas);
-        product.setOperate_num(150);
-        product.setSell_price(120.00);
-        product.setOwe_num(210);
-        Product product1 = new Product();
-        List<String> spec_datas1 = new ArrayList<>();
-        spec_datas1.add("白色");
-        spec_datas1.add("中码");
-        product1.setSpec_data(spec_datas1);
-        product1.setOperate_num(150);
-        product1.setSell_price(120.00);
-        product1.setOwe_num(230);
-        Product product2 = new Product();
-        List<String> spec_datas2 = new ArrayList<>();
-        spec_datas2.add("黑色");
-        spec_datas2.add("大码");
-        product2.setSpec_data(spec_datas2);
-        product2.setOperate_num(150);
-        product2.setSell_price(120.00);
-        product2.setOwe_num(77);
-        product_list.add(product);
-        product_list.add(product1);
-        product_list.add(product2);
-        goods.setProduct_list(product_list);
-
-        Goods goods1 = new Goods();
-        goods1.setGoods_no("656811231");
-        goods1.setTitle("皮鞋");
-        List<Product> product_list1 = new ArrayList<>();
-        Product product3 = new Product();
-        List<String> spec_datas3 = new ArrayList<>();
-        spec_datas3.add("白色");
-        spec_datas3.add("大码");
-        product3.setSpec_data(spec_datas3);
-        product3.setOperate_num(150);
-        product3.setSell_price(120.00);
-        product3.setOwe_num(210);
-
-        Product product4 = new Product();
-        List<String> spec_datas4 = new ArrayList<>();
-        spec_datas4.add("白色");
-        spec_datas4.add("中码");
-        product4.setSpec_data(spec_datas4);
-        product4.setOperate_num(150);
-        product4.setSell_price(120.00);
-        product4.setOwe_num(230);
-
-        Product product5 = new Product();
-        List<String> spec_datas5 = new ArrayList<>();
-        spec_datas5.add("黑色");
-        spec_datas5.add("大码");
-        product5.setSpec_data(spec_datas5);
-        product5.setOperate_num(150);
-        product5.setSell_price(120.00);
-        product5.setOwe_num(77);
-
-        Product product6 = new Product();
-        List<String> spec_datas6 = new ArrayList<>();
-        spec_datas6.add("黑色");
-        spec_datas6.add("中码");
-        product6.setSpec_data(spec_datas6);
-        product6.setOperate_num(150);
-        product6.setSell_price(120.00);
-        product6.setOwe_num(77);
-
-        product_list1.add(product3);
-        product_list1.add(product4);
-        product_list1.add(product5);
-        product_list1.add(product6);
-        goods1.setProduct_list(product_list1);
-
-        Goods goods2 = new Goods();
-        goods2.setGoods_no("127678239");
-        goods2.setTitle("皮鞋");
-        List<Product> product_list2 = new ArrayList<>();
-        Product product7 = new Product();
-        List<String> spec_datas7 = new ArrayList<>();
-        spec_datas7.add("白色");
-        spec_datas7.add("大码");
-        product7.setSpec_data(spec_datas7);
-        product7.setOperate_num(150);
-        product7.setSell_price(120.00);
-        product7.setOwe_num(210);
-
-        Product product8 = new Product();
-        List<String> spec_datas8 = new ArrayList<>();
-        spec_datas8.add("白色");
-        spec_datas8.add("中码");
-        product8.setSpec_data(spec_datas8);
-        product8.setOperate_num(150);
-        product8.setSell_price(120.00);
-        product8.setOwe_num(230);
-
-        Product product9 = new Product();
-        List<String> spec_datas9 = new ArrayList<>();
-        spec_datas9.add("黑色");
-        spec_datas9.add("大码");
-        product9.setSpec_data(spec_datas9);
-        product9.setOperate_num(150);
-        product9.setSell_price(120.00);
-        product9.setOwe_num(77);
-
-        Product product10 = new Product();
-        List<String> spec_datas10 = new ArrayList<>();
-        spec_datas10.add("黑色");
-        spec_datas10.add("中码");
-        product10.setSpec_data(spec_datas10);
-        product10.setOperate_num(150);
-        product10.setSell_price(120.00);
-        product10.setOwe_num(77);
-
-        product_list2.add(product7);
-        product_list2.add(product8);
-        product_list2.add(product9);
-        product_list2.add(product10);
-        goods2.setProduct_list(product_list2);
-        goodslist.add(goods);
-        goodslist.add(goods1);
-        goodslist.add(goods2);
-        adapter = new OrderDetailAdapter(goodslist, this, bean.getType(), false);
-        orderno_list_view.setAdapter(adapter);
-    }
 
     //下拉刷新控件
     @InjectView(R.id.store_refresh)
@@ -256,6 +169,14 @@ public class ProcurementDetailsActivity extends BaseActivity implements SwipeRef
     TextView tv_zhankai;
     @InjectView(R.id.order_remarks)
     TextView order_remarks;
+    @InjectView(R.id.close_text)
+    TextView close_text;
+    @InjectView(R.id.goto_shoukuan)
+    TextView goto_shoukuan;
+    @InjectView(R.id.guanbi_image)
+    ImageView guanbi_image;
+    @InjectView(R.id.qianhuo_layout)
+    LinearLayout qianhuo_layout;
     @InjectView(R.id.youhui_money_num)
     TextView youhui_money_num;
 
@@ -276,37 +197,57 @@ public class ProcurementDetailsActivity extends BaseActivity implements SwipeRef
     @OnClick(R.id.goto_shoukuan)
     void goto_shoukuan() {
         Intent intent = new Intent(this, SupplierPaymentActivity.class);
-        intent.putExtra("data", bean1);
+        intent.putExtra("data", supplierBean);
         startActivity(intent);
     }
 
     //去发货
     @OnClick(R.id.fahuo)
     void fahuo_click() {
-        ToastUtil.show("货品已全部入库");
+        if (order == null) {
+            return;
+        }
+        if (order.getIs_close() == 1) {
+            ToastUtil.show("已关闭订单不能进行此操作");
+            return;
+        }
+        int owe = 0;
+        if (order != null && order.getGoods_list() != null) {
+            for (Goods goods : order.getGoods_list()) {
+                for (Product product : goods.getProduct_list()) {
+                    owe += product.getOwe_num();
+                }
+            }
+        }
+        if (owe <= 0) {
+            showToast("该客户的货已全部入库");
+            return;
+        }
+        Intent intent = new Intent(ProcurementDetailsActivity.this, DeliverGoodsActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("flag", "procurement");
+        bundle.putSerializable("data", order);
+        intent.putExtras(bundle);
+        startActivityForResult(intent, 1001);
     }
 
-    //退欠货
+    //退货
     @OnClick(R.id.tuiqianhuo)
     void tuiqianhuo() {
         Intent intent = new Intent(this, ReturnGoodsActivity.class);
         Bundle bundle = new Bundle();
         Customer customer = new Customer();
-        customer.setName(bean1.getName());
-        customer.setCustomer_id(-1);
+        customer.setName(supplierBean.getName());
+        customer.setCustomer_id(supplierBean.getSupplier_id());
         List<String> addre = new ArrayList<>();
-        addre.add(bean1.getAddress());
+        addre.add(supplierBean.getAddress());
         customer.setAddress(addre);
         bundle.putSerializable("data", customer);
+        bundle.putString("flag", "procurement");
         intent.putExtras(bundle);
         startActivity(intent);
     }
 
-    //再来一单
-    @OnClick(R.id.close_orderno)
-    void close_orderno() {
-
-    }
 
     @OnClick(R.id.order_remarks_layout)
 //备注
@@ -339,7 +280,7 @@ public class ProcurementDetailsActivity extends BaseActivity implements SwipeRef
 
     @Override
     public void onRefresh() {
-        store_refresh.setRefreshing(false);
+        orderEasyPresenter.supplierOrderInfo(id, order_no);
     }
 
     @Override
@@ -357,24 +298,102 @@ public class ProcurementDetailsActivity extends BaseActivity implements SwipeRef
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == 1001) {
+            DataStorageUtils.getInstance().setPurchaseBilling(true);
+            orderEasyPresenter.supplierOrderInfo(id, order_no);
+        }
+
+    }
+
+    @Override
     public void loadData(JsonObject data, int type) {
         store_refresh.setRefreshing(false);
-        if (data != null) {
-            int status = data.get("code").getAsInt();
-            if (status == 1) {
-                //处理返回的数据
-                Log.e("OrderNoDetails", "" + data.toString());
-                order = (Order) GsonUtils.getEntity(data.get("result").getAsJsonObject().toString(), Order.class);
-                if (order != null) {
-                    if (order.getOrder_id() != -1) {
-                        order.setOriginal_order_id(order.getOrder_id());
+        if (type == 0) {
+            if (data != null) {
+                int status = data.get("code").getAsInt();
+                if (status == 1) {
+                    //成功
+                    JsonArray jsonArray = data.getAsJsonObject("result").getAsJsonArray("list");
+                    List<SupplierBean> lsit = new ArrayList<>();
+                    for (int i = 0; i < jsonArray.size(); i++) {
+                        SupplierBean supplierBean = (SupplierBean) GsonUtils.getEntity(jsonArray.get(i).toString(), SupplierBean.class);
+                        lsit.add(supplierBean);
                     }
-                    adapter = new OrderDetailAdapter(order.getGoods_list(), this, order.getOrder_type(), true);
-                    orderno_list_view.setAdapter(adapter);
-                } else {
-                    showToast("数据异常");
+                    for (SupplierBean bean : lsit) {
+                        if (bean.getSupplier_id() == order.getSupplier_id()) {
+                            supplierBean = bean;
+                            break;
+                        }
+                    }
+                    initRefreshLayout();
                 }
             }
+
+        } else if (type == 1) {
+            if (data != null) {
+                int status = data.get("code").getAsInt();
+                if (status == 1) {
+                    //处理返回的数据
+                    Log.e("ProcurementDetail", "" + data.toString());
+                    order = (Order) GsonUtils.getEntity(data.get("result").getAsJsonObject().toString(), Order.class);
+                    if (order != null) {
+                        if (order.getOrder_id() != -1) {
+                            order.setOriginal_order_id(order.getOrder_id());
+                        }
+                        adapter = new OrderDetailAdapter(order.getGoods_list(), this, order.getOrder_type(), true);
+                        orderno_list_view.setAdapter(adapter);
+                        orderEasyPresenter.supplierIndex();
+                    } else {
+                        showToast("数据异常");
+                    }
+                }
+            }
+        } else if (type == 2) {
+            int status = data.get("code").getAsInt();
+            if (status == 1) {
+                Log.e("ProcurementDetail", "" + data.toString());
+                qianhuo_layout.setVisibility(View.GONE);
+                yiguanbi.setVisibility(View.VISIBLE);
+                goto_shoukuan.setVisibility(View.GONE);
+            }
         }
+    }
+
+    private void showdialogs() {//跟据type判断是否是微信订单
+        alertDialog = new AlertDialog.Builder(this).create();
+        View view = View.inflate(this, R.layout.tanchuang_view, null);
+        alertDialog.setView(view);
+
+        alertDialog.show();
+        Window window = alertDialog.getWindow();
+        //window.setContentView(view);
+        window.setContentView(R.layout.tanchuang_view_textview);
+        //标题
+        TextView title_name = (TextView) window.findViewById(R.id.title_name);
+
+        TextView text_conten = (TextView) window.findViewById(R.id.text_conten);
+        title_name.setText("温馨提示");
+        text_conten.setText("您确认要关闭此订单吗？");
+        //按钮1点击事件
+        TextView quxiao = (TextView) window.findViewById(R.id.quxiao);
+        quxiao.setText("取消");
+        quxiao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
+
+        //按钮2确认点击事件
+        final TextView queren = (TextView) window.findViewById(R.id.queren);
+        queren.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                orderEasyPresenter.supplierOrderClose(order.getOrder_id());
+                alertDialog.dismiss();
+            }
+        });
     }
 }

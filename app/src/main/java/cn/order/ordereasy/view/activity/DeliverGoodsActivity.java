@@ -96,6 +96,19 @@ public class DeliverGoodsActivity extends BaseActivity implements OrderEasyView 
                 customer.setAddress(Arrays.asList(new String[]{order.getAddress()}));
                 kehu_name.setText(order.getCustomer_name());
                 orderEasyPresenter.getOweOrdersList(-1, order.getOrder_id());
+            } else {
+                Order order = (Order) bundle.getSerializable("data");
+                customer = new Customer();
+                customer.setCustomer_id(order.getSupplier_id());
+                customer.setCustomer_name(order.getSupplier_name());
+                customer.setTelephone(order.getTelephone());
+                customer.setAddress(Arrays.asList(new String[]{order.getAddress()}));
+                kehu_name.setText(order.getSupplier_name());
+                checkbox_click.setText("全部入库");
+                all_fahuo.setText("本次入库总数");
+                goto_fahuo.setText("确定入库");
+                adapter.setFlag(flag);
+                orderEasyPresenter.supplierWaitInStore(order.getSupplier_id(), order.getOrder_id());
             }
         }
 
@@ -170,6 +183,8 @@ public class DeliverGoodsActivity extends BaseActivity implements OrderEasyView 
     //发货总数
     @InjectView(R.id.fahuo_zong_num)
     TextView fahuo_zong_num;
+    @InjectView(R.id.all_fahuo)
+    TextView all_fahuo;
 
     //去发货按钮
     @InjectView(R.id.goto_fahuo)
@@ -192,8 +207,37 @@ public class DeliverGoodsActivity extends BaseActivity implements OrderEasyView 
     //去发货按钮
     @OnClick(R.id.goto_fahuo)
     void goto_fahuo() {
-        Intent intent = new Intent(DeliverGoodsActivity.this, LogisticsInformationAvtivity.class);
-        startActivityForResult(intent, 1001);
+        if (!flag.equals("procurement")) {
+            Intent intent = new Intent(DeliverGoodsActivity.this, LogisticsInformationAvtivity.class);
+            startActivityForResult(intent, 1001);
+        } else {
+            List<Delivery> deliveries = new ArrayList<>();
+            for (Order order : data) {
+                Delivery delivery = new Delivery();
+                delivery.setRemark("发货");
+                delivery.setCustomer_id(customer.getCustomer_id());
+                delivery.setOperate_id(0);
+                delivery.setOperate_type(Config.Operate_TYPE_DELIVER);
+                List<Map<String, Object>> maps = new ArrayList<>();
+                for (Goods good : order.getGoods_list()) {
+                    for (Product product : good.getProduct_list()) {
+                        Map<String, Object> map = new HashMap<>();
+                        if (product.getNum() > 0) {
+                            map.put("operate_num", product.getNum());
+                            map.put("product_id", product.getProduct_id());
+                            maps.add(map);
+                        }
+                    }
+                }
+                delivery.setCustomer_id(customer.getCustomer_id());
+                delivery.setOrder_id(order.getOrder_id());
+                delivery.setProduct_list(maps);
+                if (maps.size() > 0) {
+                    deliveries.add(delivery);
+                }
+            }
+            orderEasyPresenter.supplierGoInStore(deliveries);
+        }
     }
 
     @Override
@@ -311,7 +355,11 @@ public class DeliverGoodsActivity extends BaseActivity implements OrderEasyView 
                         int status = result.get("code").getAsInt();
                         //String message=result.get("message").getAsString();
                         if (status == 1) {
-                            showToast("发货成功！");
+                            if (flag.equals("procurement")) {
+                                showToast("入库成功！");
+                            } else {
+                                showToast("发货成功！");
+                            }
                             if (flag.equals("cust")) {
                                 setResult(1003);
                                 finish();
@@ -328,8 +376,14 @@ public class DeliverGoodsActivity extends BaseActivity implements OrderEasyView 
                     if (result != null) {
                         int status = result.get("code").getAsInt();
                         if (status == 1) {
+                            Log.e("DeliverGoodsActivity", "data:" + result.toString());
                             //处理返回的数据
-                            JsonArray stocks = result.getAsJsonObject("result").getAsJsonArray("page_list");
+                            JsonArray stocks;
+                            if (flag.equals("procurement")) {
+                                stocks = result.getAsJsonObject("result").getAsJsonArray("list");
+                            } else {
+                                stocks = result.getAsJsonObject("result").getAsJsonArray("page_list");
+                            }
                             List<Order> datas = new ArrayList<>();//适配器数据
                             for (int i = 0; i < stocks.size(); i++) {
                                 //循环遍历获取的数据，并转成实体
@@ -363,7 +417,6 @@ public class DeliverGoodsActivity extends BaseActivity implements OrderEasyView 
                             }
                         }
                     }
-                    Log.e("发货订单信息", result.toString());
                     break;
                 case 1007:
                     ToastUtil.show("出错了哟~");
@@ -392,7 +445,11 @@ public class DeliverGoodsActivity extends BaseActivity implements OrderEasyView 
         TextView title_name = (TextView) window.findViewById(R.id.title_name);
         title_name.setText("温馨提示");
         TextView text_conten = (TextView) window.findViewById(R.id.text_conten);
-        text_conten.setText("该客户的货已全部发出");
+        if (flag.equals("procurement")) {
+            text_conten.setText("该客户的货已全部入库");
+        } else {
+            text_conten.setText("该客户的货已全部发出");
+        }
 
 
         //按钮1点击事件

@@ -1737,4 +1737,216 @@ public class OrderEasyApiService {
         Log.e("supplierInfo", "发送参数：" + strEntity);
         return MyApplication.getInstance().getService(1).request(Config.supplier_info_url, body);
     }
+
+    /**
+     * 供应商应付款调整
+     *
+     * @param supplier_id
+     * @return
+     */
+    public static Observable<JsonObject> supplierAccountLogAdjust(int supplier_id, double debt, String remark) {
+        HashMap<String, Object> paramsMap = new HashMap<>();
+        paramsMap.put("supplier_id", supplier_id + "");
+        paramsMap.put("debt", debt + "");
+        paramsMap.put("remark", remark);
+        String strEntity = GsonUtils.getJsonStr(paramsMap);
+        RequestBody body = RequestBody.create(MediaType.parse("application/json"), strEntity);
+        Log.e("AccountLogAdjust", "发送参数：" + strEntity);
+        return MyApplication.getInstance().getService(1).request(Config.supplier_accountLogAdjust_url, body);
+    }
+
+    /**
+     * 向供应商付款
+     *
+     * @param supplier_id
+     * @param payment_type
+     * @param cash
+     * @param order_id     默认0
+     * @param wechat
+     * @param alipay
+     * @param bank_card
+     * @param other
+     * @return
+     */
+    public static Observable<JsonObject> supplierPay(int supplier_id, int order_id, int payment_type, double cash, double wechat, double alipay, double bank_card, double other, String remark, String create_time) {
+        HashMap<String, Object> paramsMap = new HashMap<>();
+        paramsMap.put("supplier_id", String.valueOf(supplier_id));
+        paramsMap.put("order_id", String.valueOf(order_id));
+        paramsMap.put("payment_type", payment_type);
+        paramsMap.put("remark", remark);
+        paramsMap.put("create_time", create_time);
+        HashMap<String, Object> pay_data = new HashMap<>();
+        pay_data.put("cash", cash);
+        pay_data.put("wechat", wechat);
+        pay_data.put("alipay", alipay);
+        pay_data.put("bank_card", bank_card);
+        pay_data.put("other", other);
+        paramsMap.put("pay_data", pay_data);
+        String strEntity = GsonUtils.getJsonStr(paramsMap);
+        RequestBody body = RequestBody.create(MediaType.parse("application/json"), strEntity);
+        Log.e("supplierPay", "发送参数：" + strEntity);
+        return MyApplication.getInstance().getService(1).request(Config.supplier_pay_url, body);
+    }
+
+    /**
+     * 开采购单
+     *
+     * @param order
+     * @return
+     */
+    public static Observable<JsonObject> supplierAddOrder(Order order) {
+        HashMap<String, Object> paramsMap = new HashMap<>();
+        List<Map<String, Object>> map = new ArrayList<>();
+        List<Goods> goods = order.getGoods_list();
+        if (goods == null) goods = new ArrayList<>();
+        for (Goods good : goods) {
+            List<Product> products = good.getProduct_list();
+            for (Product p : products) {
+                Map<String, Object> data = new HashMap<>();
+                data.put("operate_num", p.getNum());
+                data.put("product_id", p.getProduct_id());
+                data.put("cost_price", p.getCost_price());
+                data.put("sell_price", p.getSell_price());
+                map.add(data);
+            }
+        }
+        paramsMap.put("supplier_id", order.getCustomer_id());
+        paramsMap.put("merchandiser_id", order.getOriginal_order_id());
+        paramsMap.put("order_type", order.getOrder_type());
+        paramsMap.put("payable", order.getPayable());
+        paramsMap.put("remark", order.getRemark());
+        paramsMap.put("is_in_store", order.getIs_deliver());
+        paramsMap.put("is_payment", order.getIs_payment());
+        paramsMap.put("product_list", map);
+        String strEntity = GsonUtils.getJsonStr(paramsMap);
+        RequestBody body = RequestBody.create(MediaType.parse("application/json"), strEntity);
+        Log.e("supplierAddOrder", "发送参数：" + strEntity);
+        return MyApplication.getInstance().getService(1).request(Config.supplier_addOrder_url, body);
+    }
+
+    /**
+     * 采购订单列表
+     *
+     * @return
+     */
+    public static Observable<JsonObject> supplierOrderList(int page, String filter_type, String user_id, String start_time, String end_time) {
+        HashMap<String, Object> paramsMap = new HashMap<>();
+        paramsMap.put("page", page);
+        paramsMap.put("filter_type", filter_type);
+        paramsMap.put("user_id", user_id);
+        if (!TextUtils.isEmpty(start_time)) {
+            paramsMap.put("start_time", start_time);
+        }
+        if (!TextUtils.isEmpty(end_time)) {
+            paramsMap.put("end_time", end_time);
+        }
+
+        String strEntity = GsonUtils.getJsonStr(paramsMap);
+        RequestBody body = RequestBody.create(MediaType.parse("application/json"), strEntity);
+        Log.e("supplierOrderList", "发送参数：" + strEntity);
+        return MyApplication.getInstance().getService(1).request(Config.supplier_orderList_url, body);
+    }
+
+    /**
+     * 搜索采购订单
+     *
+     * @param page
+     * @param keyword
+     * @return
+     */
+    public static Observable<JsonObject> searchPurchaseList(int page, String keyword) {
+        HashMap<String, String> paramsMap = new HashMap<>();
+        paramsMap.put("keyword", keyword);
+        paramsMap.put("page", String.valueOf(page));
+
+        String strEntity = GsonUtils.getJsonStr(paramsMap);
+        RequestBody body = RequestBody.create(MediaType.parse("application/json"), strEntity);
+        Log.e("searchPurchaseList", "发送参数：" + strEntity);
+        return MyApplication.getInstance().getService(1).request(Config.supplier_orderList_url, body);
+    }
+
+    /**
+     * 采购订单详情
+     *
+     * @return
+     */
+    public static Observable<JsonObject> supplierOrderInfo(int order_id, String order_no) {
+        HashMap<String, String> paramsMap = new HashMap<>();
+        paramsMap.put("order_id", order_id + "");
+        paramsMap.put("order_no", order_no);
+        String strEntity = GsonUtils.getJsonStr(paramsMap);
+        RequestBody body = RequestBody.create(MediaType.parse("application/json"), strEntity);
+        Log.e("supplierOrderInfo", "发送参数：" + strEntity);
+        return MyApplication.getInstance().getService(1).request(Config.supplier_orderInfo_url, body);
+    }
+
+    /**
+     * 关闭采购单
+     *
+     * @return
+     */
+    public static Observable<JsonObject> supplierOrderClose(int order_id) {
+        HashMap<String, String> paramsMap = new HashMap<>();
+        paramsMap.put("order_id", order_id + "");
+        String strEntity = GsonUtils.getJsonStr(paramsMap);
+        RequestBody body = RequestBody.create(MediaType.parse("application/json"), strEntity);
+        Log.e("supplierOrderClose", "发送参数：" + strEntity);
+        return MyApplication.getInstance().getService(1).request(Config.supplier_orderClose_url, body);
+    }
+
+    /**
+     * 对账列表
+     *
+     * @return
+     */
+    public static Observable<JsonObject> suplierAccountLog(int supplier_id) {
+        HashMap<String, String> paramsMap = new HashMap<>();
+        paramsMap.put("supplier_id", supplier_id + "");
+        String strEntity = GsonUtils.getJsonStr(paramsMap);
+        RequestBody body = RequestBody.create(MediaType.parse("application/json"), strEntity);
+        Log.e("suplierAccountLog", "发送参数：" + strEntity);
+        return MyApplication.getInstance().getService(1).request(Config.supplier_accountLog_url, body);
+    }
+
+    /**
+     * 未入库列表
+     *
+     * @return
+     */
+    public static Observable<JsonObject> supplierWaitInStore(int supplier_id, int order_id) {
+        HashMap<String, String> paramsMap = new HashMap<>();
+        paramsMap.put("supplier_id", supplier_id + "");
+        paramsMap.put("order_id", order_id + "");
+        String strEntity = GsonUtils.getJsonStr(paramsMap);
+        RequestBody body = RequestBody.create(MediaType.parse("application/json"), strEntity);
+        Log.e("supplierWaitInStore", "发送参数：" + strEntity);
+        return MyApplication.getInstance().getService(1).request(Config.supplier_waitInStore_url, body);
+    }
+
+    /**
+     * 去入库
+     *
+     * @param deliveries
+     * @return
+     */
+    public static Observable<JsonObject> supplierGoInStore(List<Delivery> deliveries) {
+        String strEntity = GsonUtils.getJsonStr(deliveries);
+        RequestBody body = RequestBody.create(MediaType.parse("application/json"), strEntity);
+        Log.e("supplierGoInStore", "发送参数：" + strEntity);
+        return MyApplication.getInstance().getService(1).request(Config.supplier_goInStore_url, body);
+    }
+
+    /**
+     * 未入库列表
+     *
+     * @return
+     */
+    public static Observable<JsonObject> supplierDel(int supplier_id) {
+        HashMap<String, String> paramsMap = new HashMap<>();
+        paramsMap.put("supplier_id", supplier_id + "");
+        String strEntity = GsonUtils.getJsonStr(paramsMap);
+        RequestBody body = RequestBody.create(MediaType.parse("application/json"), strEntity);
+        Log.e("supplierDel", "发送参数：" + strEntity);
+        return MyApplication.getInstance().getService(1).request(Config.supplier_del_url, body);
+    }
 }

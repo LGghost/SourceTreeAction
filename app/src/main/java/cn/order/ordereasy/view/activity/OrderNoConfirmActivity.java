@@ -76,7 +76,7 @@ public class OrderNoConfirmActivity extends BaseActivity implements OrderEasyVie
         Bundle bundle = getIntent().getExtras();
 
 
-        confirmBillingAdapter = new ConfirmBillingAdapter(this);
+        confirmBillingAdapter = new ConfirmBillingAdapter(this, 0);
         order_kehu_listview.setAdapter(confirmBillingAdapter);
         orderEasyPresenter = new OrderEasyPresenterImp(this);
         if (bundle != null) {

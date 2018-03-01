@@ -12,6 +12,7 @@ import java.util.List;
 
 import cn.order.ordereasy.R;
 import cn.order.ordereasy.bean.OrderList;
+import cn.order.ordereasy.utils.TimeUtil;
 
 public class PurchaseOrderAdapter extends BaseAdapter {
     public List<OrderList> lists1;
@@ -66,8 +67,8 @@ public class PurchaseOrderAdapter extends BaseAdapter {
             holder = (PurchaseOrderViewHold) view.getTag();
         }
         holder.order_code.setText(my.getOrder_no());
-        holder.kehu_name.setText(my.getCustomer_name());
-        holder.data_time.setText(my.getCreate_time());
+        holder.kehu_name.setText(my.getSupplier_name());
+        holder.data_time.setText(TimeUtil.getTimeStamp2Str(Long.parseLong(my.getCreate_time()), "yyyy-MM-dd HH:mm:ss"));
         holder.ruku_num.setText(my.getOwe_num() + "");
         holder.order_money.setText(my.getPayable() + "");
         holder.kaidan_num.setText(my.getOrder_num() + "");
@@ -88,6 +89,7 @@ public class PurchaseOrderAdapter extends BaseAdapter {
                 break;
             case 2:
             case 3:
+                holder.type_image.setImageResource(R.drawable.img_tuidan_sign);
                 holder.ruku_num.setVisibility(View.GONE);
                 holder.order_amount.setTextColor(context.getResources().getColor(R.color.touzi_huise));
                 holder.order_money.setTextColor(context.getResources().getColor(R.color.touzi_huise));

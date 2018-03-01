@@ -74,7 +74,7 @@ public class SupplierDetailsActivity extends BaseActivity implements SwipeRefres
             address.setText(bean.getAddress());
         }
         money_num.setText(bean.getDebt() + "");
-        supplier_remarks.setText(bean.getRemarks());
+        remark1.setText(bean.getRemarks());
 
     }
 
@@ -91,7 +91,7 @@ public class SupplierDetailsActivity extends BaseActivity implements SwipeRefres
     @InjectView(R.id.money_num)
     TextView money_num;
     @InjectView(R.id.supplier_remarks)
-    TextView supplier_remarks;
+    TextView remark1;
 
     @InjectView(R.id.store_refresh)
     SwipeRefreshLayout store_refresh;
@@ -232,7 +232,7 @@ public class SupplierDetailsActivity extends BaseActivity implements SwipeRefres
             @Override
             public void onClick(View v) {
                 String addr = ed_type_name.getText().toString();
-                String remarks = supplier_remarks_text.getText().toString();
+                String remarks = supplier_remarks.getText().toString();
                 if (!TextUtils.isEmpty(addr)) {
                     money_num.setText(addr);
                     bean.setDebt(Double.parseDouble(addr));
@@ -241,7 +241,9 @@ public class SupplierDetailsActivity extends BaseActivity implements SwipeRefres
                 }
                 if (!TextUtils.isEmpty(remarks)) {
                     bean.setRemarks(remarks);
+                    remark1.setText(bean.getRemarks());
                 }
+                orderEasyPresenter.supplierAccountLogAdjust(bean.getSupplier_id(), bean.getDebt(), bean.getRemarks());
                 alertDialog.dismiss();
             }
         });
@@ -284,7 +286,13 @@ public class SupplierDetailsActivity extends BaseActivity implements SwipeRefres
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == 1001) {
             isEdit = true;
-            refreshData(false);
+            String flag = data.getExtras().getString("flag");
+            if (flag.equals("edit")) {
+                refreshData(false);
+            } else {
+                setResult(1001);
+                finish();
+            }
         }
     }
 
@@ -320,19 +328,33 @@ public class SupplierDetailsActivity extends BaseActivity implements SwipeRefres
     public void loadData(JsonObject data, int type) {
         //关闭刷新控件
         store_refresh.setRefreshing(false);
-        if (data != null) {
-            int status = data.get("code").getAsInt();
-            if (status == 1) {
-                //处理返回的数据
-                Log.e("SupplierDetailsActivity", "" + data.toString());
-                bean = (SupplierBean) GsonUtils.getEntity(data.get("result").getAsJsonObject().toString(), SupplierBean.class);
-                if (bean != null) {
-                    initData();
-                } else {
-                    showToast("数据异常");
+        if (type == 0) {
+            if (data != null) {
+                int status = data.get("code").getAsInt();
+                if (status == 1) {
+                    //处理返回的数据
+                    Log.e("SupplierDetailsActivity", "" + data.toString());
+                    bean = (SupplierBean) GsonUtils.getEntity(data.get("result").getAsJsonObject().toString(), SupplierBean.class);
+                    if (bean != null) {
+                        initData();
+                    } else {
+                        showToast("数据异常");
+                    }
+                }
+            }
+        } else if (type == 1) {
+            if (data != null) {
+                int status = data.get("code").getAsInt();
+                if (status == 1) {
+                    isEdit = true;
+                    //处理返回的数据
+                    Log.e("SupplierDetailsActivity", "" + data.toString());
+                    ToastUtil.show("修改成功");
                 }
             }
         }
+
+
     }
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {

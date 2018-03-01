@@ -28,6 +28,12 @@ public class OrderList extends BaseEntity{
     private int is_wechat;
     private int order_status;
 
+    //采购订单
+    private String supplier_name;
+    private int supplier_id;
+    private int user_id;
+    private String user_name;
+
     public int getOrder_id() {
         return order_id;
     }
@@ -178,5 +184,37 @@ public class OrderList extends BaseEntity{
 
     public void setOrder_status(int order_status) {
         this.order_status = order_status;
+    }
+
+    public String getSupplier_name() {
+        return supplier_name;
+    }
+
+    public void setSupplier_name(String supplier_name) {
+        this.supplier_name = supplier_name;
+    }
+
+    public int getSupplier_id() {
+        return supplier_id;
+    }
+
+    public void setSupplier_id(int supplier_id) {
+        this.supplier_id = supplier_id;
+    }
+
+    public int getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
+    }
+
+    public String getUser_name() {
+        return user_name;
+    }
+
+    public void setUser_name(String user_name) {
+        this.user_name = user_name;
     }
 }

@@ -343,4 +343,11 @@ public class SupplierManagementActivity extends BaseActivity implements AbsListV
         intent.putExtra("data", phoneBook);
         startActivityForResult(intent, 1001);
     }
+
+    @Override
+    public void payActivity(SupplierBean phoneBook) {
+        Intent intent = new Intent(this, SupplierPaymentActivity.class);
+        intent.putExtra("data", phoneBook);
+        startActivityForResult(intent, 1001);
+    }
 }

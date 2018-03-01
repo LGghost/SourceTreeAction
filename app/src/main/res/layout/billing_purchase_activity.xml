@@ -83,7 +83,7 @@
                         android:text=""
                         android:textColor="@color/touzi_huise"
                         android:textSize="16sp"
-                        android:visibility="gone"/>
+                        android:visibility="gone" />
                 </LinearLayout>
 
                 <ImageView
@@ -278,9 +278,10 @@
                     android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/kaidan_order_money"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/kaidan_money"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:text="0"
                     android:textColor="@color/shouye_hongse"
                     android:textSize="16sp" />

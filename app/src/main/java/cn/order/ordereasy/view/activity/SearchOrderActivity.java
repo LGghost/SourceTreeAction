@@ -46,6 +46,7 @@ public class SearchOrderActivity extends BaseActivity implements OrderEasyView {
 
     //当前页数
     private int currentPage = 1, totalSize = 0, pageSize = 0, pageTotal = 1;
+    private String flag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,18 +56,32 @@ public class SearchOrderActivity extends BaseActivity implements OrderEasyView {
         setColor(this, this.getResources().getColor(R.color.lanse));
         ButterKnife.inject(this);
         orderEasyPresenter = new OrderEasyPresenterImp(this);
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            flag = bundle.getString("flag");//判断是否是采购订单界面跳转过来的
+        }
         adapter = new SearchOrderListAdapter(this);
         sousuo_listview.setAdapter(adapter);
         sousuo_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(SearchOrderActivity.this, OrderNoDetailsActivity.class);
-                int order_id = adapter.getData().get(position).getOrder_id();
-                Bundle bundle = new Bundle();
-                bundle.putInt("id", order_id);
-                intent.putExtras(bundle);
-                startActivity(intent);
-                finish();
+                if (!flag.equals("purchase")) {
+                    Intent intent = new Intent(SearchOrderActivity.this, OrderNoDetailsActivity.class);
+                    int order_id = adapter.getData().get(position).getOrder_id();
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("id", order_id);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                    finish();
+                } else {
+                    Intent intent = new Intent(SearchOrderActivity.this, ProcurementDetailsActivity.class);
+                    int order_id = adapter.getData().get(position).getOrder_id();
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("id", order_id);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                    finish();
+                }
             }
         });
         initData();
@@ -82,7 +97,11 @@ public class SearchOrderActivity extends BaseActivity implements OrderEasyView {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.length() > 0) {
-                    orderEasyPresenter.searchRecordList(1, s.toString());
+                    if (flag.equals("purchase")) {
+                        orderEasyPresenter.searchPurchaseList(1, s.toString());
+                    } else {
+                        orderEasyPresenter.searchRecordList(1, s.toString());
+                    }
                 }
             }
 
@@ -179,22 +198,33 @@ public class SearchOrderActivity extends BaseActivity implements OrderEasyView {
                     if (result != null) {
                         int status = result.get("code").getAsInt();
                         if (status == 1) {
-                            //分页处理
-                            JsonObject page = result.getAsJsonObject("result").getAsJsonObject("page");
-                            MyLog.e("page", page.toString());
-                            totalSize = page.get("total").getAsInt();
-                            currentPage = page.get("cur_page").getAsInt();
-                            pageSize = page.get("page_size").getAsInt();
-                            pageTotal = page.get("page_total").getAsInt();
-                            if (currentPage == 1) orders = new ArrayList<>();
-                            //列表显示
-                            JsonArray jsonArray = result.getAsJsonObject("result").getAsJsonArray("page_list");
-                            for (int i = 0; i < jsonArray.size(); i++) {
-                                OrderList good = (OrderList) GsonUtils.getEntity(jsonArray.get(i).toString(), OrderList.class);
-                                orders.add(good);
+                            if (!flag.equals("purchase")) {
+                                //分页处理
+                                JsonObject page = result.getAsJsonObject("result").getAsJsonObject("page");
+                                MyLog.e("page", page.toString());
+                                totalSize = page.get("total").getAsInt();
+                                currentPage = page.get("cur_page").getAsInt();
+                                pageSize = page.get("page_size").getAsInt();
+                                pageTotal = page.get("page_total").getAsInt();
+                                if (currentPage == 1) orders = new ArrayList<>();
+                                //列表显示
+                                JsonArray jsonArray = result.getAsJsonObject("result").getAsJsonArray("page_list");
+                                for (int i = 0; i < jsonArray.size(); i++) {
+                                    OrderList good = (OrderList) GsonUtils.getEntity(jsonArray.get(i).toString(), OrderList.class);
+                                    orders.add(good);
+                                }
+                                adapter.setData(orders);
+                                adapter.notifyDataSetChanged();
+                            } else {
+                                JsonArray jsonArray = result.getAsJsonObject("result").getAsJsonArray("list");
+                                for (int i = 0; i < jsonArray.size(); i++) {
+                                    OrderList good = (OrderList) GsonUtils.getEntity(jsonArray.get(i).toString(), OrderList.class);
+                                    orders.add(good);
+                                }
+                                adapter.setFlag(flag);
+                                adapter.setData(orders);
+                                adapter.notifyDataSetChanged();
                             }
-                            adapter.setData(orders);
-                            adapter.notifyDataSetChanged();
                         }
                     }
                     Log.e("信息", result.toString());

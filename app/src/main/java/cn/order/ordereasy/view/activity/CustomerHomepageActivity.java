@@ -501,6 +501,7 @@ public class CustomerHomepageActivity extends BaseActivity implements OrderEasyV
         Intent intent = new Intent(CustomerHomepageActivity.this, ReturnGoodsActivity.class);
         Bundle bundle = new Bundle();
         bundle.putSerializable("data", customer);
+        bundle.putString("flag","customer");
         intent.putExtras(bundle);
         startActivity(intent);
     }

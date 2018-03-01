@@ -108,7 +108,7 @@ public class SupplierAdapter extends BaseAdapter implements
             final SupplierBean phoneBook = phoneBookIndex.getSupplierBean();
             phoneBookViewHolder.name.setText(phoneBook.getName());
             phoneBookViewHolder.arrears.setText("欠供应商款：" + phoneBook.getDebt());
-            if(!TextUtils.isEmpty(phoneBook.getContact())){
+            if (!TextUtils.isEmpty(phoneBook.getContact())) {
                 phoneBookViewHolder.user.setText("负责人：" + phoneBook.getContact());
             }
             convertView.setOnClickListener(new View.OnClickListener() {
@@ -128,9 +128,12 @@ public class SupplierAdapter extends BaseAdapter implements
             phoneBookViewHolder.payment.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(context, SupplierPaymentActivity.class);
-                    intent.putExtra("data", phoneBook);
-                    context.startActivity(intent);
+                    if (!type.equals("bill")) {
+                        if (lister != null) {
+                            lister.payActivity(phoneBook);
+                        }
+                    }
+
                 }
             });
         }
@@ -187,6 +190,8 @@ public class SupplierAdapter extends BaseAdapter implements
         void choose(SupplierBean phoneBook);
 
         void startActivity(SupplierBean phoneBook);
+
+        void payActivity(SupplierBean phoneBook);
     }
 }
 

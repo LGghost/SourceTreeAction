@@ -3,12 +3,15 @@ package cn.order.ordereasy.view.activity;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+
+import com.google.gson.JsonObject;
 
 import java.util.Date;
 
@@ -17,11 +20,21 @@ import butterknife.InjectView;
 import butterknife.OnClick;
 import cn.order.ordereasy.R;
 import cn.order.ordereasy.bean.SupplierBean;
+import cn.order.ordereasy.presenter.OrderEasyPresenter;
+import cn.order.ordereasy.presenter.OrderEasyPresenterImp;
+import cn.order.ordereasy.utils.ProgressUtil;
 import cn.order.ordereasy.utils.TimeUtil;
+import cn.order.ordereasy.view.OrderEasyView;
 import cn.order.ordereasy.widget.ActionSheetDialog;
 
-public class SupplierPaymentActivity extends BaseActivity {
+public class SupplierPaymentActivity extends BaseActivity implements OrderEasyView {
     private SupplierBean bean;
+    private double cash = 0, alipay = 0, wechat = 0, card = 0, other = 0;
+    private int method;
+    private int payment_type = 1;
+    private OrderEasyPresenter orderEasyPresenter;
+    private String remark;
+    private String date;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +42,7 @@ public class SupplierPaymentActivity extends BaseActivity {
         setContentView(R.layout.supplier_payment_activity);
         setColor(this, this.getResources().getColor(R.color.lanse));
         ButterKnife.inject(this);
+        orderEasyPresenter = new OrderEasyPresenterImp(this);
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             bean = (SupplierBean) bundle.getSerializable("data");
@@ -85,27 +99,32 @@ public class SupplierPaymentActivity extends BaseActivity {
                 .addSheetItem(getResources().getString(R.string.cash), ActionSheetDialog.SheetItemColor.Blue, new ActionSheetDialog.OnSheetItemClickListener() {
                     @Override
                     public void onClick(int which) {
+                        method = 0;
                         payment_method_text.setText(getResources().getString(R.string.cash));
                     }
                 })
                 .addSheetItem(getResources().getString(R.string.alipay), ActionSheetDialog.SheetItemColor.Blue, new ActionSheetDialog.OnSheetItemClickListener() {
                     @Override
                     public void onClick(int which) {
+                        method = 1;
                         payment_method_text.setText(getResources().getString(R.string.alipay));
                     }
                 }).addSheetItem(getResources().getString(R.string.wechat), ActionSheetDialog.SheetItemColor.Blue, new ActionSheetDialog.OnSheetItemClickListener() {
                     @Override
                     public void onClick(int which) {
+                        method = 2;
                         payment_method_text.setText(getResources().getString(R.string.wechat));
                     }
                 }).addSheetItem(getResources().getString(R.string.bank_card), ActionSheetDialog.SheetItemColor.Blue, new ActionSheetDialog.OnSheetItemClickListener() {
                     @Override
                     public void onClick(int which) {
+                        method = 3;
                         payment_method_text.setText(getResources().getString(R.string.bank_card));
                     }
                 }).addSheetItem(getResources().getString(R.string.other), ActionSheetDialog.SheetItemColor.Blue, new ActionSheetDialog.OnSheetItemClickListener() {
                     @Override
                     public void onClick(int which) {
+                        method = 4;
                         payment_method_text.setText(getResources().getString(R.string.other));
                     }
                 });
@@ -121,7 +140,19 @@ public class SupplierPaymentActivity extends BaseActivity {
             public void onDateSet(DatePicker view, int year, int monthOfYear,
                                   int dayOfMonth) {
                 int month = monthOfYear + 1;
-                business_time_text.setText(year + "-" + month + "-" + dayOfMonth);
+                String monthDate;
+                String day;
+                if (month < 10) {
+                    monthDate = "0" + month;
+                } else {
+                    monthDate = month + "";
+                }
+                if (dayOfMonth < 10) {
+                    day = "0" + dayOfMonth;
+                } else {
+                    day = dayOfMonth + "";
+                }
+                business_time_text.setText(year + "-" + monthDate + "-" + day);
             }
         }, TimeUtil.getCurrentYear(), TimeUtil.getCurrentMonth(), TimeUtil.getCurrentDay()).show();
     }
@@ -129,8 +160,10 @@ public class SupplierPaymentActivity extends BaseActivity {
     @OnClick(R.id.this_payment)
     void this_payment() {
         if (this_payment.getText().equals(getResources().getString(R.string.this_payment))) {
+            payment_type = 2;
             this_payment.setText(getResources().getString(R.string.supplier_refund));
         } else {
+            payment_type = 1;
             this_payment.setText(getResources().getString(R.string.this_payment));
         }
     }
@@ -179,6 +212,55 @@ public class SupplierPaymentActivity extends BaseActivity {
 
     @OnClick(R.id.confirm)
     void confirm() {
-        finish();
+        remark = supplier_remarks.getText().toString();
+        date = business_time_text.getText().toString();
+        switch (method) {
+            case 0:
+                cash = Double.parseDouble(this_payment_text.getText().toString());
+                break;
+            case 1:
+                alipay = Double.parseDouble(this_payment_text.getText().toString());
+                break;
+            case 2:
+                wechat = Double.parseDouble(this_payment_text.getText().toString());
+                break;
+            case 3:
+                card = Double.parseDouble(this_payment_text.getText().toString());
+                break;
+            case 4:
+                other = Double.parseDouble(this_payment_text.getText().toString());
+                break;
+        }
+        orderEasyPresenter.supplierPay(bean.getSupplier_id(), 0, payment_type, cash, wechat, alipay, card, other, remark, date);
+    }
+
+    @Override
+    public void showProgress(int type) {
+        ProgressUtil.showDialog(this);
+    }
+
+    @Override
+    public void hideProgress(int type) {
+        ProgressUtil.dissDialog();
+    }
+
+    @Override
+    public void loadData(JsonObject data, int type) {
+
+        if (data != null) {
+            Log.e("SupplierPaymentActivity", "data:" + data.toString());
+            int status = data.get("code").getAsInt();
+            if (status == 1) {
+                //处理返回的数据
+                if (type == 1) {
+                    showToast("付款成功");
+                } else {
+                    showToast("退款成功");
+                }
+                setResult(1001);
+                SupplierPaymentActivity.this.finish();
+            }
+        }
+
     }
 }

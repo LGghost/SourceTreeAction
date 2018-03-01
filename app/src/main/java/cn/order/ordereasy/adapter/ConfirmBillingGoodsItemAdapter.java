@@ -22,10 +22,12 @@ public class ConfirmBillingGoodsItemAdapter extends BaseAdapter {
 
     Context context;
     private List<Product> data = null;
+    private int type;
 
-    public ConfirmBillingGoodsItemAdapter(Context context, List<Product> data) {
+    public ConfirmBillingGoodsItemAdapter(Context context, List<Product> data, int type) {
         this.context = context;
         this.data = data;
+        this.type = type;
     }
 
 
@@ -61,10 +63,14 @@ public class ConfirmBillingGoodsItemAdapter extends BaseAdapter {
         }
         Product data = this.data.get(position);
         String price;
-        if (data.getDefault_price() != -1) {
-            price = "(¥" + data.getDefault_price() + ")";
-        } else {
-            price = "(¥" + data.getSell_price() + ")";
+        if (type == 0) {
+            if (data.getDefault_price() != -1) {
+                price = "(¥" + data.getDefault_price() + ")";
+            } else {
+                price = "(¥" + data.getSell_price() + ")";
+            }
+        }else{
+            price = "(¥" + data.getCost_price() + ")";
         }
         if (data.getSpec_data().size() > 0) {
             if (data.getSpec_data().size() == 1) {

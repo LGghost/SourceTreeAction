@@ -31,11 +31,12 @@ public class ConfirmBillingAdapter extends BGAAdapterViewAdapter<Goods> {
      */
     private List<BGASwipeItemLayout> mOpenedSil = new ArrayList<>();
     private Context context;
+    private  int type;
 
-
-    public ConfirmBillingAdapter(Context context) {
+    public ConfirmBillingAdapter(Context context,int type) {
         super(context, R.layout.confirm_billing_item);
         this.context = context;
+        this.type = type;
     }
 
     @Override
@@ -54,7 +55,7 @@ public class ConfirmBillingAdapter extends BGAAdapterViewAdapter<Goods> {
         ImageLoader.getInstance().displayImage(Config.URL_HTTP + "/" + model.getCover(), imageView);
         final List<Product> products = model.getProduct_list();
         final ListView listView = viewHolderHelper.getView(R.id.kaidan_specs);
-        final ConfirmBillingGoodsItemAdapter adapter = new ConfirmBillingGoodsItemAdapter(context, products);
+        final ConfirmBillingGoodsItemAdapter adapter = new ConfirmBillingGoodsItemAdapter(context, products,type);
         listView.setAdapter(adapter);
         setListViewHeightBasedOnChildren(listView);
         adapter.notifyDataSetChanged();

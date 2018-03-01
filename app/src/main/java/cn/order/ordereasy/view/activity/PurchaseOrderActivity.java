@@ -78,7 +78,7 @@ public class PurchaseOrderActivity extends BaseActivity implements OrderEasyView
     List<OrderList> orders = new ArrayList<>();
     PurchaseOrderAdapter adapter;
     //当前页数
-    private int currentPage = 1, totalSize = 0, pageSize = 0, pageTotal = 1;
+    private int currentPage = 1;
     private String begindate, enddate;
     private String beginTime, endTime, time;
 
@@ -130,76 +130,18 @@ public class PurchaseOrderActivity extends BaseActivity implements OrderEasyView
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(this);
         if (DataStorageUtils.getInstance().getOrderLists().size() > 0) {
-            pageTotal = DataStorageUtils.getInstance().getPageTotal();
             dropdownButtonsController.addType(DataStorageUtils.getInstance().getYuangongLists());
         } else {
             orderEasyPresenter.getEmployee(1);
         }
-        initData();
+        refreshData(1, true);
     }
 
-    private void initData() {
-
-        OrderList orderlist = new OrderList();
-        orderlist.setOrder_no("17091249981006");
-        orderlist.setCustomer_name("北京xxx供应商");
-        orderlist.setCreate_time("1516867571");
-        orderlist.setIs_close(0);
-        orderlist.setPayable(1582.00);
-        orderlist.setOrder_num(612);
-        orderlist.setOwe_num(125);
-        orderlist.setOrder_type(1);
-
-        OrderList orderlist1 = new OrderList();
-        orderlist1.setOrder_no("17091249981006");
-        orderlist1.setCustomer_name("上海xxx供应商");
-        orderlist1.setCreate_time("1516867571");
-        orderlist1.setIs_close(0);
-        orderlist1.setPayable(1290.00);
-        orderlist1.setOrder_num(123);
-        orderlist1.setOrder_type(3);
-
-        OrderList orderlist2 = new OrderList();
-        orderlist2.setOrder_no("17091249981006");
-        orderlist2.setCustomer_name("成都xxx供应商");
-        orderlist2.setCreate_time("1516867571");
-        orderlist2.setIs_close(0);
-        orderlist2.setPayable(231.00);
-        orderlist2.setOrder_num(52);
-        orderlist2.setOwe_num(2);
-        orderlist2.setOrder_type(1);
-
-        OrderList orderlist3 = new OrderList();
-        orderlist3.setOrder_no("17091249981006");
-        orderlist3.setCustomer_name("长沙xxx供应商");
-        orderlist3.setCreate_time("1516867571");
-        orderlist3.setIs_close(1);
-        orderlist3.setPayable(100.00);
-        orderlist3.setOrder_num(98);
-        orderlist3.setOwe_num(0);
-        orderlist3.setOrder_type(1);
-
-        OrderList orderlist4 = new OrderList();
-        orderlist4.setOrder_no("17091249981006");
-        orderlist4.setCustomer_name("长沙xxx供应商");
-        orderlist4.setCreate_time("1516867571");
-        orderlist4.setIs_close(0);
-        orderlist4.setPayable(126.00);
-        orderlist4.setOrder_num(32);
-        orderlist4.setOwe_num(0);
-        orderlist4.setOrder_type(1);
-
-        orders.add(orderlist);
-        orders.add(orderlist1);
-        orders.add(orderlist2);
-        orders.add(orderlist3);
-        orders.add(orderlist4);
-        adapter.setData(orders);
-    }
 
     @OnClick(R.id.sousuo)
     void sousuo() {
         Intent intent = new Intent(this, SearchOrderActivity.class);
+        intent.putExtra("flag","purchase");
         startActivity(intent);
     }
 
@@ -211,13 +153,12 @@ public class PurchaseOrderActivity extends BaseActivity implements OrderEasyView
     @Override
     public void onResume() {
         super.onResume();
-        Log.e("FragmentOrder", "onResume");
-        if (DataStorageUtils.getInstance().isBilling()) {
-            DataStorageUtils.getInstance().setBilling(false);
+        Log.e("PurchaseOrderActivity", "onResume");
+        if (DataStorageUtils.getInstance().isPurchaseBilling()) {//根据isPurchaseBilling字段来判断刷新数据（采购开单完成isPurchaseBilling设置为true）
+            DataStorageUtils.getInstance().setPurchaseBilling(false);
             refreshData(1, false);
         }
     }
-
     @InjectView(R.id.store_refresh)
     SwipeRefreshLayout store_refresh;
     @InjectView(R.id.no_data_view)
@@ -366,25 +307,49 @@ public class PurchaseOrderActivity extends BaseActivity implements OrderEasyView
 
     @Override
     public void loadData(JsonObject data, int type) {
-        if (data != null) {
-            int status = data.get("code").getAsInt();
-            //String message=result.get("message").getAsString();
-            if (status == 1) {
-                JsonArray jsonArray = data.get("result").getAsJsonArray();
-                List<TopicLabelObject> mapList = new ArrayList<>();
-                for (int i = 0; i < jsonArray.size(); i++) {
-                    JsonObject jsonObject = jsonArray.get(i).getAsJsonObject();
-                    String name = jsonObject.get("name").getAsString();
-                    if (jsonObject.get("is_boss").getAsInt() == 1) {
-                        name = name + "(老板)";
+        if (type == 1) {
+            if (data != null) {
+                int status = data.get("code").getAsInt();
+                //String message=result.get("message").getAsString();
+                if (status == 1) {
+                    JsonArray jsonArray = data.get("result").getAsJsonArray();
+                    List<TopicLabelObject> mapList = new ArrayList<>();
+                    for (int i = 0; i < jsonArray.size(); i++) {
+                        JsonObject jsonObject = jsonArray.get(i).getAsJsonObject();
+                        String name = jsonObject.get("name").getAsString();
+                        if (jsonObject.get("is_boss").getAsInt() == 1) {
+                            name = name + "(老板)";
+                        }
+                        TopicLabelObject topicLabelObject1 = new TopicLabelObject(jsonObject.get("user_id").getAsInt(), 1, name, 0);
+                        mapList.add(topicLabelObject1);
                     }
-                    TopicLabelObject topicLabelObject1 = new TopicLabelObject(jsonObject.get("user_id").getAsInt(), 1, name, 0);
-                    mapList.add(topicLabelObject1);
+                    DataStorageUtils.getInstance().setYuangongLists(mapList);
+                    dropdownButtonsController.addType(mapList);
                 }
-                DataStorageUtils.getInstance().setYuangongLists(mapList);
-                dropdownButtonsController.addType(mapList);
-            } else {
-
+            }
+        } else if (type == 0) {
+            if (data != null) {
+                int status = data.get("code").getAsInt();
+                if (status == 1) {
+                    Log.e("PurchaseOrderActivity", "data：" + data.toString());
+                    //列表显示
+                    JsonArray jsonArray = data.getAsJsonObject("result").getAsJsonArray("list");
+                    if (jsonArray.size() > 0) {
+                        for (int i = 0; i < jsonArray.size(); i++) {
+                            OrderList good = (OrderList) GsonUtils.getEntity(jsonArray.get(i).toString(), OrderList.class);
+                            orders.add(good);
+                        }
+                        adapter.setData(orders);
+                        if (adapter.getData().size() > 0) {
+                            no_data_view.setVisibility(View.GONE);
+                        } else {
+                            no_data_view.setVisibility(View.VISIBLE);
+                        }
+                    } else {
+                        ToastUtil.show("没有更多数据了");
+                        listView.setIsLoading(true);
+                    }
+                }
             }
         }
     }
@@ -392,20 +357,15 @@ public class PurchaseOrderActivity extends BaseActivity implements OrderEasyView
     @Override
     public void onloadMore() {
         Log.e("FragmentOrder", "正在加载更多");
-        //测试用正式可删除
         listView.setLoadCompleted();
-        if (pageTotal == currentPage) {
-            ToastUtil.show("没有更多数据了");
-            listView.setIsLoading(true);
-        } else {
-            currentPage++;
-            refreshData(currentPage, false);
-        }
+        currentPage++;
+        refreshData(currentPage, false);
     }
 
     @Override
     public void onRefresh() {
-        store_refresh.setRefreshing(false);
+        //下拉刷新
+        refreshData(1, false);
     }
 
 
@@ -482,7 +442,6 @@ public class PurchaseOrderActivity extends BaseActivity implements OrderEasyView
             datasetOrder.add(new DropdownItemObject("已完成", 2, "2"));
             datasetOrder.add(new DropdownItemObject("已关闭", 3, "3"));
             datasetOrder.add(new DropdownItemObject("退货单", 4, "4"));
-            datasetOrder.add(new DropdownItemObject("微信订单", 5, "5"));
 
             dropdownOrder.bind(datasetOrder, chooseOrder, this, ID_ORDER_REPLY_TIME);
 
@@ -553,41 +512,11 @@ public class PurchaseOrderActivity extends BaseActivity implements OrderEasyView
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent intent = new Intent(this, ProcurementDetailsActivity.class);
         OrderList order1 = adapter.getData().get(position);
-        Bundle bundle = new Bundle();
-        SupplierBean bean = new SupplierBean();
-        bean.setName(order1.getCustomer_name());
-        bean.setContact("员工1");
-        bean.setMobile("18248251541");
-        bean.setTel("0736_456845");
-        bean.setDebt(order1.getPayable());
-        ArrearsBean arrearsBean = new ArrearsBean();
-        arrearsBean.setCreate_time("1516867571");
-        arrearsBean.setCustomer_id(1);
-        arrearsBean.setCustomer_name(order1.getCustomer_name());
-        arrearsBean.setIs_adjustment(0);
-        arrearsBean.setLog_id(0);
-        arrearsBean.setMoney(order1.getPayable());
-        arrearsBean.setTotal_debt(1582.00);
-        arrearsBean.setType(1);
-        arrearsBean.setUser_name("员工4");
-        arrearsBean.setDelete_time("1234123414");
-        bundle.putSerializable("data", arrearsBean);
-        bundle.putSerializable("bean", bean);
-        intent.putExtras(bundle);
+        intent.putExtra("id",order1.getOrder_id());
+        intent.putExtra("order_no",order1.getOrder_no());
         startActivity(intent);
     }
 
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == 1001) {
-            Bundle bundle = data.getExtras();
-            boolean isResult = bundle.getBoolean("isResult");
-            if (isResult) {
-                refreshData(1, false);
-            }
-        }
-    }
 
     public void refreshData(int page, boolean isRefres) {
         if (isRefres) {
@@ -603,7 +532,10 @@ public class PurchaseOrderActivity extends BaseActivity implements OrderEasyView
         if (dropdownLabel.current != null) {
             user_id = dropdownLabel.current.value;
         }
-//        orderEasyPresenter.getOrdersList(page, filter_type, user_id, begindate, enddate);
+        if (page == 1) {
+            orders.clear();
+        }
+        orderEasyPresenter.supplierOrderList(page, filter_type, user_id, begindate, enddate);
 
     }
 

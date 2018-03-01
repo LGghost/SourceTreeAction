@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
@@ -29,13 +30,17 @@ import cn.order.ordereasy.bean.Goods;
 import cn.order.ordereasy.bean.Order;
 import cn.order.ordereasy.bean.Product;
 import cn.order.ordereasy.bean.SupplierBean;
+import cn.order.ordereasy.presenter.OrderEasyPresenter;
+import cn.order.ordereasy.presenter.OrderEasyPresenterImp;
 import cn.order.ordereasy.utils.DataStorageUtils;
 import cn.order.ordereasy.utils.FileUtils;
 import cn.order.ordereasy.utils.GsonUtils;
+import cn.order.ordereasy.utils.ProgressUtil;
 import cn.order.ordereasy.utils.SystemfieldUtils;
 import cn.order.ordereasy.utils.ToastUtil;
+import cn.order.ordereasy.view.OrderEasyView;
 
-public class BillingPurchaseActivity extends BaseActivity {
+public class BillingPurchaseActivity extends BaseActivity implements OrderEasyView {
 
     private final static int REQUEST_CODE_CUST = 1001;
     private Order order = new Order();
@@ -48,13 +53,16 @@ public class BillingPurchaseActivity extends BaseActivity {
     private int number = 0;
     private List<Goods> goods = new ArrayList<>();
     private SupplierBean bean;
+    private OrderEasyPresenter orderEasyPresenter;
+    private String flag = "bill";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.billing_purchase_activity);
         setColor(this, this.getResources().getColor(R.color.lanse));
+        ButterKnife.inject(this);
+        orderEasyPresenter = new OrderEasyPresenterImp(this);//网络请求接口（MVP模式）
         mTogBtn = (ToggleButton) findViewById(R.id.mTogBtn);
         rTogBtn = (ToggleButton) findViewById(R.id.receivables_togbtn);
         mTogBtn.setOnClickListener(new View.OnClickListener() {
@@ -77,7 +85,7 @@ public class BillingPurchaseActivity extends BaseActivity {
                 }
             }
         });
-        ButterKnife.inject(this);
+
 
         adapter = new billingPurchaseAdapter(this);
         goods_listview.setFocusable(false);
@@ -86,7 +94,7 @@ public class BillingPurchaseActivity extends BaseActivity {
             public void changeData(double price, int num) {
                 number = num;
                 Log.e("JJF", "price:" + FileUtils.getMathNumber(price));
-                kaidan_order_money.setText(FileUtils.getMathNumber(price));
+                kaidan_money.setText(FileUtils.getMathNumber(price));
                 kaidan_order_num.setText("共" + adapter.getData().size() + "种货品 (总数量：" + number + ")");
             }
 
@@ -99,7 +107,29 @@ public class BillingPurchaseActivity extends BaseActivity {
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
+            order = (Order) bundle.getSerializable("Order");
+            flag = bundle.getString("flag");
+            double receivable = bundle.getDouble("receivable");
+            order_name.setText(order.getSupplier_name() + " (总欠款：¥" + receivable + ")");
+            SupplierBean bean1 = new SupplierBean();
+            bean1.setName(order.getSupplier_name());
+            bean1.setDebt(receivable);
+            bean1.setSupplier_id(order.getSupplier_id());
+            bean = bean1;
+            if (TextUtils.isEmpty(order.getTelephone())) {
+                order_tel.setText("");
+                order.setTelephone("");
+            } else {
+                order_tel.setText(order.getTelephone());
+            }
+            remarks_textview.setText(order.getRemark());
         }
+        searchGoods();
+    }
+
+    private void searchGoods() {//获取商品列表用来比较
+        ProgressUtil.showDialog(this);
+        orderEasyPresenter.getGoodsList();
     }
 
     //找到控件ID
@@ -123,8 +153,8 @@ public class BillingPurchaseActivity extends BaseActivity {
 
     @InjectView(R.id.kaidan_order_num)
     TextView kaidan_order_num;
-    @InjectView(R.id.kaidan_order_money)
-    TextView kaidan_order_money;
+    @InjectView(R.id.kaidan_money)
+    TextView kaidan_money;
 
     @InjectView(R.id.remarks_textview)
     TextView remarks_textview;
@@ -238,22 +268,7 @@ public class BillingPurchaseActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-        if (resultCode == REQUEST_CODE_CUST || resultCode == 1004) {
-            Bundle bundle = data.getExtras();
-            Customer customer = (Customer) bundle.getSerializable("data");
-            this.order.setCustomer_id(customer.getCustomer_id());
-            this.order.setCustomer_name(customer.getCustomer_name());
-            this.order.setAddres1(customer.getAddress());
-            order_name.setText(customer.getCustomer_name() + " (总欠款：¥" + customer.getReceivable() + ")");
-            if (TextUtils.isEmpty(customer.getTelephone())) {
-                order_tel.setText("");
-                order.setTelephone("");
-            } else {
-                order_tel.setText(customer.getTelephone());
-                order.setTelephone(customer.getTelephone());
-            }
-        } else if (resultCode == 1002) {
+        if (resultCode == 1002) {
             //获取选择的商品list
             Bundle bundle = data.getExtras();
             Goods good = (Goods) bundle.getSerializable("data");
@@ -356,12 +371,89 @@ public class BillingPurchaseActivity extends BaseActivity {
             Bundle bundle = data.getExtras();
             if (bundle != null) {
                 bean = (SupplierBean) bundle.getSerializable("data");
-
+                this.order.setCustomer_id(bean.getSupplier_id());
+                this.order.setCustomer_name(bean.getName());
                 order_name.setText(bean.getName());
                 order_tel.setVisibility(View.VISIBLE);
                 order_tel.setText("欠供应商款：" + bean.getDebt());
             }
         }
 
+    }
+
+    @Override
+    public void showProgress(int type) {
+
+    }
+
+    @Override
+    public void hideProgress(int type) {
+        ProgressUtil.dissDialog();
+    }
+
+    @Override
+    public void loadData(JsonObject data, int type) {
+        if (data != null) {
+            int status = data.get("code").getAsInt();
+            //String message=result.get("message").getAsString();
+            if (status == 1) {
+                List<Goods> list = new ArrayList<>();
+                JsonArray jsonArray = data.get("result").getAsJsonArray();
+                for (int i = 0; i < jsonArray.size(); i++) {
+                    Goods good = (Goods) GsonUtils.getEntity(jsonArray.get(i).toString(), Goods.class);
+                    list.add(good);
+                }
+                DataStorageUtils.getInstance().setShelvesGoods(list);
+                if (flag.equals("details")) {
+                    screenData(list);
+                }
+            }
+        }
+    }
+
+    private void screenData(List<Goods> data) {//订单详情界面跳转过来需要记录以前选中的货品个数价格这里用来对比添加
+        List<Goods> data1 = order.getGoods_list();
+        List<Goods> data2 = new ArrayList<>();
+        double tPrice = 0;
+        int tNumber = 0;
+        for (int i = 0; i < data1.size(); i++) {
+            for (int j = 0; j < data.size(); j++) {
+                if (data.get(j).getStatus() != 1) {
+                    // 已下架的货品不能用于下单
+                    continue;
+                }
+                if (data1.get(i).getGoods_id() == data.get(j).getGoods_id()) {
+                    List<Product> product = data.get(j).getProduct_list();
+                    List<Product> product1 = data1.get(i).getProduct_list();
+                    int gNumber = 0;
+                    double gPrice = 0;
+                    for (int n = 0; n < product1.size(); n++) {
+                        for (int m = 0; m < product.size(); m++) {
+                            if (product1.get(n).getProduct_id() == product.get(m).getProduct_id()) {
+                                if (order.getIs_wechat() == 1) {
+                                    if (order.getOrder_status() == 1) {
+                                        product.get(m).setDefault_price(product1.get(n).getSell_price());
+                                    }
+                                }
+                                product.get(m).setNum(product1.get(n).getOperate_num());
+                                product.get(m).setPrice(product1.get(n).getOperate_num() * product1.get(n).getSell_price());
+                                tPrice += product1.get(n).getOperate_num() * product1.get(n).getSell_price();
+                                tNumber += product1.get(n).getOperate_num();
+                                gNumber += product1.get(n).getOperate_num();
+                                gPrice += product1.get(n).getOperate_num() * product1.get(n).getSell_price();
+                            }
+                        }
+                    }
+                    data.get(j).setNum(gNumber);
+                    data.get(j).setPrice(gPrice);
+                    data2.add(data.get(j));
+                }
+            }
+        }
+        kaidan_money.setText(String.valueOf(tPrice));
+        kaidan_order_num.setText("共" + data2.size() + "种货品 (总数量：" + tNumber + ")");
+        order.setGoods_list(data2);
+        adapter.setData(order.getGoods_list());
+        goods_listview.expandGroup(0);
     }
 }

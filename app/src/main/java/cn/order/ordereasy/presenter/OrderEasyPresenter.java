@@ -719,6 +719,74 @@ public abstract class OrderEasyPresenter extends BasePresenter {
      * @return
      */
     public abstract void supplierInfo(int supplier_id);
+
+    /**
+     * 供应商应付款调整
+     *
+     * @return
+     */
+    public abstract void supplierAccountLogAdjust(int supplier_id, double debt, String remark);
+
+    /**
+     * 向供应商付款
+     *
+     * @return
+     */
+    public abstract void supplierPay(int supplier_id, int order_id, int payment_type, double cash, double wechat, double alipay, double bank_card, double other, String remark, String create_time);
+    /**
+     * 开采购单
+     *
+     * @param order
+     */
+    public abstract void supplierAddOrder(Order order);
+
+    /**
+     * 采购订单列表
+     */
+    public abstract void supplierOrderList(int page, String filter_type, String user_id, String start_time, String end_time);
+    /**
+     * 搜索采购订单
+     *
+     * @param page
+     * @param keyword
+     */
+    public abstract void searchPurchaseList(int page, String keyword);
+
+    /**
+     * 采购订单详情
+     *
+     */
+    public abstract void supplierOrderInfo(int order_id, String order_no);
+
+    /**
+     * 关闭采购单
+     *
+     */
+    public abstract void supplierOrderClose(int order_id);
+
+    /**
+     * 供应商对账列列表
+     *
+     */
+    public abstract void suplierAccountLog(int supplier_id);
+
+    /**
+     * 未入库列表
+     * @return
+     */
+    public abstract void supplierWaitInStore(int supplier_id,int order_id);
+
+    /**
+     * 去入库
+     * @return
+     */
+    public abstract void supplierGoInStore(List<Delivery> deliveries);
+
+    /**
+     * 删除供货商
+     * @return
+     */
+    public abstract void supplierDel(int supplier_id);
 }
 
 

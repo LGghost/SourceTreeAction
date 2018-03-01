@@ -199,14 +199,14 @@ public class billingPurchaseAdapter extends BaseExpandableListAdapter {
             viewHolder.name.setText("无");
         }
         viewHolder.shuliang.setText(product.getNum() + "");
-        viewHolder.jiage.setText(product.getSell_price() + "");
+        viewHolder.jiage.setText(product.getCost_price() + "");
         Totalprice(groupPosition);
         viewHolder.jia.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int number = product.getNum();
                 number++;
-                product.setPrice(number * product.getSell_price());
+                product.setPrice(number * product.getCost_price());
                 product.setNum(number);
                 viewHolder.shuliang.setText(number + "");
                 Totalprice(groupPosition);
@@ -220,7 +220,7 @@ public class billingPurchaseAdapter extends BaseExpandableListAdapter {
                 if (number < 0) {
                     number = 0;
                 }
-                product.setPrice(number * product.getSell_price());
+                product.setPrice(number * product.getCost_price());
                 product.setNum(number);
                 viewHolder.shuliang.setText(number + "");
                 Totalprice(groupPosition);
@@ -290,7 +290,7 @@ public class billingPurchaseAdapter extends BaseExpandableListAdapter {
             public void onClick(View v) {
                 int number = Integer.parseInt(ed_type_name.getText().toString());
                 product.setNum(number);
-                product.setPrice(number * product.getSell_price());
+                product.setPrice(number * product.getCost_price());
                 text.setText(ed_type_name.getText().toString());
                 Totalprice(groupPosition);
                 alertDialog.dismiss();

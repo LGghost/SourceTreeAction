@@ -185,6 +185,7 @@ public class FragmentOrder extends Fragment implements OrderEasyView, AdapterVie
     @OnClick(R.id.sousuo)
     void sousuo() {
         Intent intent = new Intent(getActivity(), SearchOrderActivity.class);
+        intent.putExtra("flag","Fragmentorder");
         startActivity(intent);
     }
 

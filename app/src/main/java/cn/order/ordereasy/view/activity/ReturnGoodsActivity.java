@@ -57,7 +57,7 @@ public class ReturnGoodsActivity extends BaseActivity implements OrderEasyView {
     private OrderEasyPresenter orderEasyPresenter;
     private int tuihuoNumber;
     private AlertDialog alertDialog;
-
+    private String flag;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +68,7 @@ public class ReturnGoodsActivity extends BaseActivity implements OrderEasyView {
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             Customer customer = (Customer) bundle.getSerializable("data");
+            flag = bundle.getString("flag");//区分采购退货和客户退货
             order.setCustomer_id(customer.getCustomer_id());
             order.setCustomer_name(customer.getName());
             kehu_name.setText(customer.getName());
@@ -184,7 +185,12 @@ public class ReturnGoodsActivity extends BaseActivity implements OrderEasyView {
             ToastUtil.show("操作数量不能为0");
             return;
         }
-        Intent intent = new Intent(ReturnGoodsActivity.this, OrderNoConfirmActivity.class);
+        Intent intent;
+        if(flag.equals("procurement")){
+            intent = new Intent(ReturnGoodsActivity.this, PurchaseConfirmActivity.class);
+        }else {
+            intent = new Intent(ReturnGoodsActivity.this, OrderNoConfirmActivity.class);
+        }
         //利用bundle来存取数据
         Bundle bundle = new Bundle();
         bundle.putString("flag", "tuihuo");

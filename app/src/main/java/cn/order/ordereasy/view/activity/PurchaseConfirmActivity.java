@@ -17,6 +17,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.gson.JsonObject;
+
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,14 +31,19 @@ import cn.order.ordereasy.adapter.ConfirmBillingAdapter;
 import cn.order.ordereasy.bean.Goods;
 import cn.order.ordereasy.bean.Order;
 import cn.order.ordereasy.bean.Product;
+import cn.order.ordereasy.presenter.OrderEasyPresenter;
+import cn.order.ordereasy.presenter.OrderEasyPresenterImp;
+import cn.order.ordereasy.utils.DataStorageUtils;
 import cn.order.ordereasy.utils.ListUtils;
 import cn.order.ordereasy.utils.ListUtilsHook;
+import cn.order.ordereasy.utils.ProgressUtil;
+import cn.order.ordereasy.view.OrderEasyView;
 
-public class PurchaseConfirmActivity extends BaseActivity {
+public class PurchaseConfirmActivity extends BaseActivity implements OrderEasyView {
     AlertDialog alertDialog;
     Order order = new Order();
     private String flag = "";
-
+    private OrderEasyPresenter orderEasyPresenter;
     ConfirmBillingAdapter confirmBillingAdapter;
 
     @Override
@@ -46,11 +53,13 @@ public class PurchaseConfirmActivity extends BaseActivity {
         setContentView(R.layout.purchase_confirm_activity);
         setColor(this, this.getResources().getColor(R.color.lanse));
         ButterKnife.inject(this);
+        orderEasyPresenter = new OrderEasyPresenterImp(this);
         Bundle bundle = getIntent().getExtras();
-        confirmBillingAdapter = new ConfirmBillingAdapter(this);
+        confirmBillingAdapter = new ConfirmBillingAdapter(this, 1);
         order_kehu_listview.setAdapter(confirmBillingAdapter);
         if (bundle != null) {
             order = (Order) bundle.getSerializable("data");
+            flag = bundle.getString("flag");
             initData();
         }
     }
@@ -138,7 +147,14 @@ public class PurchaseConfirmActivity extends BaseActivity {
 
     @OnClick(R.id.queren_tijiao)
     void queren_tijiao() {
-        finish();
+        order.setGoods_list(confirmBillingAdapter.getData());
+        if (flag.equals("tuihuo")) {
+            order.setOrder_type(2);
+        } else {
+            order.setOrder_type(1);
+        }
+        order.setPayable(Double.parseDouble(yingfu_money.getText().toString()));
+        orderEasyPresenter.supplierAddOrder(order);
     }
 
     @OnClick(R.id.remark_layout)
@@ -236,4 +252,28 @@ public class PurchaseConfirmActivity extends BaseActivity {
         }
     }
 
+    @Override
+    public void showProgress(int type) {
+        ProgressUtil.showDialog(this);
+    }
+
+    @Override
+    public void hideProgress(int type) {
+        ProgressUtil.dissDialog();
+    }
+
+    @Override
+    public void loadData(JsonObject data, int type) {
+        if (data != null) {
+            Log.e("PurchaseConfirmActivity", "data:" + data.toString());
+            int status = data.get("code").getAsInt();
+            if (status == 1) {
+                if (flag.equals("tuihuo")) {
+                    DataStorageUtils.getInstance().setPurchaseBilling(true);
+                    setResult(1003);
+                }
+                finish();
+            }
+        }
+    }
 }

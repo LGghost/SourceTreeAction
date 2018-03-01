@@ -58,10 +58,12 @@ public class DeliverGoodsAdapter extends BaseExpandableListAdapter {
     // 创建布局使用
     private Activity activity;
     private AlertDialog alertDialog;
+    private String flag;
 
-    public DeliverGoodsAdapter(List<Goods> goods, Activity activity) {
+    public DeliverGoodsAdapter(List<Goods> goods, Activity activity, String flag) {
         this.goods = goods;
         this.activity = activity;
+        this.flag = flag;
     }
 
     @Override
@@ -120,12 +122,18 @@ public class DeliverGoodsAdapter extends BaseExpandableListAdapter {
             viewHolder.checkbox_layout = (LinearLayout) convertView.findViewById(R.id.checkbox_layout);
             viewHolder.expanded_menu = (ImageView) convertView.findViewById(R.id.expanded_menu);
             viewHolder.expanded_text = (TextView) convertView.findViewById(R.id.expanded_text);
+            viewHolder.all_fahuo = (TextView) convertView.findViewById(R.id.all_fahuo);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (GoodsViewHolder) convertView.getTag();
         }
         Goods good = this.goods.get(groupPosition);
         viewHolder.good_name.setText(good.getGoods_no() + " (" + good.getTitle() + ")");
+        if(flag.equals("procurement")){
+            viewHolder.all_fahuo.setText("全部入库");
+        }else{
+            viewHolder.all_fahuo.setText("全部发货");
+        }
         if (good.getNum() == 0) {
             viewHolder.good_fahuo.setVisibility(View.GONE);
         } else {
@@ -211,9 +219,15 @@ public class DeliverGoodsAdapter extends BaseExpandableListAdapter {
             viewHolder.jia = (ImageView) convertView.findViewById(R.id.jia);
             viewHolder.title = (LinearLayout) convertView.findViewById(R.id.lay_2);
             viewHolder.jian = (ImageView) convertView.findViewById(R.id.jian);
+            viewHolder.fahuo_num = (TextView) convertView.findViewById(R.id.fahuo_num);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ProductsViewHolder) convertView.getTag();
+        }
+        if(flag.equals("procurement")){
+            viewHolder.fahuo_num.setText("入库");
+        }else{
+            viewHolder.fahuo_num.setText("发货");
         }
         final int gpos = groupPosition;
         final int cpos = childPosition;
@@ -372,7 +386,7 @@ public class DeliverGoodsAdapter extends BaseExpandableListAdapter {
 
 
     public class GoodsViewHolder {
-
+        public TextView all_fahuo;
         public ImageView good_image;
         public TextView good_name;
         public TextView good_qianhuo;
@@ -391,6 +405,7 @@ public class DeliverGoodsAdapter extends BaseExpandableListAdapter {
         public ImageView jia;
         public ImageView jian;
         public LinearLayout title;
+        public TextView  fahuo_num;
 
     }
 

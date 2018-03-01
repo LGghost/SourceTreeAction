@@ -36,14 +36,16 @@ public class DeliverListAdapter extends BaseExpandableListAdapter {
     private List<Order> orders;
 
     private Activity activity;
-
+    private String flag = "deliver";
     public DeliverListAdapter(List<Order> orders, Activity activity) {
         this.orders = orders;
         this.activity = activity;
     }
 
     private OrderClickLister lister;
-
+    public void setFlag(String flag){
+        this.flag = flag;
+    }
     /**
      * 设置Item点击监听、、、、
      *
@@ -155,7 +157,7 @@ public class DeliverListAdapter extends BaseExpandableListAdapter {
         if (goods == null) goods = new ArrayList<>();
 
         // 加载班级的适配器
-        final DeliverGoodsAdapter adapter = new DeliverGoodsAdapter(goods, activity);
+        final DeliverGoodsAdapter adapter = new DeliverGoodsAdapter(goods, activity,flag);
 
         view.setAdapter(adapter);
         view.setPadding(0, 0, 0, 0);
