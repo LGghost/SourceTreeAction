@@ -194,6 +194,8 @@ public class ReturnGoodsActivity extends BaseActivity implements OrderEasyView {
         //利用bundle来存取数据
         Bundle bundle = new Bundle();
         bundle.putString("flag", "tuihuo");
+        //退货必须为现场发货
+        order.setIs_deliver(1);
         bundle.putSerializable("data", order);
         //再把bundle中的数据传给intent，以传输过去
         intent.putExtras(bundle);

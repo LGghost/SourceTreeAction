@@ -52,7 +52,7 @@ import cn.order.ordereasy.view.activity.SetupShopActivity;
 import cn.order.ordereasy.view.activity.ShangHuoActivity;
 
 public class MainActivity extends FragmentActivity implements OnClickListener, FragmentStore.setFragmentPageListen {
-    // 定义Fragment 页面
+    // 定义Fragment页面
     private FragmentShelves fragmentThings;//货架界面
     private FragmentStore fragmentStore;//店铺界面
     private FragmentOrder fragmentOrder;//订单界面
